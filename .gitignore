@@ -1,0 +1,10 @@
+# LaTeX auxiliary files (keep only .tex and .pdf)
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.blg
+*.bbl

@@ -1,0 +1,411 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{parskip}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+}
+
+\title{\textbf{Math Bootcamp: Content to be Covered}\\[0.4em]
+\large For Incoming MSc Economics Students}
+\author{Math Camp 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Overview}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Objective:} Bridge the gap between a weaker undergraduate math background and MSc-level economics courses.
+    \item \textbf{Duration:} 3 hours per day for 5 days.
+    \item \textbf{Method:} Focus on intuition, fundamentals, and confidence-building. Rigorous proofs and advanced techniques are deferred to fall courses; only simple proofs are included where necessary.
+    \item \textbf{Emphasis:} Conceptual topics to be covered throughout graduate microeconomics, macroeconomics, econometrics, and mathematical economics.
+\end{itemize}
+
+\tableofcontents
+\newpage
+
+%==============================================================================
+\section{Day 1 --- Foundations, Functions, and Calculus I}
+%==============================================================================
+
+\textit{Approximate duration: 3 hours.}
+
+\subsection{Notation and Number Systems}
+\begin{itemize}[leftmargin=*]
+    \item Common sets: $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, and $\mathbb{R}^n$.
+    \item Symbols: $\in$, $\subset$, $\forall$, $\exists$, $\Rightarrow$, $\Leftrightarrow$.
+    \item Vectors in $\mathbb{R}^n$: notation $\mathbf{x} = (x_1,\ldots,x_n)$; scalars versus vectors.
+\end{itemize}
+
+\subsection{Logic and Mathematical Statements}
+\begin{itemize}[leftmargin=*]
+    \item Necessary versus sufficient conditions; ``only if'' and ``if.''
+    \item Contrapositive: $\neg Q \Rightarrow \neg P$ is equivalent to $P \Rightarrow Q$ (conceptual).
+    \item ``If and only if'' ($\Leftrightarrow$) and equivalence of statements.
+    \item How economists use these terms (e.g., first-order conditions necessary for an interior optimum; sufficiency under concavity).
+\end{itemize}
+
+\subsection{Sets and Set Operations}
+\begin{itemize}[leftmargin=*]
+    \item Sets, elements, subsets, and equality of sets.
+    \item Union, intersection, complement, and difference.
+    \item Cartesian product $A \times B$ (preview of product spaces on Day~3).
+    \item Economic examples: consumption sets, production sets, budget sets as sets in $\mathbb{R}^n$.
+\end{itemize}
+
+\subsection{Functions: Definitions and Properties}
+\begin{itemize}[leftmargin=*]
+    \item Function as a rule: domain, codomain, and range.
+    \item Injective (one-to-one), surjective (onto), and bijective functions.
+    \item Operations on functions: sum, scalar multiple, product, and composition.
+    \item Inverse functions when a map is bijective.
+\end{itemize}
+
+\subsection{Supremum and Infimum}
+\begin{itemize}[leftmargin=*]
+    \item Maximum/minimum versus supremum ($\sup$) and infimum ($\inf$).
+    \item Least upper bound and greatest lower bound (intuitive definitions).
+    \item When a supremum is attained versus only approached.
+    \item Economic relevance: bounds on feasible choices, value functions, and equilibrium objects defined as suprema.
+\end{itemize}
+
+\subsection{Homogeneous Functions of Degree $k$}
+\begin{itemize}[leftmargin=*]
+    \item Definition: $f(t\mathbf{x}) = t^k f(\mathbf{x})$ for $t > 0$.
+    \item Checking homogeneity (degree zero, one, and general $k$).
+    \item Euler's theorem for $C^1$ homogeneous functions: $\sum_i x_i \frac{\partial f}{\partial x_i} = k\,f(\mathbf{x})$ (statement).
+    \item \textbf{Economic links:} constant returns to scale (production homogeneous of degree~1); homogeneous preferences; Cobb--Douglas as degree~1 in total expenditure form; marginal products and scaling of inputs; homogeneity in estimable demand systems and index numbers (high-level).
+\end{itemize}
+
+\subsection{Algebra Review and Diagnostic}
+\begin{itemize}[leftmargin=*]
+    \item Self-assessment of algebra and calculus readiness.
+    \item Logarithms and exponentials: definitions, rules, and economic relevance.
+    \item Basic function types (polynomial, power, log, exponential).
+    \item Simple univariate optimization as a preview.
+\end{itemize}
+
+\subsection{Limits and Continuity (Introductory)}
+\begin{itemize}[leftmargin=*]
+    \item Intuitive notion of a limit.
+    \item Continuity of a function at a point and on an interval.
+    \item Why continuity matters for economic models (existence, stability of solutions).
+    \item One-sided limits and basic limit laws (conceptual, not formal $\varepsilon$--$\delta$).
+\end{itemize}
+
+\subsection{Derivatives: Intuition and Rules}
+\begin{itemize}[leftmargin=*]
+    \item Derivative as instantaneous rate of change and slope of tangent.
+    \item Differentiability versus continuity.
+    \item Core differentiation rules: power, product, quotient, and chain rules.
+    \item Derivatives of composite economic functions.
+    \item Higher-order derivatives and economic interpretation (marginal versus curvature).
+\end{itemize}
+
+\subsection{Partial Derivatives}
+\begin{itemize}[leftmargin=*]
+    \item Functions of several variables.
+    \item Partial derivative as marginal effect holding other variables fixed.
+    \item Cross-partial derivatives and symmetry (Schwarz's theorem, stated not proved).
+    \item Gradient vector: direction of steepest increase.
+    \item Economic interpretation: marginal products, marginal utilities, marginal rates.
+\end{itemize}
+
+\subsection{Total Differential}
+\begin{itemize}[leftmargin=*]
+    \item Total change in a multivariate function.
+    \item Relationship between partial derivatives and total differential.
+    \item First-order approximation of small changes.
+    \item Role in comparative statics (conceptual setup for later days).
+\end{itemize}
+
+%==============================================================================
+\section{Day 2 --- Calculus II and Linear Algebra: Implicit Functions, Integration, and Matrix Methods}
+%==============================================================================
+
+\textit{Approximate duration: 3 hours.}
+
+\subsection{Implicit Function Theorem}
+\begin{itemize}[leftmargin=*]
+    \item Explicit versus implicit definitions of relationships.
+    \item What problem the Implicit Function Theorem solves: local solvability and comparative statics.
+    \item Statement of the theorem in one and several variables (informal).
+    \item Sign of derivative or Jacobian and direction of local response.
+    \item Connection to economic comparative statics (Slutsky-type decompositions, IS--LM shifts).
+\end{itemize}
+
+\subsection{Integration}
+\begin{itemize}[leftmargin=*]
+    \item Riemann integral: area under a curve.
+    \item Fundamental Theorem of Calculus (statement and intuition).
+    \item Definite versus indefinite integrals.
+    \item Integration as accumulation.
+    \item Link to probability: PDF and CDF; CDF as integral of PDF; expected value as integral (conceptual).
+    \item Inverse relationship between differentiation and integration (conceptual).
+\end{itemize}
+
+\subsection{Leibniz Rule and Interchanging Differentiation and Integration}
+\begin{itemize}[leftmargin=*]
+    \item Leibniz product rule (review): derivative of a product of functions.
+    \item \textbf{Fixed limits:} differentiation under the integral sign when the integrand depends on a parameter but the bounds do not.
+    \item \textbf{Variable limits:} when the upper and lower bounds of integration depend on the choice variable (parameter), the derivative has two extra \emph{endpoint} terms from the moving limits, plus an integral of the partial derivative of the integrand.
+    \item Informal statement: if $F(\theta) = \int_{a(\theta)}^{b(\theta)} f(x,\theta)\,dx$, then $F'(\theta)$ equals $f(b(\theta),\theta)\,b'(\theta) - f(a(\theta),\theta)\,a'(\theta)$ plus $\int_{a(\theta)}^{b(\theta)} \frac{\partial f}{\partial \theta}(x,\theta)\,dx$ (under regularity conditions).
+    \item Economic motivation: consumer surplus, areas under shifting demand curves, and other objects where both the integrand and the integration region change with a parameter.
+    \item When we may interchange $\frac{d}{d\theta}$ and $\int$: continuity, differentiability, and boundedness (conceptual); dominated convergence as the measure-theoretic idea behind safe interchange (stated, not proved).
+    \item When interchange fails: discontinuities, unbounded integrands, or limits that move irregularly.
+    \item Distinction from Fubini (swap order of integrals), MCT, and LDCT (swap limit and integral); preview on Day~3 via uniform convergence.
+\end{itemize}
+
+\subsection{Mean Value Theorem}
+\begin{itemize}[leftmargin=*]
+    \item Geometric intuition: existence of a tangent parallel to a secant.
+    \item Rolle's theorem as a special case (statement only).
+    \item Economic uses of the Mean Value Theorem: average versus marginal quantities; bounding changes over intervals.
+\end{itemize}
+
+\subsection{Taylor Expansion and Linearization}
+\begin{itemize}[leftmargin=*]
+    \item First-order Taylor approximation.
+    \item Linearization of nonlinear functions around a point.
+    \item Interpretation as local first-order comparative statics.
+    \item When linearization is useful versus when it fails (curvature, nonlinearity).
+    \item Preview of second-order Taylor expansion (conceptual only).
+\end{itemize}
+
+\subsection{Vectors and Matrices}
+\begin{itemize}[leftmargin=*]
+    \item Vectors in $\mathbb{R}^n$: notation, components, and geometric interpretation.
+    \item Matrices: dimensions, entries, and matrix--vector multiplication.
+    \item Basic matrix operations: addition, scalar multiplication, and multiplication.
+    \item Transpose of a matrix or vector.
+    \item Identity matrix and role in matrix algebra.
+\end{itemize}
+
+\subsection{Linear Systems, Inverses, and Determinants}
+\begin{itemize}[leftmargin=*]
+    \item Systems of linear equations in matrix form ($A\mathbf{x} = \mathbf{b}$).
+    \item Inverse of a square matrix: definition and when it exists.
+    \item Determinant: definition for $2 \times 2$ and $3 \times 3$ matrices; link to invertibility (conceptual).
+    \item Linear independence and dependence of vectors (brief, intuitive treatment).
+    \item Rank of a matrix (conceptual: number of linearly independent rows or columns).
+\end{itemize}
+
+\subsection{Jacobians and Economic Applications of Linear Algebra}
+\begin{itemize}[leftmargin=*]
+    \item Jacobian matrix as a collection of partial derivatives.
+    \item Dot product and its economic interpretation (e.g., expenditure, inner products in econometrics).
+    \item Quadratic forms (brief introduction: notation and positive/negative definiteness, stated not proved).
+    \item How matrix notation simplifies multivariate comparative statics; return to the Implicit Function Theorem in matrix form.
+\end{itemize}
+
+%==============================================================================
+\section{Day 3 --- Real Analysis: Topology, Convergence, and Existence}
+%==============================================================================
+
+\textit{Approximate duration: 3 hours.}
+
+\subsection{Metric Spaces and Basic Topology in $\mathbb{R}$ and $\mathbb{R}^2$}
+\begin{itemize}[leftmargin=*]
+    \item Points, distances, and neighborhoods.
+    \item Open sets: definition and intuition.
+    \item Closed sets: definition and intuition.
+    \item Interior, boundary, and closure (conceptual).
+    \item Economic relevance: budget sets, feasible sets, production sets; open versus closed constraints.
+\end{itemize}
+
+\subsection{Convergence}
+\begin{itemize}[leftmargin=*]
+    \item Sequences and limits in $\mathbb{R}^n$.
+    \item Pointwise convergence of sequences of functions.
+    \item Uniform convergence: definition and intuition.
+    \item Why uniform convergence matters: exchange of limits; preservation of continuity; interchange of limit and integral; interchange of differentiation and integration (stated, not proved).
+\end{itemize}
+
+\subsection{Continuity (Rigorous Intuition)}
+\begin{itemize}[leftmargin=*]
+    \item $\varepsilon$--$\delta$ definition (light treatment; primarily conceptual).
+    \item Continuity on sets versus at a point.
+    \item Continuity of demand, supply, profit, and value functions.
+    \item Discontinuities: types and economic meaning.
+    \item When discontinuities create problems for optimization or equilibrium.
+\end{itemize}
+
+\subsection{Compactness}
+\begin{itemize}[leftmargin=*]
+    \item Definition of compact set (in $\mathbb{R}^n$, via closed and bounded for this level).
+    \item Heine--Borel property (statement).
+    \item Why compactness matters: existence of maxima and minima for continuous functions.
+    \item Weierstrass Extreme Value Theorem (statement).
+    \item Maximum and minimum of continuous functions on compact domains.
+\end{itemize}
+
+\subsection{Product Spaces}
+\begin{itemize}[leftmargin=*]
+    \item Cartesian products $\mathbb{R}^n$.
+    \item Notation for vectors and product domains.
+    \item Constraints and choice sets as subsets of product spaces.
+    \item Separability across dimensions (conceptual).
+\end{itemize}
+
+\subsection{Separation Theorem}
+\begin{itemize}[leftmargin=*]
+    \item Convex sets in $\mathbb{R}^n$ (definition sufficient for separation; detailed convexity on Day~4).
+    \item Hyperplane separation of disjoint convex sets (picture-based intuition).
+    \item Supporting hyperplanes.
+    \item Application to welfare economics: Pareto efficiency and competitive equilibrium.
+    \item First and Second Welfare Theorems (high-level).
+\end{itemize}
+
+\subsection{Fixed Point Theorems}
+\begin{itemize}[leftmargin=*]
+    \item Fixed point: definition and economic motivation (equilibrium as fixed point).
+    \item At least one fixed point theorem (e.g., Brouwer or contraction mapping).
+    \item Role in proving existence of equilibrium.
+    \item Contraction mapping as a special case (if covered).
+\end{itemize}
+
+%==============================================================================
+\section{Day 4 --- Optimization}
+%==============================================================================
+
+\textit{Approximate duration: 3 hours.}
+
+\subsection{Unconstrained Optimization}
+\begin{itemize}[leftmargin=*]
+    \item Local versus global optima.
+    \item First-order conditions: necessary conditions for interior optima.
+    \item Second-order conditions: curvature and nature of critical points.
+    \item Concavity and convexity of objective functions and uniqueness of optima.
+    \item Economic optimization problems as a class (profit, utility, cost minimization).
+\end{itemize}
+
+\subsection{Constrained Optimization: Equality Constraints}
+\begin{itemize}[leftmargin=*]
+    \item Feasible set defined by equality constraints.
+    \item Lagrange multiplier method: setup and interpretation.
+    \item Lagrange multipliers as shadow prices or marginal values of constraints.
+    \item Necessary conditions for constrained optima (Lagrange theorem, stated).
+    \item Utility maximization subject to budget constraint (as problem type).
+\end{itemize}
+
+\subsection{Constrained Optimization: Inequality Constraints}
+\begin{itemize}[leftmargin=*]
+    \item Feasible set with inequalities.
+    \item Binding versus non-binding constraints.
+    \item Complementary slackness (conceptual).
+    \item Karush--Kuhn--Tucker (KKT) conditions (statement and interpretation).
+    \item Nonnegativity constraints and corner solutions.
+\end{itemize}
+
+\subsection{Convex Sets and Convex Functions}
+\begin{itemize}[leftmargin=*]
+    \item Definition and geometry of convex sets.
+    \item Convex and concave functions.
+    \item Upper and lower contour sets (level sets).
+    \item Why convexity or concavity guarantees global optima from first-order conditions.
+\end{itemize}
+
+\subsection{Quasiconcavity and Quasiconvexity}
+\begin{itemize}[leftmargin=*]
+    \item Definition of quasiconcave and quasiconvex functions via contour sets.
+    \item Relationship between concavity/convexity and quasiconcavity/quasiconvexity.
+    \item Why quasiconcavity is the standard regularity condition in utility maximization.
+    \item When first-order conditions are sufficient for a global optimum under quasiconcavity.
+    \item Strict quasiconcavity and uniqueness of optima (conceptual).
+    \item Invariance under monotone transformations.
+    \item Distinction between quasiconcavity of the objective and convexity of the feasible set in constrained problems.
+\end{itemize}
+
+%==============================================================================
+\section{Day 5 --- Dynamic Programming}
+%==============================================================================
+
+\textit{Approximate duration: 3 hours.}
+
+\subsection{Motivation and Framework}
+\begin{itemize}[leftmargin=*]
+    \item Sequential decision-making over time.
+    \item Intertemporal trade-offs.
+    \item Finite versus infinite horizon (finite focus for bootcamp).
+    \item Markov structure: current state summarizes relevant history.
+\end{itemize}
+
+\subsection{State Variables versus Control Variables}
+\begin{itemize}[leftmargin=*]
+    \item State: variables that evolve according to law of motion.
+    \item Control: variables chosen each period.
+    \item Transition equation or law of motion.
+    \item Feasibility constraints in dynamic problems.
+    \item Classic problem types: consumption--savings, capital accumulation, resource extraction.
+\end{itemize}
+
+\subsection{Bellman Equation}
+\begin{itemize}[leftmargin=*]
+    \item Value function: maximum attainable payoff from a given state.
+    \item Principle of optimality (Bellman's idea).
+    \item Recursive formulation of dynamic problems.
+    \item Bellman equation for finite-horizon problems.
+    \item Terminal condition and backward solution logic.
+\end{itemize}
+
+\subsection{Backward Induction}
+\begin{itemize}[leftmargin=*]
+    \item Solving finite-horizon problems from the last period backward.
+    \item Relationship between period-by-period optimization and Bellman recursion.
+    \item Policy function: mapping from state to optimal control.
+\end{itemize}
+
+\subsection{Value Function Iteration (Conceptual)}
+\begin{itemize}[leftmargin=*]
+    \item Idea of iterating on the Bellman operator.
+    \item Convergence to fixed point of Bellman equation (intuition only, no algorithm).
+    \item Distinction between solving finite-horizon and infinite-horizon problems.
+\end{itemize}
+
+\subsection{Two-Period Models as Building Blocks}
+\begin{itemize}[leftmargin=*]
+    \item Structure of two-period consumption--savings problems.
+    \item Euler equation (conceptual introduction if appropriate).
+    \item Link between dynamic programming and standard intertemporal optimization.
+\end{itemize}
+
+%==============================================================================
+\section{Cross-Cutting Themes (All Days)}
+%==============================================================================
+
+\begin{itemize}[leftmargin=*]
+    \item Mathematical notation used in economics graduate courses.
+    \item Reading and interpreting first-order conditions, second-order conditions, and comparative statics.
+    \item Connecting mathematical objects to economic meaning (marginal, shadow price, value function).
+    \item Confidence with standard problem templates used in fall courses.
+\end{itemize}
+
+%==============================================================================
+\section{Suggested Time Allocation}
+%==============================================================================
+
+\begin{center}
+\begin{tabular}{@{}p{0.12\textwidth}p{0.26\textwidth}p{0.26\textwidth}p{0.26\textwidth}@{}}
+\toprule
+\textbf{Day} & \textbf{Block 1 ($\sim$1 hr)} & \textbf{Block 2 ($\sim$1 hr)} & \textbf{Block 3 ($\sim$1 hr)} \\
+\midrule
+1 & Notation; logic; sets; functions & Sup/inf; homogeneous functions; limits & Derivatives; partials; total differential \\
+2 & Implicit Function Theorem; MVT & Integration; Leibniz rule; Taylor & Vectors; matrices; Jacobians \\
+3 & Open and closed sets & Convergence; continuity; product spaces & Compactness; separation; fixed points \\
+4 & Unconstrained; Lagrange & KKT; convexity; quasiconcavity & Review; applications \\
+5 & Framework; state and control & Bellman equation & Backward induction; VFI idea \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
