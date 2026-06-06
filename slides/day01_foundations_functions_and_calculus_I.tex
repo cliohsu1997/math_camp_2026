@@ -1,0 +1,183 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{metropolis}
+\usecolortheme{default}
+\metroset{numbering=fraction, progressbar=frametitle, sectionpage=none}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{frametitle}{bg=mDarkTeal, fg=white}
+\setbeamercolor{progress bar}{fg=mDarkTeal, bg=mDarkTeal!20}
+\definecolor{mDarkTeal}{HTML}{23373B}
+\definecolor{mAccent}{HTML}{EB811B}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+\usepackage{tikz}
+
+\title{Math Bootcamp}
+\subtitle{Day 1 --- Section 1.1: Notation and Number Systems}
+\author{Math Camp 2026}
+\date{}
+
+\newcommand{\QFrame}[1]{%
+  \begin{frame}{#1 \quad {\small\textcolor{mAccent}{Together}}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{1.1 --- Notation and Number Systems}
+
+\begin{frame}{1.1 Number systems --- names and definitions}
+  \small
+  \begin{tabular}{@{}clp{0.48\textwidth}@{}}
+    \toprule
+    \textbf{Symbol} & \textbf{English name} & \textbf{What it is} \\
+    \midrule
+    $\mathbb{N}$ & natural numbers & Non-negative integers for \textbf{counting} \\
+    $\mathbb{Z}$ & integers & $\ldots,-2,-1,0,1,2,\ldots$ \\
+    $\mathbb{Q}$ & rational numbers & Fractions $p/q$ ($q\ne0$) \\
+    $\mathbb{R}$ & real numbers & All points on the number line \\
+    $\mathbb{R}^n$ & $n$-dimensional real space & Lists / vectors of length $n$ \\
+    \bottomrule
+  \end{tabular}
+
+  \medskip
+  \begin{center}
+  \begin{tikzpicture}[scale=0.55, every node/.style={font=\scriptsize}]
+    \draw[->] (-0.2,0) -- (6.5,0);
+    \foreach \x/\lab in {0/0,1.5/$\mathbb{N}$,2.8/$\mathbb{Z}$,4.2/$\mathbb{Q}$,5.8/$\mathbb{R}$}
+      \draw (\x,0.1) -- (\x,-0.1) node[below=3pt] {\lab};
+    \draw[fill=mAccent!30] (1.3,0.25) rectangle (5.9,0.55);
+    \node at (3.2,0.95) {$\mathbb{N}\subset\mathbb{Z}\subset\mathbb{Q}\subset\mathbb{R}$};
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{1.1 Symbols and vectors --- names and definitions}
+  \textbf{Common symbols}
+  \small
+  \begin{tabular}{@{}cl@{\quad}cl@{}}
+    $\in$ & ``is an element of'' &
+    $\subset$ & ``is a subset of'' \\
+    $\forall$ & ``for all'' &
+    $\exists$ & ``there exists'' \\
+    $\Rightarrow$ & ``implies'' &
+    $\Leftrightarrow$ & ``if and only if'' (iff) \\
+  \end{tabular}
+
+  \medskip
+  \normalsize
+  \textbf{Scalar vs.\ vector}
+  \small
+  \begin{itemize}
+    \item \textbf{Scalar:} one number, e.g.\ income $w\in\mathbb{R}$
+    \item \textbf{Vector:} a list of numbers
+      $\mathbf{x}=(x_1,\ldots,x_n)\in\mathbb{R}^n$
+    \item \textbf{Dot product:} $\mathbf{p}\cdot\mathbf{x}=\sum_{i=1}^n p_i x_i$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{1.1 Logic --- names and definitions}
+  \footnotesize
+  \begin{tabular}{@{}llp{0.52\textwidth}@{}}
+    \toprule
+    \textbf{English} & \textbf{Symbol} & \textbf{Meaning} \\
+    \midrule
+    $P$ \textbf{only if} $Q$ & $P\Rightarrow Q$ &
+      $Q$ is \textbf{necessary} for $P$ (without $Q$, no $P$) \\[4pt]
+    $P$ \textbf{if} $Q$ & $Q\Rightarrow P$ &
+      $Q$ is \textbf{sufficient} for $P$ ($Q$ alone is enough) \\[4pt]
+    $P$ \textbf{if and only if} $Q$ & $P\Leftrightarrow Q$ &
+      $Q$ is necessary \textbf{and} sufficient \\[4pt]
+    \textbf{Contrapositive} & $\neg Q\Rightarrow\neg P$ &
+      same truth as $P\Rightarrow Q$:\\
+    & & if $Q$ fails, $P$ must fail \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+\QFrame{1.1 --- Which set?}
+  \small
+  \textbf{Smallest set that fits?}
+
+  \medskip
+  \onslide<2->{\textbf{1.} The number of girlfriends / boyfriends you can have\par}
+  \onslide<3->{\textcolor{mAccent}{$\rightarrow\;\mathbb{N}$}\hfill
+    {\scriptsize counting: $0,1,2,\ldots$}\par\medskip}
+
+  \onslide<4->{\textbf{2.} Money you spend at a vending machine (e.g.\ HK\$8.50)\par}
+  \onslide<5->{\textcolor{mAccent}{$\rightarrow\;\mathbb{Q}$}\hfill
+    {\scriptsize e.g.\ $8.50=17/2$ dollars}\par\medskip}
+
+  \onslide<6->{\textbf{3.} Order as a vector: (HK\$ spent on drink, \# snacks) = $(8.50,\,2)$\par}
+  \onslide<7->{\textcolor{mAccent}{$\rightarrow\;(8.50,\,2)\in\mathbb{Q}\times\mathbb{N}$}\par}
+\end{frame}
+
+\QFrame{1.1 --- IKEA run}
+  \footnotesize
+  \textbf{First week in HK:} you go to IKEA and spot three plush toys.
+
+  \medskip
+  \begin{columns}[T,onlytextwidth]
+    \column{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/otter.png}\\[2pt]
+    Otter \quad HK\$179.9
+
+    \column{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/hedgehog.png}\\[2pt]
+    Hedgehog \quad HK\$79.9
+
+    \column{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/shark.jpg}\\[2pt]
+    BLÅHAJ \quad HK\$179.9
+  \end{columns}
+
+  \medskip
+  You have \textbf{HK\$500} pocket money ($B=500$).
+
+  \medskip
+  Basket $\mathbf{x}\in\mathbb{N}^3$: \# otters, \# hedgehogs, \# sharks.
+  E.g.\ $(1,\,1,\,0)$ = one otter, one hedgehog, no shark.
+  Price vector $\mathbf{p}=(179.9,\,79.9,\,179.9)\in\mathbb{Q}^3$.
+  Budget set:
+  $\mathcal{B}=\{\mathbf{x}\in\mathbb{N}^3:\mathbf{p}\cdot\mathbf{x}\le 500\}$.
+\end{frame}
+
+\QFrame{1.1 --- Plush symbols practice}
+  \scriptsize
+  $\mathbf{p}=(179.9,\,79.9,\,179.9)$,\ $\mathcal{B}=\{\mathbf{x}\in\mathbb{N}^3:\mathbf{p}\cdot\mathbf{x}\le 500\}$.
+  \textbf{True or false?}
+
+  \vspace{2pt}
+  \onslide<2->{\textbf{1.} [$\in$]\ $(0,0,3)\in\mathcal{B}$}\;
+  \onslide<3->{\textcolor{mAccent}{\textbf{False}} {\tiny ($539.7>500$)}}\par
+  \onslide<4->{\textbf{2.} [$\subset$]\ $\mathbb{N}^3\subset\mathcal{B}$}\;
+  \onslide<5->{\textcolor{mAccent}{\textbf{False}} {\tiny (e.g.\ $(3,0,0)\notin\mathcal{B}$)}}\par
+  \onslide<6->{\textbf{3.} [$\forall$]\ $\forall\,\mathbf{x}\in\mathcal{B},\;\mathbf{x}\ne(0,1,0)$}\;
+  \onslide<7->{\textcolor{mAccent}{\textbf{False}} {\tiny ($(0,1,0)\in\mathcal{B}$)}}\par
+  \onslide<8->{\textbf{4.} [$\exists$]\ $\exists\,\mathbf{x}\in\mathcal{B},\;\mathbf{x}=(3,0,0)$}\;
+  \onslide<9->{\textcolor{mAccent}{\textbf{False}} {\tiny ($539.7>500$)}}\par
+  \onslide<10->{\textbf{5.} [$\Rightarrow$]\ $(1,1,1)\in\mathcal{B}$ \textbf{only if}
+    $\mathbf{p}\cdot(1,1,1)\le 500$}\;
+  \onslide<11->{\textcolor{mAccent}{\textbf{True}} {\tiny ($439.7\le 500$)}}\par
+  \onslide<12->{\hspace{1.5em}{\tiny also True: $(1,1,1)\in\mathcal{B}$ \textbf{if}
+    $\mathbf{p}\cdot(1,1,1)\le 500$}}\par
+  \onslide<13->{\textbf{6.} [$\Rightarrow$]\ $(0,0,3)\in\mathcal{B}$ \textbf{if}
+    $(1,1,1)\in\mathcal{B}$}\;
+  \onslide<14->{\textcolor{mAccent}{\textbf{False}} {\tiny ($(1,1,1)\in\mathcal{B}$ but $539.7>500$)}}\par
+  \onslide<15->{\textbf{7.} [contrapositive]\ If
+    $\mathbf{p}\cdot(1,1,1)+\mathbf{p}\cdot(0,1,0)>500$, then
+    $(1,1,1)\notin\mathcal{B}$ \textbf{or} $(0,1,0)\notin\mathcal{B}$}\;
+  \onslide<16->{\textcolor{mAccent}{\textbf{False}} {\tiny ($519.6>500$, yet each basket alone is in $\mathcal{B}$)}}\par
+  \onslide<17->{\hspace{1.5em}{\tiny each affordable $\not\Rightarrow$ jointly affordable}}\par
+\end{frame}
+
+\end{document}
