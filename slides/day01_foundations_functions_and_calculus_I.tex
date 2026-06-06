@@ -18,7 +18,7 @@
 \usepackage{wasysym}
 
 \title{Math Bootcamp}
-\subtitle{Day 1 --- Foundations (Sections 1.1--1.4)}
+\subtitle{Day 1 --- Foundations (Sections 1.1--1.5)}
 \author{Math Camp 2026}
 \date{}
 
@@ -282,6 +282,63 @@
   \onslide<15->{\textcolor{mAccent}{\textbf{No --- a correspondence}}\hfill
     {\scriptsize (a function gives \textbf{exactly one} output per input;
     it's immoral to have a correspondence\ \smiley)}}\par
+\end{frame}
+
+\section{1.5 --- Supremum and Infimum}
+
+\QFrame{1.5 --- Reservation price (example first)}
+  \small
+  BLÅHAJ sticker price: \textbf{HK\$179.9}.
+  You buy \textbf{only on sale}: when $p<179.9$.
+
+  \medskip
+  Prices where you still buy:
+  $P=\{p\in\mathbb{R}_+:p<179.9\}$.
+
+  \vspace{4pt}
+  \onslide<2->{\textbf{Highest sale price you would accept?}}\;
+  \onslide<3->{\textcolor{mAccent}{\textbf{No maximum in $P$}}\hfill
+    {\scriptsize ($179.89$ works; so does $179.899$; \ldots)}}\par
+  \onslide<4->{\textbf{Reservation price (WTP)?}}\;
+  \onslide<5->{\textcolor{mAccent}{$\sup P=179.9$}\hfill
+    {\scriptsize least upper bound --- the choke price)}}\par
+  \onslide<6->{\textbf{Is $179.9\in P$?}}\;
+  \onslide<7->{\textcolor{mAccent}{\textbf{No}}\hfill
+    {\scriptsize at sticker price you walk away $\Rightarrow$ no $\max P$)}}\par
+\end{frame}
+
+\begin{frame}{1.5 Supremum and infimum --- names and definitions}
+  \scriptsize
+  \begin{tabular}{@{}clp{0.40\textwidth}@{}}
+    \toprule
+    \textbf{Term} & \textbf{Notation} & \textbf{Meaning} \\
+    \midrule
+    Maximum & $\max S$ & largest element \textbf{in} $S$ \\
+    Minimum & $\min S$ & smallest element \textbf{in} $S$ \\
+    Supremum & $\sup S$ & \textbf{least upper bound} of $S$ \\
+    Infimum & $\inf S$ & \textbf{greatest lower bound} of $S$ \\
+    \bottomrule
+  \end{tabular}
+
+  \medskip
+  \textbf{Example (least upper bound):}\quad
+  $S=[0,1)$.\ Upper bounds include $1,2,3,\ldots$;
+  $\sup S=1$ --- the \textbf{smallest} upper bound ($1\notin S$).
+
+  \medskip
+  \textbf{Relations:}\quad
+  if $\max S$ exists, $\max S=\sup S$;\ if $\min S$ exists, $\min S=\inf S$.
+
+  \smallskip
+  \hspace{2.1em}Always: $\inf S\le x\le\sup S$ for all $x\in S$.
+
+  \medskip
+  \textbf{In our example:}\quad
+  $\sup P=179.9$, but $\sup P\notin P$ --- so no $\max P$.
+
+  \medskip
+  {\scriptsize Use $\sup$ when a bound exists but $\max$ may not ---
+  reservation prices, demand choke prices, limits in equilibrium.}
 \end{frame}
 
 \end{document}
