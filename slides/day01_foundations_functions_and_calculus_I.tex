@@ -17,7 +17,7 @@
 \usepackage{tikz}
 
 \title{Math Bootcamp}
-\subtitle{Day 1 --- Section 1.1: Notation and Number Systems}
+\subtitle{Day 1 --- Foundations (Sections 1.1--1.3)}
 \author{Math Camp 2026}
 \date{}
 
@@ -63,10 +63,10 @@
   \small
   \begin{tabular}{@{}cl@{\quad}cl@{}}
     $\in$ & ``is an element of'' &
-    $\subset$ & ``is a subset of'' \\
-    $\forall$ & ``for all'' &
-    $\exists$ & ``there exists'' \\
-    $\Rightarrow$ & ``implies'' &
+    $\forall$ & ``for all'' \\
+    $\exists$ & ``there exists'' &
+    $\Rightarrow$ & ``implies'' \\
+    & &
     $\Leftrightarrow$ & ``if and only if'' (iff) \\
   \end{tabular}
 
@@ -80,25 +80,6 @@
       $\mathbf{x}=(x_1,\ldots,x_n)\in\mathbb{R}^n$
     \item \textbf{Dot product:} $\mathbf{p}\cdot\mathbf{x}=\sum_{i=1}^n p_i x_i$
   \end{itemize}
-\end{frame}
-
-\begin{frame}{1.1 Logic --- names and definitions}
-  \footnotesize
-  \begin{tabular}{@{}llp{0.52\textwidth}@{}}
-    \toprule
-    \textbf{English} & \textbf{Symbol} & \textbf{Meaning} \\
-    \midrule
-    $P$ \textbf{only if} $Q$ & $P\Rightarrow Q$ &
-      $Q$ is \textbf{necessary} for $P$ (without $Q$, no $P$) \\[4pt]
-    $P$ \textbf{if} $Q$ & $Q\Rightarrow P$ &
-      $Q$ is \textbf{sufficient} for $P$ ($Q$ alone is enough) \\[4pt]
-    $P$ \textbf{if and only if} $Q$ & $P\Leftrightarrow Q$ &
-      $Q$ is necessary \textbf{and} sufficient \\[4pt]
-    \textbf{Contrapositive} & $\neg Q\Rightarrow\neg P$ &
-      same truth as $P\Rightarrow Q$:\\
-    & & if $Q$ fails, $P$ must fail \\
-    \bottomrule
-  \end{tabular}
 \end{frame}
 
 \QFrame{1.1 --- Which set?}
@@ -116,6 +97,27 @@
 
   \onslide<6->{\textbf{3.} Order as a vector: (HK\$ spent on drink, \# snacks) = $(8.50,\,2)$\par}
   \onslide<7->{\textcolor{mAccent}{$\rightarrow\;(8.50,\,2)\in\mathbb{Q}\times\mathbb{N}$}\par}
+\end{frame}
+
+\section{1.2 --- Logic and Mathematical Statements}
+
+\begin{frame}{1.2 Logic --- names and definitions}
+  \footnotesize
+  \begin{tabular}{@{}llp{0.52\textwidth}@{}}
+    \toprule
+    \textbf{English} & \textbf{Symbol} & \textbf{Meaning} \\
+    \midrule
+    $P$ \textbf{only if} $Q$ & $P\Rightarrow Q$ &
+      $Q$ is \textbf{necessary} for $P$ (without $Q$, no $P$) \\[4pt]
+    $P$ \textbf{if} $Q$ & $Q\Rightarrow P$ &
+      $Q$ is \textbf{sufficient} for $P$ ($Q$ alone is enough) \\[4pt]
+    $P$ \textbf{if and only if} $Q$ & $P\Leftrightarrow Q$ &
+      $Q$ is necessary \textbf{and} sufficient \\[4pt]
+    \textbf{Contrapositive} & $\neg Q\Rightarrow\neg P$ &
+      same truth as $P\Rightarrow Q$:\\
+    & & if $Q$ fails, $P$ must fail \\
+    \bottomrule
+  \end{tabular}
 \end{frame}
 
 \QFrame{1.1 --- IKEA run}
@@ -151,7 +153,7 @@
   $\mathcal{B}=\{\mathbf{x}\in\mathbb{N}^3:\mathbf{p}\cdot\mathbf{x}\le 500\}$.
 \end{frame}
 
-\QFrame{1.1 --- Plush symbols practice}
+\QFrame{1.2 --- Plush symbols practice}
   \scriptsize
   $\mathbf{p}=(179.9,\,79.9,\,179.9)$,\ $\mathcal{B}=\{\mathbf{x}\in\mathbb{N}^3:\mathbf{p}\cdot\mathbf{x}\le 500\}$.
   \textbf{True or false?}
@@ -178,6 +180,56 @@
     $(1,1,1)\notin\mathcal{B}$ \textbf{or} $(0,1,0)\notin\mathcal{B}$}\;
   \onslide<16->{\textcolor{mAccent}{\textbf{False}} {\tiny ($519.6>500$, yet each basket alone is in $\mathcal{B}$)}}\par
   \onslide<17->{\hspace{1.5em}{\tiny each affordable $\not\Rightarrow$ jointly affordable}}\par
+\end{frame}
+
+\section{1.3 --- Sets and Set Operations}
+
+\begin{frame}{1.3 Sets and operations --- names and definitions}
+  \scriptsize
+  \begin{tabular}{@{}clp{0.38\textwidth}@{}}
+    \toprule
+    \textbf{Symbol} & \textbf{Name} & \textbf{Meaning} \\
+    \midrule
+    $\in$, $\notin$ & element / not in & $x$ belongs (or not) to $A$ \\
+    $\subset$, $=$ & subset, equality & $A\subset B$; $A=B$ iff mutual $\subset$ \\
+    $\emptyset$, $\{\,\}$, $\{x\in S:\ldots\}$ & sets & empty, roster, set-builder \\
+    $A\cup B$, $A\cap B$ & union, intersection & in $A$ or $B$; in both \\
+    $A^c$, $A\setminus B$ & complement, difference & not in $A$; in $A$ not $B$ \\
+    $A\times B$ & Cartesian product & pairs $(a,b)$, $a\in A$, $b\in B$ \\
+    \bottomrule
+  \end{tabular}
+
+  \medskip
+  \textbf{In economics:}\quad
+  budget set $\mathcal{B}\subset\mathbb{N}^3$;\;
+  $(8.50,\,2)\in\mathbb{Q}\times\mathbb{N}$.
+\end{frame}
+
+\QFrame{1.3 --- Set operations (IKEA)}
+  \scriptsize
+  $\mathcal{B}=\{\mathbf{x}\in\mathbb{N}^3:\mathbf{p}\cdot\mathbf{x}\le 500\}$,\quad
+  $\mathcal{H}=\{\mathbf{x}\in\mathbb{N}^3:\text{middle entry}\ge 1\}$ (at least one hedgehog).
+
+  \vspace{2pt}
+  \textbf{Describe the set.}
+
+  \vspace{2pt}
+  \onslide<2->{\textbf{1.} $\mathcal{B}\cap\mathcal{H}$}\;
+  \onslide<3->{\textcolor{mAccent}{affordable baskets with $\ge 1$ hedgehog}
+    {\tiny (e.g.\ $(0,1,0)$)}}\par
+  \onslide<4->{\textbf{2.} $\mathcal{B}\cup\mathcal{H}$}\;
+  \onslide<5->{\textcolor{mAccent}{affordable baskets \textbf{or} baskets with $\ge 1$ hedgehog}}\par
+  \onslide<6->{\textbf{3.} $\mathcal{B}\setminus\mathcal{H}$}\;
+  \onslide<7->{\textcolor{mAccent}{affordable baskets with \textbf{no} hedgehog}
+    {\tiny (e.g.\ $(1,0,0)$)}}\par
+  \onslide<8->{\textbf{4.} $(179.9,\,79.9)\in\mathbb{Q}\times\mathbb{Q}$ but
+    $(179.9,\,79.9)\notin\mathcal{B}$}\;
+  \onslide<9->{\textcolor{mAccent}{True}\;
+    {\tiny Cartesian product $\ne$ budget set --- pairs $\ne$ baskets}}\par
+  \onslide<10->{\textbf{5.} $(1,0,0)\subset\mathcal{B}$}\;
+  \onslide<11->{\textcolor{mAccent}{\textbf{False}}\;
+    {\tiny $(1,0,0)$ is a basket: use $(1,0,0)\in\mathcal{B}$ (True);
+    but $\{(1,0,0)\}\subset\mathcal{B}$ is True}}\par
 \end{frame}
 
 \end{document}
