@@ -18,7 +18,7 @@
 \usepackage{wasysym}
 
 \title{Math Bootcamp}
-\subtitle{Day 1 --- Foundations (Sections 1.1--1.5)}
+\subtitle{Day 1 --- Foundations (Sections 1.1--1.6)}
 \author{Math Camp 2026}
 \date{}
 
@@ -264,17 +264,17 @@
   \onslide<3->{\textcolor{mAccent}{$\{22,23,\ldots,30\}$}\hfill
     {\scriptsize typical ages in a master's program}}\par
   \onslide<4->{\textbf{2.} Codomain $C$?}\;
-  \onslide<5->{\textcolor{mAccent}{$\{18,19,\ldots,80\}$}\hfill
+  \onslide<5->{\textcolor{mAccent}{$\{18,19,\ldots,120\}$}\hfill
     {\scriptsize plausible partner ages}}\par
   \onslide<6->{\textbf{3.} Is $80\in f(D)$?}\;
-  \onslide<7->{\textcolor{mAccent}{\textbf{No, sugar mommy?}}\hfill
+  \onslide<7->{\textcolor{mAccent}{\textbf{Probably not}}\hfill
     {\scriptsize ($80\in C$, but $f(D)\subseteq\{17,\ldots,35\}$)}}\par
   \onslide<8->{\textbf{4.} Range $f(D)$?}\;
   \onslide<9->{\textcolor{mAccent}{your age $\pm 5$ on $D$}\hfill
     {\scriptsize $\{17,18,\ldots,35\}$}}\par
   \onslide<10->{\textbf{5.} Is $f$ surjective (onto $C$)?}\;
   \onslide<11->{\textcolor{mAccent}{\textbf{No}}\hfill
-    {\scriptsize ($f(D)\ne C$; e.g.\ $80\in C$ but $80\notin f(D)$)}}\par
+    {\scriptsize ($f(D)\ne C$; e.g.\ $120\in C$ but $120\notin f(D)$)}}\par
   \onslide<12->{\textbf{6.} Is $f$ injective (one-to-one)?}\;
   \onslide<13->{\textcolor{mAccent}{\textbf{Probably not}}\hfill
     {\scriptsize (e.g.\ $f(22)=f(30)=22$)}}\par
@@ -331,14 +331,165 @@
 
   \smallskip
   \hspace{2.1em}Always: $\inf S\le x\le\sup S$ for all $x\in S$.
+\end{frame}
+
+\section{1.6 --- Algebra Revision}
+
+\begin{frame}{1.6 Taylor, logs, and exponentials}
+  \scriptsize
+  \textbf{Taylor expansion} (around $a$):
+  \[
+    f(a+h)=\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}\,h^k
+    =f(a)+f'(a)h+\frac{f''(a)}{2!}h^2+\frac{f^{(3)}(a)}{3!}h^3+\cdots
+  \]
 
   \medskip
-  \textbf{In our example:}\quad
-  $\sup P=179.9$, but $\sup P\notin P$ --- so no $\max P$.
+  \begin{tabular}{@{}ll@{\quad}ll@{}}
+    \textbf{Logs} & & \textbf{Exponentials} & \\
+    $\ln(ab)=\ln a+\ln b$ & & $e^{a+b}=e^a e^b$ & \\
+    $\ln(x^\alpha)=\alpha\ln x$ & & $e^{\alpha x}=(e^x)^\alpha$ & \\
+    $\ln(1+x)=x-\dfrac{x^2}{2}+\dfrac{x^3}{3}-\cdots$ & & $e^x=1+x+\dfrac{x^2}{2!}+\cdots$ & \\
+  \end{tabular}
 
   \medskip
-  {\scriptsize Use $\sup$ when a bound exists but $\max$ may not ---
-  reservation prices, demand choke prices, limits in equilibrium.}
+  \textbf{Quick check:}\quad
+  $\ln(x_1^\alpha x_2^\beta)=\alpha\ln x_1+\beta\ln x_2$;\quad
+  if $u=x_1^\alpha x_2^{1-\alpha}$, then
+  $\ln u=\alpha\ln x_1+(1-\alpha)\ln x_2$.
+\end{frame}
+
+\begin{frame}{1.6 Why logs?}
+  \small
+  \begin{itemize}
+    \item \textbf{Taylor:}\quad
+      $f(a+h)\approx f(a)+f'(a)h$.
+    \item \textbf{Apply to logs:}\quad
+      $\ln(1+x)\approx x$ for small $x$.
+    \item \textbf{Percentage changes:}\quad
+      $\ln(x+\Delta x)-\ln x=\ln\!\bigl(1+\tfrac{\Delta x}{x}\bigr)\approx \tfrac{\Delta x}{x}$,
+      so $\Delta\ln x$ tracks \textbf{\% change} in $x$.
+    \item \textbf{Example:}\quad
+      $\tfrac{\Delta x}{x}=5\%\Rightarrow \Delta\ln x\approx 0.05$.
+    \item \textbf{Log--log regression:}\quad
+      $\ln y=\alpha+\beta\ln x$.
+    \item 1\% $\uparrow$ in $x$ $\Rightarrow$ $\beta$\% change in $y$.
+    \item \textbf{Elasticity:}\quad
+      $\varepsilon_{y,x}=\dfrac{\partial y}{\partial x}\dfrac{x}{y}
+      =\dfrac{\Delta y/y}{\Delta x/x}
+      =\dfrac{\partial\ln y}{\partial\ln x}$;\quad
+      in $\ln y=\alpha+\beta\ln x$, $\varepsilon_{y,x}=\beta$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{1.6 Cobb--Douglas --- definition}
+  \small
+  \textbf{Utility / production:}
+  \[
+    U(x_1,x_2)=x_1^{\alpha}x_2^{1-\alpha},\qquad
+    Y(K,L)=A K^{\alpha}L^{1-\alpha},\quad \alpha\in(0,1).
+  \]
+
+  \medskip
+  \textbf{In logs (linear):}\quad
+  $\ln U=\alpha\ln x_1+(1-\alpha)\ln x_2$;\quad
+  $\ln Y=\ln A+\alpha\ln K+(1-\alpha)\ln L$.
+
+  \medskip
+  \textbf{Constant elasticity:}
+  $\varepsilon_{U,x_1}=\dfrac{\partial\ln U}{\partial\ln x_1}=\alpha$,\quad
+  $\varepsilon_{U,x_2}=1-\alpha$;\quad
+  $\varepsilon_{Y,K}=\alpha$,\ $\varepsilon_{Y,L}=1-\alpha$.
+  {\scriptsize Same numbers at every $(x_1,x_2)$ or $(K,L)$.}
+\end{frame}
+
+\begin{frame}{1.6 Why Cobb--Douglas? --- first-order approximation}
+  \small
+  \textbf{Any smooth utility $u(x_1,x_2)>0$:}\quad
+  define $f(\ln x_1,\ln x_2)=\ln u(x_1,x_2)$.
+
+  \medskip
+  \textbf{First-order Taylor} around $(\ln\bar x_1,\ln\bar x_2)$:
+  \[
+    \ln u(x_1,x_2)
+    \approx
+    f(\ln\bar x_1,\ln\bar x_2)
+    +\frac{\partial f}{\partial\ln x_1}\Big|_{\bar{\mathbf{x}}}(\ln x_1-\ln\bar x_1)
+    +\frac{\partial f}{\partial\ln x_2}\Big|_{\bar{\mathbf{x}}}(\ln x_2-\ln\bar x_2).
+  \]
+
+  \medskip
+  Let $\alpha_i=\dfrac{\partial\ln u}{\partial\ln x_i}\Big|_{\bar{\mathbf{x}}}$
+  and absorb constants into $c$:
+  \[
+    \ln u(x_1,x_2)\approx c+\alpha_1\ln x_1+\alpha_2\ln x_2
+    \quad\Leftrightarrow\quad
+    u(x_1,x_2)\approx e^c\,x_1^{\alpha_1}x_2^{\alpha_2}.
+  \]
+
+  \medskip
+  {\scriptsize Near $\bar{\mathbf{x}}$ only; Cobb--Douglas is exact when $\ln u$ is globally affine in logs.}
+\end{frame}
+
+\begin{frame}{1.6 Cobb--Douglas --- homogeneity and CRS}
+  \scriptsize
+  \textbf{Homogeneous of degree $k$:}\quad
+  $f(t\mathbf{x})=t^k f(\mathbf{x})$ for $t>0$.
+
+  \medskip
+  \textbf{Utility}\ $U=x_1^{\alpha}x_2^{1-\alpha}$:\quad
+  $U(tx_1,tx_2)=t^{\alpha}t^{1-\alpha}U(\mathbf{x})=t\,U(\mathbf{x})$
+  $\Rightarrow$ degree~$1$.
+
+  \medskip
+  \textbf{Production}\ $Y=A K^{\alpha}L^{1-\alpha}$:\quad
+  $Y(tK,tL)=t^{\alpha}t^{1-\alpha}Y(K,L)=t\,Y(K,L)$.
+
+  \medskip
+  \textbf{CRS (constant returns to scale):}\quad
+  double all inputs $\Rightarrow$ double output (homogeneous of degree~$1$).
+\end{frame}
+
+\begin{frame}{1.6 Cobb--Douglas --- constant expenditure shares}
+  \scriptsize
+  Max $U=x_1^{\alpha}x_2^{1-\alpha}$ s.t.\ $p_1x_1+p_2x_2=w$.
+
+  \medskip
+  \textbf{FOC}\ (marginal utility per dollar equal):
+  $\dfrac{\partial U/\partial x_1}{\partial U/\partial x_2}=\dfrac{p_1}{p_2}
+  \Rightarrow \dfrac{\alpha/x_1}{(1-\alpha)/x_2}=\dfrac{p_1}{p_2}
+  \Rightarrow \dfrac{p_1x_1}{p_2x_2}=\dfrac{\alpha}{1-\alpha}$.
+
+  \medskip
+  \textbf{Budget binds:}\ $p_1x_1+p_2x_2=w$.
+  Substitute $p_1x_1=\dfrac{\alpha}{1-\alpha}\,p_2x_2$:
+  \[
+    w=p_2x_2\Bigl(\frac{\alpha}{1-\alpha}+1\Bigr)=\frac{p_2x_2}{1-\alpha}
+    \Rightarrow p_2x_2=(1-\alpha)w,\quad p_1x_1=\alpha w.
+  \]
+
+  \medskip
+  \textbf{Expenditure shares:}\ $\dfrac{p_1x_1}{w}=\alpha$,
+  $\dfrac{p_2x_2}{w}=1-\alpha$ (constant).
+\end{frame}
+
+\begin{frame}{1.6 Why Cobb--Douglas? --- summary}
+  \small
+  \textbf{Why economists use Cobb--Douglas:}
+  \begin{itemize}
+    \item \textbf{Logs = \% changes:}\quad
+      elasticities are $\partial\ln y/\partial\ln x$.
+    \item \textbf{Local approximation:}\quad
+      any smooth $u>0$ satisfies
+      $\ln u\approx c+\alpha_1\ln x_1+\alpha_2\ln x_2$ near $\bar{\mathbf{x}}$.
+    \item \textbf{Constant elasticity / shares:}\quad
+      $\varepsilon_{u,x_i}=\alpha_i$; CD demands give fixed budget shares.
+    \item \textbf{Homogeneity (degree~$1$) / CRS:}\quad
+      $f(t\mathbf{x})=t f(\mathbf{x})$; double inputs $\Rightarrow$ double output.
+    \item \textbf{Easy algebra:}\quad
+      linear in logs, powers in levels; closed-form demands and FOCs.
+    \item \textbf{Global use = modeling choice:}\quad
+      tractability and homogeneity, not a theorem for all preferences.
+  \end{itemize}
 \end{frame}
 
 \end{document}
