@@ -326,6 +326,25 @@
     \item Nonnegativity constraints and corner solutions.
 \end{itemize}
 
+\subsection{Envelope Theorem}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Placement:} after unconstrained and constrained optimization (FOCs, Lagrange, KKT).
+    \item Value function of a parameterized problem:
+      $V(\theta)=\max_{x} f(x;\theta)$ subject to constraints.
+    \item \textbf{Unconstrained envelope theorem:}
+      $\frac{dV}{d\theta}=\frac{\partial f}{\partial\theta}\Big|_{x=x^*(\theta)}$
+      (no need to differentiate the optimizer $x^*(\theta)$ directly).
+    \item \textbf{Constrained envelope theorem:}
+      $\frac{dV}{d\theta}=\frac{\partial \mathcal{L}}{\partial\theta}\Big|_{(x^*,\lambda^*)}$
+      with binding multipliers capturing constraint movements.
+    \item Interpretation: shadow prices and comparative statics from the optimized value.
+    \item Economic examples: profit as a function of a cost shifter or output price;
+      indirect utility as a function of income and prices;
+      expenditure/cost functions and Shephard-type logic (conceptual).
+    \item Contrast with naive chain rule through $x^*(\theta)$: envelope theorem drops
+      terms that vanish at the optimum.
+\end{itemize}
+
 %==============================================================================
 \section{Day 5 --- Dynamic Programming}
 %==============================================================================
@@ -402,7 +421,7 @@
 1 & Notation; logic; sets; functions & Sup/inf; homogeneous functions; limits & Derivatives; partials; total differential \\
 2 & Implicit Function Theorem; MVT & Integration; Leibniz rule; Taylor & Vectors; matrices; Jacobians \\
 3 & Open and closed sets & Convergence; continuity; product spaces & Compactness; separation; fixed points \\
-4 & Convexity; quasiconcavity & Unconstrained optimization & Lagrange; KKT \\
+4 & Convexity; quasiconcavity & Unconstrained optimization & Lagrange; KKT; envelope theorem \\
 5 & Framework; state and control & Bellman equation & Backward induction; VFI idea \\
 \bottomrule
 \end{tabular}

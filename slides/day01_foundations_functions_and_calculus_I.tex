@@ -18,7 +18,7 @@
 \usepackage{wasysym}
 
 \title{Math Bootcamp}
-\subtitle{Day 1 --- Foundations (Sections 1.1--1.6)}
+\subtitle{Day 1 --- Foundations (Sections 1.1--1.7)}
 \author{Math Camp 2026}
 \date{}
 
@@ -490,6 +490,208 @@
     \item \textbf{Global use = modeling choice:}\quad
       tractability and homogeneity, not a theorem for all preferences.
   \end{itemize}
+\end{frame}
+
+\section{1.7 --- Single-Variable Derivatives}
+
+\begin{frame}{1.7 Single-variable derivative --- formal definition}
+  \small
+  \textbf{Scope:}\ one independent variable.
+  Partial derivatives ($\partial f/\partial x_i$) come later.
+
+  \medskip
+  \textbf{Definition.}\ For $f\colon\mathbb{R}\to\mathbb{R}$ and $a\in\mathbb{R}$,
+  the \textbf{derivative at $a$} is
+  \[
+    f'(a)=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h},
+  \]
+  provided the limit exists.
+  Same number as $\dfrac{df}{dx}\Big|_{x=a}$.
+
+  \medskip
+  \textbf{Meaning:}\ instantaneous rate of change; slope of the tangent at $(a,f(a))$.
+
+  \medskip
+  {\scriptsize In economics: $MC=C'(q)$,\ $MU=U'(x)$,\ $MP_K=Y'(K)$.}
+\end{frame}
+
+\begin{frame}{1.7 Single-variable rules --- summary}
+  \small
+  \textbf{Single-variable calculus:}\ all rules below are for $f(x)$,
+  $g(x)$, etc.
+  Built from
+  $f'(a)=\displaystyle\lim_{h\to 0}\frac{f(a+h)-f(a)}{h}$
+  {\scriptsize (derivations in appendix)}:
+
+  \medskip
+  \footnotesize
+  \begin{tabular}{@{}ll@{}}
+    $(c)'=0$ &
+    constant \\
+    $(f\pm g)'=f'\pm g'$ &
+    sum / difference \\
+    $(x^n)'=nx^{n-1}$ &
+    power rule \\
+    $(fg)'=f'g+fg'$ &
+    product rule \\
+    $\Bigl(\tfrac{f}{g}\Bigr)'=\dfrac{f'g-fg'}{g^2}$ &
+    quotient rule \\
+    $(e^x)'=e^x$,\ $(\ln x)'=\tfrac{1}{x}$ &
+    exp / log \\
+    $(a^x)'=a^x\ln a$ &
+    general exponential ($a>0$) \\
+    $(f^{-1})'(y)=\dfrac{1}{f'(f^{-1}(y))}$ &
+    inverse function \\
+  \end{tabular}
+
+  \medskip
+  \textbf{Chain rule}\ (composition): if $y=f(u)$, $u=g(x)$, then
+  $\dfrac{dy}{dx}=\dfrac{dy}{du}\cdot\dfrac{du}{dx}$.
+\end{frame}
+
+\begin{frame}{1.7 Single-variable chain rule}
+  \small
+  \textbf{Chain rule:}\ if $y=f(u)$ and $u=g(x)$, then
+  \[
+    \frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dx}
+    =(f'\circ g)(x)\,g'(x).
+  \]
+
+  \medskip
+  \textbf{Example:}\ $y=(3x+1)^5$.\ Let $u=3x+1$:
+  $\dfrac{dy}{dx}=5u^4\cdot 3=15(3x+1)^4$.
+\end{frame}
+
+\QFrame{1.7 --- Single-variable marginals (Together)}
+  \scriptsize
+  \textbf{Differentiate}\ (one variable at a time).
+
+  \vspace{4pt}
+  \textbf{1.}\ Cubic cost:\ $C(q)=q^3-6q^2+15q+100$.
+  \textcolor{mAccent}{$C'(q)=3q^2-12q+15$}\hfill
+  {\tiny MC}\par\medskip
+
+  \textbf{2.}\ Monopolist:\ $p(q)=120-2q$,\ $C(q)=q^2+10q+50$.
+  Profit $\pi(q)=q(120-2q)-C(q)=110q-3q^2-50$.
+  \textcolor{mAccent}{$\pi'(q)=110-6q$}\hfill
+  {\tiny FOC: $q^*=110/6\approx18.3$}\par\medskip
+
+  \textbf{3.}\ Cobb--Douglas production:\ $Y(K)=3K^{0.6}$.
+  \textcolor{mAccent}{$Y'(K)=1.8\,K^{-0.4}$}\hfill
+  {\tiny $MP_K$}\par\medskip
+
+  \textbf{4.}\ Fixed cost + composite cost:\ $TC(q)=100+20(2q+1)^3$.
+  \textcolor{mAccent}{$TC'(q)=120(2q+1)^2$}\hfill
+  {\tiny chain rule}
+\end{frame}
+
+\appendix
+
+\section{Single-variable derivative rules --- derivations}
+
+\begin{frame}{A.1 Deriving rules (I): constants, sums, powers}
+  \small
+  Write $D_a f=f'(a)=\displaystyle\lim_{h\to 0}\frac{f(a+h)-f(a)}{h}$.
+
+  \medskip
+  \textbf{Constant:}\ $f(x)=c$ $\Rightarrow$
+  $D_a f=\displaystyle\lim_{h\to 0}\frac{c-c}{h}=0$.
+
+  \medskip
+  \textbf{Sum:}\ $D_a(f+g)=D_a f+D_a g$
+  (split the numerator; limits add).
+
+  \medskip
+  \textbf{Power rule} (integer $n\ge 1$):\ for $f(x)=x^n$,
+  \[
+    \frac{(a+h)^n-a^n}{h}
+    =\frac{a^n+na^{n-1}h+\cdots+h^n-a^n}{h}
+    =na^{n-1}+\text{terms with extra factors of }h
+    \;\xrightarrow[h\to 0]{}\; na^{n-1}.
+  \]
+  So $(x^n)'=nx^{n-1}$.
+\end{frame}
+
+\begin{frame}{A.2 Deriving rules (II): product and quotient}
+  \small
+  \textbf{Product rule.}\ For $h(x)=f(x)g(x)$,
+  \[
+    \frac{h(a+h)-h(a)}{h}
+    =f(a+h)\frac{g(a+h)-g(a)}{h}
+     +g(a)\frac{f(a+h)-f(a)}{h}
+     \;\xrightarrow[h\to 0]{}\;
+     f(a)g'(a)+f'(a)g(a).
+  \]
+  So $(fg)'=f'g+fg'$.
+
+  \medskip
+  \textbf{Quotient rule.}\ Write $\dfrac{f}{g}=f\cdot g^{-1}$.
+  For $y=1/g$, $\ln y=-\ln g$, so
+  $\dfrac{y'}{y}=-\dfrac{g'}{g}\Rightarrow y'=-\dfrac{g'}{g^2}$.
+  Then product rule gives
+  $\Bigl(\dfrac{f}{g}\Bigr)'=\dfrac{f'g-fg'}{g^2}$.
+\end{frame}
+
+\begin{frame}{A.3 Key facts for exp and log}
+  \footnotesize
+  \textbf{Fact 1:}\ $\displaystyle\lim_{h\to 0}\frac{e^h-1}{h}=1$.
+
+  \smallskip
+  \textbf{Why?}\ Start with
+  $e=\displaystyle\lim_{n\to\infty}\Bigl(1+\tfrac{1}{n}\Bigr)^n$ and
+  $e^x=\displaystyle\lim_{n\to\infty}\Bigl(1+\tfrac{x}{n}\Bigr)^n$.
+  Binomial expansion:
+  \[
+    \Bigl(1+\tfrac{h}{n}\Bigr)^n
+    =1+h+\frac{n(n-1)}{2n^2}h^2+\cdots
+    \;\xrightarrow[n\to\infty]{}\; e^h.
+  \]
+  So $e^h=1+h+O(h^2)$, hence
+  $\dfrac{e^h-1}{h}=1+O(h)\to 1$.
+
+  \medskip
+  \textbf{Fact 2:}\ $\displaystyle\lim_{u\to 0}\frac{\ln(1+u)}{u}=1$.
+
+  \smallskip
+  \textbf{Why?}\ For small $u$, Fact~1 gives $e^u\approx 1+u$.
+  If $v=\ln(1+u)$, then $e^v=1+u$, so $v\approx u$ and
+  $\dfrac{\ln(1+u)}{u}\approx 1$.
+  Equivalently, Taylor: $\ln(1+u)=u-\tfrac{u^2}{2}+\cdots$.
+\end{frame}
+
+\begin{frame}{A.4 Deriving the exponential: $(e^x)'=e^x$}
+  \small
+  Use Fact~1 from the previous slide:
+  $\displaystyle\lim_{h\to 0}\frac{e^h-1}{h}=1$.
+
+  \medskip
+  For $f(x)=e^x$,
+  \[
+    f'(a)=\lim_{h\to 0}\frac{e^{a+h}-e^a}{h}
+    =e^a\lim_{h\to 0}\frac{e^h-1}{h}
+    =e^a.
+  \]
+  So $(e^x)'=e^x$.
+
+  \medskip
+  {\scriptsize Reading: a small step $h$ multiplies $e^x$ by about $1+h$.}
+\end{frame}
+
+\begin{frame}{A.5 Deriving the logarithm: $(\ln x)'=\tfrac{1}{x}$}
+  \small
+  \textbf{Method 1 (inverse function).}\ If $y=\ln x$, then $e^y=x$.
+  Differentiate: $e^y\,y'=1$, so $y'=\dfrac{1}{e^y}=\dfrac{1}{x}$.
+
+  \medskip
+  \textbf{Method 2 (limit definition).}\ For $a>0$, set $u=h/a$:
+  \[
+    \frac{\ln(a+h)-\ln a}{h}
+    =\frac{1}{h}\ln\!\Bigl(1+\frac{h}{a}\Bigr)
+    =\frac{1}{a}\cdot\frac{\ln(1+u)}{u}
+    \;\xrightarrow[u\to 0]{}\;
+    \frac{1}{a},
+  \]
+  by Fact~2. So $(\ln x)'=\tfrac{1}{x}$.
 \end{frame}
 
 \end{document}
