@@ -18,7 +18,7 @@
 \usepackage{wasysym}
 
 \title{Math Bootcamp}
-\subtitle{Day 1 --- Foundations (Sections 1.1--1.8)}
+\subtitle{Day 1 --- Foundations (Sections 1.1--1.9)}
 \author{Math Camp 2026}
 \date{}
 
@@ -975,6 +975,164 @@
   \medskip
   {\scriptsize \textbf{Econ:}\ $Y_{KL}$ tells how $MP_K$ changes when $L$ rises
   (and vice versa). Sign of $Y_{KL}$: complements ($+$) vs.\ substitutes ($-$).}
+\end{frame}
+
+\section{1.9 --- Limits}
+
+\begin{frame}{1.9 Limits --- why this section}
+  \footnotesize
+  \textbf{Berkeley's critique (1734).}\ Early calculus treated $h$ as
+  ``infinitely small'': nonzero when dividing, then set to $0$.
+  Berkeley called these \textbf{``ghosts of departed quantities''} --- logically
+  suspicious.
+
+  \medskip
+  \textbf{Example:}\ $f(x)=x^2$ at $a=3$.
+  \[
+    \frac{f(3+h)-f(3)}{h}
+    =\frac{(3+h)^2-9}{h}
+    =\frac{6h+h^2}{h}
+    =6+h\qquad(h\neq 0).
+  \]
+  Early calculus: ``let $h\to 0$'' to get $f'(3)=6$.
+
+  \medskip
+  \textbf{Berkeley's objection.}\ The algebra \textbf{requires} $h\neq 0$ to divide by
+  $h$; then we act as if $h=0$ at the end.
+  That is the ghost: $h$ is treated as both present and absent.
+\end{frame}
+
+\begin{frame}{1.9 Limit of a sequence ($\varepsilon$-$N$)}
+  \footnotesize
+  Let $(a_n)$ be a sequence and $L\in\mathbb{R}$.
+
+  \medskip
+  \textbf{Definition.}\ $\displaystyle\lim_{n\to\infty}a_n=L$ means:
+  \[
+    \forall\,\varepsilon>0\;\;\exists\,N\in\mathbb{N}\;\;\forall\,n\ge N:\quad
+    |a_n-L|<\varepsilon.
+  \]
+
+  \medskip
+  \textbf{Reading the quantifiers.}
+  \begin{itemize}\itemsep2pt
+    \item $\varepsilon$: target accuracy (how close to $L$ you want).
+    \item $N$: step after which the sequence stays inside that accuracy.
+    \item Order matters: you choose $\varepsilon$ first, \emph{then} find $N$.
+  \end{itemize}
+
+  \medskip
+  {\scriptsize If the limit exists, the sequence \textbf{converges} to $L$;
+  otherwise it \textbf{diverges}.}
+\end{frame}
+
+\begin{frame}{1.9 Limit of a function ($\varepsilon$-$\delta$)}
+  \footnotesize
+  $\displaystyle\lim_{x\to a}f(x)=L$ means
+  {\scriptsize$\forall\,\varepsilon>0\;\exists\,\delta>0\;\forall\,x\in D$:
+  $0<|x-a|<\delta\Rightarrow|f(x)-L|<\varepsilon$.}
+
+  \medskip
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \vspace{0.25cm}
+    \textbf{Example.}\ $f(x)=x+1$ for $x\neq 1$;\ $f(1)=3$.
+
+    \medskip
+    \[
+      \lim_{x\to 1}f(x)=2,
+      \qquad
+      f(1)=3\neq 2.
+    \]
+
+    \medskip
+    For $\varepsilon=\tfrac12$, take $\delta=\tfrac12$.
+
+    \medskip
+    If $0<|x-1|<\delta$, then
+    \[
+      |f(x)-2|=|x-1|<\varepsilon.
+    \]
+
+    \column{0.50\textwidth}
+    \centering
+    \vspace{-0.15cm}
+    \includegraphics[width=\linewidth]{figures/epsilon_delta_limit.png}
+
+    \vspace{2pt}
+    {\scriptsize On $0<|x-a|<\delta$, the curve stays in the $\varepsilon$-band
+    around $L$; the value at $x=a$ is ignored.}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{1.9 Continuous and differentiable}
+  \footnotesize
+  \textbf{Continuous at $a$.}\ $f$ is continuous at $a$ if
+  \[
+    \lim_{x\to a}f(x)=f(a).
+  \]
+  So the limit exists \textbf{and} equals the function value at $a$.
+
+  \medskip
+  \textbf{Differentiable at $a$.}\ $f$ is differentiable at $a$ if
+  \[
+    f'(a)=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h}
+  \]
+  exists (finite).
+
+  \medskip
+  \textbf{Relation.}\ Differentiable at $a$ $\Rightarrow$ continuous at $a$.
+  {\scriptsize Converse fails: see examples on the next slide.}
+\end{frame}
+
+\begin{frame}{1.9 Continuous but not differentiable --- for interest}
+  \scriptsize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \centering
+    \includegraphics[width=0.92\linewidth]{figures/abs_x_corner.png}
+
+    \textbf{$f(x)=|x|$.}\ Continuous on $\mathbb{R}$; at $0$,
+    left slope $-1$ and right slope $+1$ disagree
+    $\Rightarrow$ not differentiable at $0$.
+
+    \column{0.48\textwidth}
+    \centering
+    \includegraphics[width=0.92\linewidth]{figures/weierstrass_partial.png}
+
+    \textbf{Weierstrass (1872).}\ Some $W\colon\mathbb{R}\to\mathbb{R}$ is
+    \textbf{continuous everywhere} but \textbf{differentiable nowhere}.
+    {\scriptsize Plot: $10$ terms of
+    $\sum_{n=0}^{\infty}a^n\cos(b^n\pi x)$, $a=\tfrac12$, $b=7$.}
+  \end{columns}
+\end{frame}
+
+\QFrame{1.9 --- Limits practice}
+  \footnotesize
+  \textbf{Practice.}
+
+  \vspace{4pt}
+  \onslide<2->{\textbf{1.}\ Let $f(x)=x^2$.
+    Use $\varepsilon$-$\delta$ to prove $f'(a)=2a$.\par}
+  \onslide<3->{\textbf{Goal.}\ $\forall\,\varepsilon>0\;\exists\,\delta>0$:\ if
+    $0<|h|<\delta$, then
+    $\bigl|\frac{f(a+h)-f(a)}{h}-2a\bigr|<\varepsilon$.\par}
+  \onslide<4->{\textbf{Algebra.}\ For $h\neq 0$,
+    $\displaystyle\frac{(a+h)^2-a^2}{h}
+    =\frac{2ah+h^2}{h}=2a+h$.\par}
+  \onslide<5->{\textcolor{mAccent}{\textbf{Choose $\delta=\varepsilon$.}\ Then
+    $\bigl|\frac{f(a+h)-f(a)}{h}-2a\bigr|=|h|<\varepsilon$.}\hfill
+    {\scriptsize so $f'(a)=2a$}}\par\medskip
+
+  \onslide<6->{\textbf{2.}\ $f(x)=x+1$ for $x\neq 1$;\ $f(1)=3$.
+    Use $\varepsilon$-$\delta$ to prove $\displaystyle\lim_{x\to 1}f(x)=2$.\par}
+  \onslide<7->{\textbf{Goal.}\ $\forall\,\varepsilon>0\;\exists\,\delta>0$:\ if
+    $0<|x-1|<\delta$, then $|f(x)-2|<\varepsilon$.\par}
+  \onslide<8->{\textbf{Algebra.}\ For $x\neq 1$ near $1$, $f(x)=x+1$, so
+    $|f(x)-2|=|x-1|$.\par}
+  \onslide<9->{\textcolor{mAccent}{\textbf{Choose $\delta=\varepsilon$.}\ Then
+    $|f(x)-2|=|x-1|<\varepsilon$.}\hfill
+    {\scriptsize $f(1)=3\neq 2$: limit exists, but $f$ not continuous at $1$}}\par
 \end{frame}
 
 \appendix
