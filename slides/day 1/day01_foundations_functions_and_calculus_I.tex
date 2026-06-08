@@ -585,7 +585,96 @@
   {\tiny chain rule}
 \end{frame}
 
-\section{1.8 --- Partial, Directional, and Total Derivatives}
+\begin{frame}{1.7 Euler's theorem}
+  \vspace{-0.15cm}
+  \footnotesize
+  \setlength{\abovedisplayskip}{5pt}
+  \setlength{\belowdisplayskip}{5pt}
+  \textbf{Setup (from 1.6).}\ $f\colon\mathbb{R}^n\to\mathbb{R}$ is $C^1$,
+  homogeneous of degree~$k$:\ $f(t\mathbf{x})=t^k f(\mathbf{x})$ for $t>0$.
+
+  \smallskip
+  \textbf{Euler's theorem.}\ $\displaystyle\sum_{i=1}^n x_i\,\frac{\partial f}{\partial x_i}(\mathbf{x})
+    = k\,f(\mathbf{x})$.
+
+  \smallskip
+  \textbf{Proof.}\ Fix $\mathbf{x}$, $\varphi(t)=f(t\mathbf{x})=t^k f(\mathbf{x})$.
+
+  \textbf{RHS:}\ $\varphi'(t)=k\,t^{k-1}f(\mathbf{x})$.\quad
+  \textbf{LHS (chain rule):}\
+  $\varphi'(t)=\sum_{i=1}^n \frac{\partial f}{\partial x_i}(t\mathbf{x})\,x_i$.
+
+  At $t=1$:\ $\sum_i x_i f_{x_i}(\mathbf{x})=k f(\mathbf{x})$.
+
+  \smallskip
+  {\scriptsize Multivariate chain rule; partials defined formally in 1.8.}
+\end{frame}
+
+\begin{frame}{1.7 Euler's theorem --- the adding-up problem}
+  \footnotesize
+  \textbf{Economic question.}\ In a competitive economy, if labor and capital
+  are each paid its \textbf{marginal product}, do total factor payments
+  exactly equal total output? Or is there surplus profit or a deficit?
+
+  \medskip
+  This is the \textbf{adding-up problem} (Clark, Wicksteed).
+  If payments do not exhaust output, marginal productivity theory of
+  distribution looks inconsistent.
+
+  \medskip
+  \textbf{Mathematical condition.}\ Production $Q=f(K,L)$, CRS (degree~$1$):
+  $f(tK,tL)=t\,f(K,L)$ for $t>0$.
+  Euler's theorem ($k=1$):
+  \[
+    Q=\frac{\partial Q}{\partial K}\,K+\frac{\partial Q}{\partial L}\,L
+    =MP_K\cdot K+MP_L\cdot L.
+  \]
+  {\scriptsize Algebra only so far --- no claim yet about wages or rents.}
+\end{frame}
+
+\begin{frame}{1.7 Euler's theorem --- competitive factor markets}
+  \footnotesize
+  \textbf{Total factor payments:}\ $rK+wL$.
+
+  \medskip
+  \textbf{Perfect competition in factor markets}\ $\Rightarrow$ each factor is
+  paid its \textbf{value marginal product}:
+  \[
+    r=P\frac{\partial Q}{\partial K},\qquad
+    w=P\frac{\partial Q}{\partial L}.
+  \]
+
+  \medskip
+  \textbf{Euler (CRS, $k=1$).}\ $Q=\dfrac{\partial Q}{\partial K}K+\dfrac{\partial Q}{\partial L}L$.
+  Multiply by $P$:
+  \[
+    PQ=rK+wL.
+  \]
+  Revenue equals factor payments --- output \textbf{exactly exhausted}; zero profit.
+
+  \medskip
+  {\scriptsize If returns to scale $\neq 1$, see IRS/DRS next.}
+\end{frame}
+
+\begin{frame}{1.7 Euler's theorem --- IRS and DRS}
+  \footnotesize
+  \textbf{CRS ($k=1$).}\ $PQ=rK+wL$ --- payments exhaust revenue; zero profit.
+
+  \medskip
+  \textbf{IRS ($k>1$).}\ Paying each factor its marginal product would cost
+  \textbf{more} than revenue --- positive profit wedge (or inconsistency with
+  perfect competition).
+
+  \medskip
+  \textbf{DRS ($k<1$).}\ MP payments \textbf{fall short} of revenue --- output
+  not fully exhausted; surplus remains.
+
+  \medskip
+  {\scriptsize Intuition: under IRS, marginal contributions add up to more than
+  current output; under DRS, to less.}
+\end{frame}
+
+\section{1.8 --- Multivariate Calculus}
 
 \begin{frame}{1.8 Level curves}
   \footnotesize
@@ -611,7 +700,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{1.8 Roadmap}
+\begin{frame}{1.8 Multivariate calculus --- roadmap}
   \small
   \textbf{Question:}\ how does $f(x,y)$ change when inputs move?
   \begin{itemize}
@@ -620,6 +709,8 @@
       \textbf{total differential}
     \item Move in a chosen direction $\mathbf{u}$ $\Rightarrow$
       \textbf{directional derivative} (rate version of $df$)
+    \item Differentiate in two orders $\Rightarrow$ \textbf{cross-partials}
+      (Schwarz)
   \end{itemize}
 
 \end{frame}
@@ -832,6 +923,34 @@
   {\scriptsize \textbf{Interpretation:}\ from $(100,100)$, moving in direction
   $\mathbf{u}$ (ratio $2{:}1$), output rises at initial rate
   $\approx 0.67$ units of $Q$ per unit distance in input space.}
+\end{frame}
+
+\begin{frame}{1.8 Cross-partial derivatives and Schwarz}
+  \footnotesize
+  \textbf{Cross-partials.}\ For $f(x,y)$,
+  \[
+    f_{xy}=\frac{\partial^2 f}{\partial x\,\partial y}
+    =\frac{\partial}{\partial x}\!\left(\frac{\partial f}{\partial y}\right),
+    \qquad
+    f_{yx}=\frac{\partial^2 f}{\partial y\,\partial x}
+    =\frac{\partial}{\partial y}\!\left(\frac{\partial f}{\partial x}\right).
+  \]
+
+  \medskip
+  \textbf{Schwarz's theorem (stated).}\ If $f_{xy}$ and $f_{yx}$ exist and are
+  continuous near $(a,b)$, then $f_{xy}(a,b)=f_{yx}(a,b)$.
+
+  \medskip
+  \textbf{Example.}\ $Y=K^{\alpha}L^{1-\alpha}$:
+  \[
+    \frac{\partial MP_K}{\partial L}
+    =Y_{KL}=\alpha(1-\alpha)K^{\alpha-1}L^{-\alpha}
+    =\frac{\partial MP_L}{\partial K}=Y_{LK}.
+  \]
+
+  \medskip
+  {\scriptsize \textbf{Econ:}\ $Y_{KL}$ tells how $MP_K$ changes when $L$ rises
+  (and vice versa). Sign of $Y_{KL}$: complements ($+$) vs.\ substitutes ($-$).}
 \end{frame}
 
 \appendix
