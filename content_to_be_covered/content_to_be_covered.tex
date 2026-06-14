@@ -35,121 +35,124 @@
 \newpage
 
 %==============================================================================
-\section{Day 1 --- Foundations, Functions, and Calculus I}
+\section{Day 1 --- Foundations (Sections 1.1--1.9)}
 %==============================================================================
 
-\textit{Approximate duration: 3 hours.}
+\textit{Approximate duration: 3 hours. See Day~1 slides (Sections 1.1--1.9).}
 
-\subsection{Notation and Number Systems}
+\subsection{1.1 --- Notation and Number Systems}
 \begin{itemize}[leftmargin=*]
-    \item Common sets: $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, and $\mathbb{R}^n$.
+    \item Number systems: $\mathbb{N}$ (counting), $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{R}^n$;
+      nesting $\mathbb{N}\subset\mathbb{Z}\subset\mathbb{Q}\subset\mathbb{R}$.
     \item Symbols: $\in$, $\subset$, $\forall$, $\exists$, $\Rightarrow$, $\Leftrightarrow$.
-    \item Vectors in $\mathbb{R}^n$: notation $\mathbf{x} = (x_1,\ldots,x_n)$; scalars versus vectors.
+    \item Scalars versus vectors: $\mathbf{x}=(x_1,\ldots,x_n)\in\mathbb{R}^n$;
+      dot product $\mathbf{p}\cdot\mathbf{x}=\sum_i p_i x_i$.
+    \item Practice: identify the smallest set containing a given object
+      (e.g.\ counts in $\mathbb{N}$; prices in $\mathbb{Q}$; order vectors in product sets).
 \end{itemize}
 
-\subsection{Logic and Mathematical Statements}
+\subsection{1.2 --- Logic and Mathematical Statements}
 \begin{itemize}[leftmargin=*]
-    \item Necessary versus sufficient conditions; ``only if'' and ``if.''
-    \item Contrapositive: $\neg Q \Rightarrow \neg P$ is equivalent to $P \Rightarrow Q$ (conceptual).
-    \item ``If and only if'' ($\Leftrightarrow$) and equivalence of statements.
-    \item How economists use these terms (e.g., first-order conditions necessary for an interior optimum; sufficiency under concavity).
+    \item $P$ \textbf{only if} $Q$ ($P\Rightarrow Q$): $Q$ necessary for $P$.
+    \item $P$ \textbf{if} $Q$ ($Q\Rightarrow P$): $Q$ sufficient for $P$.
+    \item $P$ \textbf{iff} $Q$ ($P\Leftrightarrow Q$): necessary and sufficient.
+    \item Contrapositive: $\neg Q\Rightarrow\neg P$ equivalent to $P\Rightarrow Q$.
+    \item Running example: IKEA budget set
+      $\mathcal{B}=\{\mathbf{x}\in\mathbb{N}^3:\mathbf{p}\cdot\mathbf{x}\le B\}$;
+      practice with $\in$, $\subset$, $\forall$, $\exists$, $\Rightarrow$, and contrapositive.
 \end{itemize}
 
-\subsection{Sets and Set Operations}
+\subsection{1.3 --- Sets and Set Operations}
 \begin{itemize}[leftmargin=*]
-    \item Sets, elements, subsets, and equality of sets.
-    \item Union, intersection, complement, and difference.
-    \item Cartesian product $A \times B$ (preview of product spaces on Day~3).
-    \item Economic examples: consumption sets, production sets, budget sets as sets in $\mathbb{R}^n$.
+    \item Notation: $\in$, $\notin$, $\subset$, $=$, $\emptyset$, roster and set-builder forms.
+    \item Union, intersection, complement, difference; Cartesian product $A\times B$.
+    \item Economic sets: budget sets, consumption sets; product spaces such as
+      $\mathbb{Q}\times\mathbb{N}$ versus constraint sets like $\mathcal{B}$.
+    \item Practice: describe $\mathcal{B}\cap\mathcal{H}$, $\mathcal{B}\cup\mathcal{H}$,
+      $\mathcal{B}\setminus\mathcal{H}$; distinguish elements from subsets.
 \end{itemize}
 
-\subsection{Functions: Definitions and Properties}
+\subsection{1.4 --- Functions}
 \begin{itemize}[leftmargin=*]
-    \item Function as a rule: domain, codomain, and range.
-    \item Injective (one-to-one), surjective (onto), and bijective functions.
-    \item Operations on functions: sum, scalar multiple, product, and composition.
-    \item Inverse functions when a map is bijective.
+    \item Function $f\colon A\to B$: domain, codomain, range $f(A)\subseteq B$.
+    \item Injective (one-to-one) and surjective (onto); codomain versus range.
+    \item Operations: $(f\pm g)$, $(cf)$, $(fg)$, composition $(f\circ g)(x)=f(g(x))$.
+    \item A rule must assign \textbf{exactly one} output per input (not a correspondence).
+    \item Practice: domain, codomain, range, injectivity, and surjectivity
+      (e.g.\ partner age as a function of your age).
 \end{itemize}
 
-\subsection{Supremum and Infimum}
+\subsection{1.5 --- Supremum and Infimum}
 \begin{itemize}[leftmargin=*]
-    \item Maximum/minimum versus supremum ($\sup$) and infimum ($\inf$).
-    \item Least upper bound and greatest lower bound (intuitive definitions).
-    \item When a supremum is attained versus only approached.
-    \item Economic relevance: bounds on feasible choices, value functions, and equilibrium objects defined as suprema.
+    \item Example first: reservation price / willingness to pay when the purchase set
+      $P=\{p\in\mathbb{R}_+:p<\bar p\}$ has no maximum but $\sup P=\bar p$.
+    \item $\max S$ / $\min S$ versus $\sup S$ / $\inf S$ (least upper bound, greatest lower bound).
+    \item When extrema are attained versus only approached (e.g.\ $S=[0,1)$, $\sup S=1\notin S$).
+    \item If $\max S$ exists, $\max S=\sup S$; always $\inf S\le x\le\sup S$ for $x\in S$.
 \end{itemize}
 
-\subsection{Homogeneous Functions of Degree $k$}
+\subsection{1.6 --- Algebra Revision}
 \begin{itemize}[leftmargin=*]
-    \item Definition: $f(t\mathbf{x}) = t^k f(\mathbf{x})$ for $t > 0$.
-    \item Checking homogeneity (degree zero, one, and general $k$).
-    \item Euler's theorem for $C^1$ homogeneous functions: $\sum_i x_i \frac{\partial f}{\partial x_i} = k\,f(\mathbf{x})$ (statement).
-    \item \textbf{Economic links:} constant returns to scale (production homogeneous of degree~1); homogeneous preferences; Cobb--Douglas as degree~1 in total expenditure form; marginal products and scaling of inputs; homogeneity in estimable demand systems and index numbers (high-level).
+    \item Taylor expansion around $a$:
+      $f(a+h)=\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}h^k$ (first-order: $f(a+h)\approx f(a)+f'(a)h$).
+    \item Log and exponential rules; series $\ln(1+x)$ and $e^x$.
+    \item \textbf{Why logs:} $\Delta\ln x\approx \Delta x/x$ tracks percentage changes;
+      elasticity $\varepsilon_{y,x}=\partial\ln y/\partial\ln x$; log--log regression.
+    \item Cobb--Douglas: $U=x_1^{\alpha}x_2^{1-\alpha}$, $Y=AK^{\alpha}L^{1-\alpha}$;
+      linear in logs; constant elasticities and expenditure shares.
+    \item Local log approximation of any smooth $u>0$ near $\bar{\mathbf{x}}$;
+      Cobb--Douglas as a modeling choice when used globally.
+    \item Homogeneity of degree~$k$: $f(t\mathbf{x})=t^k f(\mathbf{x})$;
+      Cobb--Douglas utility and production are degree~$1$ (CRS: double inputs $\Rightarrow$ double output).
 \end{itemize}
 
-\subsection{Algebra Review and Diagnostic}
+\subsection{1.7 --- Single-Variable Derivatives}
 \begin{itemize}[leftmargin=*]
-    \item Self-assessment of algebra and calculus readiness.
-    \item Logarithms and exponentials: definitions, rules, and economic relevance.
-    \item Basic function types (polynomial, power, log, exponential).
-    \item Simple univariate optimization as a preview.
+    \item Formal definition: $f'(a)=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h}$;
+      meaning as slope and marginal rate ($MC$, $MU$, $MP_K$).
+    \item Rules: constants, sums, power, product, quotient, chain rule;
+      $(e^x)'=e^x$, $(\ln x)'=1/x$, $(a^x)'=a^x\ln a$; inverse-function rule (stated).
+    \item Practice: cubic cost, monopolist profit, Cobb--Douglas $Y(K)$, composite cost (chain rule).
+    \item \textbf{Euler's theorem} (for $C^1$ homogeneous $f$ of degree~$k$):
+      $\sum_i x_i f_{x_i}=k f(\mathbf{x})$ (proof via $t\mapsto f(t\mathbf{x})$).
+    \item Adding-up problem: under CRS and competitive factor markets,
+      $PQ=rK+wL$; IRS ($k>1$) and DRS ($k<1$) and payment exhaustion.
 \end{itemize}
 
-\subsection{Limits and Continuity (Introductory)}
+\subsection{1.8 --- Multivariate Calculus}
 \begin{itemize}[leftmargin=*]
-    \item Intuitive notion of a limit.
-    \item Continuity of a function at a point and on an interval.
-    \item Why continuity matters for economic models (existence, stability of solutions).
-    \item One-sided limits and basic limit laws (conceptual, not formal $\varepsilon$--$\delta$).
+    \item Level curves $\mathcal{L}_c=\{(x,y):f(x,y)=c\}$ and contour maps;
+      3D slice picture for $z=f(x,y)$.
+    \item Roadmap: partials $\Rightarrow$ total differential $\Rightarrow$ directional derivative
+      $\Rightarrow$ cross-partials (Schwarz).
+    \item Partial derivatives (limit definition; fix one variable);
+      $MP_K=\partial Y/\partial K$ with $L$ fixed.
+    \item Total differential: add/subtract trick, MVT on each bracket,
+      $dz=f_x\,dx+f_y\,dy$; Cobb--Douglas output example $dY=MP_K\,dK+MP_L\,dL$.
+    \item Gradient $\nabla f$: perpendicular to level curves; points uphill;
+      $D_{\mathbf{u}}f=\nabla f\cdot\mathbf{u}=\|\nabla f\|\cos\theta$.
+    \item Directional derivative along unit direction $\mathbf{u}$;
+      example: subsidy requiring input changes in ratio $2{:}1$.
+    \item Cross-partials and Schwarz's theorem (stated); $Y_{KL}$ and complements versus substitutes.
 \end{itemize}
 
-\subsection{Derivatives: Intuition and Rules}
+\subsection{1.9 --- Limits}
 \begin{itemize}[leftmargin=*]
-    \item Derivative as instantaneous rate of change and slope of tangent.
-    \item Differentiability versus continuity.
-    \item Core differentiation rules: power, product, quotient, and chain rules.
-    \item Derivatives of composite economic functions.
-    \item Higher-order derivatives and economic interpretation (marginal versus curvature).
+    \item Motivation: Berkeley's critique of ``infinitely small'' $h$ in early calculus.
+    \item Sequence limit ($\varepsilon$--$N$): quantifier order and convergence.
+    \item Function limit ($\varepsilon$--$\delta$): $0<|x-a|<\delta\Rightarrow|f(x)-L|<\varepsilon$;
+      example $f(x)=x+1$ for $x\neq 1$, $f(1)=3$, $\lim_{x\to 1}f(x)=2\neq f(1)$.
+    \item Continuity at $a$: $\lim_{x\to a}f(x)=f(a)$;
+      differentiability at $a$: derivative limit exists.
+    \item Differentiable $\Rightarrow$ continuous; converse fails ($|x|$ at $0$; Weierstrass function).
+    \item Practice: $\varepsilon$--$\delta$ proofs for $f'(a)=2a$ when $f(x)=x^2$ and for
+      $\lim_{x\to 1}f(x)=2$.
 \end{itemize}
 
-\subsection{Partial Derivatives}
+\subsection{Appendix (Slides)}
 \begin{itemize}[leftmargin=*]
-    \item Functions of several variables.
-    \item Level curves / contour map: $\mathcal{L}_c=\{(x,y):f(x,y)=c\}$;
-      3D picture as a horizontal slice of $z=f(x,y)$.
-    \item Partial derivative as marginal effect holding other variables fixed.
-    \item Cross-partial derivatives and symmetry (Schwarz's theorem, stated not proved).
-    \item Economic interpretation: marginal products, marginal utilities, marginal rates.
-\end{itemize}
-
-\subsection{Total Differential}
-\begin{itemize}[leftmargin=*]
-    \item Exact change: $\Delta z=f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)$.
-    \item Add/subtract trick at $(x_0+\Delta x,y_0)$; change one variable at a time.
-    \item MVT on each bracket $\Rightarrow f_x\,\Delta x+f_y\,\Delta y$; limit
-      $\Delta x,\Delta y\to 0$ gives $dz=f_x\,dx+f_y\,dy$.
-    \item 3D picture: L-shaped path on the surface ($\Delta x$ with $y$ fixed, then
-      $\Delta y$ with $x$ fixed).
-    \item Application: $dY=MP_K\,dK+MP_L\,dL$; later $dU$ and budget differentials.
-\end{itemize}
-
-\subsection{Gradient Geometry}
-\begin{itemize}[leftmargin=*]
-    \item Contour-map picture: $\nabla f$ at $P$ on $\mathcal{L}_c$, tangent to level curve.
-    \item Derivation ($\perp$): if $\mathbf{r}(t)\in\mathcal{L}_c$, then
-      $0=\frac{d}{dt}f(\mathbf{r}(t))=\nabla f\cdot\mathbf{r}'(t)$.
-    \item Derivation (uphill): $D_{\mathbf{u}}f=\nabla f\cdot\mathbf{u}=\|\nabla f\|\cos\theta$;
-      maximum when $\mathbf{u}\parallel\nabla f$.
-    \item Along a level curve, $D_{\mathbf{u}}f=0$; MRS as slope of indifference curve.
-\end{itemize}
-
-\subsection{Directional Derivatives}
-\begin{itemize}[leftmargin=*]
-    \item Rate of change of $f$ along a chosen unit direction $\mathbf{u}$
-      (rate version of $df$ with $(dx,dy)=t\mathbf{u}$).
-    \item Definition as a limit along the line $(a,b)+t\mathbf{u}$.
-    \item Derivation: same chain rule as $df$; $\varphi(t)=f(a+tu_1,b+tu_2)$
-      $\Rightarrow D_{\mathbf{u}}f=\nabla f\cdot\mathbf{u}$.
+    \item Derivations of single-variable rules: constants, sums, powers, product, quotient.
+    \item Key limits for $(e^x)'$ and $(\ln x)'$; exponential and logarithm derivative proofs.
 \end{itemize}
 
 %==============================================================================
@@ -162,9 +165,10 @@
 \begin{itemize}[leftmargin=*]
     \item Explicit versus implicit definitions of relationships.
     \item What problem the Implicit Function Theorem solves: local solvability and comparative statics.
-    \item Statement of the theorem in one and several variables (informal).
-    \item Sign of derivative or Jacobian and direction of local response.
-    \item Connection to economic comparative statics (Slutsky-type decompositions, IS--LM shifts).
+    \item \textbf{Core:} statement and use in one variable ($dy/dx=-F_x/F_y$; $dy^*/d\theta=-F_\theta/F_y$).
+    \item Sign of $F_y$ and direction of local response.
+    \item Application: market equilibrium comparative statics (demand shifter and equilibrium price).
+    \item \textbf{Further study (not required):} several variables and matrix/Jacobian form.
 \end{itemize}
 
 \subsection{Integration}
@@ -228,7 +232,8 @@
     \item Jacobian matrix as a collection of partial derivatives.
     \item Dot product and its economic interpretation (e.g., expenditure, inner products in econometrics).
     \item Quadratic forms (brief introduction: notation and positive/negative definiteness, stated not proved).
-    \item How matrix notation simplifies multivariate comparative statics; return to the Implicit Function Theorem in matrix form.
+    \item How matrix notation simplifies multivariate comparative statics;
+      full IFT in matrix form (further study).
 \end{itemize}
 
 %==============================================================================
@@ -441,7 +446,7 @@
 \toprule
 \textbf{Day} & \textbf{Block 1 ($\sim$1 hr)} & \textbf{Block 2 ($\sim$1 hr)} & \textbf{Block 3 ($\sim$1 hr)} \\
 \midrule
-1 & Notation; logic; sets; functions & Sup/inf; homogeneous functions; limits & Derivatives; partials; total differential; directional \\
+1 & 1.1--1.4: notation; logic; sets; functions & 1.5--1.6: sup/inf; algebra; Cobb--Douglas & 1.7--1.9: derivatives; Euler; multivariate; limits \\
 2 & Implicit Function Theorem; MVT & Integration; Leibniz rule; Taylor & Vectors; matrices; Jacobians \\
 3 & Open and closed sets & Convergence; continuity; product spaces & Compactness; separation; fixed points \\
 4 & Convexity; quasiconcavity & Unconstrained optimization & Lagrange; KKT; envelope theorem \\
