@@ -1107,6 +1107,118 @@
   \end{columns}
 \end{frame}
 
+\begin{frame}{1.9 Multivariable: continuous and differentiable}
+  \footnotesize
+  For $f\colon\mathbb{R}^n\to\mathbb{R}$, write $\mathbf{a}\in\mathbb{R}^n$,
+  $\mathbf{h}\in\mathbb{R}^n$ with $\|\mathbf{h}\|=\sqrt{h_1^2+\cdots+h_n^2}$.
+
+  \medskip
+  \textbf{Continuous at $\mathbf{a}$.}
+  \[
+    \lim_{\mathbf{x}\to\mathbf{a}} f(\mathbf{x}) = f(\mathbf{a}).
+  \]
+
+  \medskip
+  {\scriptsize Must hold as $\mathbf{x}\to\mathbf{a}$ along \textbf{every path}
+  (every direction). If two paths give different limits, $f$ is not continuous at
+  $\mathbf{a}$.}
+
+  \medskip
+  \textbf{Differentiable at $\mathbf{a}$.}\ There is a vector
+  $\nabla f(\mathbf{a})=(f_{x_1}(\mathbf{a}),\ldots,f_{x_n}(\mathbf{a}))$ such that
+  \[
+    f(\mathbf{a}+\mathbf{h})
+    = f(\mathbf{a}) + \nabla f(\mathbf{a})\cdot\mathbf{h} + r(\mathbf{h}),
+    \qquad
+    \frac{r(\mathbf{h})}{\|\mathbf{h}\|}\to 0 \ \text{as}\ \mathbf{h}\to\mathbf{0}.
+  \]
+
+  \medskip
+  \textbf{Tangent plane (two variables).}\ If $f(x,y)$ is differentiable at $(a,b)$,
+  the graph $z=f(x,y)$ has a tangent plane at $(a,b,f(a,b))$:
+  \[
+    z - f(a,b) = f_x(a,b)(x-a) + f_y(a,b)(y-b).
+  \]
+  {\scriptsize The linear term $\nabla f(a,b)\cdot\mathbf{h}$ is exactly this plane:
+  the best linear approximation to $f$ near $(a,b)$.}
+\end{frame}
+
+\begin{frame}{1.9 Differentiable $\Rightarrow$ continuous}
+  \footnotesize
+  \textbf{Proposition.}\ If $f\colon\mathbb{R}^n\to\mathbb{R}$ is differentiable at
+  $\mathbf{a}$, then $f$ is continuous at $\mathbf{a}$.
+
+  \medskip
+  \textbf{Proof.}\ Write $\mathbf{h}=\mathbf{x}-\mathbf{a}$. By differentiability,
+  \[
+    f(\mathbf{x})-f(\mathbf{a})
+    = \nabla f(\mathbf{a})\cdot\mathbf{h} + r(\mathbf{h}).
+  \]
+  As $\mathbf{x}\to\mathbf{a}$, we have $\mathbf{h}\to\mathbf{0}$, so
+  $\nabla f(\mathbf{a})\cdot\mathbf{h}\to 0$ and $r(\mathbf{h})\to 0$.
+  Hence $f(\mathbf{x})\to f(\mathbf{a})$.
+  \hfill$\square$
+\end{frame}
+
+\begin{frame}{1.9 Example: differentiable in two variables}
+  \footnotesize
+  \textbf{Example.}\ $f(x,y)=x^2+y^2$ is differentiable at every $(a,b)$.
+
+  \medskip
+  \textbf{Check at $(a,b)$.}\ Expand:
+  \[
+    f(a+h,b+k)-f(a,b)
+    = (a+h)^2+(b+k)^2-(a^2+b^2)
+    = 2ah+2bk + (h^2+k^2).
+  \]
+  Here $\nabla f(a,b)=(2a,2b)$ and the linear part is $2ah+2bk$.
+  The remainder is $r(h,k)=h^2+k^2$, and
+  \[
+    \frac{|r(h,k)|}{\|(h,k)\|}
+    = \frac{h^2+k^2}{\sqrt{h^2+k^2}}
+    = \sqrt{h^2+k^2}\to 0.
+  \]
+  So $f$ is differentiable at $(a,b)$ with $df=2a\,dx+2b\,dy$.
+
+  \medskip
+  {\scriptsize By the proposition on the previous slide, $f$ is also continuous at $(a,b)$.}
+\end{frame}
+
+\begin{frame}{1.9 Partials exist $\not\Rightarrow$ differentiable --- for interest}
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.46\textwidth}
+    Partials at $(a,b)$ alone do \textbf{not} imply differentiable, and do
+    \textbf{not} imply a tangent plane exists.
+
+    \medskip
+    \textbf{Example.}\ Define
+    \[
+      f(x,y)=
+      \begin{cases}
+        \dfrac{xy}{x^2+y^2}, & (x,y)\neq(0,0),\\[4pt]
+        0, & (x,y)=(0,0).
+      \end{cases}
+    \]
+    \textbf{Partials at $(0,0)$:}\ $f(x,0)=0$, $f(0,y)=0$
+    $\Rightarrow$ $f_x(0,0)=f_y(0,0)=0$.
+
+    \medskip
+    \textbf{But not continuous at $(0,0)$:}\
+    along $y=x$, $f(x,x)=\tfrac12$ for $x\neq 0$;
+    along $y=0$, $f=0$.
+    Different paths, different limits.
+
+    \medskip
+    {\scriptsize So no tangent plane: the graph cannot be approximated by one plane
+    from every direction.}
+
+    \column{0.52\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/partials_not_differentiable.png}
+  \end{columns}
+\end{frame}
+
 \QFrame{1.9 --- Limits practice}
   \footnotesize
   \textbf{Practice.}
