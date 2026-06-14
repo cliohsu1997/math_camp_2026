@@ -1,0 +1,828 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{metropolis}
+\usecolortheme{default}
+\metroset{numbering=fraction, progressbar=frametitle, sectionpage=none}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{frametitle}{bg=mDarkTeal, fg=white}
+\setbeamercolor{progress bar}{fg=mDarkTeal, bg=mDarkTeal!20}
+\definecolor{mDarkTeal}{HTML}{23373B}
+\definecolor{mAccent}{HTML}{EB811B}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+
+\title{Math Bootcamp}
+\subtitle{Day 2 --- IFT, MVT, Integration, and Taylor}
+\author{Math Camp 2026}
+\date{}
+
+\newcommand{\QFrame}[1]{%
+  \begin{frame}{#1 \quad {\small\textcolor{mAccent}{Together}}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{2.1 --- Implicit Function Theorem}
+
+\begin{frame}{2.1 Explicit vs.\ implicit relationships}
+  \small
+  \textbf{Explicit:}\ one variable is written directly as a function of others.
+  \[
+    y = g(x)
+    \qquad\text{e.g.}\qquad
+    p^* = \frac{\alpha-c}{b+d}.
+  \]
+
+  \medskip
+  \textbf{Implicit:}\ variables are linked by an equation $F(x,y)=0$.
+  \[
+    F(x,y)=0
+    \qquad\text{e.g.}\qquad
+    E(p,\alpha)=0 \quad\text{(market clearing)}.
+  \]
+
+  \medskip
+  Often we \textbf{know} $F$ but cannot solve for $y=g(x)$ in closed form.
+  The IFT says: under regularity conditions, $y$ is still locally a function of $x$,
+  and we can compute $\dfrac{dy}{dx}$ without solving explicitly.
+\end{frame}
+
+\begin{frame}{2.1 What problem does the IFT solve?}
+  \small
+  \textbf{Comparative statics question.}\ How does an endogenous variable respond
+  when an exogenous parameter shifts?
+
+  \medskip
+  \begin{itemize}
+    \item Equilibrium price $p^*(\alpha)$ when demand depends on shifter $\alpha$
+    \item Optimal choice $x^*(w)$ from a first-order condition $F(x,w)=0$
+    \item Equilibrium objects defined by $F(x,\theta)=0$ without closed-form solutions
+  \end{itemize}
+
+  \medskip
+  \textbf{Pattern:}\ an equilibrium condition $F(x,\theta)=0$ defines $y^*(\theta)$ implicitly.
+  We want $\dfrac{dy^*}{d\theta}$ --- the IFT delivers this from partials of $F$.
+\end{frame}
+
+\begin{frame}{2.1 One-variable IFT --- statement and recipe}
+  \footnotesize
+  Let $F(x,y)$ be $C^1$ near $(x_0,y_0)$ with $F(x_0,y_0)=0$.
+  If $F_y(x_0,y_0)\neq 0$, then locally there is a unique $g$ such that
+  \[
+    y = g(x),
+    \qquad
+    F(x,g(x))=0,
+    \qquad
+    g(x_0)=y_0,
+  \]
+  and
+  \[
+    \boxed{
+      g'(x)=\frac{dy}{dx}=-\frac{F_x(x,y)}{F_y(x,y)}
+    }
+    \qquad\text{on the curve }F(x,y)=0.
+  \]
+
+  \medskip
+  \textbf{Recipe.}\ Totally differentiate $F(x,y)=0$:
+  \[
+    0 = dF = F_x\,dx + F_y\,dy
+    \quad\Rightarrow\quad
+    \frac{dy}{dx}=-\frac{F_x}{F_y}
+    \quad\text{when }F_y\neq 0.
+  \]
+\end{frame}
+
+\begin{frame}{2.1 Why $F_y \neq 0$? --- regularity condition}
+  \small
+  \textbf{Left:}\ $F_y \neq 0$ at $(x_0,y_0)$ --- tangent has finite slope;
+  locally $y=g(x)$.
+  \hfill
+  \textbf{Right:}\ $F_y=0$ at $(0,0)$ --- \textbf{vertical tangent};
+  $\dfrac{dy}{dx}=-F_x/F_y$ is undefined.
+
+  \medskip
+  \centering
+  \includegraphics[width=0.92\textwidth]{figures/ift_regularity_condition.png}
+
+  \medskip
+  {\footnotesize Near $(0,0)$ on $x=y^2$, the curve is vertical in the $(x,y)$-plane,
+  so $y$ cannot be written as a single-valued function of $x$.}
+\end{frame}
+
+\begin{frame}{2.1 Further study: several variables --- for interest}
+  \footnotesize
+  \textcolor{mAccent}{\textbf{Not required for Math Camp.}}
+
+  \medskip
+  \textbf{System:}\ $\mathbf{F}(\mathbf{y},\boldsymbol{\theta})=\mathbf{0}$,
+  $\mathbf{F}\colon\mathbb{R}^{n+m}\to\mathbb{R}^n$.
+
+  \medskip
+  If the $n\times n$ Jacobian $\dfrac{\partial \mathbf{F}}{\partial \mathbf{y}}$
+  is invertible at the point, then locally
+  $\mathbf{y}=\mathbf{y}^*(\boldsymbol{\theta})$ and
+  \[
+    \frac{\partial \mathbf{y}^*}{\partial \boldsymbol{\theta}}
+    =
+    -\left(\frac{\partial \mathbf{F}}{\partial \mathbf{y}}\right)^{-1}
+    \frac{\partial \mathbf{F}}{\partial \boldsymbol{\theta}}.
+  \]
+
+  \medskip
+  {\scriptsize Same pattern as the one-variable formulas with $F_y$ and $F_\theta$.
+  Appears in graduate micro; camp focus is the scalar case above.}
+\end{frame}
+
+\begin{frame}{2.1 Application --- setup}
+  \small
+  \textbf{Market clearing.}\ Quantity demanded equals quantity supplied:
+  \[
+    D(p,\alpha) = S(p),
+  \]
+  where $p$ is price and $\alpha>0$ is a \textbf{demand shifter}
+  (e.g.\ consumer income, taste index, population).
+
+  \medskip
+  Define excess demand
+  \[
+    E(p,\alpha) = D(p,\alpha) - S(p).
+  \]
+  An equilibrium price $p^*(\alpha)$ satisfies
+  \[
+    E(p^*(\alpha),\alpha) = 0.
+  \]
+
+  \medskip
+  \textbf{Question:}\ when $\alpha$ rises, does equilibrium price $p^*$ rise or fall?
+  Use $\dfrac{dp^*}{d\alpha} = -\dfrac{E_\alpha}{E_p}$.
+\end{frame}
+
+\begin{frame}{2.1 Application --- linear example}
+  \footnotesize
+  \textbf{Linear demand and supply:}
+  \[
+    D(p,\alpha)=\alpha - b p,
+    \qquad
+    S(p)=c+d p,
+    \qquad
+    b,c,d>0.
+  \]
+
+  \medskip
+  Excess demand $E(p,\alpha)=D(p,\alpha)-S(p)=\alpha-c-(b+d)p$.
+  Equilibrium $p^*(\alpha)$ satisfies $E(p^*(\alpha),\alpha)=0$.
+
+  \medskip
+  Partials: $E_p=-(b+d)\neq 0$, \ $E_\alpha=1$.
+
+  \medskip
+  \textbf{IFT:}
+  \[
+    \frac{dp^*}{d\alpha}
+    = -\frac{E_\alpha}{E_p}
+    = \frac{1}{b+d} > 0.
+  \]
+\end{frame}
+
+\begin{frame}{2.1 Application --- check by explicit solution}
+  \footnotesize
+  From $E(p^*(\alpha),\alpha)=0$:
+  \[
+    p^*(\alpha)=\frac{\alpha-c}{b+d}.
+  \]
+
+  \medskip
+  Differentiate explicitly:
+  \[
+    \frac{dp^*}{d\alpha}=\frac{1}{b+d},
+  \]
+  matching the IFT formula $-\dfrac{E_\alpha}{E_p}$.
+
+  \medskip
+  \textbf{When IFT is essential:}\ nonlinear $D(p,\alpha)$ or $S(p)$ ---
+  $p^*(\alpha)$ may have no closed form, but
+  \[
+    \frac{dp^*}{d\alpha}=-\frac{E_\alpha}{E_p}
+    \qquad\text{at }p=p^*(\alpha)
+  \]
+  still gives the local comparative static.
+\end{frame}
+
+\begin{frame}{2.1 Application --- economic interpretation}
+  \footnotesize
+  \textbf{Chain rule.}\ Since $E(p^*(\alpha),\alpha)=0$ for all $\alpha$,
+  \[
+    0
+    = \frac{d}{d\alpha}E(p^*(\alpha),\alpha)
+    = \underbrace{E_\alpha(p^*,\alpha)}_{\text{direct}}
+      + \underbrace{E_p(p^*,\alpha)\,\frac{dp^*}{d\alpha}}_{\text{indirect via }p^*}.
+  \]
+  So $\dfrac{dp^*}{d\alpha}=-\dfrac{E_\alpha}{E_p}$ when $E_p\neq 0$.
+
+  \medskip
+  \textbf{Two effects of higher $\alpha$ on excess demand (in words).}
+  \begin{enumerate}
+    \item \textbf{Direct effect:}\ holding $p$ fixed, higher $\alpha$ raises demand
+      $\Rightarrow$ $E$ goes \textbf{up} ($E_\alpha>0$).
+    \item \textbf{Indirect effect:}\ equilibrium price adjusts; higher $p$ makes
+      $E$ \textbf{lower} ($E_p<0$).
+  \end{enumerate}
+
+  \medskip
+  \textbf{Why must $p^*$ rise?}\
+  The direct effect alone would create excess demand at the old price.
+  Price rises until the indirect effect offsets it and restores $E=0$.
+  With $E_\alpha>0$ and $E_p<0$, this requires $\dfrac{dp^*}{d\alpha}>0$.
+\end{frame}
+
+\QFrame{2.1 --- Comparative statics practice (no closed form)}
+  \scriptsize
+  \textbf{Nonlinear demand:}\ $D(p,\alpha)=\alpha e^{-p}$,\ $S(p)=p$,\ $\alpha>0$.
+
+  \textbf{No elementary closed form for $p^*(\alpha)$}.
+
+  \vspace{3pt}
+  \onslide<2->{\textbf{1.}\ Excess demand $E(p,\alpha)$.}\;
+  \onslide<3->{\textcolor{mAccent}{$E(p,\alpha)=\alpha e^{-p}-p$}\par\medskip}
+
+  \onslide<4->{\textbf{2.}\ Partials $E_\alpha$, $E_p$.}\;
+  \onslide<5->{\textcolor{mAccent}{$E_\alpha=e^{-p}$,\ $E_p=-\alpha e^{-p}-1$}\par\medskip}
+
+  \onslide<6->{\textbf{3.}\ IFT at $p=p^*$:}\;
+  \onslide<7->{\textcolor{mAccent}{$\dfrac{dp^*}{d\alpha}=\dfrac{e^{-p}}{\alpha e^{-p}+1}$}\par\medskip}
+
+  \onslide<8->{\textbf{4.}\ On the curve $\alpha e^{-p^*}=p^*$, simplify:}\;
+  \onslide<9->{\textcolor{mAccent}{$\dfrac{dp^*}{d\alpha}=\dfrac{e^{-p^*}}{p^*+1}>0$}\par\medskip}
+
+  \onslide<10->{\textbf{5.}\ $\alpha=2$: $2e^{-p}=p$ gives $p^*\approx 0.85$,
+    so $\dfrac{dp^*}{d\alpha}\approx 0.23$.}\;
+  \onslide<11->{\hfill{\tiny No closed form for $p^*(\alpha)$ --- IFT still works.}}
+\end{frame}
+
+\section{2.2 --- Mean Value Theorem}
+
+\begin{frame}{2.2 Extreme Value Theorem}
+  \footnotesize
+  \textbf{Extreme Value Theorem (EVT).}\
+  If $f$ is \textbf{continuous} on the closed interval $[a,b]$, then $f$ attains a
+  \textbf{maximum} and a \textbf{minimum} on $[a,b]$.
+
+  \medskip
+  So $\exists\,c,d\in[a,b]$ such that
+  \[
+    f(c)\le f(x)\le f(d)
+    \qquad\text{for all } x\in[a,b].
+  \]
+
+  \medskip
+  \centering
+  \includegraphics[width=0.96\textwidth]{figures/evt_failures.png}
+\end{frame}
+
+\begin{frame}{2.2 Rolle's theorem}
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.52\textwidth}
+    \textbf{Rolle's theorem.}\
+    If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$, and
+    $f(a)=f(b)$, then $\exists\,c\in(a,b)$ with $f'(c)=0$.
+
+    \medskip
+    \textbf{Proof.}\
+    If $f$ is constant on $[a,b]$, any $c\in(a,b)$ works.
+    Otherwise, by EVT, $f$ has a maximum or minimum on $[a,b]$.
+    Since $f(a)=f(b)$, this extremum occurs at some \textbf{interior} point
+    $c\in(a,b)$.
+    At an interior peak or trough, the tangent is horizontal, so $f'(c)=0$.
+    \hfill$\square$
+
+    \medskip
+    {\scriptsize Special case of the MVT below with $f(a)=f(b)$.}
+
+    \column{0.44\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/mvt_rolle.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{2.2 Mean Value Theorem}
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.52\textwidth}
+    \textbf{Mean Value Theorem (MVT).}\
+    If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then
+    $\exists\,c\in(a,b)$ such that
+    \[
+      f'(c)=\frac{f(b)-f(a)}{b-a}.
+    \]
+
+    \medskip
+    \textbf{Picture:}\ some interior tangent is \textbf{parallel} to the secant
+    through $(a,f(a))$ and $(b,f(b))$.
+
+    \medskip
+    \textbf{Example.}\ $f(x)=x^2$ on $[0,2]$: secant slope $=2$, so $f'(c)=2c=2$
+    gives $c=1$.
+
+    \medskip
+    \textbf{Proof idea:}\ define $g(x)=f(x)-m(x-a)$ with
+    $m=\dfrac{f(b)-f(a)}{b-a}$; then $g(a)=g(b)$, Rolle gives $f'(c)=m$.
+
+    \column{0.44\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/mvt_secant_tangent.png}
+  \end{columns}
+\end{frame}
+
+\section{2.3 --- Integration}
+
+\begin{frame}{2.3 Integral as area and accumulation}
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \textbf{Riemann idea.}\ For $f\ge 0$ on $[a,b]$,
+    \[
+      \int_a^b f(x)\,dx
+      \approx \sum_{i=1}^n f(x_i^*)\,\Delta x
+    \]
+    is the \textbf{signed area} under the curve / total accumulation.
+
+    \medskip
+    \textbf{Definite vs indefinite.}
+    \begin{itemize}
+      \item Definite: $\displaystyle\int_a^b f(x)\,dx$ is a number
+      \item Indefinite: $\displaystyle\int f(x)\,dx=F(x)+C$ is a family of antiderivatives
+    \end{itemize}
+
+    \medskip
+    {\scriptsize Econ: total cost, consumer surplus, probability mass.}
+
+    \column{0.50\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/riemann_area.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{2.3 Riemann vs.\ Lebesgue --- for interest}
+  \footnotesize
+  \textcolor{mAccent}{\textbf{Not required for Math Camp.}}
+
+  \medskip
+  \textbf{Two ways to define $\displaystyle\int f$.}
+
+  \medskip
+  \begin{tabular}{@{}p{0.46\textwidth}p{0.46\textwidth}@{}}
+    \textbf{Riemann (this camp)} &
+    \textbf{Lebesgue (grad / probability)} \\
+    \midrule
+    Chop the \textbf{$x$-axis} into small pieces &
+    Chop the \textbf{$y$-axis} into levels \\
+    Sum (height) $\times$ (width) &
+    Sum (level) $\times$ (measure of set where $f$ hits that level) \\
+    Good for hand calculations &
+    Integrates more pathological functions \\
+    Area under curve picture &
+    Foundation for modern probability \\
+  \end{tabular}
+
+  \medskip
+  \textbf{Contrast in one sentence.}\
+  Riemann slices \textbf{vertically}; Lebesgue slices \textbf{horizontally} by value.
+\end{frame}
+
+\begin{frame}{2.3 Lebesgue integral --- for interest}
+  \footnotesize
+  \textcolor{mAccent}{\textbf{Not required for Math Camp.}}
+
+  \medskip
+  \textbf{When Riemann fails.}\
+  Riemann needs the function to be ``well behaved'' on intervals:
+  too many jumps can prevent upper and lower sums from converging to the same number.
+
+  \medskip
+  \textbf{Classic example (not Riemann integrable).}\
+  Dirichlet function on $[0,1]$:
+  \[
+    f(x)=
+    \begin{cases}
+      1, & x\in\mathbb{Q},\\
+      0, & x\notin\mathbb{Q}.
+    \end{cases}
+  \]
+  Every interval contains rationals and irrationals, so upper and lower Riemann sums
+  never agree --- no Riemann integral.
+
+  \medskip
+  \textbf{Lebesgue handles this.}\
+  It integrates by \textbf{level sets}, so a ``sparse'' jump set like $\mathbb{Q}$ does
+  not block integration the way Riemann's interval partitions do.
+\end{frame}
+
+\begin{frame}{2.3 Fundamental Theorem of Calculus}
+  \footnotesize
+  \textbf{Part I.}\ If $F'(x)=f(x)$, then
+  \[
+    \int_a^b f(x)\,dx = F(b)-F(a).
+  \]
+
+  \medskip
+  \textbf{Part II.}\ If $f$ is continuous and $F(x)=\displaystyle\int_a^x f(t)\,dt$, then
+  $F'(x)=f(x)$.
+
+  \medskip
+  {\scriptsize Differentiation and integration are inverse operations (MVT underlies many proofs).}
+\end{frame}
+
+\begin{frame}{2.3 Integration by parts}
+  \footnotesize
+  \textbf{From the product rule.}\
+  For differentiable $u(x)$ and $v(x)$,
+  \[
+    (uv)' = u'v + uv'
+    \quad\Rightarrow\quad
+    uv' = (uv)' - u'v.
+  \]
+  Integrate both sides:
+  \[
+    \int u\,v'\,dx = uv - \int u'v\,dx
+    \qquad\text{or}\qquad
+    \boxed{\int u\,dv = uv - \int v\,du}.
+  \]
+
+  \medskip
+  On $[a,b]$ with $u'v$ integrable,
+  \[
+    \int_a^b u(x)v'(x)\,dx
+    = \Bigl[u(x)v(x)\Bigr]_a^b - \int_a^b u'(x)v(x)\,dx.
+  \]
+
+  \medskip
+  {\scriptsize Pick $u$ and $dv$ so the new integral $\displaystyle\int v\,du$ is simpler.}
+\end{frame}
+
+\begin{frame}[plain]{2.3 Integration by parts (graph)}
+  \centering
+  \vfill
+  \includegraphics[width=0.62\textwidth]{figures/ibp_rectangle.png}
+  \vfill
+\end{frame}
+
+\begin{frame}{2.3 Integration by parts --- example}
+  \footnotesize
+  \textbf{Example.}\
+  $\displaystyle\int x e^x\,dx$.
+
+  \medskip
+  Let $u=x$, $dv=e^x\,dx$, so $du=dx$, $v=e^x$:
+  \[
+    \int x e^x\,dx
+    = x e^x - \int e^x\,dx
+    = x e^x - e^x + C
+    = e^x(x-1)+C.
+  \]
+
+  \medskip
+  \textbf{Check.}\
+  $\dfrac{d}{dx}\bigl[e^x(x-1)\bigr]=e^x(x-1)+e^x=x e^x$. \checkmark
+\end{frame}
+
+\begin{frame}{2.3 PMF and CMF --- discrete example (dice)}
+  \footnotesize
+  \textbf{Setup.}\ Fair die: $X\in\{1,2,3,4,5,6\}$.
+
+  \medskip
+  \textbf{Probability mass function (PMF):}\
+  $p(k)=P(X=k)=\tfrac16$ for $k=1,\ldots,6$.
+
+  \medskip
+  \textbf{Event (sum rule):}\
+  $P(2\le X\le 4)=p(2)+p(3)+p(4)=\tfrac12$.
+
+  \medskip
+  \textbf{Cumulative mass function (CMF):}\
+  $C(k)=P(X\le k)=\sum_{j\le k}p(j)$, defined only at the \textbf{outcomes}
+  $k=1,\ldots,6$ (not a continuous curve in $x$).
+
+  \medskip
+  Example: $C(3)=p(1)+p(2)+p(3)=\tfrac12$.
+
+  \medskip
+  {\scriptsize Discrete: \textbf{PMF/CMF} and \textbf{sums}.\
+  Continuous (next slides): \textbf{PDF/CDF} and \textbf{integrals}.}
+\end{frame}
+
+\begin{frame}[plain]{2.3 PMF and CMF --- dice (graph)}
+  \centering
+  \vfill
+  \includegraphics[width=0.88\textwidth]{figures/dice_pmf_cmf.png}
+  \vfill
+\end{frame}
+
+\begin{frame}{2.3 PDF and CDF --- continuous case}
+  \footnotesize
+  Let $X$ be a continuous random variable.
+
+  \medskip
+  \textbf{Probability density function (PDF):}\
+  $f(x)\ge 0$ and $\displaystyle\int_{-\infty}^{\infty} f(x)\,dx=1$.
+  Then $P(a\le X\le b)=\displaystyle\int_a^b f(x)\,dx$.
+
+  \medskip
+  \textbf{Cumulative distribution function (CDF):}\
+  $F(x)=P(X\le x)=\displaystyle\int_{-\infty}^{x} f(t)\,dt$;
+  a \textbf{continuous} curve in $x$ (not jumps on a finite outcome list).
+
+  \medskip
+  \textbf{FTC:}\ if $f$ is continuous, then $F'(x)=f(x)$.
+\end{frame}
+
+\begin{frame}[plain]{2.3 PDF and CDF --- Unif$(0,1)$ (graph)}
+  \centering
+  \vfill
+  \includegraphics[width=0.88\textwidth]{figures/uniform_pdf_cdf.png}
+  \vfill
+\end{frame}
+
+\begin{frame}{2.3 Expectation from the CDF}
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    For a \textbf{non-negative} continuous $X$ with PDF $f$ and CDF $F$,
+    \[
+      \mathbb{E}[X]
+      = \int_0^\infty x f(x)\,dx
+      = \int_0^\infty \bigl(1-F(x)\bigr)\,dx
+      = \int_0^\infty P(X>x)\,dx.
+    \]
+
+    \smallskip
+    \textbf{Intuition.}\
+    For $X\sim\mathrm{Unif}(0,1)$, each vertical strip has height
+    $1-F(x)=P(X>x)$; $\mathbb{E}[X]$ is their total area.
+
+    \medskip
+    {\scriptsize Derivation via integration by parts:
+    \hyperlink{sec:expectation-cdf-proof}{\textcolor{mAccent}{appendix}}.}
+
+    \column{0.50\textwidth}
+    \centering
+    \vspace{-0.1cm}
+    \includegraphics[width=0.96\linewidth]{figures/expectation_cdf_region.png}
+  \end{columns}
+\end{frame}
+
+\section{2.4 --- Leibniz Rule and Fubini}
+
+\begin{frame}{2.4 Leibniz rule --- fixed limits}
+  \footnotesize
+  \textbf{Setup.}\ $F(\theta)=\displaystyle\int_a^b f(x,\theta)\,dx$ with fixed $a,b$.
+
+  \medskip
+  \textbf{Leibniz rule (fixed limits).}\
+  When regularity holds,
+  \[
+    \frac{dF}{d\theta}
+    = \int_a^b \frac{\partial f}{\partial \theta}(x,\theta)\,dx.
+  \]
+
+  \medskip
+  \textbf{Regularity (enough for this camp).}\
+  \begin{itemize}
+    \item $\dfrac{\partial f}{\partial \theta}(x,\theta)$ exists
+    \item $f$ and $\dfrac{\partial f}{\partial \theta}$ are \textbf{continuous} in $(x,\theta)$
+  \end{itemize}
+  Then you may swap $\dfrac{d}{d\theta}$ and $\displaystyle\int_a^b$.
+
+  \medskip
+  \textbf{Idea.}\ Only the integrand moves with $\theta$; the limits $a,b$ stay fixed.
+
+  \medskip
+  {\scriptsize When regularity fails (moving jump):
+  \hyperlink{sec:leibniz-failure}{\textcolor{mAccent}{appendix}}.}
+\end{frame}
+
+\begin{frame}{2.4 Leibniz rule --- variable limits}
+  \footnotesize
+  \textbf{Setup.}\
+  $F(\theta)=\displaystyle\int_{a(\theta)}^{b(\theta)} f(x,\theta)\,dx$.
+
+  \medskip
+  \textbf{Leibniz rule (variable limits).}\
+  When $a(\theta)$, $b(\theta)$ are differentiable and regularity holds,
+  \[
+    \frac{dF}{d\theta}
+    = f\bigl(b(\theta),\theta\bigr)\,b'(\theta)
+      - f\bigl(a(\theta),\theta\bigr)\,a'(\theta)
+      + \int_{a(\theta)}^{b(\theta)}
+        \frac{\partial f}{\partial \theta}(x,\theta)\,dx.
+  \]
+
+  \medskip
+  \textbf{Three parts.}\
+  \textbf{(i)} area added/lost at the \textbf{upper} limit $b$;\
+  \textbf{(ii)} at the \textbf{lower} limit $a$;\
+  \textbf{(iii)} change \textbf{inside} the interval ($\partial f/\partial\theta$).
+
+  \medskip
+  {\scriptsize Graph on next slide: grey $=$ $\partial f/\partial\theta$;\
+  pink/blue $=$ lower/upper limit terms ($a'(\theta)$, $b'(\theta)$).}
+\end{frame}
+
+\begin{frame}[plain]{2.4 Leibniz rule --- variable limits (graph)}
+  \centering
+  \vfill
+  \includegraphics[width=0.78\textwidth]{figures/leibniz_variable_limits.png}
+  \vfill
+\end{frame}
+
+\begin{frame}{2.4 Fubini's theorem}
+  \footnotesize
+  \textbf{Statement.}\
+  If $f$ is \textbf{integrable} on region $D$, i.e.
+  \[
+    \iint_D \lvert f(x,y)\rvert\,dx\,dy < \infty,
+  \]
+  then
+  \[
+    \iint_D f(x,y)\,dx\,dy
+    = \int\!\left(\int f(x,y)\,dx\right)dy
+    = \int\!\left(\int f(x,y)\,dy\right)dx,
+  \]
+  (inner limits depend on the shape of $D$).
+
+  \medskip
+  \textbf{Camp shortcut.}\
+  If $D$ is bounded and $f$ is \textbf{continuous} on $D$, then $f$ is integrable
+  and Fubini applies.
+
+  \medskip
+  {\scriptsize Tonelli (for interest): if $f\ge 0$ and measurable, the same swap holds
+  without checking $\iint\lvert f\rvert$ first.}
+\end{frame}
+
+\begin{frame}{2.4 Fubini --- triangle example}
+  \footnotesize
+  \textbf{Example (triangle).}\
+  \[
+    D=\{(x,y): 0\le x\le 1,\; 0\le y\le x\}.
+  \]
+
+  \medskip
+  Compute $\displaystyle\iint_D (x+y)\,dx\,dy$.
+
+  \medskip
+  \textbf{$y$ first, then $x$:}\ for fixed $x$, $y\in[0,x]$:
+  \[
+    \int_0^1\!\int_0^x (x+y)\,dy\,dx
+    = \int_0^1 \Bigl[xy+\tfrac{y^2}{2}\Bigr]_{0}^{x}dx
+    = \int_0^1 \tfrac{3x^2}{2}\,dx
+    = \tfrac12.
+  \]
+
+  \medskip
+  \textbf{$x$ first, then $y$:}\ for fixed $y$, $x\in[y,1]$:
+  \[
+    \int_0^1\!\int_y^1 (x+y)\,dx\,dy
+    = \int_0^1 \Bigl[\tfrac{x^2}{2}+xy\Bigr]_{y}^{1}dy
+    = \int_0^1 \Bigl(\tfrac12+y-\tfrac{3y^2}{2}\Bigr)dy
+    = \tfrac12.
+  \]
+
+  \medskip
+  {\scriptsize Graph on next slide: same triangle, different slice directions.}
+\end{frame}
+
+\begin{frame}[plain]{2.4 Fubini --- triangle (graph)}
+  \centering
+  \vfill
+  \includegraphics[width=0.88\textwidth]{figures/fubini_triangle.png}
+  \vfill
+\end{frame}
+
+\section{2.5 --- Taylor Expansion and Linearization}
+
+\begin{frame}{2.5 First-order Taylor and linearization}
+  \footnotesize
+  \textbf{One variable.}\ Near $a$,
+  \[
+    f(x)\approx f(a)+f'(a)(x-a).
+  \]
+
+  \medskip
+  \textbf{Several variables.}\ Near $\mathbf{a}$,
+  \[
+    f(\mathbf{a}+\mathbf{h})
+    \approx f(\mathbf{a})+\nabla f(\mathbf{a})\cdot\mathbf{h}
+    \qquad\text{(Day~1 tangent plane).}
+  \]
+
+  \medskip
+  \textbf{Comparative statics reading.}\
+  A small parameter shift $\Delta\theta$ changes an equilibrium object by
+  \[
+    \Delta x^* \approx \frac{dx^*}{d\theta}\,\Delta\theta,
+  \]
+  i.e.\ \textbf{local linearization} --- first-order Taylor.
+
+  \medskip
+  {\scriptsize \textbf{Second order (preview):}\ $f(a)+f'(a)(x-a)+\tfrac12 f''(a)(x-a)^2$ captures curvature;
+  needed when linearization is poor.}
+\end{frame}
+
+\begin{frame}{2.5 When linearization works}
+  \footnotesize
+  \textbf{Works well when:}
+  \begin{itemize}
+    \item the shift is \textbf{small}
+    \item curvature is modest ($f''$ not huge)
+    \item the function is differentiable (tangent plane exists)
+  \end{itemize}
+
+  \medskip
+  \textbf{Fails or misleads when:}
+  \begin{itemize}
+    \item large shifts, kinks, or non-differentiability
+    \item strong nonlinearity (e.g.\ corner solutions, thresholds)
+  \end{itemize}
+
+  \medskip
+  \textbf{Link to Day~2 tools.}\
+  IFT gives exact first-order comparative statics;
+  Taylor explains why that linear approximation is the natural local forecast.
+\end{frame}
+
+\appendix
+
+\section{Expectation from the CDF --- proof}
+
+\begin{frame}{A.1 Expectation from the CDF}
+  \hypertarget{sec:expectation-cdf-proof}{}
+  \footnotesize
+  \textbf{Claim.}\ For non-negative continuous $X$ with PDF $f$ and CDF $F$,
+  \[
+    \mathbb{E}[X]
+    = \int_0^\infty x f(x)\,dx
+    = \int_0^\infty \bigl(1-F(x)\bigr)\,dx.
+  \]
+
+  \medskip
+  \textbf{Proof (integration by parts).}\
+  Set $u=1-F(x)$ and $dv=dx$. Then $du=-f(x)\,dx$ and $v=x$:
+  \[
+    \int_0^\infty (1-F(x))\,dx
+    = \bigl[x(1-F(x))\bigr]_0^\infty
+      - \int_0^\infty x\,(-f(x))\,dx
+    = \bigl[x(1-F(x))\bigr]_0^\infty + \int_0^\infty x f(x)\,dx.
+  \]
+
+  \medskip
+  At $x=0$, $x(1-F(x))=0$.
+  As $x\to\infty$, $x(1-F(x))\to 0$ when $\mathbb{E}[X]<\infty$.
+  Hence $\displaystyle\int_0^\infty (1-F(x))\,dx=\mathbb{E}[X]$.
+  \hfill$\square$
+\end{frame}
+
+\section{Leibniz rule --- when it can fail}
+
+\begin{frame}{A.2 Leibniz rule --- failure example}
+  \hypertarget{sec:leibniz-failure}{}
+  \footnotesize
+  \textbf{Example (fixed limits).}\
+  On $[0,1]$, let
+  \[
+    f(x,\theta)=\mathbf{1}\{x>\theta\}
+    \qquad\text{(step jumps at }x=\theta\text{)}.
+  \]
+
+  \medskip
+  Then
+  \[
+    F(\theta)=\int_0^1 f(x,\theta)\,dx = 1-\theta
+    \quad\Rightarrow\quad
+    F'(\theta)=-1.
+  \]
+
+  \medskip
+  \textbf{Why Leibniz fails.}\
+  The discontinuity \textbf{moves with} $\theta$, so $\partial f/\partial\theta$
+  is not continuous on $[0,1]\times I$.
+  Naively $\partial f/\partial\theta=0$ a.e., so
+  $\displaystyle\int_0^1 0\,dx=0\neq F'(\theta)$.
+\end{frame}
+
+\begin{frame}[plain]{A.2 Leibniz failure --- moving step (graph)}
+  \centering
+  \vfill
+  \includegraphics[width=0.78\textwidth]{figures/leibniz_failure_step.png}
+  \vfill
+\end{frame}
+
+\end{document}
