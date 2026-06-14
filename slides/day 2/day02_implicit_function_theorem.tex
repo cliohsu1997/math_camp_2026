@@ -16,17 +16,36 @@
 \usepackage{appendixnumberbeamer}
 
 \title{Math Bootcamp}
-\subtitle{Day 2 --- IFT, MVT, Integration, and Taylor}
+\subtitle{Day 2 --- More calculus and a bit of linear algebra}
 \author{Math Camp 2026}
 \date{}
 
 \newcommand{\QFrame}[1]{%
   \begin{frame}{#1 \quad {\small\textcolor{mAccent}{Together}}}}
+\newcommand{\THFrame}[1]{%
+  \begin{frame}{#1 \quad {\small\textcolor{mAccent}{Take home}}}}
+\newcommand{\InterestOnly}{\textcolor{mAccent}{\textbf{for interest only}}}
+\newcommand{\AppendixLink}[1]{%
+  \hyperlink{#1}{\textcolor{mAccent}{appendix}}}
+\newcommand{\HessianSkip}{{\small\textcolor{mAccent}{ignore if you are not familiar with what's Hessian}}}
 
 \begin{document}
 
 \begin{frame}
   \titlepage
+\end{frame}
+
+\begin{frame}{How to use these slides}
+  \small
+  \textbf{Main deck:}\ definitions, recipes, examples, and practice.
+
+  \medskip
+  \textbf{Appendix and proofs} (marked on relevant slides):\
+  \InterestOnly\ --- optional recap for those already comfortable with the math.
+
+  \medskip
+  \textbf{Not required for Math Camp.}\
+  Focus on the main slides and exercises unless you want the extra detail.
 \end{frame}
 
 \section{2.1 --- Implicit Function Theorem}
@@ -98,6 +117,10 @@
     \frac{dy}{dx}=-\frac{F_x}{F_y}
     \quad\text{when }F_y\neq 0.
   \]
+
+  \medskip
+  {\scriptsize Several variables (\InterestOnly):
+  \AppendixLink{sec:ift-multivar}.}
 \end{frame}
 
 \begin{frame}{2.1 Why $F_y \neq 0$? --- regularity condition}
@@ -117,28 +140,46 @@
   so $y$ cannot be written as a single-valued function of $x$.}
 \end{frame}
 
-\begin{frame}{2.1 Further study: several variables --- for interest}
-  \footnotesize
-  \textcolor{mAccent}{\textbf{Not required for Math Camp.}}
+\QFrame{2.1 --- Comparative statics practice (no closed form)}
+  \scriptsize
+  \textbf{Nonlinear demand:}\ $D(p,\alpha)=\alpha e^{-p}$,\ $S(p)=p$,\ $\alpha>0$.
+
+  \textbf{No elementary closed form for $p^*(\alpha)$}.
+
+  \vspace{3pt}
+  \onslide<2->{\textbf{1.}\ Excess demand $E(p,\alpha)$.}\;
+  \onslide<3->{\textcolor{mAccent}{$E(p,\alpha)=\alpha e^{-p}-p$}\par\medskip}
+
+  \onslide<4->{\textbf{2.}\ Partials $E_\alpha$, $E_p$.}\;
+  \onslide<5->{\textcolor{mAccent}{$E_\alpha=e^{-p}$,\ $E_p=-\alpha e^{-p}-1$}\par\medskip}
+
+  \onslide<6->{\textbf{3.}\ IFT at $p=p^*$:}\;
+  \onslide<7->{\textcolor{mAccent}{$\dfrac{dp^*}{d\alpha}=\dfrac{e^{-p}}{\alpha e^{-p}+1}$}\par\medskip}
+
+  \onslide<8->{\textbf{4.}\ On the curve $\alpha e^{-p^*}=p^*$, simplify:}\;
+  \onslide<9->{\textcolor{mAccent}{$\dfrac{dp^*}{d\alpha}=\dfrac{e^{-p^*}}{p^*+1}>0$}\par\medskip}
+
+  \onslide<10->{\textbf{5.}\ $\alpha=2$: $2e^{-p}=p$ gives $p^*\approx 0.85$,
+    so $\dfrac{dp^*}{d\alpha}\approx 0.23$.}\;
+  \onslide<11->{\hfill{\tiny No closed form for $p^*(\alpha)$ --- IFT still works.}}
+\end{frame}
+
+\begin{frame}{2.1 Applications --- motivation}
+  \small
+  \textbf{You just used the IFT recipe.}\
+  Write $E(p,\theta)=0$, compute $E_p$ and $E_\theta$, then
+  $\dfrac{dp^*}{d\theta}=-\dfrac{E_\theta}{E_p}$ --- even when $p^*(\theta)$ has no closed form.
 
   \medskip
-  \textbf{System:}\ $\mathbf{F}(\mathbf{y},\boldsymbol{\theta})=\mathbf{0}$,
-  $\mathbf{F}\colon\mathbb{R}^{n+m}\to\mathbb{R}^n$.
+  \textbf{Why these examples?}\ They are the standard micro patterns behind that recipe:
+  \begin{itemize}
+    \item \textbf{Demand shifter $\alpha$:}\ when does equilibrium price move up or down?
+    \item \textbf{Linear market:}\ IFT matches the answer from solving $E=0$ explicitly
+    \item \textbf{Tax $t$:}\ same formula, different parameter --- who bears the tax?
+  \end{itemize}
 
   \medskip
-  If the $n\times n$ Jacobian $\dfrac{\partial \mathbf{F}}{\partial \mathbf{y}}$
-  is invertible at the point, then locally
-  $\mathbf{y}=\mathbf{y}^*(\boldsymbol{\theta})$ and
-  \[
-    \frac{\partial \mathbf{y}^*}{\partial \boldsymbol{\theta}}
-    =
-    -\left(\frac{\partial \mathbf{F}}{\partial \mathbf{y}}\right)^{-1}
-    \frac{\partial \mathbf{F}}{\partial \boldsymbol{\theta}}.
-  \]
-
-  \medskip
-  {\scriptsize Same pattern as the one-variable formulas with $F_y$ and $F_\theta$.
-  Appears in graduate micro; camp focus is the scalar case above.}
+  \textbf{Goal.}\ Connect the abstract formula to comparative statics you will see in economics.
 \end{frame}
 
 \begin{frame}{2.1 Application --- setup}
@@ -213,7 +254,7 @@
     \frac{dp^*}{d\alpha}=-\frac{E_\alpha}{E_p}
     \qquad\text{at }p=p^*(\alpha)
   \]
-  still gives the local comparative static.
+  still gives the local comparative static (as in the practice problem).
 \end{frame}
 
 \begin{frame}{2.1 Application --- economic interpretation}
@@ -243,28 +284,32 @@
   With $E_\alpha>0$ and $E_p<0$, this requires $\dfrac{dp^*}{d\alpha}>0$.
 \end{frame}
 
-\QFrame{2.1 --- Comparative statics practice (no closed form)}
-  \scriptsize
-  \textbf{Nonlinear demand:}\ $D(p,\alpha)=\alpha e^{-p}$,\ $S(p)=p$,\ $\alpha>0$.
+\begin{frame}{2.1 Example --- tax incidence (economics)}
+  \footnotesize
+  \textbf{Setup.}\ Demand $D(p)=\alpha-bp$, supply $S(p)=c+dp$ ($b,d>0$).
+  A per-unit tax $t$ on \textbf{sellers}: buyers pay $p$, sellers receive $p-t$.
 
-  \textbf{No elementary closed form for $p^*(\alpha)$}.
+  \medskip
+  Clearing: $D(p)=S(p-t)$, so $E(p,t)=\alpha-bp-c-d(p-t)=0$ and $p^*(t)$ is implicit.
 
-  \vspace{3pt}
-  \onslide<2->{\textbf{1.}\ Excess demand $E(p,\alpha)$.}\;
-  \onslide<3->{\textcolor{mAccent}{$E(p,\alpha)=\alpha e^{-p}-p$}\par\medskip}
+  \medskip
+  Partials: $E_p=-(b+d)$,\ $E_t=d$.
+  \textbf{IFT:}
+  \[
+    \frac{dp^*}{dt}=-\frac{E_t}{E_p}=\frac{d}{b+d}>0.
+  \]
 
-  \onslide<4->{\textbf{2.}\ Partials $E_\alpha$, $E_p$.}\;
-  \onslide<5->{\textcolor{mAccent}{$E_\alpha=e^{-p}$,\ $E_p=-\alpha e^{-p}-1$}\par\medskip}
+  \medskip
+  \textbf{Incidence shares (per \$1 of tax).}\
+  Buyer price rises by $\dfrac{dp^*}{dt}=\dfrac{d}{b+d}$;
+  seller net price falls by $\dfrac{b}{b+d}$.
 
-  \onslide<6->{\textbf{3.}\ IFT at $p=p^*$:}\;
-  \onslide<7->{\textcolor{mAccent}{$\dfrac{dp^*}{d\alpha}=\dfrac{e^{-p}}{\alpha e^{-p}+1}$}\par\medskip}
-
-  \onslide<8->{\textbf{4.}\ On the curve $\alpha e^{-p^*}=p^*$, simplify:}\;
-  \onslide<9->{\textcolor{mAccent}{$\dfrac{dp^*}{d\alpha}=\dfrac{e^{-p^*}}{p^*+1}>0$}\par\medskip}
-
-  \onslide<10->{\textbf{5.}\ $\alpha=2$: $2e^{-p}=p$ gives $p^*\approx 0.85$,
-    so $\dfrac{dp^*}{d\alpha}\approx 0.23$.}\;
-  \onslide<11->{\hfill{\tiny No closed form for $p^*(\alpha)$ --- IFT still works.}}
+  \medskip
+  \textbf{Interpretation (elasticity).}\
+  In this linear market, larger $b$ means more elastic demand and larger $d$ means more elastic supply.
+  The tax is borne \textbf{more heavily by the less elastic side}:
+  if demand is relatively inelastic (small $b$), buyers pay most of the tax;
+  if supply is relatively inelastic (small $d$), sellers pay most.
 \end{frame}
 
 \section{2.2 --- Mean Value Theorem}
@@ -294,6 +339,9 @@
     \textbf{Rolle's theorem.}\
     If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$, and
     $f(a)=f(b)$, then $\exists\,c\in(a,b)$ with $f'(c)=0$.
+
+    \medskip
+    \InterestOnly
 
     \medskip
     \textbf{Proof.}\
@@ -333,6 +381,9 @@
     gives $c=1$.
 
     \medskip
+    \InterestOnly
+
+    \medskip
     \textbf{Proof idea:}\ define $g(x)=f(x)-m(x-a)$ with
     $m=\dfrac{f(b)-f(a)}{b-a}$; then $g(a)=g(b)$, Rolle gives $f'(c)=m$.
 
@@ -340,6 +391,26 @@
     \centering
     \includegraphics[width=\linewidth]{figures/mvt_secant_tangent.png}
   \end{columns}
+\end{frame}
+
+\begin{frame}{2.2 Example --- labor and output (economics)}
+  \footnotesize
+  \textbf{Setup.}\ A firm produces $f(L)$ units of output using labor $L$.
+  Suppose $f$ is continuous on $[L_1,L_2]$ and differentiable on $(L_1,L_2)$.
+
+  \medskip
+  \textbf{MVT.}\ $\exists\,L^*\in(L_1,L_2)$ such that
+  \[
+    f'(L^*)=\frac{f(L_2)-f(L_1)}{L_2-L_1}.
+  \]
+
+  \medskip
+  \textbf{Interpretation.}\ At some interior input level, the \textbf{marginal product of labor}
+  equals the \textbf{average product} over the whole change from $L_1$ to $L_2$.
+
+  \medskip
+  {\scriptsize Same idea for cost: on $[0,q]$, some $q^*$ has $C'(q^*)=C(q)/q$
+  (marginal cost = average cost).}
 \end{frame}
 
 \section{2.3 --- Integration}
@@ -559,18 +630,17 @@
     \[
       \mathbb{E}[X]
       = \int_0^\infty x f(x)\,dx
-      = \int_0^\infty \bigl(1-F(x)\bigr)\,dx
-      = \int_0^\infty P(X>x)\,dx.
+      = \int_0^\infty \bigl(1-F(x)\bigr)\,dx.
     \]
 
     \smallskip
     \textbf{Intuition.}\
-    For $X\sim\mathrm{Unif}(0,1)$, each vertical strip has height
-    $1-F(x)=P(X>x)$; $\mathbb{E}[X]$ is their total area.
+    For $X\sim\mathrm{Unif}(0,1)$, each vertical strip has height $1-F(x)$;
+    $\mathbb{E}[X]$ is their total area.
 
     \medskip
-    {\scriptsize Derivation via integration by parts:
-    \hyperlink{sec:expectation-cdf-proof}{\textcolor{mAccent}{appendix}}.}
+    {\scriptsize Derivation via integration by parts (\InterestOnly):
+    \AppendixLink{sec:expectation-cdf-proof}.}
 
     \column{0.50\textwidth}
     \centering
@@ -605,8 +675,8 @@
   \textbf{Idea.}\ Only the integrand moves with $\theta$; the limits $a,b$ stay fixed.
 
   \medskip
-  {\scriptsize When regularity fails (moving jump):
-  \hyperlink{sec:leibniz-failure}{\textcolor{mAccent}{appendix}}.}
+  {\scriptsize When regularity fails (\InterestOnly):
+  \AppendixLink{sec:leibniz-failure}.}
 \end{frame}
 
 \begin{frame}{2.4 Leibniz rule --- variable limits}
@@ -709,32 +779,82 @@
 
 \section{2.5 --- Taylor Expansion and Linearization}
 
-\begin{frame}{2.5 First-order Taylor and linearization}
+\begin{frame}{2.5 Taylor expansion --- formal statement}
   \footnotesize
-  \textbf{One variable.}\ Near $a$,
+  \textbf{One variable.}\
+  If $f$ has $n$ derivatives at $a$,
   \[
-    f(x)\approx f(a)+f'(a)(x-a).
+    f(a+h)
+    = \sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}\,h^k + R_n(h),
+    \qquad R_n(h)\to 0 \text{ faster than } h^n.
   \]
 
   \medskip
-  \textbf{Several variables.}\ Near $\mathbf{a}$,
+  \textbf{Several variables} ($f\colon\mathbb R^m\to\mathbb R$, $\mathbf{a}\in\mathbb R^m$).\
+  If $f$ is $C^2$ near $\mathbf{a}$,
   \[
     f(\mathbf{a}+\mathbf{h})
-    \approx f(\mathbf{a})+\nabla f(\mathbf{a})\cdot\mathbf{h}
-    \qquad\text{(Day~1 tangent plane).}
+    = f(\mathbf{a})
+      + \nabla f(\mathbf{a})\cdot\mathbf{h}
+      + \tfrac12\,\mathbf{h}^{\mathsf T}H_f(\mathbf{a})\,\mathbf{h}
+      + o(\|\mathbf{h}\|^2),
   \]
+  {\scriptsize $H_f(\mathbf{a})$ = Hessian at $\mathbf{a}$ (matrix of second partials).}
 
   \medskip
-  \textbf{Comparative statics reading.}\
-  A small parameter shift $\Delta\theta$ changes an equilibrium object by
+  {\scriptsize Proof (one variable):
+  \AppendixLink{sec:taylor-proof} (\InterestOnly).}
+\end{frame}
+
+\begin{frame}{2.5 First-order approximation}
+  \footnotesize
+  \textbf{One variable} (truncate at $k=1$):
   \[
-    \Delta x^* \approx \frac{dx^*}{d\theta}\,\Delta\theta,
+    f(a+h)\approx f(a)+f'(a)\,h.
   \]
-  i.e.\ \textbf{local linearization} --- first-order Taylor.
 
   \medskip
-  {\scriptsize \textbf{Second order (preview):}\ $f(a)+f'(a)(x-a)+\tfrac12 f''(a)(x-a)^2$ captures curvature;
-  needed when linearization is poor.}
+  \textbf{Several variables:}
+  \[
+    f(\mathbf{a}+\mathbf{h})
+    \approx f(\mathbf{a})+\nabla f(\mathbf{a})\cdot\mathbf{h}.
+  \]
+\end{frame}
+
+\begin{frame}{2.5 Second-order approximation}
+  \footnotesize
+  \textbf{One variable} (truncate at $k=2$):
+  \[
+    f(a+h)\approx f(a)+f'(a)\,h+\tfrac12 f''(a)\,h^2.
+  \]
+
+  \medskip
+  \textbf{Several variables:}
+  \[
+    f(\mathbf{a}+\mathbf{h})
+    \approx f(\mathbf{a})
+      + \nabla f(\mathbf{a})\cdot\mathbf{h}
+      + \tfrac12\,\mathbf{h}^{\mathsf T}H_f(\mathbf{a})\,\mathbf{h}.
+  \]
+
+  \medskip
+  \textbf{Use.}\
+  Captures \textbf{curvature} (concavity, cross-partials);
+  improves forecasts when the first-order term is not enough.
+
+  \medskip
+  {\scriptsize It\^o's lemma:
+  \AppendixLink{sec:ito-lemma} (\InterestOnly).}
+\end{frame}
+
+\QFrame{2.5 --- First-order Taylor practice (two variables)}
+  \scriptsize
+  \textbf{Approximate}\ $f(1.1,1.2)$ for $f(x,y)=x^2+y$ using Taylor at $(1,1)$,\ $\mathbf{h}=(0.1,0.2)$.
+
+  \vspace{3pt}
+  \onslide<2->{\textbf{At $(1,1)$:}\ $f(1,1)=2$,\ $f_x=2$,\ $f_y=1$.}\par\medskip
+  \onslide<3->{\textbf{First-order:}\ $2+2(0.1)+1(0.2)=2.4$.}\par\medskip
+  \onslide<4->{\textcolor{mAccent}{Exact $f(1.1,1.2)=2.41$.}}
 \end{frame}
 
 \begin{frame}{2.5 When linearization works}
@@ -743,7 +863,7 @@
   \begin{itemize}
     \item the shift is \textbf{small}
     \item curvature is modest ($f''$ not huge)
-    \item the function is differentiable (tangent plane exists)
+    \item the function is differentiable
   \end{itemize}
 
   \medskip
@@ -752,18 +872,103 @@
     \item large shifts, kinks, or non-differentiability
     \item strong nonlinearity (e.g.\ corner solutions, thresholds)
   \end{itemize}
+\end{frame}
+
+\begin{frame}[plain]{Don't make your partner disappointed}
+  \centering
+  \vfill
+  \includegraphics[width=0.38\textwidth]{figures/calculus_turnoffs_meme.png}
+  \vfill
+\end{frame}
+
+\begin{frame}{2.5 Two variables --- matrix form unpacked \quad \HessianSkip}
+  \footnotesize
+  \textbf{Setup.}\ $\mathbf{a}=(a_1,a_2)$,\ $\mathbf{h}=(h_1,h_2)$:
+  \[
+    f(\mathbf{a}+\mathbf{h})
+    \approx f(\mathbf{a})
+      + \nabla f(\mathbf{a})\cdot\mathbf{h}
+      + \tfrac12\,\mathbf{h}^{\mathsf T}H_f(\mathbf{a})\,\mathbf{h}.
+  \]
 
   \medskip
-  \textbf{Link to Day~2 tools.}\
-  IFT gives exact first-order comparative statics;
-  Taylor explains why that linear approximation is the natural local forecast.
+  \textbf{First-order.}\
+  $\nabla f=(f_{x_1},f_{x_2})$ at $\mathbf{a}$, so
+  $\nabla f\cdot\mathbf{h}=f_{x_1}h_1+f_{x_2}h_2$.
+
+  \medskip
+  \textbf{Second-order.}\
+  {\scriptsize
+  $H_f=
+  \begin{pmatrix}f_{x_1x_1}&f_{x_1x_2}\\f_{x_2x_1}&f_{x_2x_2}\end{pmatrix}$,
+  }
+  and multiply:
+  {\scriptsize
+  \[
+    \mathbf{h}^{\mathsf T}H_f\mathbf{h}
+    = (h_1\ h_2)
+      \begin{pmatrix}f_{x_1x_1}h_1+f_{x_1x_2}h_2\\
+                     f_{x_2x_1}h_1+f_{x_2x_2}h_2\end{pmatrix}
+    = f_{x_1x_1}h_1^2 + (f_{x_1x_2}+f_{x_2x_1})h_1h_2 + f_{x_2x_2}h_2^2.
+  \]
+  }
+  If $f\in C^2$, then $f_{x_1x_2}=f_{x_2x_1}$, hence
+  \[
+    f(\mathbf{a}+\mathbf{h})
+    \approx f(\mathbf{a})
+      + f_{x_1}h_1 + f_{x_2}h_2
+      + \tfrac12\bigl(
+        f_{x_1x_1}h_1^2 + 2f_{x_1x_2}h_1h_2 + f_{x_2x_2}h_2^2
+      \bigr).
+  \]
+\end{frame}
+
+\begin{frame}{2.5 --- Second-order Taylor practice (two variables) \quad {\small\textcolor{mAccent}{Take home}} \quad \HessianSkip}
+  \footnotesize
+  \textbf{Approximate}\ $f(0.1,0.2)$ for $f(x,y)=\sin x+\cos y$ using a second-order Taylor expansion at $(0,0)$.
+
+  \medskip
+  Use $\mathbf{h}=(0.1,0.2)$ and the explicit second-order formula on the matrix-form slide.
+
+  \medskip
+  {\scriptsize Check your answer with a calculator (no need to simplify trig decimals).}
 \end{frame}
 
 \appendix
 
+\begin{frame}{Appendix}
+  \small
+  \textbf{Not required for Math Camp.}\
+  Proofs and extra examples linked from the main slides.
+\end{frame}
+
+\section{Implicit Function Theorem --- several variables}
+
+\begin{frame}{A.1 IFT --- several variables}
+  \hypertarget{sec:ift-multivar}{}
+  \footnotesize
+  \textbf{System:}\ $\mathbf{F}(\mathbf{y},\boldsymbol{\theta})=\mathbf{0}$,
+  $\mathbf{F}\colon\mathbb{R}^{n+m}\to\mathbb{R}^n$.
+
+  \medskip
+  If the $n\times n$ Jacobian $\dfrac{\partial \mathbf{F}}{\partial \mathbf{y}}$
+  is invertible at the point, then locally
+  $\mathbf{y}=\mathbf{y}^*(\boldsymbol{\theta})$ and
+  \[
+    \frac{\partial \mathbf{y}^*}{\partial \boldsymbol{\theta}}
+    =
+    -\left(\frac{\partial \mathbf{F}}{\partial \mathbf{y}}\right)^{-1}
+    \frac{\partial \mathbf{F}}{\partial \boldsymbol{\theta}}.
+  \]
+
+  \medskip
+  {\scriptsize Same pattern as the one-variable formulas with $F_y$ and $F_\theta$.
+  Appears in graduate micro; camp focus is the scalar case in section~2.1.}
+\end{frame}
+
 \section{Expectation from the CDF --- proof}
 
-\begin{frame}{A.1 Expectation from the CDF}
+\begin{frame}{A.2 Expectation from the CDF}
   \hypertarget{sec:expectation-cdf-proof}{}
   \footnotesize
   \textbf{Claim.}\ For non-negative continuous $X$ with PDF $f$ and CDF $F$,
@@ -792,7 +997,7 @@
 
 \section{Leibniz rule --- when it can fail}
 
-\begin{frame}{A.2 Leibniz rule --- failure example}
+\begin{frame}{A.3 Leibniz rule --- failure example}
   \hypertarget{sec:leibniz-failure}{}
   \footnotesize
   \textbf{Example (fixed limits).}\
@@ -818,11 +1023,134 @@
   $\displaystyle\int_0^1 0\,dx=0\neq F'(\theta)$.
 \end{frame}
 
-\begin{frame}[plain]{A.2 Leibniz failure --- moving step (graph)}
+\begin{frame}[plain]{A.3 Leibniz failure --- moving step (graph)}
   \centering
   \vfill
   \includegraphics[width=0.78\textwidth]{figures/leibniz_failure_step.png}
   \vfill
+\end{frame}
+
+\section{Taylor expansion --- proof}
+
+\begin{frame}{A.4 Taylor expansion (one variable)}
+  \hypertarget{sec:taylor-proof}{}
+  \footnotesize
+  \textbf{Claim (second order).}\
+  If $f\in C^2$ on an interval containing $a$ and $a+h$, then
+  \[
+    f(a+h)
+    = f(a)+f'(a)\,h+\tfrac12 f''(c)\,h^2
+  \]
+  for some $c$ strictly between $a$ and $a+h$.
+
+  \medskip
+  \textbf{Proof.}\
+  Write
+  \[
+    f(a+h)=f(a)+h f'(a)+R(h).
+  \]
+  \textbf{Step 1.}\
+  By FTC and the chain rule,
+  $f(a+h)-f(a)=\displaystyle\int_0^h f'(a+t)\,dt$, so
+  \[
+    R(h)=\int_0^h \bigl[f'(a+t)-f'(a)\bigr]\,dt.
+  \]
+  \textbf{Step 2.}\
+  For each $t\in(0,h]$, MVT on $f'$ gives
+  $f'(a+t)-f'(a)=t f''(c_t)$ with $c_t\in(a,a+t)$.
+  Hence
+  \[
+    R(h)=\int_0^h t f''(c_t)\,dt
+    = \tfrac{h^2}{2}\,f''(c)
+  \]
+  for some $c$ between $a$ and $a+h$ (continuous $f''$).
+  \hfill$\square$
+
+  \medskip
+  {\scriptsize First order follows from the $n=1$ case (or MVT on $f$ directly).\
+  Multivariable formulas follow from applying the chain rule along
+  $\mathbf{a}+t\mathbf{h}$.}
+\end{frame}
+
+\section{Taylor and It\^o's lemma}
+
+\begin{frame}{A.5 What is Brownian motion?}
+  \footnotesize
+
+  \textbf{Brownian motion} $W_t$ (also called a \textbf{Wiener process}):\
+  a continuous-time \textbf{random} path with $W_0=0$.
+
+  \medskip
+  \textbf{Intuition.}\
+  Think of a particle jolted by unpredictable shocks (e.g.\ noise in a stock price).
+  You cannot forecast the next jiggle, but you can describe its \textbf{typical size}.
+
+  \medskip
+  \textbf{Key facts (informal).}
+  \begin{itemize}
+    \item Over $[t,t+\Delta t]$: increment $\Delta W=W_{t+\Delta t}-W_t$ has mean $0$ and variance $\Delta t$
+    \item Increments on \textbf{non-overlapping} intervals are independent
+    \item Paths are \textbf{continuous} but very jagged (not differentiable in the usual sense)
+  \end{itemize}
+
+  \medskip
+  {\scriptsize In $dX_t=\mu\,dt+\sigma\,dW_t$, the $dW_t$ term is this random noise scaled by $\sigma$.}
+\end{frame}
+
+\begin{frame}{A.5 Taylor and It\^o's lemma}
+  \hypertarget{sec:ito-lemma}{}
+  \footnotesize
+  \textbf{Setup.}\
+  $X_t$ follows an It\^o process (e.g.\ $dX_t=\mu\,dt+\sigma\,dW_t$).
+  Over a short interval $[t,t+\Delta t]$,
+  \[
+    \Delta X = X_{t+\Delta t}-X_t
+    \qquad\text{(change in the state variable).}
+  \]
+  Expand $f(X_t,t)$ in the \textbf{two} small steps $\Delta X$ and $\Delta t$.
+
+  \medskip
+  \textbf{Taylor in $(x,t)$ through order $2$:}
+  \[
+    \Delta f
+    \approx f_x\,\Delta X + f_t\,\Delta t
+    + \tfrac12 f_{xx}\,(\Delta X)^2
+    + f_{xt}\,\Delta X\,\Delta t
+    + \tfrac12 f_{tt}\,(\Delta t)^2.
+  \]
+\end{frame}
+
+\begin{frame}{A.5 It\^o multiplication rules}
+  \footnotesize
+  \textbf{Ordinary calculus.}\
+  If $\Delta t$ is small, then $(\Delta t)^2$ is \textbf{much smaller} and can be dropped.
+
+  \medskip
+  \textbf{Stochastic calculus.}\
+  $\Delta W=W_{t+\Delta t}-W_t$ is one \textbf{Brownian increment} (see previous slide):
+  mean $0$, variance $\Delta t$.
+  So a typical size is $|\Delta W|\sim\sqrt{\Delta t}$, not $\Delta t$.
+
+  \medskip
+  \textbf{Why $(\Delta W)^2\approx \Delta t$.}\
+  Squaring a $\sqrt{\Delta t}$-sized step gives order $\Delta t$:
+  \[
+    (\Delta W)^2 \sim (\sqrt{\Delta t})^2 = \Delta t.
+  \]
+  So $(\Delta W)^2$ is \textbf{not} negligible next to $\Delta t$ (unlike $(\Delta t)^2$).
+
+  \medskip
+  \textbf{It\^o rules (informally):}\
+  $(\Delta t)^2\to 0$,\ $(\Delta W)^2\approx \Delta t$,\ $\Delta t\,\Delta W\to 0$.
+  For $dX=\mu\,dt+\sigma\,dW$, this makes $\tfrac12 f_{xx}(\Delta X)^2$ contribute at the
+  same scale as $\Delta t$.
+
+  \medskip
+  \textbf{It\^o's lemma:}
+  \[
+    df = f_t\,dt + f_x\,dX + \tfrac12 f_{xx}\,(dX)^2
+    \quad\text{(plus higher-order terms).}
+  \]
 \end{frame}
 
 \end{document}
