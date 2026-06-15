@@ -39,26 +39,38 @@ def _dot_range(
     return float(dots.min()), float(dots.max())
 
 
-def make_separation_plot() -> None:
-    """A below a downward-sloping line; B above; p has positive components."""
-    # A lower-left, B upper-right so positive p separates with a downward-sloping line.
-    center_a = (0.95, 0.92)
-    center_b = (2.55, 2.18)
+def _proof_geometry() -> dict:
+    center_a = np.array([0.95, 0.92])
+    center_b = np.array([2.55, 2.18])
     width, height = 0.50, 0.36
     angle_a, angle_b = -22.0, 24.0
-
     p = np.array([0.72, 0.69])
     p = p / np.linalg.norm(p)
+    max_a, _ = _dot_range(tuple(center_a), width, height, angle_a, p)
+    _, min_b = _dot_range(tuple(center_b), width, height, angle_b, p)
+    beta = max_a + 0.45 * (min_b - max_a)
+    return {
+        "center_a": center_a,
+        "center_b": center_b,
+        "width": width,
+        "height": height,
+        "angle_a": angle_a,
+        "angle_b": angle_b,
+        "p_unit": p,
+        "beta": beta,
+        "a0": center_a,
+        "b0": center_b,
+        "p_vec": center_b - center_a,
+    }
 
-    max_a, _ = _dot_range(center_a, width, height, angle_a, p)
-    _, min_b = _dot_range(center_b, width, height, angle_b, p)
-    gap = min_b - max_a
-    if gap <= 0.05:
-        raise RuntimeError("Ellipses overlap along separating direction.")
 
-    beta = max_a + 0.45 * gap
-
-    fig, ax = plt.subplots(figsize=(5.6, 4.2), dpi=220)
+def _draw_ellipses(ax: plt.Axes, geom: dict) -> None:
+    center_a = tuple(geom["center_a"])
+    center_b = tuple(geom["center_b"])
+    width = geom["width"]
+    height = geom["height"]
+    angle_a = geom["angle_a"]
+    angle_b = geom["angle_b"]
 
     ellipse_a = Ellipse(
         center_a,
@@ -90,8 +102,43 @@ def make_separation_plot() -> None:
     ax.plot(xa, ya, color=DARK_TEAL, linewidth=2.2, zorder=3)
     ax.plot(xb, yb, color=ACCENT, linewidth=2.2, zorder=3)
 
+    ax.text(
+        center_a[0],
+        center_a[1],
+        r"$A$",
+        fontsize=12,
+        color=DARK_TEAL,
+        ha="center",
+        va="center",
+        fontweight="bold",
+        zorder=6,
+    )
+    ax.text(
+        center_b[0],
+        center_b[1],
+        r"$B$",
+        fontsize=12,
+        color=ACCENT,
+        ha="center",
+        va="center",
+        fontweight="bold",
+        zorder=6,
+    )
+
+
+def make_separation_plot() -> None:
+    """A below a downward-sloping line; B above; p has positive components."""
+    geom = _proof_geometry()
+    p = geom["p_unit"]
+    beta = geom["beta"]
+    center_a = geom["center_a"]
+    center_b = geom["center_b"]
+
+    fig, ax = plt.subplots(figsize=(5.6, 4.2), dpi=220)
+    _draw_ellipses(ax, geom)
+
     tangent = np.array([-p[1], p[0]])
-    gap_mid = 0.5 * (np.array(center_a) + np.array(center_b))
+    gap_mid = 0.5 * (center_a + center_b)
     line_center = gap_mid - (np.dot(p, gap_mid) - beta) * p
     seg_half = 0.62
     line_start = line_center - seg_half * tangent
@@ -122,29 +169,6 @@ def make_separation_plot() -> None:
         zorder=6,
     )
 
-    ax.text(
-        center_a[0],
-        center_a[1],
-        r"$A$",
-        fontsize=12,
-        color=DARK_TEAL,
-        ha="center",
-        va="center",
-        fontweight="bold",
-        zorder=6,
-    )
-    ax.text(
-        center_b[0],
-        center_b[1],
-        r"$B$",
-        fontsize=12,
-        color=ACCENT,
-        ha="center",
-        va="center",
-        fontweight="bold",
-        zorder=6,
-    )
-
     ax.set_xlim(0.0, 3.4)
     ax.set_ylim(0.0, 2.9)
     ax.set_xlabel(r"good 1 ($x_1$)", fontsize=10)
@@ -167,5 +191,94 @@ def make_separation_plot() -> None:
     print(f"Wrote {out}")
 
 
+def make_separation_proof_plot() -> None:
+    """Proof idea: closest pair, normal p=b0-a0, perpendicular separating line."""
+    geom = _proof_geometry()
+    a0 = geom["a0"]
+    b0 = geom["b0"]
+    p_vec = geom["p_vec"]
+    p_unit = p_vec / np.linalg.norm(p_vec)
+    beta = geom["beta"]
+    midpoint = 0.5 * (a0 + b0)
+
+    fig, ax = plt.subplots(figsize=(5.6, 4.2), dpi=220)
+    _draw_ellipses(ax, geom)
+
+    ax.plot([a0[0], b0[0]], [a0[1], b0[1]], color=ACCENT, linewidth=2.4, zorder=5)
+    ax.plot(a0[0], a0[1], "o", color=DARK_TEAL, markersize=8, zorder=6)
+    ax.plot(b0[0], b0[1], "o", color=ACCENT, markersize=8, zorder=6)
+    ax.text(a0[0] - 0.18, a0[1] - 0.12, r"$a_0$", fontsize=10, color=DARK_TEAL, zorder=7)
+    ax.text(b0[0] + 0.06, b0[1] + 0.06, r"$b_0$", fontsize=10, color=ACCENT, zorder=7)
+
+    ax.annotate(
+        "",
+        xy=b0,
+        xytext=a0,
+        arrowprops=dict(arrowstyle="->", color=ACCENT, lw=2.0),
+        zorder=6,
+    )
+    ax.text(
+        midpoint[0] - 0.35,
+        midpoint[1] - 0.22,
+        r"$\mathbf{p}=b_0-a_0$",
+        fontsize=9,
+        color=ACCENT,
+        zorder=7,
+    )
+    ax.text(
+        midpoint[0] + 0.08,
+        midpoint[1] + 0.02,
+        r"$\|b_0-a_0\|$",
+        fontsize=8,
+        color="0.35",
+        zorder=7,
+    )
+
+    tangent = np.array([-p_unit[1], p_unit[0]])
+    line_center = midpoint - (np.dot(p_unit, midpoint) - beta) * p_unit
+    seg_half = 0.72
+    line_start = line_center - seg_half * tangent
+    line_end = line_center + seg_half * tangent
+    ax.plot(
+        [line_start[0], line_end[0]],
+        [line_start[1], line_end[1]],
+        color=DARK_TEAL,
+        linewidth=2.0,
+        linestyle="--",
+        zorder=4,
+    )
+    ax.text(
+        line_end[0] - 0.05,
+        line_end[1] + 0.08,
+        r"separating line",
+        fontsize=8,
+        color=DARK_TEAL,
+        ha="right",
+        zorder=7,
+    )
+
+    ax.set_xlim(0.0, 3.4)
+    ax.set_ylim(0.0, 2.9)
+    ax.set_xlabel(r"good 1 ($x_1$)", fontsize=10)
+    ax.set_ylabel(r"good 2 ($x_2$)", fontsize=10)
+    ax.set_title(
+        r"Proof idea: closest pair, then a line $\perp\ \mathbf{p}$",
+        fontsize=10,
+        color=DARK_TEAL,
+        pad=10,
+    )
+    ax.set_aspect("equal", adjustable="box")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.tick_params(labelsize=8)
+
+    out = OUT_DIR / "separation_proof_idea.png"
+    fig.subplots_adjust(top=0.90, bottom=0.14, left=0.12, right=0.98)
+    fig.savefig(out, bbox_inches="tight", facecolor="white", pad_inches=0.10)
+    plt.close(fig)
+    print(f"Wrote {out}")
+
+
 if __name__ == "__main__":
     make_separation_plot()
+    make_separation_proof_plot()
