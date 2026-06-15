@@ -198,6 +198,11 @@
   a separating hyperplane exists even when $A$ is not compact.
 
   \medskip
+  \textbf{Remark (strict separation).}\ If the sets are a \textbf{positive distance} apart
+  ($d=\inf\|a-b\|>0$; e.g.\ both compact and disjoint), the same $\mathbf{p}$ gives
+  \textbf{strict} separation $\mathbf{p}\cdot a<\beta<\mathbf{p}\cdot b$ --- \AppendixLink{sec:separation-strict} (\InterestOnly).
+
+  \medskip
   {\scriptsize Proof idea when $A$ is compact: \AppendixLink{sec:separation-proof} (\InterestOnly).}
 \end{frame}
 
@@ -207,26 +212,27 @@
   \includegraphics[width=0.88\textwidth,height=0.92\textheight,keepaspectratio]{figures/separation_hyperplane.png}
 \end{frame}
 
-\begin{frame}{3.2 Example --- production set vs.\ preferred bundles}
+\begin{frame}{3.2 Example --- producer theory}
   \footnotesize
-  \textbf{Classic micro example.}\ Two goods. Let
-  \begin{itemize}
-    \item $A$ = \textbf{production possibility set} (feasible output combinations);
-    \item $B$ = bundles \textbf{strictly preferred} to the status quo $\bar x$ (better indifference curves).
-  \end{itemize}
-  If preferences are convex, $B$ is convex. If no feasible bundle is strictly preferred to $\bar x$,
-  then $A\cap B=\varnothing$.
+  \textbf{Setup.}\ A firm's \textbf{production possibility set} $Y\subset\mathbb{R}^n$ is
+  \textbf{convex} (and closed in full treatments).
 
   \medskip
-  \textbf{Separation $\Rightarrow$ prices.}\ The theorem gives $\mathbf{p}^*$ and $\beta$ with
-  $\mathbf{p}^*\cdot a\le\beta\le\mathbf{p}^*\cdot b$ for all $a\in A$, $b\in B$.
-  At a boundary point $a^*\in A$, the line $\mathbf{p}^*\cdot x=\beta$ is a \textbf{supporting price line}:
-  the firm produces $a^*$ where profit $\mathbf{p}^*\cdot a$ is maximized over $A$.
+  \textbf{Statement.}\ If $Y$ is convex, the theorem guarantees that every
+  \textbf{technically efficient} production plan $y\in Y$ is also a
+  \textbf{profit-maximizing} choice for some nonzero price vector $\mathbf{p}$:
+  \[
+    \mathbf{p}\cdot y \ge \mathbf{p}\cdot y'
+    \quad\text{for all }y'\in Y.
+  \]
 
   \medskip
-  \textbf{Numbers.}\ If $\mathbf{p}^*=(2,5)$ and $\beta=100$, then $a=(10,16)$ lies on the line
-  ($2\cdot10+5\cdot16=100$) while a preferred bundle $b=(14,18)$ costs $118>100$ --- affordable
-  production stays on one side, strictly better bundles on the other.
+  \textbf{Separation picture.}\ Let $B$ be outputs \textbf{strictly better than} $y$
+  (more of some good, no less of any). If $y$ is efficient, $Y\cap B=\varnothing$.
+  A separating hyperplane gives supporting prices $\mathbf{p}$ at $y$.
+
+  \medskip
+  {\scriptsize Proof: \AppendixLink{sec:producer-proof} (\InterestOnly).}
 \end{frame}
 
 \appendix
@@ -344,9 +350,36 @@
     =\|b_0-a_0\|^2=d^2>0,
   \]
   so $\mathbf{p}\cdot a_0<\mathbf{p}\cdot b_0$.
-  Pick any $\beta$ with $\mathbf{p}\cdot a_0\le\beta\le\mathbf{p}\cdot b_0$
-  (e.g.\ $\beta=\mathbf{p}\cdot a_0$). Then
-  $\mathbf{p}\cdot a\le\beta\le\mathbf{p}\cdot b$ for all $a\in A$, $b\in B$.
+  Any $\beta$ with $\mathbf{p}\cdot a_0\le\beta\le\mathbf{p}\cdot b_0$ works
+  (e.g.\ $\beta=\mathbf{p}\cdot a_0$ gives \textbf{weak} separation:
+  $\mathbf{p}\cdot a\le\beta\le\mathbf{p}\cdot b$ for all $a\in A$, $b\in B$).
+\end{frame}
+
+\begin{frame}{A.1 Strict separation}
+  \hypertarget{sec:separation-strict}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Weak vs.\ strict.}\
+  From Steps~3--5: $\mathbf{p}\cdot a\le\mathbf{p}\cdot a_0$ and $\mathbf{p}\cdot b\ge\mathbf{p}\cdot b_0$.
+  So any $\beta$ with $\mathbf{p}\cdot a_0\le\beta\le\mathbf{p}\cdot b_0$ separates weakly
+  (e.g.\ $\beta=\mathbf{p}\cdot a_0$).
+
+  \medskip
+  \textbf{When is separation strict?}\
+  If $d=\|b_0-a_0\|>0$ (sets bounded apart; e.g.\ both compact and disjoint), then
+  $\mathbf{p}\cdot a_0<\mathbf{p}\cdot b_0$ with a \textbf{positive gap}.
+  Pick $\beta$ \textbf{strictly between} them, e.g.\
+  $\beta=\tfrac12(\mathbf{p}\cdot a_0+\mathbf{p}\cdot b_0)$. Then
+  \[
+    \mathbf{p}\cdot a\le\mathbf{p}\cdot a_0<\beta<\mathbf{p}\cdot b_0\le\mathbf{p}\cdot b
+    \quad\Rightarrow\quad
+    \mathbf{p}\cdot a<\beta<\mathbf{p}\cdot b.
+  \]
+
+  \medskip
+  {\scriptsize If $d=0$ (sets touch in the limit, e.g.\ $A=[0,1]$, $B=(1,2]$), only weak separation is possible.}
 \end{frame}
 
 \begin{frame}{A.1 Proof.\ Remarks}
@@ -361,10 +394,65 @@
   \textbf{Single point $B=\{b_0\}$.}\
   Let $\hat a$ be a point in $A$ closest to $b_0$ (exists since $A$ is closed and convex).
   The same calculation with $(a_0,b_0)=(\hat a,b_0)$ separates $A$ from $b_0$ even when $A$ is not compact.
+\end{frame}
+
+\section{Producer theory example --- proof}
+
+\begin{frame}{A.2 Proof.\ Efficient production $\Rightarrow$ profit maximization}
+  \hypertarget{sec:producer-proof}{}
+  \footnotesize
+  \InterestOnly
 
   \medskip
-  {\scriptsize Full treatments also cover strict separation and infinite-dimensional versions;
-  not needed for camp.}
+  \textbf{Goal.}\ $y\in Y$ technically efficient $\Rightarrow\ \exists\,\mathbf{p}\neq\mathbf{0}$ with
+  $\mathbf{p}\cdot y\ge\mathbf{p}\cdot y'$ for all $y'\in Y$.
+
+  \medskip
+  \textbf{Assumptions (camp level).}\
+  $Y\subset\mathbb{R}^n$ is \textbf{closed and convex}; $Y$ is \textbf{bounded} (so compact);
+  \textbf{free disposal} (if $y\in Y$ and $\tilde y\le y$, then $\tilde y\in Y$).
+
+  \medskip
+  \textbf{Step 1 --- better set.}\
+  Define
+  \[
+    P_y=\{y'\in\mathbb{R}^n:\ y'\ge y,\ y'\neq y\}
+  \]
+  (weakly more output, strictly more in at least one good). $P_y$ is \textbf{convex}.
+
+  \medskip
+  \textbf{Step 2 --- disjointness.}\
+  If $y'\in P_y\cap Y$, then $y'$ weakly dominates $y$ in $Y$, contradicting efficiency.
+  So $P_y\cap Y=\varnothing$.
+\end{frame}
+
+\begin{frame}{A.2 Proof.\ Efficient production (continued)}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Step 3 --- separate.}\
+  $Y$ is compact and $P_y$ is closed, so apply the separating hyperplane theorem
+  (swap labels if needed so a compact set is on one side).
+  There exist $\mathbf{p}\neq\mathbf{0}$ and $\beta$ with
+  \[
+    \mathbf{p}\cdot y''\le\beta\le\mathbf{p}\cdot y'
+    \quad\forall\,y''\in Y,\;\forall\,y'\in P_y.
+  \]
+  Hence $\mathbf{p}\cdot y''\le\mathbf{p}\cdot y'$ for all $y''\in Y$, $y'\in P_y$.
+
+  \medskip
+  \textbf{Step 4 --- profit maximization at $y$.}\
+  For each good $i$, pick $y'^{(i)}=y+\varepsilon e_i\in P_y$ for small $\varepsilon>0$
+  (feasible with free disposal). Then
+  $\mathbf{p}\cdot y''\le\mathbf{p}\cdot y'^{(i)}=\mathbf{p}\cdot y+\varepsilon p_i$.
+  Let $\varepsilon\downarrow 0$ to get $\mathbf{p}\cdot y''\le\mathbf{p}\cdot y$ for all $y''\in Y$.
+
+  \medskip
+  \textbf{Remark.}\
+  Separation gives only $\mathbf{p}\neq\mathbf{0}$.
+  For $\mathbf{p}\ge 0$, need free disposal on all goods: if $p_i<0$, then
+  $y-\varepsilon e_i\in Y$ (since $\le y$) raises profit, contradicting maximization at $y$.
 \end{frame}
 
 \end{document}
