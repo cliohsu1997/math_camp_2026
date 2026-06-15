@@ -175,92 +175,51 @@
 
 \section{3.2 --- Separation Theorem}
 
-\begin{frame}[plain]{3.2 Separation --- picture}
+\begin{frame}{3.2 Separating Hyperplane Theorem}
+  \footnotesize
+  \textbf{Setup.}\ Two nonempty \textbf{convex} sets $A,B\subset\mathbb{R}^n$ with $A\cap B=\varnothing$.
+
+  \medskip
+  \textbf{Theorem.}\ If $A$ is \textbf{compact}, then there exist $\mathbf{p}\neq\mathbf{0}$ and $\beta\in\mathbb{R}$ such that
+  $\mathbf{p}\cdot a\le\beta\le\mathbf{p}\cdot b$ for all $a\in A$, $b\in B$.
+  Geometrically: the hyperplane $\mathbf{p}\cdot x=\beta$ separates $A$ from $B$.
+
+  \medskip
+  \textbf{In two goods ($x=(x_1,x_2)$).}\ The line $p_1 x_1+p_2 x_2=\beta$ puts all of $A$ on one side
+  ($\mathbf{p}\cdot a\le\beta$) and all of $B$ on the other ($\mathbf{p}\cdot b\ge\beta$);
+  $\mathbf{p}$ is the normal, $\beta$ fixes the line's position.
+
+  \medskip
+  \textbf{Remark (single point).}\ If $B=\{b_0\}$ is one point outside a closed convex set $A$,
+  a separating hyperplane exists even when $A$ is not compact.
+\end{frame}
+
+\begin{frame}[plain]{}
   \centering
-  \vfill
-  \includegraphics[width=0.78\textwidth]{figures/separation_hyperplane.png}
-  \vfill
+  \vspace{-0.15cm}
+  \includegraphics[width=0.88\textwidth,height=0.92\textheight,keepaspectratio]{figures/separation_hyperplane.png}
 \end{frame}
 
-\begin{frame}{3.2 What $\mathbf{p}\cdot a\le\beta\le\mathbf{p}\cdot b$ means}
+\begin{frame}{3.2 Example --- production set vs.\ preferred bundles}
   \footnotesize
-  \textbf{Two dimensions, two goods.}\ Write a bundle as $a=(a_1,a_2)$.
-  A \textbf{price line} is
-  \[
-    p_1 x_1 + p_2 x_2 = \beta
-    \qquad\text{(same as }\mathbf{p}\cdot x=\beta\text{)}.
-  \]
-
-  \medskip
-  \textbf{Reading the inequalities.}
+  \textbf{Classic micro example.}\ Two goods. Let
   \begin{itemize}
-    \item $\mathbf{p}\cdot a\le\beta$ for all $a\in A$: every point of $A$ lies on the
-      \textbf{same side} of the line (here: on or below it).
-    \item $\mathbf{p}\cdot b\ge\beta$ for all $b\in B$: every point of $B$ lies on the
-      \textbf{opposite side} (here: on or above it).
+    \item $A$ = \textbf{production possibility set} (feasible output combinations);
+    \item $B$ = bundles \textbf{strictly preferred} to the status quo $\bar x$ (better indifference curves).
   \end{itemize}
+  If preferences are convex, $B$ is convex. If no feasible bundle is strictly preferred to $\bar x$,
+  then $A\cap B=\varnothing$.
 
   \medskip
-  So $A$ and $B$ are \textbf{separated} by one straight line; $\mathbf{p}$ is the slope/normal of that line,
-  and $\beta$ fixes its position. No matrices needed --- just prices and a budget line.
-\end{frame}
-
-\begin{frame}{3.2 Example --- feasible vs.\ preferred bundles}
-  \footnotesize
-  \textbf{Setup.}\ One consumer, two goods. Let
-  \begin{itemize}
-    \item $A$ = \textbf{feasible} bundles (can be produced / afforded at given resources);
-    \item $B$ = bundles \textbf{strictly preferred} to the status quo (better indifference curves).
-  \end{itemize}
-  If preferences are convex, $B$ is convex. If $A\cap B=\varnothing$, a separating line exists.
+  \textbf{Separation $\Rightarrow$ prices.}\ The theorem gives $\mathbf{p}^*$ and $\beta$ with
+  $\mathbf{p}^*\cdot a\le\beta\le\mathbf{p}^*\cdot b$ for all $a\in A$, $b\in B$.
+  At a boundary point $a^*\in A$, the line $\mathbf{p}^*\cdot x=\beta$ is a \textbf{supporting price line}:
+  the firm produces $a^*$ where profit $\mathbf{p}^*\cdot a$ is maximized over $A$.
 
   \medskip
-  \textbf{Numerical sketch.}\ Suppose the line is $p_1 x_1 + p_2 x_2 = 100$ with $\mathbf{p}=(2,5)$.
-  \begin{itemize}
-    \item Feasible bundle $a=(10,16)$: $2\cdot10+5\cdot16=100$ --- on the line (cheapest feasible choice).
-    \item Preferred bundle $b=(14,18)$: $2\cdot14+5\cdot18=118>100$ --- above the line, not affordable at these prices.
-  \end{itemize}
-
-  \medskip
-  At a competitive allocation, a price line can sit between ``what is possible'' and ``what everyone wants more of.''
-\end{frame}
-
-\begin{frame}{3.2 First Welfare Theorem --- simple argument}
-  \footnotesize
-  \textbf{Statement.}\ Under standard convexity, a competitive equilibrium allocation is \textbf{Pareto efficient}.
-
-  \medskip
-  \textbf{Proof idea (4 steps).}
-  \begin{enumerate}
-    \item In equilibrium, each consumer chooses a best affordable bundle; each firm maximizes profit at prices $\mathbf{p}^*$.
-    \item Suppose another allocation $\tilde x$ is Pareto better: everyone weakly better off, someone strictly.
-    \item With convex preferences, if $\tilde x$ were affordable at $\mathbf{p}^*$, some agent would have chosen it --- contradiction.
-    \item So any Pareto improvement must use bundles that are \textbf{not affordable} at $\mathbf{p}^*$: the aggregate ``better than'' set
-      lies on the expensive side of the equilibrium price line, while feasible aggregates stay on the cheap side.
-      \textbf{Separation} is exactly the geometry behind step 4.
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}{3.2 Duality and separation}
-  \footnotesize
-  \textbf{Primal problem (example).}\ ``Choose $x$ to maximize utility subject to a budget / resource constraint.''
-  \[
-    \max u(x)\quad\text{s.t.}\quad \mathbf{p}\cdot x \le w.
-  \]
-
-  \medskip
-  \textbf{Dual side.}\ The prices $\mathbf{p}$ and cutoff $\beta$ in
-  $\mathbf{p}\cdot x\le\beta$ are \textbf{shadow values}:
-  \begin{itemize}
-    \item they tell how much one unit of each good ``costs'' at the margin;
-    \item in constrained optimization, Lagrange multipliers play the role of $\mathbf{p}$;
-    \item a \textbf{separating line} is the same object: coefficients $\mathbf{p}$ and level $\beta$ that
-      separate feasible from preferred points.
-  \end{itemize}
-
-  \medskip
-  \textbf{Link.}\ Separation $\Leftrightarrow$ existence of prices supporting an efficient allocation
-  $\Leftrightarrow$ dual variables in the primal problem. Day~4--5 make this algorithmic (LP, KKT).
+  \textbf{Numbers.}\ If $\mathbf{p}^*=(2,5)$ and $\beta=100$, then $a=(10,16)$ lies on the line
+  ($2\cdot10+5\cdot16=100$) while a preferred bundle $b=(14,18)$ costs $118>100$ --- affordable
+  production stays on one side, strictly better bundles on the other.
 \end{frame}
 
 \end{document}
