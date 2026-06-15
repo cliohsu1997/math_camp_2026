@@ -1,0 +1,165 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{metropolis}
+\usecolortheme{default}
+\metroset{numbering=fraction, progressbar=frametitle, sectionpage=none}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{frametitle}{bg=mDarkTeal, fg=white}
+\setbeamercolor{progress bar}{fg=mDarkTeal, bg=mDarkTeal!20}
+\definecolor{mDarkTeal}{HTML}{23373B}
+\definecolor{mAccent}{HTML}{EB811B}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+\usepackage{tikz}
+
+\title{Math Bootcamp}
+\subtitle{Day 3 --- Linear algebra and real analysis}
+\author{Math Camp 2026}
+\date{}
+
+\newcommand{\InterestOnly}{\textcolor{mAccent}{\textbf{for interest only}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{How to use these slides}
+  \small
+  \textbf{Main deck:}\ definitions, recipes, examples, and practice.
+
+  \medskip
+  \textbf{Appendix and proofs} (marked on relevant slides):\
+  \InterestOnly\ --- optional recap for those already comfortable with the math.
+
+  \medskip
+  \textbf{Not required for Math Camp.}\
+  Focus on the main slides and exercises unless you want the extra detail.
+\end{frame}
+
+\section{3.1 --- Fixed Point Theorems}
+
+\begin{frame}{3.1 Fixed points --- equilibrium as a solution}
+  \footnotesize
+  \textbf{Fixed point.}\ A point $x^*$ is a \textbf{fixed point} of a map $T$ if
+  \[
+    T(x^*)=x^*.
+  \]
+
+  \medskip
+  \textbf{Economics reading.}\ Many equilibria are fixed-point problems:
+  \begin{itemize}
+    \item \textbf{Market clearing:}\ price $p^*$ such that excess demand $E(p^*)=0$
+      (fixed point of an update rule or zero of a function).
+    \item \textbf{Bellman equation:}\ value function $V$ with $V = T(V)$ in dynamic programming.
+    \item \textbf{Game theory:}\ Nash equilibrium as a fixed point of best-response maps.
+  \end{itemize}
+
+  \medskip
+  \textbf{Question.}\ When does a fixed point \textbf{exist}? When is it \textbf{unique}?
+\end{frame}
+
+\begin{frame}{3.1 Contraction Mapping Theorem}
+  \footnotesize
+  \textbf{Setup.}\ $(X,d)$ a complete metric space; $T\colon X\to X$.
+
+  \medskip
+  \textbf{Contraction.}\ $T$ is a \textbf{contraction} if $\exists\,\alpha\in(0,1)$ with
+  \[
+    d\bigl(T(x),T(y)\bigr)\le \alpha\,d(x,y)
+    \qquad\text{for all }x,y\in X.
+  \]
+
+  \medskip
+  \textbf{Contraction Mapping Theorem (Banach).}\
+  If $T$ is a contraction on a complete metric space, then
+  \begin{itemize}
+    \item $T$ has a \textbf{unique} fixed point $x^*$;
+    \item iterating $x_{k+1}=T(x_k)$ converges to $x^*$ from any start.
+  \end{itemize}
+
+  \medskip
+  {\scriptsize Intuition: $T$ brings points closer together --- at most one fixed point, and iteration finds it.}
+\end{frame}
+
+\begin{frame}{3.1 Brouwer Fixed Point Theorem}
+  \footnotesize
+  \textbf{Brouwer (statement).}\
+  If $K\subset\mathbb{R}^n$ is \textbf{nonempty, compact, and convex} and
+  $T\colon K\to K$ is \textbf{continuous}, then $T$ has at least one fixed point.
+
+  \medskip
+  \textbf{Low-dimensional intuition.}
+  \begin{itemize}
+    \item $n=1$:\ a continuous map from $[0,1]$ to itself must cross the diagonal $y=x$.
+    \item $n=2$:\ stirring coffee in a cup --- some molecule ends where it started.
+  \end{itemize}
+
+  \medskip
+  \textbf{Contrast with contraction.}\
+  Brouwer gives \textbf{existence} (not uniqueness) under compactness, convexity, and continuity.
+  Used when equilibrium maps are not contractions but stay inside a convex feasible set.
+
+  \medskip
+  \InterestOnly\ --- proof uses advanced topology; we use the statement only.
+\end{frame}
+
+\section{3.2 --- Separation Theorem}
+
+\begin{frame}{3.2 Separating hyperplanes --- picture}
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \textbf{Separation (informal).}\
+    If $A$ and $B$ are \textbf{disjoint convex} sets in $\mathbb{R}^n$, often we can find a
+    \textbf{hyperplane} that puts $A$ on one side and $B$ on the other.
+
+    \medskip
+    \[
+      \exists\,\mathbf{p}\neq\mathbf{0},\;\beta\in\mathbb{R}:
+      \quad
+      \mathbf{p}\cdot a \le \beta \le \mathbf{p}\cdot b
+      \quad\forall\,a\in A,\;b\in B.
+    \]
+
+    \medskip
+    \textbf{Supporting hyperplane.}\
+    At a boundary point of a convex set, a hyperplane can ``touch'' the set and leave the set on one side.
+
+    \column{0.48\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=2.4, every node/.style={font=\scriptsize}]
+      \fill[mDarkTeal!12] (0.15,0.55) ellipse (0.32 and 0.22);
+      \fill[mAccent!15] (0.72,0.38) ellipse (0.28 and 0.20);
+      \node at (0.15,0.55) {$A$};
+      \node at (0.72,0.38) {$B$};
+      \draw[mDarkTeal, thick] (0.42,0.08) -- (0.58,0.88);
+      \draw[mDarkTeal, dashed] (0.35,0.0) -- (0.65,0.96);
+      \node[mDarkTeal] at (0.66,0.82) {separating line};
+    \end{tikzpicture}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{3.2 Why separation matters in economics}
+  \footnotesize
+  \textbf{Welfare economics (high level).}
+  \begin{itemize}
+    \item \textbf{Pareto efficiency:}\ under convexity, Pareto-improving reallocations are limited ---
+      efficient allocations often lie on boundaries where supporting prices separate feasible and preferred sets.
+    \item \textbf{Prices as separators:}\ in competitive equilibrium, a price vector can support an allocation by
+      separating consumers' upper contour sets from aggregate production possibilities.
+    \item \textbf{Duality preview:}\ separating hyperplanes link \textbf{primal} problems (choices) to
+      \textbf{dual} objects (shadow prices, multipliers) --- more on Day~4--5.
+  \end{itemize}
+
+  \medskip
+  \textbf{Takeaway.}\ Convexity + separation $\Rightarrow$ existence of linear prices that rationalize efficient allocations
+  (statement-level; no proof required).
+\end{frame}
+
+\end{document}
