@@ -14,10 +14,9 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{appendixnumberbeamer}
-\usepackage{tikz}
 
 \title{Math Bootcamp}
-\subtitle{Day 3 --- Linear algebra and real analysis}
+\subtitle{Day 3 --- Remaining real analysis and linear algebra}
 \author{Math Camp 2026}
 \date{}
 
@@ -46,120 +45,222 @@
 
 \begin{frame}{3.1 Fixed points --- equilibrium as a solution}
   \footnotesize
-  \textbf{Fixed point.}\ A point $x^*$ is a \textbf{fixed point} of a map $T$ if
-  \[
-    T(x^*)=x^*.
-  \]
+  \textbf{Fixed point.}\ A point $x^*$ is a \textbf{fixed point} of a map $T$ if $T(x^*)=x^*$.
 
   \medskip
   \textbf{Economics reading.}\ Many equilibria are fixed-point problems:
   \begin{itemize}
-    \item \textbf{Market clearing:}\ price $p^*$ such that excess demand $E(p^*)=0$
-      (fixed point of an update rule or zero of a function).
-    \item \textbf{Bellman equation:}\ value function $V$ with $V = T(V)$ in dynamic programming.
-    \item \textbf{Game theory:}\ Nash equilibrium as a fixed point of best-response maps.
+    \item \textbf{Market clearing:}\ a price $p^*$ with excess demand $E(p^*)=0$.
+    \item \textbf{Game theory:}\ a strategy profile that is a best response to itself (Nash).
   \end{itemize}
 
   \medskip
-  \textbf{Question.}\ When does a fixed point \textbf{exist}? When is it \textbf{unique}?
+  \textbf{Two useful existence tools (today).}
+  \begin{itemize}
+    \item \textbf{Contraction Mapping Theorem:}\ existence and uniqueness of a fixed point; iteration converges.
+    \item \textbf{Brouwer:}\ continuous map on a closed interval / convex set.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{3.1 Contraction Mapping Theorem}
   \footnotesize
-  \textbf{Setup.}\ $(X,d)$ a complete metric space; $T\colon X\to X$.
+  \textbf{Contraction.}\ A map $T$ \textbf{shrinks distances} if there is $k\in(0,1)$ such that
+  $|T(x)-T(y)|\le k|x-y|$ for all $x,y$ in the domain.
 
   \medskip
-  \textbf{Contraction.}\ $T$ is a \textbf{contraction} if $\exists\,\alpha\in(0,1)$ with
-  \[
-    d\bigl(T(x),T(y)\bigr)\le \alpha\,d(x,y)
-    \qquad\text{for all }x,y\in X.
-  \]
-
-  \medskip
-  \textbf{Contraction Mapping Theorem (Banach).}\
-  If $T$ is a contraction on a complete metric space, then
+  \textbf{Contraction Mapping Theorem.}\ If $T\colon[a,b]\to[a,b]$ is a contraction, then
   \begin{itemize}
-    \item $T$ has a \textbf{unique} fixed point $x^*$;
-    \item iterating $x_{k+1}=T(x_k)$ converges to $x^*$ from any start.
+    \item \textbf{Existence:}\ there is a fixed point $x^*$ with $T(x^*)=x^*$.
+    \item \textbf{Uniqueness:}\ that fixed point is \textbf{unique}.
+    \item \textbf{Iteration:}\ for any starting value $x_0\in[a,b]$, the sequence
+      $x_n=T(x_{n-1})$ converges to $x^*$.
   \end{itemize}
-
-  \medskip
-  {\scriptsize Intuition: $T$ brings points closer together --- at most one fixed point, and iteration finds it.}
 \end{frame}
 
-\begin{frame}{3.1 Brouwer Fixed Point Theorem}
+\begin{frame}{3.1 Why iteration converges}
   \footnotesize
-  \textbf{Brouwer (statement).}\
-  If $K\subset\mathbb{R}^n$ is \textbf{nonempty, compact, and convex} and
-  $T\colon K\to K$ is \textbf{continuous}, then $T$ has at least one fixed point.
+  \textbf{Step 1 --- Start anywhere.}\
+  Pick any $x_0$. Define $x_n=T(x_{n-1})$ for $n=1,2,\ldots$
 
   \medskip
-  \textbf{Low-dimensional intuition.}
+  \textbf{Step 2 --- Jumps shrink exponentially.}\
+  Each new step is at most $k$ times the previous jump:
+  \[
+    |x_{n+1}-x_n|=|T(x_n)-T(x_{n-1})|\le k|x_n-x_{n-1}|\le k^n|x_1-x_0|.
+  \]
+  Since $k<1$, the moves get \textbf{exponentially smaller} --- the path barely changes after a while.
+
+  \medskip
+  \textbf{Step 3 --- The sequence converges.}\
+  Step~2 implies $x_n\to x^*$ for some limit $x^*$
+  (check it is a \textbf{Cauchy sequence} for a rigorous proof).
+  So iteration from \textbf{any} starting point drives $x_n$ toward the same $x^*$.
+
+  \medskip
+  \textbf{Step 4 --- The limit is a fixed point.}\
+  $T$ is continuous, so taking limits in $x_n=T(x_{n-1})$ gives
+  $x^*=\lim x_n=\lim T(x_{n-1})=T(\lim x_{n-1})=T(x^*)$.
+\end{frame}
+
+\begin{frame}{3.1 Walrasian price adjustment}
+  \footnotesize
+  \textbf{Market clearing.}\ A price $p^*$ \textbf{clears the market} when excess demand is zero:
+  $E(p^*)=0$.
+  Here $E(p)$ can take \textbf{any form} (from supply and demand behind the scenes).
+
+  \medskip
+  \textbf{Price adjustment (nonlinear in $E$).}\ Update the price each period:
+  \[
+    p_{t+1}=T(p_t)=p_t+\lambda\bigl(1-e^{-\alpha E(p_t)}\bigr),
+    \qquad \lambda=\tfrac{1}{5},\ \alpha=0.1.
+  \]
+  When $|E|$ is small, $1-e^{-\alpha E}\approx \alpha E$ --- move a fraction of excess demand toward balance.
+  Clearing satisfies $E(p^*)=0\ \Leftrightarrow\ T(p^*)=p^*$.
+  If $T$ is a \textbf{contraction} on a price range, then $p_t\to p^*$ from any starting $p_0$.
+\end{frame}
+
+\begin{frame}{3.1 Brouwer --- one dimension}
+  \footnotesize
+  \textbf{Brouwer (one dimension).}\ If $T\colon[a,b]\to[a,b]$ is \textbf{continuous}, then
+  $T$ has \textbf{at least one} fixed point $x^*$ with $T(x^*)=x^*$.
+
+  \medskip
+  \textbf{Picture.}\ Plot $y=T(x)$ against $y=x$. Any crossing is a fixed point.
+  Continuity forces the graph to meet the diagonal at least once on $[a,b]$.
+\end{frame}
+
+\begin{frame}[plain]{}
+  \centering
+  \vspace{-0.15cm}
+  \includegraphics[width=0.88\textwidth,height=0.92\textheight,keepaspectratio]{figures/fixed_point_brouwer.png}
+\end{frame}
+
+\begin{frame}{3.1 Brouwer --- general statement}
+  \footnotesize
+  \textbf{Brouwer (several variables).}\ Let $K\subset\mathbb{R}^n$ be \textbf{nonempty},
+  \textbf{compact}, and \textbf{convex}. If $T\colon K\to K$ is \textbf{continuous}, then
+  $T$ has at least one fixed point $x^*\in K$ with $T(x^*)=x^*$.
+
+  \medskip
+  \textbf{Camp vocabulary.}
   \begin{itemize}
-    \item $n=1$:\ a continuous map from $[0,1]$ to itself must cross the diagonal $y=x$.
-    \item $n=2$:\ stirring coffee in a cup --- some molecule ends where it started.
+    \item \textbf{Compact} in $\mathbb{R}^n$: closed and bounded (Heine--Borel).
+    \item \textbf{Convex}: the segment between any two points in $K$ stays in $K$.
   \end{itemize}
 
   \medskip
-  \textbf{Contrast with contraction.}\
-  Brouwer gives \textbf{existence} (not uniqueness) under compactness, convexity, and continuity.
-  Used when equilibrium maps are not contractions but stay inside a convex feasible set.
+  \textbf{One dimension.}\ $K=[a,b]$ is compact and convex, so the 1D case is a special case.
+\end{frame}
+
+\begin{frame}{3.1 Brouwer --- Cournot duopoly}
+  \footnotesize
+  \textbf{Two firms.}\ Firm $i$ chooses $q_i\in[0,\bar q]$.
+  \textbf{Nonlinear} inverse demand $p=a-(q_1+q_2)^2$ (e.g.\ $a=8$, $\bar q=2$).
 
   \medskip
-  \InterestOnly\ --- proof uses advanced topology; we use the statement only.
+  \textbf{Profit and FOC.}\ $\pi_i=(a-(q_1+q_2)^2)q_i$. Firm~1's best response solves
+  \[
+    a-3q_1^2-4q_1 q_2-q_2^2=0
+    \qquad\text{(similarly for firm~2 with $q_1,q_2$ swapped).}
+  \]
+  The map $q_j\mapsto BR_i(q_j)$ is \textbf{nonlinear} --- no formula like
+  ``$(a-c-q_j)/2$''.
+
+  \medskip
+  \textbf{Fixed point = Nash.}\ $T(q_1,q_2)=\bigl(BR_1(q_2),BR_2(q_1)\bigr)$ is continuous on
+  $K=[0,\bar q]^2$. \textbf{Brouwer} guarantees an equilibrium, but you generally solve
+  $T(q_1^*,q_2^*)=(q_1^*,q_2^*)$ by \textbf{algebra or numerics}
+  (here one symmetric solution is $q_1^*=q_2^*=\sqrt{a/8}$).
 \end{frame}
 
 \section{3.2 --- Separation Theorem}
 
-\begin{frame}{3.2 Separating hyperplanes --- picture}
-  \footnotesize
-  \begin{columns}[T,onlytextwidth]
-    \column{0.48\textwidth}
-    \textbf{Separation (informal).}\
-    If $A$ and $B$ are \textbf{disjoint convex} sets in $\mathbb{R}^n$, often we can find a
-    \textbf{hyperplane} that puts $A$ on one side and $B$ on the other.
-
-    \medskip
-    \[
-      \exists\,\mathbf{p}\neq\mathbf{0},\;\beta\in\mathbb{R}:
-      \quad
-      \mathbf{p}\cdot a \le \beta \le \mathbf{p}\cdot b
-      \quad\forall\,a\in A,\;b\in B.
-    \]
-
-    \medskip
-    \textbf{Supporting hyperplane.}\
-    At a boundary point of a convex set, a hyperplane can ``touch'' the set and leave the set on one side.
-
-    \column{0.48\textwidth}
-    \centering
-    \begin{tikzpicture}[scale=2.4, every node/.style={font=\scriptsize}]
-      \fill[mDarkTeal!12] (0.15,0.55) ellipse (0.32 and 0.22);
-      \fill[mAccent!15] (0.72,0.38) ellipse (0.28 and 0.20);
-      \node at (0.15,0.55) {$A$};
-      \node at (0.72,0.38) {$B$};
-      \draw[mDarkTeal, thick] (0.42,0.08) -- (0.58,0.88);
-      \draw[mDarkTeal, dashed] (0.35,0.0) -- (0.65,0.96);
-      \node[mDarkTeal] at (0.66,0.82) {separating line};
-    \end{tikzpicture}
-  \end{columns}
+\begin{frame}[plain]{3.2 Separation --- picture}
+  \centering
+  \vfill
+  \includegraphics[width=0.78\textwidth]{figures/separation_hyperplane.png}
+  \vfill
 \end{frame}
 
-\begin{frame}{3.2 Why separation matters in economics}
+\begin{frame}{3.2 What $\mathbf{p}\cdot a\le\beta\le\mathbf{p}\cdot b$ means}
   \footnotesize
-  \textbf{Welfare economics (high level).}
+  \textbf{Two dimensions, two goods.}\ Write a bundle as $a=(a_1,a_2)$.
+  A \textbf{price line} is
+  \[
+    p_1 x_1 + p_2 x_2 = \beta
+    \qquad\text{(same as }\mathbf{p}\cdot x=\beta\text{)}.
+  \]
+
+  \medskip
+  \textbf{Reading the inequalities.}
   \begin{itemize}
-    \item \textbf{Pareto efficiency:}\ under convexity, Pareto-improving reallocations are limited ---
-      efficient allocations often lie on boundaries where supporting prices separate feasible and preferred sets.
-    \item \textbf{Prices as separators:}\ in competitive equilibrium, a price vector can support an allocation by
-      separating consumers' upper contour sets from aggregate production possibilities.
-    \item \textbf{Duality preview:}\ separating hyperplanes link \textbf{primal} problems (choices) to
-      \textbf{dual} objects (shadow prices, multipliers) --- more on Day~4--5.
+    \item $\mathbf{p}\cdot a\le\beta$ for all $a\in A$: every point of $A$ lies on the
+      \textbf{same side} of the line (here: on or below it).
+    \item $\mathbf{p}\cdot b\ge\beta$ for all $b\in B$: every point of $B$ lies on the
+      \textbf{opposite side} (here: on or above it).
   \end{itemize}
 
   \medskip
-  \textbf{Takeaway.}\ Convexity + separation $\Rightarrow$ existence of linear prices that rationalize efficient allocations
-  (statement-level; no proof required).
+  So $A$ and $B$ are \textbf{separated} by one straight line; $\mathbf{p}$ is the slope/normal of that line,
+  and $\beta$ fixes its position. No matrices needed --- just prices and a budget line.
+\end{frame}
+
+\begin{frame}{3.2 Example --- feasible vs.\ preferred bundles}
+  \footnotesize
+  \textbf{Setup.}\ One consumer, two goods. Let
+  \begin{itemize}
+    \item $A$ = \textbf{feasible} bundles (can be produced / afforded at given resources);
+    \item $B$ = bundles \textbf{strictly preferred} to the status quo (better indifference curves).
+  \end{itemize}
+  If preferences are convex, $B$ is convex. If $A\cap B=\varnothing$, a separating line exists.
+
+  \medskip
+  \textbf{Numerical sketch.}\ Suppose the line is $p_1 x_1 + p_2 x_2 = 100$ with $\mathbf{p}=(2,5)$.
+  \begin{itemize}
+    \item Feasible bundle $a=(10,16)$: $2\cdot10+5\cdot16=100$ --- on the line (cheapest feasible choice).
+    \item Preferred bundle $b=(14,18)$: $2\cdot14+5\cdot18=118>100$ --- above the line, not affordable at these prices.
+  \end{itemize}
+
+  \medskip
+  At a competitive allocation, a price line can sit between ``what is possible'' and ``what everyone wants more of.''
+\end{frame}
+
+\begin{frame}{3.2 First Welfare Theorem --- simple argument}
+  \footnotesize
+  \textbf{Statement.}\ Under standard convexity, a competitive equilibrium allocation is \textbf{Pareto efficient}.
+
+  \medskip
+  \textbf{Proof idea (4 steps).}
+  \begin{enumerate}
+    \item In equilibrium, each consumer chooses a best affordable bundle; each firm maximizes profit at prices $\mathbf{p}^*$.
+    \item Suppose another allocation $\tilde x$ is Pareto better: everyone weakly better off, someone strictly.
+    \item With convex preferences, if $\tilde x$ were affordable at $\mathbf{p}^*$, some agent would have chosen it --- contradiction.
+    \item So any Pareto improvement must use bundles that are \textbf{not affordable} at $\mathbf{p}^*$: the aggregate ``better than'' set
+      lies on the expensive side of the equilibrium price line, while feasible aggregates stay on the cheap side.
+      \textbf{Separation} is exactly the geometry behind step 4.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{3.2 Duality and separation}
+  \footnotesize
+  \textbf{Primal problem (example).}\ ``Choose $x$ to maximize utility subject to a budget / resource constraint.''
+  \[
+    \max u(x)\quad\text{s.t.}\quad \mathbf{p}\cdot x \le w.
+  \]
+
+  \medskip
+  \textbf{Dual side.}\ The prices $\mathbf{p}$ and cutoff $\beta$ in
+  $\mathbf{p}\cdot x\le\beta$ are \textbf{shadow values}:
+  \begin{itemize}
+    \item they tell how much one unit of each good ``costs'' at the margin;
+    \item in constrained optimization, Lagrange multipliers play the role of $\mathbf{p}$;
+    \item a \textbf{separating line} is the same object: coefficients $\mathbf{p}$ and level $\beta$ that
+      separate feasible from preferred points.
+  \end{itemize}
+
+  \medskip
+  \textbf{Link.}\ Separation $\Leftrightarrow$ existence of prices supporting an efficient allocation
+  $\Leftrightarrow$ dual variables in the primal problem. Day~4--5 make this algorithmic (LP, KKT).
 \end{frame}
 
 \end{document}
