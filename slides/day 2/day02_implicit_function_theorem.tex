@@ -16,7 +16,7 @@
 \usepackage{appendixnumberbeamer}
 
 \title{Math Bootcamp}
-\subtitle{Day 2 --- More calculus and a bit of linear algebra}
+\subtitle{Day 2 --- More calculus and existence}
 \author{Math Camp 2026}
 \date{}
 
@@ -319,12 +319,12 @@
   if supply is relatively inelastic (small $d$), sellers pay most.
 \end{frame}
 
-\section{2.2 --- Mean Value Theorem}
+\section{2.2 --- EVT, MVT, and Existence}
 
-\begin{frame}{2.2 Extreme Value Theorem}
+\begin{frame}{2.2 EVT on a closed interval $[a,b]$}
   \footnotesize
   \textbf{Extreme Value Theorem (EVT).}\
-  If $f$ is \textbf{continuous} on the closed interval $[a,b]$, then $f$ attains a
+  If $f$ is \textbf{continuous} on the \textbf{closed} interval $[a,b]$, then $f$ attains a
   \textbf{maximum} and a \textbf{minimum} on $[a,b]$.
 
   \medskip
@@ -335,8 +335,92 @@
   \]
 
   \medskip
+  {\scriptsize $[a,b]$ is \textbf{closed and bounded} --- a compact set in $\mathbb{R}$.}
+\end{frame}
+
+\begin{frame}[plain]{2.2 When EVT fails}
   \centering
+  \vfill
   \includegraphics[width=0.96\textwidth]{figures/evt_failures.png}
+  \vfill
+  {\footnotesize Need continuity on a \textbf{closed, bounded} domain (or compact set more generally).}
+\end{frame}
+
+\begin{frame}{2.2 Open and closed sets}
+  \footnotesize
+  \textbf{Open set} (intuition): every point has a small neighborhood still inside the set.
+
+  \medskip
+  \textbf{Closed set} (intuition): contains its \textbf{boundary}; limits of sequences in the set stay in the set.
+
+  \medskip
+  \textbf{Economic examples.}
+  \begin{itemize}
+    \item Budget $\{\mathbf{x}:\mathbf{p}\cdot\mathbf{x}\le B\}$ --- \textbf{closed} (includes the budget line).
+    \item Strict budget $\mathbf{p}\cdot\mathbf{x}<B$ --- \textbf{not closed} (boundary excluded).
+    \item Reservation price set $P=\{p:p<\bar p\}$ --- not closed; $\sup P=\bar p$ may not be attained.
+  \end{itemize}
+
+  \medskip
+  {\scriptsize On $\mathbb{R}^1$: $[a,b]$ is closed and bounded; $(a,b)$ is open (not closed).
+  The failure figure above: not closed, not bounded, or not continuous.}
+\end{frame}
+
+\begin{frame}{2.2 Compact sets and Weierstrass EVT}
+  \footnotesize
+  \textbf{In $\mathbb{R}^n$ (camp level):}\ a set is \textbf{compact} when it is
+  \textbf{closed and bounded} (Heine--Borel, stated).
+
+  \medskip
+  \textbf{Weierstrass Extreme Value Theorem.}\
+  If $f$ is continuous on a compact set $K\subset\mathbb{R}^n$, then $f$ attains a
+  \textbf{maximum} and \textbf{minimum} on $K$.
+
+  \medskip
+  \textbf{Why economists care.}\
+  \[
+    \text{compact feasible set }K
+    \;+\;
+    \text{continuous objective }f
+    \;\Rightarrow\;
+    \text{optimum \textbf{exists}}
+  \]
+  (preview of Day~4 optimization).
+
+  \medskip
+  {\scriptsize Proof:
+  \AppendixLink{sec:weierstrass-proof} (\InterestOnly).}
+\end{frame}
+
+\begin{frame}{2.2 Example --- existence of a utility maximizer}
+  \footnotesize
+  \textbf{Setup (consumer problem).}\
+  Prices $p_1,p_2>0$, income $w>0$, budget set
+  \[
+    \mathcal{B}
+    = \bigl\{(x_1,x_2)\in\mathbb{R}^2_+ : p_1 x_1 + p_2 x_2 \le w\bigr\}.
+  \]
+
+  \medskip
+  \textbf{1.}\ $\mathcal{B}$ is \textbf{closed} (weak inequality $\le$) and \textbf{bounded}
+  (e.g.\ $0\le x_i\le w/p_i$), hence \textbf{compact} in $\mathbb{R}^2$.
+
+  \medskip
+  \textbf{2.}\ Suppose utility $u(x_1,x_2)$ is \textbf{continuous} on $\mathcal{B}$.
+
+  \medskip
+  \textbf{3.}\ By Weierstrass EVT, $u$ attains a \textbf{maximum} on $\mathcal{B}$.
+
+  \medskip
+  \textbf{Conclusion.}\
+  An optimal consumption bundle $x^*\in\mathcal{B}$ \textbf{exists}
+  (existence theorem for the consumer problem; first-order conditions come on Day~4).
+
+  \medskip
+  {\scriptsize \textbf{Not uniqueness.}\
+  Weierstrass gives at least one maximizer, not a unique one
+  (e.g.\ $u(x_1,x_2)=x_1+x_2$ has many optima on $\mathcal{B}$).
+  Uniqueness needs extra conditions (e.g.\ strictly concave / strictly quasiconcave $u$; Day~4).}
 \end{frame}
 
 \begin{frame}{2.2 Rolle's theorem}
@@ -402,22 +486,49 @@
 
 \begin{frame}{2.2 Example --- labor and output (economics)}
   \footnotesize
-  \textbf{Setup.}\ A firm produces $f(L)$ units of output using labor $L$.
-  Suppose $f$ is continuous on $[L_1,L_2]$ and differentiable on $(L_1,L_2)$.
+  \textbf{Setup.}\ Output $f(L)$ from labor $L$; $f$ continuous on $[L_1,L_2]$, differentiable on $(L_1,L_2)$.
 
   \medskip
-  \textbf{MVT.}\ $\exists\,L^*\in(L_1,L_2)$ such that
+  \textbf{MVT.}\ $\exists\,L^*\in(L_1,L_2)$ with
   \[
-    f'(L^*)=\frac{f(L_2)-f(L_1)}{L_2-L_1}.
+    f'(L^*)
+    = \underbrace{\frac{f(L_2)-f(L_1)}{L_2-L_1}}_{\text{average product gain over }[L_1,L_2]}.
+  \]
+  At some interior employment level, \textbf{marginal product} $=$ \textbf{average product} of the change.
+\end{frame}
+
+\begin{frame}{2.2 MC and AC --- what the crossover means}
+  \footnotesize
+  \textbf{Cost example.}\ $C(q)=q^2+4$ (fixed cost $4$, rising marginal cost).
+
+  \medskip
+  \[
+    \mathrm{MC}(q)=C'(q)=2q,
+    \qquad
+    \mathrm{AC}(q)=\frac{C(q)}{q}=q+\frac{4}{q}.
   \]
 
   \medskip
-  \textbf{Interpretation.}\ At some interior input level, the \textbf{marginal product of labor}
-  equals the \textbf{average product} over the whole change from $L_1$ to $L_2$.
+  \textbf{MVT link.}\ On $[0,\bar q]$, $\exists\,q^*\in(0,\bar q)$ with
+  $\mathrm{MC}(q^*)=\dfrac{C(\bar q)-C(0)}{\bar q}=\bar q$:
+  marginal cost somewhere equals the \textbf{average incremental cost} of the first $\bar q$ units.
+  (If $C(0)=0$, this is $\mathrm{AC}(\bar q)$.)
 
   \medskip
-  {\scriptsize Same idea for cost: on $[0,q]$, some $q^*$ has $C'(q^*)=C(q)/q$
-  (marginal cost = average cost).}
+  \textbf{Why MC crosses AC at the minimum of AC.}\
+  Minimizing $\mathrm{AC}(q)=C(q)/q$ gives $\mathrm{MC}(q)=C(q)/q$ (FOC) $\Rightarrow$ curves cross at $q^*=2$.
+  \begin{itemize}
+    \item For $q<q^*$: $\mathrm{MC}<\mathrm{AC}$ $\Rightarrow$ an extra unit pulls the average \textbf{down}.
+    \item For $q>q^*$: $\mathrm{MC}>\mathrm{AC}$ $\Rightarrow$ an extra unit pulls the average \textbf{up}.
+    \item At $q^*$: the last unit costs exactly the average --- \textbf{efficient scale} (lowest cost per unit).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[plain]{2.2 MC and AC --- graph}
+  \centering
+  \vfill
+  \includegraphics[width=0.72\textwidth]{figures/mvt_mc_ac.png}
+  \vfill
 \end{frame}
 
 \section{2.3 --- Integration}
@@ -934,6 +1045,48 @@
   {\scriptsize Check your answer with a calculator (no need to simplify trig decimals).}
 \end{frame}
 
+\section{2.6 --- Uniform Convergence}
+
+\begin{frame}{2.6 Pointwise vs.\ uniform convergence}
+  \footnotesize
+  \textbf{Pointwise.}\ $f_n\to f$ on $D$ means: for each fixed $x\in D$,
+  \[
+    f_n(x)\to f(x)\quad\text{as }n\to\infty.
+  \]
+  Equivalently: for each $x$ and every $\varepsilon>0$, $\exists\,N$ (may depend on
+  \textbf{both $x$ and $\varepsilon$}) such that $|f_n(x)-f(x)|<\varepsilon$ for all $n\ge N$.
+
+  \medskip
+  \textbf{Uniform.}\ For every $\varepsilon>0$, $\exists\,N$ (depends on \textbf{$\varepsilon$ only})
+  such that for all $n\ge N$ and \textbf{all} $x\in D$,
+  \[
+    |f_n(x)-f(x)|<\varepsilon.
+  \]
+  One $N$ works \textbf{uniformly} over the whole domain.
+\end{frame}
+
+\begin{frame}[plain]{2.6 Example --- pointwise but not uniform}
+  \centering
+  \vfill
+  \includegraphics[width=0.82\textwidth]{figures/pointwise_not_uniform.png}
+  \vfill
+\end{frame}
+
+\begin{frame}{2.6 Why uniform convergence matters}
+  \footnotesize
+  \textbf{Uniform convergence is the safe condition} for swapping limits with other operations:
+
+  \medskip
+  \begin{itemize}
+    \item \textbf{Continuity:}\ if each $f_n$ is continuous and $f_n\to f$ \textbf{uniformly},
+      then $f$ is continuous.
+    \item \textbf{Integration:}\ under uniform convergence,
+      $\displaystyle\lim_{n\to\infty}\int f_n=\int\lim_{n\to\infty} f_n$.
+    \item \textbf{Differentiation} (with extra hypotheses): uniform convergence of derivatives
+      can justify $\dfrac{d}{dx}\lim f_n=\lim\dfrac{d}{dx}f_n$.
+  \end{itemize}
+\end{frame}
+
 \appendix
 
 \begin{frame}{Appendix}
@@ -966,9 +1119,83 @@
   Appears in graduate micro; camp focus is the scalar case in section~2.1.}
 \end{frame}
 
+\section{Weierstrass EVT --- proof}
+
+\begin{frame}{A.2 Proof.\ EVT on $[a,b]$}
+  \hypertarget{sec:weierstrass-proof}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Claim.}\ If $f$ is continuous on $[a,b]$, then $f$ attains a maximum and minimum on $[a,b]$.
+
+  \medskip
+  \textbf{Bolzano--Weierstrass Theorem.}\
+  Every bounded sequence in $\mathbb{R}$ has a convergent subsequence.
+
+  \medskip
+  \textbf{Step 1.}\ $f$ is bounded on $[a,b]$.\
+  Assume, for contradiction, that $f$ is unbounded.
+  Then $\exists\,(x_n)$ in $[a,b]$ with $|f(x_n)|>n$ for all $n$.
+  The sequence $(x_n)$ is bounded (it lies in $[a,b]$).
+  By Bolzano--Weierstrass, some subsequence $(x_{n_k})$ converges to $c\in[a,b]$.
+  Continuity gives $f(x_{n_k})\to f(c)$.
+  But $|f(x_{n_k})|>n_k\to\infty$, a contradiction.
+  Hence $f$ is bounded; let $M=\sup\{f(x):x\in[a,b]\}$.
+\end{frame}
+
+\begin{frame}{A.2 Proof.\ EVT on $[a,b]$ (continued)}
+  \footnotesize
+  \textbf{Step 2 --- claim.}\
+  $f$ attains its maximum $M=\sup\{f(x):x\in[a,b]\}$ on $[a,b]$;
+  i.e.\ $\exists\,d\in[a,b]$ with $f(d)=M$.
+
+  \medskip
+  \textbf{Why $\exists\,(y_n)$ in $[a,b]$ with $f(y_n)\to M$.}\
+  By definition of supremum:
+  \begin{enumerate}
+    \item $f(x)\le M$ for all $x\in[a,b]$;
+    \item for every $\varepsilon>0$, $\exists\,x\in[a,b]$ with $f(x)>M-\varepsilon$.
+  \end{enumerate}
+  Take $\varepsilon_n=\tfrac1n$: pick $y_n\in[a,b]$ with $f(y_n)>M-\tfrac1n$.
+  Since $f(y_n)\le M$,
+  \[
+    M-\tfrac1n < f(y_n)\le M
+    \qquad\Rightarrow\qquad
+    f(y_n)\to M.
+  \]
+\end{frame}
+
+\begin{frame}{A.2 Proof.\ EVT on $[a,b]$ (continued)}
+  \footnotesize
+  \textbf{Step 2 --- finish.}
+
+  \medskip
+  \textbf{1.}\ $(y_n)$ is \textbf{bounded}: each $y_n\in[a,b]\subset\mathbb{R}$.
+
+  \medskip
+  \textbf{2.}\ By Bolzano--Weierstrass, some subsequence $(y_{n_k})$ converges to a limit
+  $d\in[a,b]$.
+
+  \medskip
+  \textbf{3.}\ Since $f(y_n)\to M$, every subsequence has the \textbf{same limit}:
+  \[
+    f(y_{n_k})\to M.
+  \]
+
+  \medskip
+  \textbf{4.}\ By \textbf{continuity} of $f$ at $d$,
+  \[
+    f(d)=\lim_{k\to\infty} f(y_{n_k})=M.
+  \]
+  So $M$ is attained at $d\in[a,b]$.
+  {\scriptsize Minimum: repeat for $-f$.}
+  \hfill$\square$
+\end{frame}
+
 \section{Expectation from the CDF --- proof}
 
-\begin{frame}{A.2 Expectation from the CDF}
+\begin{frame}{A.3 Expectation from the CDF}
   \hypertarget{sec:expectation-cdf-proof}{}
   \footnotesize
   \textbf{Claim.}\ For non-negative continuous $X$ with PDF $f$ and CDF $F$,
@@ -997,7 +1224,7 @@
 
 \section{Leibniz rule --- when it can fail}
 
-\begin{frame}{A.3 Leibniz rule --- failure example}
+\begin{frame}{A.4 Leibniz rule --- failure example}
   \hypertarget{sec:leibniz-failure}{}
   \footnotesize
   \textbf{Example (fixed limits).}\
@@ -1023,7 +1250,7 @@
   $\displaystyle\int_0^1 0\,dx=0\neq F'(\theta)$.
 \end{frame}
 
-\begin{frame}[plain]{A.3 Leibniz failure --- moving step (graph)}
+\begin{frame}[plain]{A.4 Leibniz failure --- moving step (graph)}
   \centering
   \vfill
   \includegraphics[width=0.78\textwidth]{figures/leibniz_failure_step.png}
@@ -1032,7 +1259,7 @@
 
 \section{Taylor expansion --- proof}
 
-\begin{frame}{A.4 Taylor expansion (one variable)}
+\begin{frame}{A.5 Taylor expansion (one variable)}
   \hypertarget{sec:taylor-proof}{}
   \footnotesize
   \textbf{Claim (second order).}\
@@ -1074,7 +1301,7 @@
 
 \section{Taylor and It\^o's lemma}
 
-\begin{frame}{A.5 What is Brownian motion?}
+\begin{frame}{A.6 What is Brownian motion?}
   \footnotesize
 
   \textbf{Brownian motion} $W_t$ (also called a \textbf{Wiener process}):\
@@ -1097,7 +1324,7 @@
   {\scriptsize In $dX_t=\mu\,dt+\sigma\,dW_t$, the $dW_t$ term is this random noise scaled by $\sigma$.}
 \end{frame}
 
-\begin{frame}{A.5 Taylor and It\^o's lemma}
+\begin{frame}{A.6 Taylor and It\^o's lemma}
   \hypertarget{sec:ito-lemma}{}
   \footnotesize
   \textbf{Setup.}\
@@ -1120,7 +1347,7 @@
   \]
 \end{frame}
 
-\begin{frame}{A.5 It\^o multiplication rules}
+\begin{frame}{A.6 It\^o multiplication rules}
   \footnotesize
   \textbf{Ordinary calculus.}\
   If $\Delta t$ is small, then $(\Delta t)^2$ is \textbf{much smaller} and can be dropped.

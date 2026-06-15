@@ -156,150 +156,150 @@
 \end{itemize}
 
 %==============================================================================
-\section{Day 2 --- Calculus II and Linear Algebra: Implicit Functions, Integration, and Matrix Methods}
+\section{Day 2 --- More Calculus and Real Analysis Bridge}
 %==============================================================================
 
-\textit{Approximate duration: 3 hours.}
+\textit{Approximate duration: 3 hours. See Day~2 slides (Sections 2.1--2.6).}
 
-\subsection{Implicit Function Theorem}
+\subsection{2.1 --- Implicit Function Theorem}
 \begin{itemize}[leftmargin=*]
-    \item Explicit versus implicit definitions of relationships.
-    \item What problem the Implicit Function Theorem solves: local solvability and comparative statics.
-    \item \textbf{Core:} statement and use in one variable ($dy/dx=-F_x/F_y$; $dy^*/d\theta=-F_\theta/F_y$).
-    \item Sign of $F_y$ and direction of local response.
-    \item Application: market equilibrium comparative statics (demand shifter and equilibrium price).
-    \item \textbf{Further study (not required):} several variables and matrix/Jacobian form.
+    \item Explicit versus implicit relationships; when $F(x,y)=0$ cannot be solved in closed form.
+    \item Comparative statics: $F(x,\theta)=0$ defines $y^*(\theta)$; goal is $\dfrac{dy^*}{d\theta}$.
+    \item \textbf{Core recipe:} totally differentiate $F(x,y)=0$ to get
+      $\dfrac{dy}{dx}=-\dfrac{F_x}{F_y}$ when $F_y\neq 0$.
+    \item Regularity: $F_y\neq 0$ means finite slope locally; vertical tangent when $F_y=0$.
+    \item \textbf{Practice (Together):} nonlinear demand $D(p,\alpha)=\alpha e^{-p}$, supply $S(p)=p$;
+      no closed form for $p^*(\alpha)$, but IFT still gives $\dfrac{dp^*}{d\alpha}$.
+    \item \textbf{Applications:} market clearing $E(p,\alpha)=D(p,\alpha)-S(p)=0$;
+      linear example checks IFT against explicit $p^*(\alpha)=\dfrac{\alpha-c}{b+d}$.
+    \item Direct versus indirect effects; chain-rule derivation of $\dfrac{dp^*}{d\alpha}=-\dfrac{E_\alpha}{E_p}$.
+    \item \textbf{Tax incidence:} per-unit tax on sellers; $\dfrac{dp^*}{dt}=\dfrac{d}{b+d}$;
+      tax borne more heavily by the \textbf{less elastic} side.
+    \item \textbf{Appendix (for interest):} several-variable / Jacobian form of IFT.
 \end{itemize}
 
-\subsection{Integration}
+\subsection{2.2 --- EVT, MVT, and Existence}
 \begin{itemize}[leftmargin=*]
-    \item Riemann integral: area under a curve.
-    \item Fundamental Theorem of Calculus (statement and intuition).
-    \item Definite versus indefinite integrals.
-    \item Integration as accumulation.
-    \item Link to probability: PDF and CDF; CDF as integral of PDF; expected value as integral (conceptual).
-    \item Inverse relationship between differentiation and integration (conceptual).
+    \item \textbf{Open versus closed sets} (budget, strict budget, reservation price examples).
+    \item EVT on closed interval $[a,b]$: continuous $f$ attains max and min.
+    \item When EVT fails: not closed, not bounded, or not continuous (failure figure).
+    \item \textbf{Compact} in $\mathbb{R}^n$ (camp level): closed and bounded (Heine--Borel, stated).
+    \item \textbf{Weierstrass EVT:} continuous $f$ on compact $K$ attains max and min.
+    \item \textbf{Bridge:} compact feasible set $+$ continuous objective $\Rightarrow$ optimum exists.
+    \item Rolle's theorem; MVT; labor/output economics example.
+    \item \textbf{Appendix (for interest):} Weierstrass EVT proof idea.
 \end{itemize}
 
-\subsection{Leibniz Rule and Interchanging Differentiation and Integration}
+\subsection{2.3 --- Integration}
 \begin{itemize}[leftmargin=*]
-    \item Leibniz product rule (review): derivative of a product of functions.
-    \item \textbf{Fixed limits:} differentiation under the integral sign when the integrand depends on a parameter but the bounds do not.
-    \item \textbf{Variable limits:} when the upper and lower bounds of integration depend on the choice variable (parameter), the derivative has two extra \emph{endpoint} terms from the moving limits, plus an integral of the partial derivative of the integrand.
-    \item Informal statement: if $F(\theta) = \int_{a(\theta)}^{b(\theta)} f(x,\theta)\,dx$, then $F'(\theta)$ equals $f(b(\theta),\theta)\,b'(\theta) - f(a(\theta),\theta)\,a'(\theta)$ plus $\int_{a(\theta)}^{b(\theta)} \frac{\partial f}{\partial \theta}(x,\theta)\,dx$ (under regularity conditions).
-    \item Economic motivation: consumer surplus, areas under shifting demand curves, and other objects where both the integrand and the integration region change with a parameter.
-    \item When we may interchange $\frac{d}{d\theta}$ and $\int$: continuity, differentiability, and boundedness (conceptual); dominated convergence as the measure-theoretic idea behind safe interchange (stated, not proved).
-    \item When interchange fails: discontinuities, unbounded integrands, or limits that move irregularly.
-    \item Distinction from Fubini (swap order of integrals), MCT, and LDCT (swap limit and integral); preview on Day~3 via uniform convergence.
+    \item Riemann integral as signed area / accumulation; definite versus indefinite integrals.
+    \item \textbf{For interest:} Lebesgue integral (measures level sets; handles sparse jumps).
+    \item Fundamental Theorem of Calculus: $F'(x)=f(x)$ $\Rightarrow$
+      $\displaystyle\int_a^b f(x)\,dx=F(b)-F(a)$.
+    \item Integration by parts: $\displaystyle\int u\,dv=uv-\int v\,du$ (product-rule proof);
+      example $\displaystyle\int x e^x\,dx$.
+    \item \textbf{Probability link:} PMF and CMF (discrete dice); PDF and CDF (continuous Unif$(0,1)$);
+      FTC link $F'(x)=f(x)$.
+    \item Expectation for non-negative continuous $X$:
+      $\mathbb{E}[X]=\displaystyle\int_0^\infty x f(x)\,dx=\int_0^\infty(1-F(x))\,dx$.
+    \item \textbf{Appendix (for interest):} expectation-from-CDF proof (integration by parts).
 \end{itemize}
 
-\subsection{Mean Value Theorem}
+\subsection{2.4 --- Leibniz Rule and Fubini}
 \begin{itemize}[leftmargin=*]
-    \item Geometric intuition: existence of a tangent parallel to a secant.
-    \item Rolle's theorem as a special case (statement only).
-    \item Economic uses of the Mean Value Theorem: average versus marginal quantities; bounding changes over intervals.
+    \item \textbf{Fixed limits:} if $F(\theta)=\displaystyle\int_a^b f(x,\theta)\,dx$, then under regularity
+      $\dfrac{dF}{d\theta}=\displaystyle\int_a^b \dfrac{\partial f}{\partial\theta}(x,\theta)\,dx$.
+    \item Regularity (camp level): $\partial f/\partial\theta$ exists and $f$, $\partial f/\partial\theta$
+      are continuous on $[a,b]\times I$.
+    \item \textbf{Variable limits:} when $a(\theta)$, $b(\theta)$ move,
+      $F'(\theta)$ adds endpoint terms plus the integral of $\partial f/\partial\theta$.
+    \item When fixed-limit Leibniz fails: moving discontinuity (step function) example.
+    \item \textbf{Fubini:} if $\displaystyle\iint_D |f(x,y)|\,dx\,dy<\infty$, then
+      $\displaystyle\iint_D f=\int\!\int f$ (order of integration can be swapped).
+    \item Camp shortcut: bounded continuous $f$ on a nice region; Tonelli (for interest) when $f\ge 0$.
+    \item Example: $\displaystyle\iint_D (x+y)\,dx\,dy$ on triangle $D=\{0\le x\le 1,\ 0\le y\le x\}$.
 \end{itemize}
 
-\subsection{Taylor Expansion and Linearization}
+\subsection{2.5 --- Taylor Expansion and Linearization}
 \begin{itemize}[leftmargin=*]
-    \item First-order Taylor approximation.
-    \item Linearization of nonlinear functions around a point.
-    \item Interpretation as local first-order comparative statics.
-    \item When linearization is useful versus when it fails (curvature, nonlinearity).
-    \item Preview of second-order Taylor expansion (conceptual only).
+    \item One-variable Taylor through order $n$; multivariable $C^2$ form with $\nabla f$ and Hessian $H_f$.
+    \item First-order truncation: $f(\mathbf{a}+\mathbf{h})\approx f(\mathbf{a})+\nabla f(\mathbf{a})\cdot\mathbf{h}$.
+    \item Second-order truncation: adds $\tfrac12\,\mathbf{h}^{\mathsf T}H_f(\mathbf{a})\,\mathbf{h}$.
+    \item Two-variable explicit formula from matrix multiplication (optional if Hessian is familiar).
+    \item When linearization works: small shifts, modest curvature, differentiability;
+      fails with large shifts, kinks, strong nonlinearity.
+    \item \textbf{Practice (Together):} first-order two-variable Taylor for $f(x,y)=x^2+y$ at $(1,1)$.
+    \item \textbf{Take home:} second-order two-variable Taylor (e.g.\ $f(x,y)=\sin x+\cos y$ at $(0,0)$).
+    \item \textbf{Appendix (for interest):} one-variable Taylor proof; It\^o's lemma and Brownian motion.
 \end{itemize}
 
-\subsection{Vectors and Matrices}
+\subsection{2.6 --- Uniform Convergence}
 \begin{itemize}[leftmargin=*]
-    \item Vectors in $\mathbb{R}^n$: notation, components, and geometric interpretation.
-    \item Matrices: dimensions, entries, and matrix--vector multiplication.
-    \item Basic matrix operations: addition, scalar multiplication, and multiplication.
-    \item Transpose of a matrix or vector.
-    \item Identity matrix and role in matrix algebra.
+    \item Pointwise convergence: $f_n(x)\to f(x)$ for each fixed $x$.
+    \item Uniform convergence: one $N$ works for all $x$ in the domain.
+    \item Example: $f_n(x)=x^n$ on $[0,1]$ converges pointwise but not uniformly.
+    \item \textbf{Why it matters:} uniform convergence justifies swapping limits with continuity,
+      integration, and (with extra conditions) differentiation.
+    \item Link to section~2.4: Leibniz/Fubini need regularity so limits and integrals can be interchanged safely.
 \end{itemize}
 
-\subsection{Linear Systems, Inverses, and Determinants}
+\subsection{Appendix (Day 2 Slides)}
 \begin{itemize}[leftmargin=*]
-    \item Systems of linear equations in matrix form ($A\mathbf{x} = \mathbf{b}$).
-    \item Inverse of a square matrix: definition and when it exists.
-    \item Determinant: definition for $2 \times 2$ and $3 \times 3$ matrices; link to invertibility (conceptual).
-    \item Linear independence and dependence of vectors (brief, intuitive treatment).
-    \item Rank of a matrix (conceptual: number of linearly independent rows or columns).
-\end{itemize}
-
-\subsection{Jacobians and Economic Applications of Linear Algebra}
-\begin{itemize}[leftmargin=*]
-    \item Jacobian matrix as a collection of partial derivatives.
-    \item Dot product and its economic interpretation (e.g., expenditure, inner products in econometrics).
-    \item Quadratic forms (brief introduction: notation and positive/negative definiteness, stated not proved).
-    \item How matrix notation simplifies multivariate comparative statics;
-      full IFT in matrix form (further study).
+    \item IFT --- several variables (Jacobian form).
+    \item Weierstrass EVT --- proof idea.
+    \item Expectation from the CDF (integration by parts).
+    \item Leibniz rule failure (moving step).
+    \item Taylor expansion proof (one variable); It\^o's lemma and Brownian motion (for interest).
 \end{itemize}
 
 %==============================================================================
-\section{Day 3 --- Real Analysis: Topology, Convergence, and Existence}
+\section{Day 3 --- Linear Algebra and Real Analysis}
 %==============================================================================
 
-\textit{Approximate duration: 3 hours.}
+\textit{Approximate duration: 3 hours. Linear algebra is \textbf{must cover}; real-analysis topics below are prioritized.}
 
-\subsection{Metric Spaces and Basic Topology in $\mathbb{R}$ and $\mathbb{R}^2$}
+\subsection{Linear Algebra --- \textbf{must cover (Block 1)}}
 \begin{itemize}[leftmargin=*]
-    \item Points, distances, and neighborhoods.
-    \item Open sets: definition and intuition.
-    \item Closed sets: definition and intuition.
-    \item Interior, boundary, and closure (conceptual).
-    \item Economic relevance: budget sets, feasible sets, production sets; open versus closed constraints.
+    \item \textbf{Vectors in $\mathbb{R}^n$:} notation $\mathbf{x}=(x_1,\ldots,x_n)$;
+      dot product $\mathbf{a}\cdot\mathbf{b}=\sum_i a_i b_i$ (expenditure $\mathbf{p}\cdot\mathbf{x}$, projections).
+    \item \textbf{Matrices:} dimensions $m\times n$, entries, matrix--vector product $A\mathbf{x}$;
+      addition, scalar multiplication, matrix multiplication (order matters).
+    \item \textbf{Transpose} $A^{\mathsf T}$; identity matrix $I$.
+    \item \textbf{Linear systems:} $A\mathbf{x}=\mathbf{b}$; solution as intersection of hyperplanes
+      (economic: market clearing, input--output balance).
+    \item \textbf{Determinant} (must know $2\times 2$ and $3\times 3$ formulas):
+      $\det A\neq 0$ $\Leftrightarrow$ $A$ invertible (square case).
+    \item \textbf{Inverse} $A^{-1}$: $AA^{-1}=I$; solve $\mathbf{x}=A^{-1}\mathbf{b}$ when it exists.
+    \item \textbf{Linear independence} (intuitive): no vector in a set is a linear combination of the others;
+      dependence when one column is redundant.
+    \item \textbf{Rank} (conceptual): number of linearly independent rows/columns;
+      full rank $\Leftrightarrow$ invertible for square $A$.
+    \item \textbf{Jacobian matrix:} $J_f(\mathbf{x})=\bigl(\partial f_i/\partial x_j\bigr)$;
+      local linear map of a multivariable function; link to Day~2 IFT appendix.
+    \item \textbf{Quadratic forms} $\mathbf{x}^{\mathsf T}A\mathbf{x}$ (stated only):
+      positive/negative definiteness and curvature of $f$ near a critical point (preview Day~4 SOC).
+    \item \textbf{IFT in matrix form:} if $\mathbf{F}(\mathbf{y},\boldsymbol{\theta})=\mathbf{0}$
+      and $\partial\mathbf{F}/\partial\mathbf{y}$ is invertible, then
+      $\partial\mathbf{y}^*/\partial\boldsymbol{\theta}=
+      -\bigl(\partial\mathbf{F}/\partial\mathbf{y}\bigr)^{-1}\bigl(\partial\mathbf{F}/\partial\boldsymbol{\theta}\bigr)$.
 \end{itemize}
 
-\subsection{Convergence}
+\subsection{Convergence --- \textbf{if time allows (Day 3)}}
 \begin{itemize}[leftmargin=*]
-    \item Sequences and limits in $\mathbb{R}^n$.
-    \item Pointwise convergence of sequences of functions.
-    \item Uniform convergence: definition and intuition.
-    \item Why uniform convergence matters: exchange of limits; preservation of continuity; interchange of limit and integral; interchange of differentiation and integration (stated, not proved).
+    \item Deeper practice with uniform convergence (Day~2.6 is the core statement).
+    \item Additional counterexamples and exchange-of-limit applications.
 \end{itemize}
 
-\subsection{Continuity (Rigorous Intuition)}
+\subsection{Real Analysis --- \textbf{if time allows (Day 3)}}
 \begin{itemize}[leftmargin=*]
-    \item $\varepsilon$--$\delta$ definition (light treatment; primarily conceptual).
-    \item Continuity on sets versus at a point.
-    \item Continuity of demand, supply, profit, and value functions.
-    \item Discontinuities: types and economic meaning.
-    \item When discontinuities create problems for optimization or equilibrium.
-\end{itemize}
-
-\subsection{Compactness}
-\begin{itemize}[leftmargin=*]
-    \item Definition of compact set (in $\mathbb{R}^n$, via closed and bounded for this level).
-    \item Heine--Borel property (statement).
-    \item Why compactness matters: existence of maxima and minima for continuous functions.
-    \item Weierstrass Extreme Value Theorem (statement).
-    \item Maximum and minimum of continuous functions on compact domains.
-\end{itemize}
-
-\subsection{Product Spaces}
-\begin{itemize}[leftmargin=*]
-    \item Cartesian products $\mathbb{R}^n$.
-    \item Notation for vectors and product domains.
-    \item Constraints and choice sets as subsets of product spaces.
-    \item Separability across dimensions (conceptual).
-\end{itemize}
-
-\subsection{Separation Theorem}
-\begin{itemize}[leftmargin=*]
-    \item Convex sets in $\mathbb{R}^n$ (definition sufficient for separation; detailed convexity on Day~4).
-    \item Hyperplane separation of disjoint convex sets (picture-based intuition).
-    \item Supporting hyperplanes.
-    \item Application to welfare economics: Pareto efficiency and competitive equilibrium.
-    \item First and Second Welfare Theorems (high-level).
-\end{itemize}
-
-\subsection{Fixed Point Theorems}
-\begin{itemize}[leftmargin=*]
-    \item Fixed point: definition and economic motivation (equilibrium as fixed point).
-    \item At least one fixed point theorem (e.g., Brouwer or contraction mapping).
-    \item Role in proving existence of equilibrium.
-    \item Contraction mapping as a special case (if covered).
+    \item \textbf{Separation theorem} (picture-based): disjoint convex sets separated by a hyperplane;
+      supporting hyperplanes; welfare economics and Pareto efficiency (high level).
+    \item \textbf{Fixed point theorems} (statement): equilibrium as a fixed point;
+      Brouwer or contraction mapping; existence of equilibrium (no proof).
+    \item \textbf{Continuity recap:} $\varepsilon$--$\delta$ at a point versus on a set;
+      continuity of demand, supply, profit functions; when discontinuities break optimization.
+    \item \textbf{Product spaces} $\mathbb{R}^n$: choice sets as subsets of product domains (brief, if not done Day~1).
+    \item \textbf{Metric spaces / neighborhoods} (for interest only): distance, open balls; optional rigor beyond open/closed sets from Day~2.
 \end{itemize}
 
 %==============================================================================
@@ -447,8 +447,8 @@
 \textbf{Day} & \textbf{Block 1 ($\sim$1 hr)} & \textbf{Block 2 ($\sim$1 hr)} & \textbf{Block 3 ($\sim$1 hr)} \\
 \midrule
 1 & 1.1--1.4: notation; logic; sets; functions & 1.5--1.6: sup/inf; algebra; Cobb--Douglas & 1.7--1.9: derivatives; Euler; multivariate; limits \\
-2 & Implicit Function Theorem; MVT & Integration; Leibniz rule; Taylor & Vectors; matrices; Jacobians \\
-3 & Open and closed sets & Convergence; continuity; product spaces & Compactness; separation; fixed points \\
+2 & 2.1 IFT & 2.2 EVT/MVT; 2.3 integration & 2.4--2.5; 2.6 uniform conv. \\
+3 & Linear algebra (must) & Convergence practice (if time) & Separation; fixed points (if time) \\
 4 & Convexity; quasiconcavity & Unconstrained optimization & Lagrange; KKT; envelope theorem \\
 5 & Framework; state and control & Bellman equation & Backward induction; VFI idea \\
 \bottomrule
