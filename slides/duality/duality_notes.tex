@@ -1,0 +1,431 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{parskip}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\keyidea}[1]{\medskip\noindent\textbf{Key idea.}\ #1\medskip}
+\newcommand{\econ}[1]{\medskip\noindent\textbf{Economics.}\ #1\medskip}
+
+\title{\textbf{Duality Theory Notes}\\[0.2em]
+\large Math Camp 2026 --- Teaching Notes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\small
+\textit{Primal problem: choose $\mathbf{x}$ to minimize cost subject to constraints.\\
+Dual problem: find the best lower bound on that minimum using shadow prices on constraints.}
+\end{center}
+
+\tableofcontents
+\newpage
+
+%==============================================================================
+\section{Why duality?}
+%==============================================================================
+
+Many economic problems are \textbf{minimization} problems: choose activity levels $\mathbf{x}$
+to minimize cost $\mathbf{c}^{\mathsf T}\mathbf{x}$ subject to requirements $A\mathbf{x}\ge\mathbf{b}$.
+
+\keyidea{Before solving exactly, ask: \emph{what is the best lower bound we can prove on minimum cost?}
+Duality turns that bound into a \textbf{second optimization problem} whose variables $\mathbf{y}$ are
+\textbf{shadow prices} on the constraints.}
+
+\econ{The \textbf{primal} is a planner's cost-minimization problem; the \textbf{dual} is a
+price-setter's valuation problem. Any feasible prices $\mathbf{y}\ge 0$ with $A^{\mathsf T}\mathbf{y}\le\mathbf{c}$
+give a valid resource value $\mathbf{b}^{\mathsf T}\mathbf{y}$ that no feasible plan can beat.
+Duality asks for the \textbf{tightest} such bound. This underlies supporting prices, zero-profit
+conditions, and competitive price interpretations in graduate micro.}
+
+%==============================================================================
+\section{Linear programming duality}
+%==============================================================================
+
+This section builds LP duality from one symmetric primal--dual pair, then adds the main theorems.
+
+\subsection{The primal--dual pair}
+
+The \textbf{primal} (resource-requirement form):
+\begin{equation}\label{eq:primal}
+  \text{(P)}\quad
+  \min\ \mathbf{c}^{\mathsf T}\mathbf{x}
+  \quad\text{s.t.}\quad A\mathbf{x}\ge\mathbf{b},\ \mathbf{x}\ge\mathbf{0}.
+\end{equation}
+
+\paragraph{Derivation of the dual.}
+Pick any $\mathbf{y}\ge\mathbf{0}$ and add the constraints:
+$\mathbf{y}^{\mathsf T}A\mathbf{x}\ge\mathbf{b}^{\mathsf T}\mathbf{y}$.
+Require $\mathbf{c}\ge A^{\mathsf T}\mathbf{y}$ so that, for all $\mathbf{x}\ge\mathbf{0}$,
+$\mathbf{c}^{\mathsf T}\mathbf{x}\ge\mathbf{y}^{\mathsf T}A\mathbf{x}$.
+With primal feasibility, $\mathbf{c}^{\mathsf T}\mathbf{x}\ge\mathbf{b}^{\mathsf T}\mathbf{y}$,
+so $\mathbf{b}^{\mathsf T}\mathbf{y}$ is a \textbf{lower bound} on the optimum.
+Maximise it to get the \textbf{dual}:
+\begin{equation}\label{eq:dual}
+  \text{(D)}\quad
+  \max\ \mathbf{b}^{\mathsf T}\mathbf{y}
+  \quad\text{s.t.}\quad A^{\mathsf T}\mathbf{y}\le\mathbf{c},\ \mathbf{y}\ge\mathbf{0}.
+\end{equation}
+
+\econ{Read the pair as follows.
+\begin{itemize}[nosep,leftmargin=*]
+  \item $x_j$: scale of activity $j$;\quad $c_j$: unit cost.
+  \item $(A\mathbf{x})_i\ge b_i$: requirement $i$ (labor, output, delivery).
+  \item $y_i$: \textbf{shadow price} of constraint $i$.
+  \item $A^{\mathsf T}\mathbf{y}\le\mathbf{c}$: imputed resource cost of each activity $\le$ its direct cost.
+  \item $\mathbf{b}^{\mathsf T}\mathbf{y}$: total value of requirements at prices $\mathbf{y}$.
+\end{itemize}}
+
+\paragraph{Mini example.}
+$\min\ 3x_1+5x_2$ s.t.\ $x_1+2x_2\ge 4$, $x_1,x_2\ge 0$
+(meet 4 service units at minimum cost).
+Dual: $\max\ 4y$ s.t.\ $y\le 3$, $2y\le 5$, $y\ge 0$ $\Rightarrow$ $y^*=3$, cost $=12$.
+
+\subsection{Weak duality}
+
+\begin{theorem}[Weak duality]
+For every feasible $\mathbf{x}$ of~\eqref{eq:primal} and $\mathbf{y}$ of~\eqref{eq:dual},
+$\mathbf{c}^{\mathsf T}\mathbf{x}\ge\mathbf{b}^{\mathsf T}\mathbf{y}$, hence $p^*\ge d^*$.
+\end{theorem}
+
+\begin{proof}
+$A^{\mathsf T}\mathbf{y}\le\mathbf{c}$ and $\mathbf{x}\ge\mathbf{0}$
+$\Rightarrow$ $\mathbf{c}^{\mathsf T}\mathbf{x}\ge\mathbf{y}^{\mathsf T}A\mathbf{x}$;
+$A\mathbf{x}\ge\mathbf{b}$ and $\mathbf{y}\ge\mathbf{0}$
+$\Rightarrow$ $\mathbf{y}^{\mathsf T}A\mathbf{x}\ge\mathbf{b}^{\mathsf T}\mathbf{y}$.
+\end{proof}
+
+\begin{remark}[Optimality certificate]
+If feasible $\mathbf{x},\mathbf{y}$ satisfy $\mathbf{c}^{\mathsf T}\mathbf{x}=\mathbf{b}^{\mathsf T}\mathbf{y}$,
+both are optimal.
+\end{remark}
+
+\econ{Cost is always at least resource value.
+Equality is a \textbf{certificate of efficiency}: the plan and prices are mutually consistent.}
+
+\subsection{Farkas' Lemma}
+\label{sec:farkas}
+
+Strong duality uses the following theorem of alternatives.
+
+\begin{theorem}[Farkas' Lemma --- inequality form]
+Let $M\in\mathbb{R}^{m\times n}$, $\mathbf{q}\in\mathbb{R}^m$.
+\textbf{Exactly one} of the following has a solution:
+\begin{enumerate}[label=(\roman*),nosep]
+  \item $\exists\,\mathbf{x}\ge\mathbf{0}$ with $M\mathbf{x}\ge\mathbf{q}$;
+  \item $\exists\,\mathbf{z}\ge\mathbf{0}$ with $M^{\mathsf T}\mathbf{z}\le\mathbf{0}$ and $\mathbf{q}^{\mathsf T}\mathbf{z}>0$.
+\end{enumerate}
+\end{theorem}
+
+\paragraph{Geometry.}
+Let $S=\{M\mathbf{x}-\mathbf{y}:\mathbf{x},\mathbf{y}\ge\mathbf{0}\}=K_M+(-\mathbb{R}_+^m)$,
+the column cone $K_M$ plus free disposal in every negative coordinate direction.
+\begin{itemize}[nosep,leftmargin=*]
+  \item (i) holds $\Leftrightarrow$ $\mathbf{q}\in S$.
+  \item (ii) holds $\Leftrightarrow$ $\mathbf{q}\notin S$; a separating normal $\mathbf{z}\ge\mathbf{0}$ certifies this.
+\end{itemize}
+
+\begin{center}
+  \includegraphics[width=0.72\textwidth]{figures/farkas_geometry.png}
+\end{center}
+
+\paragraph{Proof sketch.}
+If both hold: $0<\mathbf{q}^{\mathsf T}\mathbf{z}\le\mathbf{z}^{\mathsf T}M\mathbf{x}\le 0$.
+If (i) fails: $\mathbf{q}\notin S$; separation gives $\mathbf{z}$ with $\mathbf{z}^{\mathsf T}\mathbf{s}\le 0$
+for all $\mathbf{s}\in S$ and $\mathbf{z}^{\mathsf T}\mathbf{q}>0$; checking $-\mathbf{e}_i,M\mathbf{x}\in S$
+gives $\mathbf{z}\ge\mathbf{0}$ and $M^{\mathsf T}\mathbf{z}\le\mathbf{0}$.
+
+\econ{Either a target is feasible with free disposal, or a nonnegative price vector exposes it as
+too ambitious---a no-arbitrage statement.}
+
+\subsection{Strong duality}
+
+\begin{theorem}[Strong duality for LP]
+If~\eqref{eq:primal} has an optimal value $p^*$, then~\eqref{eq:dual} has $d^*=p^*$.
+\end{theorem}
+
+\begin{proof}
+For any $\varepsilon>0$, no $\mathbf{x}\ge\mathbf{0}$ satisfies
+$A\mathbf{x}\ge\mathbf{b}$ and $\mathbf{c}^{\mathsf T}\mathbf{x}\le p^*-\varepsilon$.
+Write $M\mathbf{x}\ge\mathbf{q}$ with
+$M=\binom{A}{-\mathbf{c}^{\mathsf T}}$, $\mathbf{q}=\binom{\mathbf{b}}{-(p^*-\varepsilon)}$.
+By Farkas, $\exists\,\mathbf{y}\ge\mathbf{0}$, $\mu\ge 0$ with
+$A^{\mathsf T}\mathbf{y}-\mu\mathbf{c}\le\mathbf{0}$ and $\mathbf{b}^{\mathsf T}\mathbf{y}-\mu(p^*-\varepsilon)>0$.
+If $\mu=0$, primal feasibility contradicts $\mathbf{b}^{\mathsf T}\mathbf{y}>0$; so $\mu>0$.
+With $\tilde{\mathbf{y}}=\mathbf{y}/\mu$: dual feasible and $\mathbf{b}^{\mathsf T}\tilde{\mathbf{y}}>p^*-\varepsilon$.
+Let $\varepsilon\downarrow 0$; weak duality gives $d^*=p^*$.
+\end{proof}
+
+\econ{\textbf{Minimum cost = maximum resource value} at optimality.
+Efficient allocations can be supported by shadow prices.}
+
+\subsection{Complementary slackness}
+
+\begin{theorem}[Complementary slackness]
+Feasible $\mathbf{x},\mathbf{y}$ are optimal iff
+\[
+  (A\mathbf{x}-\mathbf{b})_i\,y_i = 0\ \forall i,
+  \qquad
+  (c-A^{\mathsf T}\mathbf{y})_j\,x_j = 0\ \forall j.
+\]
+\end{theorem}
+
+\paragraph{In words.}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{ll}
+\toprule
+\textbf{If \ldots} & \textbf{then \ldots} \\
+\midrule
+primal constraint $i$ is slack & $y_i=0$ \\
+$y_i>0$ & primal constraint $i$ is tight \\
+dual constraint $j$ is slack & $x_j=0$ \\
+$x_j>0$ & dual constraint $j$ is tight \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proof}[Necessity]
+Optimality $\Rightarrow$ $\mathbf{c}^{\mathsf T}\mathbf{x}^*=\mathbf{b}^{\mathsf T}\mathbf{y}^*$ (strong duality).
+Weak duality forces both inequalities in the chain to be equalities, hence both dot products vanish;
+nonnegativity then forces each product term to be zero.
+\end{proof}
+
+\begin{proof}[Sufficiency]
+Complementary slackness gives $\mathbf{c}^{\mathsf T}\mathbf{x}=\mathbf{b}^{\mathsf T}\mathbf{y}$;
+weak duality certifies optimality.
+\end{proof}
+
+\begin{remark}[Direct proof]
+From $\mathbf{c}^{\mathsf T}\mathbf{x}=\mathbf{b}^{\mathsf T}\mathbf{y}$ and weak duality:
+any feasible $\tilde{\mathbf{x}}$ has $\mathbf{c}^{\mathsf T}\tilde{\mathbf{x}}\ge\mathbf{c}^{\mathsf T}\mathbf{x}$;
+any feasible $\tilde{\mathbf{y}}$ has $\mathbf{b}^{\mathsf T}\tilde{\mathbf{y}}\le\mathbf{b}^{\mathsf T}\mathbf{y}$.
+\end{remark}
+
+\econ{\textbf{Zero-profit / full-utilization} logic.
+Unused capacity $\Rightarrow$ zero shadow price; scarce resource $\Rightarrow$ binds.
+Unprofitable activity $\Rightarrow$ $x_j=0$; used activity $\Rightarrow$ breaks even at shadow prices.
+Links to the Day~3 producer-theory slide (efficient production supported by prices when free disposal holds).}
+
+\subsection{Dual of a general LP}
+
+\keyidea{Same bounding argument; signs follow from constraint and variable types.}
+
+\paragraph{Claim.}
+For a minimisation with any mix of $\ge$, $\le$, $=$ constraints and
+nonnegative, nonpositive, or free variables: dual is a \textbf{maximisation} in $y_i$
+(one per primal constraint). If the primal is a \textbf{maximisation}, reverse every inequality below.
+
+\paragraph{Proof.}
+$\mathbf{c}^{\mathsf T}\mathbf{x}-\mathbf{b}^{\mathsf T}\mathbf{y}
+=(\mathbf{c}-A^{\mathsf T}\mathbf{y})^{\mathsf T}\mathbf{x}+\mathbf{y}^{\mathsf T}(A\mathbf{x}-\mathbf{b})$.
+Require each part $\ge 0$ for all feasible $\mathbf{x}$; maximise $\mathbf{b}^{\mathsf T}\mathbf{y}$.
+
+\paragraph{Rules (primal min $\Rightarrow$ dual max).}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ll}
+\toprule
+\textbf{Primal} & \textbf{Dual} \\
+\midrule
+$\mathbf{a}_i^{\mathsf T}\mathbf{x}\ge b_i$ & $y_i\ge 0$ \\
+$\mathbf{a}_i^{\mathsf T}\mathbf{x}\le b_i$ & $y_i\le 0$ \\
+$\mathbf{a}_i^{\mathsf T}\mathbf{x}= b_i$ & $y_i$ free \\
+$x_j\ge 0$ & $(A^{\mathsf T}\mathbf{y})_j\le c_j$ \\
+$x_j\le 0$ & $(A^{\mathsf T}\mathbf{y})_j\ge c_j$ \\
+$x_j$ free & $(A^{\mathsf T}\mathbf{y})_j= c_j$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Example.}
+\[
+  \min\ 3x_1-2x_2\ \text{ s.t. }\
+  x_1+x_2\ge 5,\ 2x_1-x_2\le 10,\ x_1-3x_2=4,\ x_1\ge 0,\ x_2\ \text{free}.
+\]
+Dual:
+\[
+  \max\ 5y_1+10y_2+4y_3\ \text{ s.t. }\
+  y_1+2y_2+y_3\le 3,\ y_1-y_2-3y_3=-2,\ y_1\ge 0,\ y_2\le 0,\ y_3\ \text{free}.
+\]
+
+%==============================================================================
+\section{Lagrangian duality}
+%==============================================================================
+
+LP duality is the special case of a general construction: multiply constraints by weights,
+add to the objective, and maximise the resulting lower bound.
+
+\subsection{Setup}
+
+\[
+  \text{(P)}\quad
+  \min\ f_0(\mathbf{x})
+  \ \text{s.t.}\ 
+  f_i(\mathbf{x})\le 0,\ i=1,\ldots,m,\quad
+  h_j(\mathbf{x})=0,\ j=1,\ldots,p,\quad
+  \mathbf{x}\in D.
+\]
+Optimal value: $p^*$.
+
+\subsection{Lagrangian and dual problem}
+
+\paragraph{Lagrangian.}
+\[
+  L(\mathbf{x},\boldsymbol{\lambda},\boldsymbol{\nu})
+  = f_0(\mathbf{x})
+  + \sum_{i=1}^m \lambda_i f_i(\mathbf{x})
+  + \sum_{j=1}^p \nu_j h_j(\mathbf{x}),
+  \qquad \boldsymbol{\lambda}\ge\mathbf{0},\ \boldsymbol{\nu}\ \text{free}.
+\]
+For feasible $\mathbf{x}$: $L\le f_0$ (added terms are $\le 0$).
+
+\paragraph{Dual function.}
+$g(\boldsymbol{\lambda},\boldsymbol{\nu})=\inf_{\mathbf{x}\in D}L(\mathbf{x},\boldsymbol{\lambda},\boldsymbol{\nu})\le p^*$.
+
+\paragraph{Dual problem.}
+\[
+  \text{(D)}\quad \max\ g(\boldsymbol{\lambda},\boldsymbol{\nu})\ \text{s.t.}\ \boldsymbol{\lambda}\ge\mathbf{0}.
+\]
+Always $d^*\le p^*$ (\textbf{weak duality}); $p^*-d^*$ is the \textbf{duality gap}.
+
+\subsection{Geometry I: one inequality --- the \texorpdfstring{$(u,t)$}{(u,t)} cloud}
+
+\keyidea{Dual $=$ best lower bound from a supporting \textbf{line} below the whole achievable set
+$\mathcal{A}\subset\mathbb{R}^2$.}
+
+\paragraph{Problem.}
+\[
+  \min_{\mathbf{x}}\ f_0(\mathbf{x})
+  \quad\text{s.t.}\quad f_1(\mathbf{x})\le 0.
+\]
+Let $u=f_1(\mathbf{x})$, $t=f_0(\mathbf{x})$. As $\mathbf{x}$ runs over $D$,
+\[
+  \mathcal{A}=\{\,(u,t):\ u=f_1(\mathbf{x}),\ t=f_0(\mathbf{x}),\ \mathbf{x}\in D\,\}.
+\]
+$\mathcal{A}$ is the \textbf{whole cloud} of achievable pairs---feasible ($u\le 0$) and infeasible.
+
+\paragraph{Primal.}
+Among $(u,t)\in\mathcal{A}$ with $u\le 0$, minimise $t$. That value is $p^*$.
+
+\paragraph{Dual function.}
+For $\lambda\ge 0$, lines $t+\lambda u=\alpha$ have slope $-\lambda$ in the $(u,t)$ plane.
+\[
+  g(\lambda)=\inf_{(u,t)\in\mathcal{A}}(t+\lambda u)
+\]
+is the smallest $\alpha$ such that the line still touches $\mathcal{A}$ from below---its intercept on $u=0$.
+The infimum is over \textbf{all} of $\mathcal{A}$, not only the feasible slice $u\le 0$.
+
+\paragraph{Why $g(\lambda)\le p^*$.}
+For any feasible point ($u\le 0$): $t+\lambda u\le t$ since $\lambda\ge 0$.
+Also $g(\lambda)\le t+\lambda u$. Hence $g(\lambda)\le t$, so $g(\lambda)\le p^*$.
+
+\paragraph{Dual problem.}
+$d^*=\sup_{\lambda\ge 0} g(\lambda)$: tilt the supporting line (choose $\lambda$) to maximise the intercept at $u=0$.
+
+\begin{center}
+  \includegraphics[width=0.78\textwidth]{figures/lagrange_geometry.png}
+\end{center}
+
+\subsection{Geometry II: one inequality and one equality --- the \texorpdfstring{$(u,v,t)$}{(u,v,t)} cloud}
+
+\keyidea{Adding an equality lets the supporting object tilt in a \textbf{third} direction; free $\nu$ can
+tighten the bound.}
+
+\paragraph{Problem.}
+\[
+  \min_{\mathbf{x}}\ f_0(\mathbf{x})
+  \quad\text{s.t.}\quad f_1(\mathbf{x})\le 0,\ h(\mathbf{x})=0.
+\]
+Let $u=f_1(\mathbf{x})$, $v=h(\mathbf{x})$, $t=f_0(\mathbf{x})$.
+\[
+  \mathcal{A}=\{\,(u,v,t):\ u=f_1(\mathbf{x}),\ v=h(\mathbf{x}),\ t=f_0(\mathbf{x}),\ \mathbf{x}\in D\,\}.
+\]
+Again, $\mathcal{A}$ contains \textbf{all} achievable triples. Feasible points have $u\le 0$, $v=0$.
+
+\paragraph{Primal.}
+Among $(u,v,t)\in\mathcal{A}$ with $u\le 0$ and $v=0$, find the smallest $t$ $\Rightarrow$ $p^*$.
+
+\paragraph{Dual function.}
+Choose $\lambda\ge 0$ (for $u$) and $\nu$ free (for $v$).
+\[
+  g(\lambda,\nu)=\inf_{(u,v,t)\in\mathcal{A}}(t+\lambda u+\nu v).
+\]
+The plane $t+\lambda u+\nu v=\alpha$ supports $\mathcal{A}$ from below;
+$g(\lambda,\nu)$ is its intercept at $u=0$, $v=0$.
+
+\paragraph{Why $g(\lambda,\nu)\le p^*$.}
+For feasible $(u,v,t)$ ($u\le 0$, $v=0$): $t+\lambda u+\nu v=t+\lambda u\le t$.
+Since $g(\lambda,\nu)\le t+\lambda u+\nu v$, we get $g(\lambda,\nu)\le p^*$.
+
+\paragraph{Dual problem.}
+$d^*=\sup_{\lambda\ge 0,\,\nu} g(\lambda,\nu)$: the best intercept from a hyperplane below the full cloud $\mathcal{A}$.
+
+\paragraph{Why $\nu=0$ can be weaker.}
+With $\nu=0$, the plane $t+\lambda u=\alpha$ cannot tilt in the $v$-direction.
+The infimum $g(\lambda,0)$ may occur at $v\neq 0$, giving a low intercept at $v=0$.
+Allowing $\nu$ to vary lets the plane tilt so the minimum over $\mathcal{A}$ can occur nearer $v=0$,
+often raising the bound; for convex problems this can achieve $d^*=p^*$.
+
+\medskip
+For LPs, $\mathcal{A}$ is a polyhedron (convex) $\Rightarrow$ strong duality when the primal optimum is finite.
+
+\subsection{LP recovers Section~2}
+
+Write $\min\ \mathbf{c}^{\mathsf T}\mathbf{x}$ s.t.\ $A\mathbf{x}\ge\mathbf{b}$, $\mathbf{x}\ge\mathbf{0}$ as
+$f_1=\mathbf{b}-A\mathbf{x}\le\mathbf{0}$, $f_2=-\mathbf{x}\le\mathbf{0}$:
+\[
+  L=\mathbf{c}^{\mathsf T}\mathbf{x}+\boldsymbol{\lambda}^{\mathsf T}(\mathbf{b}-A\mathbf{x})
+  +\boldsymbol{\mu}^{\mathsf T}(-\mathbf{x}).
+\]
+$g(\boldsymbol{\lambda},\boldsymbol{\mu})=\inf_{\mathbf{x}}[(\mathbf{c}-A^{\mathsf T}\boldsymbol{\lambda}-\boldsymbol{\mu})^{\mathsf T}\mathbf{x}+\boldsymbol{\lambda}^{\mathsf T}\mathbf{b}]$.
+Finite $g$ requires $A^{\mathsf T}\boldsymbol{\lambda}\le\mathbf{c}$; then $g=\boldsymbol{\lambda}^{\mathsf T}\mathbf{b}$.
+With $\mathbf{y}=\boldsymbol{\lambda}$: the LP dual~\eqref{eq:dual}.
+
+\subsection{Strong duality for convex problems}
+
+Problem is \textbf{convex} if $f_0,f_i$ are convex, $h_j$ are affine, $D$ is convex.
+
+\begin{theorem}[Strong duality]
+If the primal is convex, \textbf{Slater's condition} holds (strict feasibility:
+$f_i(\mathbf{x})<0$, $h_j(\mathbf{x})=0$ for some $\mathbf{x}\in\mathrm{relint}\,D$),
+and $p^*$ is finite, then $d^*=p^*$ and the dual optimum is attained.
+\end{theorem}
+
+\begin{remark}[What is $\mathrm{relint}\,D$?]
+The \textbf{relative interior} $\mathrm{relint}\,D$ is the ``interior'' of $D$ measured inside the
+flat (affine hull) that contains $D$, not inside all of $\mathbb{R}^n$.
+\begin{itemize}[nosep,leftmargin=*]
+  \item If $D=\mathbb{R}^n$, then $\mathrm{relint}\,D=\mathbb{R}^n$.
+  \item If $D$ is a line segment in $\mathbb{R}^2$, its usual topological interior is empty,
+        but $\mathrm{relint}\,D$ is the \textbf{open segment} (endpoints excluded).
+  \item If $D=\{\mathbf{x}:A\mathbf{x}\le\mathbf{b}\}$ is a full-dimensional polyhedron,
+        $\mathrm{relint}\,D$ is the set of points that satisfy every inequality \textbf{strictly}
+        ($A\mathbf{x}<\mathbf{b}$), i.e.\ not on a lower-dimensional face.
+\end{itemize}
+Slater asks for a \textbf{strictly feasible} point that is not trapped on a boundary of $D$:
+inequalities hold with slack ($f_i(\mathbf{x})<0$), equalities hold exactly, and $\mathbf{x}$ lies
+in the relative interior of the domain.
+\end{remark}
+
+For LPs, a feasible point with finite optimum suffices.
+Slater is the convex analogue of ``interior point exists.''
+
+\econ{$\lambda_i,\nu_j$ are shadow prices on constraints.
+The dual finds the price system giving the best accounting lower bound on optimal cost.
+When the gap vanishes, prices fully explain the optimum.}
+
+\end{document}
