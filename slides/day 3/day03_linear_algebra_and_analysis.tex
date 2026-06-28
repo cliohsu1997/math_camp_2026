@@ -1184,6 +1184,102 @@
   \href{https://www.youtube.com/watch?v=LyGKycYT2v0}{\textcolor{mAccent}{https://www.youtube.com/watch?v=LyGKycYT2v0}}
 \end{frame}
 
+\begin{frame}{3.3 Linear regression --- $\mathbf{y}$ and $X$}
+  \footnotesize
+  \textbf{Data ($n$ workers).}\
+  Worker $i$ has income $y_i$, age $\text{age}_i$, education $\text{educ}_i$.
+
+  \medskip
+  \textbf{Response vector.}
+  \[
+    \mathbf{y}=
+    \begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix}
+    \in\mathbb{R}^n.
+  \]
+
+  \medskip
+  \textbf{Regressor matrix} (two columns: age, educ).
+  \[
+    X=
+    \begin{pmatrix}
+      \text{age}_1 & \text{educ}_1 \\
+      \vdots & \vdots \\
+      \text{age}_n & \text{educ}_n
+    \end{pmatrix}
+    \in\mathbb{R}^{n\times 2},
+    \qquad
+    \boldsymbol{\beta}=
+    \begin{pmatrix}\beta_{\text{age}}\\ \beta_{\text{educ}}\end{pmatrix},
+    \qquad
+    \mathbf{y}\approx X\boldsymbol{\beta}.
+  \]
+  Column $j$ of $X$ is the vector of worker $i$ values for regressor $j$.
+
+  \medskip
+  {\scriptsize Schematic next ($n=3$): age and education are the two axes; yellow plane $=\operatorname{Col}(X)$;
+  $\mathbf{e}$ is orthogonal to every column of $X$.}
+\end{frame}
+
+\begin{frame}[plain]{}
+  \centering
+  \vspace{-0.05cm}
+  \includegraphics[width=0.92\textwidth,height=0.94\textheight,keepaspectratio]{figures/ols_projection.png}
+\end{frame}
+
+\begin{frame}{3.3 OLS fit --- $\mathbf{e}$ orthogonal to every column of $X$}
+  \footnotesize
+  \textbf{From the picture ($n=3$).}\
+  Yellow plane $=\operatorname{Col}(X)$; fitted $\widehat{\mathbf{y}}=X\widehat{\boldsymbol{\beta}}$ lies in it.
+  Residual $\mathbf{e}=\mathbf{y}-X\widehat{\boldsymbol{\beta}}$ is perpendicular to the plane.
+
+  \medskip
+  \textbf{Orthogonal to every column of $X$.}\
+  Let $\mathbf{x}_1$ = age column, $\mathbf{x}_2$ = educ column. Then
+  \[
+    \mathbf{x}_1\cdot\mathbf{e}=0,
+    \qquad
+    \mathbf{x}_2\cdot\mathbf{e}=0
+    \qquad\Longleftrightarrow\qquad
+    X^{\mathsf T}\mathbf{e}=\mathbf{0}
+    \qquad\Longleftrightarrow\qquad
+    X^{\mathsf T}\bigl(\mathbf{y}-X\widehat{\boldsymbol{\beta}}\bigr)=\mathbf{0}.
+  \]
+  These \textbf{normal equations} characterise $\widehat{\boldsymbol{\beta}}$.
+
+  \medskip
+  \textbf{Solve for $\widehat{\boldsymbol{\beta}}$.}\
+  $X^{\mathsf T}X\widehat{\boldsymbol{\beta}}=X^{\mathsf T}\mathbf{y}$. If the columns of $X$ are
+  independent (full column rank), then
+  \[
+    \widehat{\boldsymbol{\beta}}=(X^{\mathsf T}X)^{-1}X^{\mathsf T}\mathbf{y}.
+  \]
+  {\scriptsize (Since $\widehat{\mathbf{y}}\in\operatorname{Col}(X)$, also $\widehat{\mathbf{y}}\cdot\mathbf{e}=0$.)}
+\end{frame}
+
+\begin{frame}{3.3 OLS fit --- same as least squares}
+  \footnotesize
+  \textbf{Pythagoras in $\mathbb{R}^n$.}\
+  Fix $\widehat{\boldsymbol{\beta}}$ with $\mathbf{e}=\mathbf{y}-X\widehat{\boldsymbol{\beta}}$. For any $\boldsymbol{\beta}$,
+  \[
+    \mathbf{y}-X\boldsymbol{\beta}
+    =\underbrace{\mathbf{y}-X\widehat{\boldsymbol{\beta}}}_{\mathbf{e}}
+    +\underbrace{X(\widehat{\boldsymbol{\beta}}-\boldsymbol{\beta})}_{\in\,\operatorname{Col}(X)}.
+  \]
+  The two pieces are orthogonal, so
+  \[
+    \|\mathbf{y}-X\boldsymbol{\beta}\|^2
+    =\|\mathbf{y}-X\widehat{\boldsymbol{\beta}}\|^2+\|X(\widehat{\boldsymbol{\beta}}-\boldsymbol{\beta})\|^2
+    \ge \|\mathbf{y}-X\widehat{\boldsymbol{\beta}}\|^2.
+  \]
+
+  \medskip
+  \textbf{Conclusion.}\
+  The smallest squared error occurs when $X(\widehat{\boldsymbol{\beta}}-\boldsymbol{\beta})=\mathbf{0}$, i.e.\
+  $\widehat{\boldsymbol{\beta}}=\arg\min_{\boldsymbol{\beta}}\|\mathbf{y}-X\boldsymbol{\beta}\|^2
+  =\arg\min_{\boldsymbol{\beta}}\sum_{i=1}^n
+  \bigl(y_i-\beta_{\text{age}}\,\text{age}_i-\beta_{\text{educ}}\,\text{educ}_i\bigr)^2$.
+\end{frame}
+
 \appendix
 
 \begin{frame}{Appendix}
