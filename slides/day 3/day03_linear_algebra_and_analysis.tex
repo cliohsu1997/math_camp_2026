@@ -627,6 +627,28 @@
   A basis of $\mathbb{R}^2$ has exactly $2$ vectors, not $3$.
 \end{frame}
 
+\begin{frame}{3.3 Linear dependence --- columns example}
+  \footnotesize
+  \textbf{Example (columns of $A$).}\
+  $A=\begin{pmatrix}1&2\\ 2&4\end{pmatrix}$, columns
+  $\mathbf{a}_1=(1,2)^{\mathsf T}$, $\mathbf{a}_2=(2,4)^{\mathsf T}$.
+
+  \medskip
+  \textbf{Same direction.}\
+  $\mathbf{a}_2=2\mathbf{a}_1$, so the two columns lie on one line through the origin.
+
+  \medskip
+  \textbf{Nontrivial combination to $\mathbf{0}$.}\
+  \[
+    2\mathbf{a}_1-\mathbf{a}_2=\mathbf{0}
+    \quad\Longleftrightarrow\quad
+    2\begin{pmatrix}1\\ 2\end{pmatrix}-\begin{pmatrix}2\\ 4\end{pmatrix}
+    =\begin{pmatrix}0\\ 0\end{pmatrix}.
+  \]
+  Coefficients $(2,-1)$ are not both zero, so $\mathbf{a}_1,\mathbf{a}_2$ are
+  \textbf{linearly dependent} (only one independent direction in $\operatorname{Col}(A)$).
+\end{frame}
+
 \begin{frame}{3.3 Solving $A\mathbf{x}=\mathbf{b}$ --- example}
   \footnotesize
   \textbf{Example.}\
@@ -1021,6 +1043,145 @@
     =A\mathbf{x}.
   \]
   Column $j$ of $A$ is exactly where $\mathbf{e}_j$ is sent.
+\end{frame}
+
+\begin{frame}{3.3 Null space --- directions squeezed to $\mathbf{0}$}
+  \footnotesize
+  \textbf{Setup ($A\in\mathbb{R}^{2\times 2}$).}\
+  View $A$ as a linear transformation $T:\mathbb{R}^2\to\mathbb{R}^2$, $T(\mathbf{x})=A\mathbf{x}$.
+
+  \medskip
+  \textbf{Null space / kernel} (subspace of $\mathbb{R}^2$):
+  \[
+    \operatorname{Null}(A)=\ker(T)=\{\mathbf{x}\in\mathbb{R}^2:\ A\mathbf{x}=\mathbf{0}\}.
+  \]
+  Vectors in $\operatorname{Null}(A)$ are mapped to $\mathbf{0}$ in the output.
+
+  \medskip
+  \textbf{Intuition.}\
+  If $\mathbf{x}\neq\mathbf{0}$ lies in $\operatorname{Null}(A)$, the whole line
+  $\operatorname{span}\{\mathbf{x}\}\subset\mathbb{R}^2$ is sent to the single point
+  $\mathbf{0}\in\mathbb{R}^2$ --- that \textbf{input direction is squeezed} (lost in the output).
+
+  \medskip
+  \textbf{Example ($\det A=0$).}\
+  $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$:
+  $A(1,-1)^{\mathsf T}=\mathbf{0}$, so
+  $\operatorname{Null}(A)=\operatorname{span}\{(1,-1)^{\mathsf T}\}$ --- one direction squeezed.
+\end{frame}
+
+\begin{frame}{3.3 Rank--nullity --- squeezed vs.\ persist ($2\times 2$)}
+  \footnotesize
+  \textbf{Setup.}\
+  $A\in\mathbb{R}^{2\times 2}$, $T:\mathbb{R}^2\to\mathbb{R}^2$, $T(\mathbf{x})=A\mathbf{x}$.
+  The plane has $2$ input dimensions; under $T$, each splits into one of two fates:
+
+  \medskip
+  \textbf{1.\ Squeezed to $\mathbf{0}$} (kernel, in $\mathbb{R}^2$):\
+  $\ker(T)=\operatorname{Null}(A)$; dimension $=\operatorname{nullity}(A)$.
+
+  \medskip
+  \textbf{2.\ Persist in the output} (image, in $\mathbb{R}^2$):\
+  $\operatorname{Im}(T)=\operatorname{Col}(A)=\{A\mathbf{x}:\mathbf{x}\in\mathbb{R}^2\}$;
+  dimension $=\operatorname{rank}(A)$ --- independent directions that \textbf{survive} in the output
+  (not collapsed to $\mathbf{0}$).
+
+  \medskip
+  \textbf{Rank--nullity.}\
+  $\operatorname{rank}(A)+\operatorname{nullity}(A)=2$.
+
+  \medskip
+  \textbf{Example ($\det A=0$).}\
+  $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$:
+  nullity $=1$ (direction $(1,-1)^{\mathsf T}$ squeezed),
+  rank $=1$ (outputs fill the line $\operatorname{span}\{(1,1)^{\mathsf T}\}$).
+
+  \medskip
+  \textbf{Example ($\det A\neq 0$).}\
+  Shear or rotation from earlier slides:
+  nullity $=0$ (only $\mathbf{0}$ squeezed),
+  rank $=2$ (both input dimensions persist --- output still fills $\mathbb{R}^2$).
+\end{frame}
+
+\begin{frame}{3.3 Rank--nullity --- general case (\InterestOnly)}
+  \footnotesize
+  \textbf{Setup.}\
+  Let $A\in\mathbb{R}^{m\times n}$, $T:\mathbb{R}^n\to\mathbb{R}^m$, $T(\mathbf{x})=A\mathbf{x}$.
+
+  \medskip
+  \textbf{Kernel and image.}\
+  $\ker(T)=\operatorname{Null}(A)=\{\mathbf{x}\in\mathbb{R}^n:A\mathbf{x}=\mathbf{0}\}\subseteq\mathbb{R}^n$;
+  \quad
+  $\operatorname{Im}(T)=\operatorname{Col}(A)=\{A\mathbf{x}:\mathbf{x}\in\mathbb{R}^n\}\subseteq\mathbb{R}^m$.
+
+  \medskip
+  \textbf{Rank and nullity.}\
+  $\operatorname{rank}(A)=\dim(\operatorname{Im}\,T)$,
+  \quad
+  $\operatorname{nullity}(A)=\dim(\ker T)$.
+
+  \medskip
+  \textbf{Rank--nullity theorem.}\
+  \[
+    \operatorname{rank}(A)+\operatorname{nullity}(A)=n
+    \qquad\text{($n$ columns $=\dim(\mathbb{R}^n)$).}
+  \]
+
+  \medskip
+  \textbf{Same intuition.}\
+  Of the $n$ domain dimensions, $\operatorname{nullity}(A)$ are \textbf{squeezed} to
+  $\mathbf{0}\in\mathbb{R}^m$; $\operatorname{rank}(A)$ independent directions
+  \textbf{persist} in $\operatorname{Im}(T)\subseteq\mathbb{R}^m$.
+  When $n=m$, invertible $\Leftrightarrow$ nullity $=0$ $\Leftrightarrow$ rank $=n$.
+\end{frame}
+
+\begin{frame}{3.3 After a squeeze --- what survives? ($2\times 2$)}
+  \footnotesize
+  \textbf{Recall.}\
+  $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$ maps the whole plane onto one output line
+  (through $(1,1)^{\mathsf T}$). Direction $(1,-1)^{\mathsf T}$ is squeezed to $\mathbf{0}$.
+
+  \medskip
+  \textbf{Question.}\
+  Given an input $\mathbf{v}$, what is $A\mathbf{v}$?
+
+  \medskip
+  \textbf{Key idea (in words).}\
+  Think of $\mathbf{v}$ as two moves: one along the \textbf{squeezed} direction (the map
+  \textbf{forgets} it) and one along the surviving direction $(1,1)^{\mathsf T}$ (the map
+  \textbf{remembers} only this). So $A\mathbf{v}$ depends on how much of $\mathbf{v}$ points
+  along the surviving direction --- not on the part that collapses.
+
+  \medskip
+  \textbf{Example.}\
+  $(3,1)^{\mathsf T}=2(1,1)^{\mathsf T}+1(1,-1)^{\mathsf T}$: the $(1,-1)^{\mathsf T}$ part is
+  lost, the $2(1,1)^{\mathsf T}$ part survives, so $A\mathbf{v}=2(2,2)^{\mathsf T}=(4,4)^{\mathsf T}$.
+\end{frame}
+
+\begin{frame}{3.3 Dot product --- algebraic and geometric}
+  \footnotesize
+  For $\mathbf{u},\mathbf{v}\in\mathbb{R}^n$:
+
+  \medskip
+  \textbf{Algebraic definition.}
+  \[
+    \mathbf{u}\cdot\mathbf{v}=\sum_{i=1}^n u_i v_i.
+  \]
+
+  \medskip
+  \textbf{Geometric definition.}\
+  Let $\theta$ be the angle between $\mathbf{u}$ and $\mathbf{v}$. Then
+  \[
+    \mathbf{u}\cdot\mathbf{v}=\|\mathbf{u}\|\,\|\mathbf{v}\|\cos\theta.
+  \]
+
+  \medskip
+  \textbf{Equivalent.}\
+  These two definitions always give the \textbf{same number}.
+
+  \medskip
+  \textbf{Video (intuition and proof).}\
+  \href{https://www.youtube.com/watch?v=LyGKycYT2v0}{\textcolor{mAccent}{https://www.youtube.com/watch?v=LyGKycYT2v0}}
 \end{frame}
 
 \appendix
