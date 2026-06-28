@@ -1280,6 +1280,171 @@
   \bigl(y_i-\beta_{\text{age}}\,\text{age}_i-\beta_{\text{educ}}\,\text{educ}_i\bigr)^2$.
 \end{frame}
 
+\begin{frame}{3.3 Which basis makes decompose--transform--combine easy?}
+  \footnotesize
+  \textbf{Recall the recipe.}\
+  If $\mathbf{v}=a\mathbf{x}+b\mathbf{y}$, then
+  $T(\mathbf{v})=aT(\mathbf{x})+bT(\mathbf{y})$ --- always true by linearity.
+
+  \medskip
+  \textbf{But step 2 can be hard.}\
+  You must know $T(\mathbf{x})$ and $T(\mathbf{y})$. With the standard basis
+  ($\mathbf{e}_1,\mathbf{e}_2$), rotation sent $\mathbf{e}_1$ down and $\mathbf{e}_2$ right ---
+  both outputs are \textbf{new directions} to track.
+
+  \medskip
+  \textbf{A proper basis (for this map).}\
+  Pick directions where $T$ \textbf{only scales}, not rotates or shears:
+  \[
+    T(\mathbf{v})=\lambda\mathbf{v}
+    \qquad\text{for some scalar $\lambda$.}
+  \]
+  Then $T(a\mathbf{v})=a\lambda\mathbf{v}$ --- one number $\lambda$, same direction.\
+  These special directions are \textbf{eigenvectors}; $\lambda$ is the \textbf{eigenvalue}.
+\end{frame}
+
+\begin{frame}{3.3 Eigenvectors and eigenvalues --- definition}
+  \footnotesize
+  \textbf{Setup.}\
+  Square matrix $A\in\mathbb{R}^{n\times n}$ (linear map $T(\mathbf{x})=A\mathbf{x}$).
+
+  \medskip
+  \textbf{Eigenvector / eigenvalue.}\
+  A nonzero vector $\mathbf{v}$ is an \textbf{eigenvector} of $A$ if
+  \[
+    A\mathbf{v}=\lambda\mathbf{v}
+  \]
+  for some scalar $\lambda$ (the \textbf{eigenvalue}).\
+  Geometrically: $A$ stretches or flips $\mathbf{v}$, but keeps its line.
+
+  \medskip
+  \textbf{Proper basis.}\
+  When $A$ has enough independent eigenvectors
+  $\mathbf{v}_1,\ldots,\mathbf{v}_n$, decompose in \textbf{that} basis instead of the standard one.
+\end{frame}
+
+\begin{frame}{3.3 Eigenvectors --- $2\times 2$ example}
+  \footnotesize
+  \textbf{Map (not diagonal).}\
+  $A=\begin{pmatrix}2&1\\ 1&2\end{pmatrix}$ mixes $x_1$ and $x_2$; standard $\mathbf{e}_1,\mathbf{e}_2$ are
+  \textbf{not} eigenvectors.
+
+  \medskip
+  \textbf{Characteristic equation.}\
+  $\det(A-\lambda I)=0$:
+  \[
+    (2-\lambda)^2-1=\lambda^2-4\lambda+3=(\lambda-1)(\lambda-3)=0
+    \quad\Rightarrow\quad \lambda_1=3,\ \lambda_2=1.
+  \]
+
+  \medskip
+  \textbf{Eigenpairs.}\
+  $\lambda_1=3$: $\mathbf{v}_1=\begin{pmatrix}1\\ 1\end{pmatrix}$;
+  \quad
+  $\lambda_2=1$: $\mathbf{v}_2=\begin{pmatrix}1\\ -1\end{pmatrix}$
+  (check: $A\mathbf{v}_i=\lambda_i\mathbf{v}_i$).
+
+  \medskip
+  \textbf{Decompose--transform--combine.}\
+  $\mathbf{v}=\begin{pmatrix}3\\ 1\end{pmatrix}=2\mathbf{v}_1+1\mathbf{v}_2$:
+  \[
+    A\mathbf{v}=2\cdot 3\mathbf{v}_1+1\cdot 1\mathbf{v}_2=\begin{pmatrix}7\\ 5\end{pmatrix}.
+  \]
+  Same directions; coefficients $2,1$ become $6,1$.
+\end{frame}
+
+\begin{frame}{3.3 Eigenbasis --- especially useful in high dimension}
+  \footnotesize
+  \textbf{In $\mathbb{R}^n$ with eigenbasis $\mathbf{v}_1,\ldots,\mathbf{v}_n$.}\
+  Any $\mathbf{v}=\sum_{i=1}^n c_i\mathbf{v}_i$. By linearity,
+  \[
+    A\mathbf{v}
+    =\sum_{i=1}^n c_i A\mathbf{v}_i
+    =\sum_{i=1}^n c_i\lambda_i\mathbf{v}_i.
+  \]
+  Transform each piece independently: multiply coefficient $c_i$ by $\lambda_i$.
+
+  \medskip
+  \textbf{Why this matters when $n$ is large.}\
+  Full matrix--vector multiply mixes all $n$ coordinates at once.
+  In an eigenbasis, $A$ acts as \textbf{separate scalings} along $n$ directions ---
+  much easier to describe and compute (e.g.\ powers $A^k\mathbf{v}=\sum_i c_i\lambda_i^k\mathbf{v}_i$).
+
+  \medskip
+  \textbf{Bottom line.}\
+  When a full eigenbasis exists, decompose--transform--combine is as simple as possible ---
+  and the same idea drives many tools in econometrics and macro (optional applications on the next slides).
+
+  \medskip
+  {\scriptsize Not every matrix has a full real eigenbasis (e.g.\ rotation in the plane);
+  when it does not, related decompositions (SVD, QR) still play the same role.}
+\end{frame}
+
+\begin{frame}{3.3 Applications --- PCA and Markov chains \InterestOnly}
+  \footnotesize
+  {\scriptsize \InterestOnly\
+  You may need to understand some of these when you pursue macro, empirical economics, or IO.}
+
+  \medskip
+  \textbf{Extremely useful beyond the $2\times 2$ example.}\
+  Many applied problems reduce to: find directions where a matrix \textbf{acts simply}.
+
+  \medskip
+  \begin{itemize}
+    \item \textbf{PCA (principal components).}\
+      Eigenvectors of the \textbf{covariance matrix} are the main directions of variation in data;
+      largest eigenvalues pick the most important components for dimension reduction.
+    \item \textbf{Markov transition matrices.}\
+      For a stochastic matrix $P$ (rows sum to $1$), the \textbf{long-run distribution} is an eigenvector
+      with $\lambda=1$;
+      other eigenvalues control how fast $P^k\mathbf{v}$ converges to that steady state.
+  \end{itemize}
+
+  \medskip
+  \textbf{Pattern.}\
+  Decompose a state or data vector in special directions; each direction evolves by a single number ($\lambda_i$).
+\end{frame}
+
+\begin{frame}{3.3 Applications --- ODEs \InterestOnly}
+  \footnotesize
+  \textbf{Ordinary differential equations (ODEs) --- eigenvalues / eigenvectors show up in:}
+  \begin{itemize}
+    \item Linear systems $\dot{\mathbf{x}}=A\mathbf{x}$
+    \item Stability of equilibria and phase-plane dynamics
+    \item Continuous-time macro and growth models
+    \item Linearized dynamics around steady states
+    \item Compartment models (e.g.\ epidemiology, population dynamics)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{3.3 Decompositions --- QR, eigen, SVD \InterestOnly}
+  \footnotesize
+  \textbf{Different decompositions, same spirit:}\
+  rewrite a matrix so that the hard part is \textbf{diagonal}, \textbf{triangular}, or \textbf{orthogonal}.
+
+  \medskip
+  \begin{itemize}
+    \item \textbf{QR decomposition} ($A=QR$).\
+      $Q$ has orthonormal columns spanning $\mathrm{Col}(A)$;
+      $R$ is upper triangular.
+      Used to pick \textbf{linearly independent columns}, solve least squares stably, and build regression numerically.
+    \item \textbf{Spectral / eigen decomposition} ($A=V\Lambda V^{-1}$).\
+      When $A$ has a full eigenbasis, $V$ lists eigenvectors and $\Lambda$ lists eigenvalues ---
+      matrix powers and dynamics become coefficient-wise.
+    \item \textbf{Singular Value Decomposition (SVD)} ($A=U\Sigma V^{\mathsf T}$).\
+      Always exists;
+      built from eigenproblems on $A^{\mathsf T}A$ (and $AA^{\mathsf T}$).
+      Underlies PCA, low-rank approximation, and regularized regression.
+  \end{itemize}
+
+  \medskip
+  {\scriptsize Not required for Math Camp --- names and connections only.}
+
+  \medskip
+  \textbf{Self-study video.}\
+  \href{https://www.youtube.com/watch?v=PFDu9oVAE-g}{\textcolor{mAccent}{https://www.youtube.com/watch?v=PFDu9oVAE-g}}
+\end{frame}
+
 \appendix
 
 \begin{frame}{Appendix}
