@@ -266,6 +266,595 @@
   {\scriptsize Proof: \AppendixLink{sec:producer-proof} (\InterestOnly).}
 \end{frame}
 
+\section{3.3 --- Vectors and Linear Combinations}
+
+\begin{frame}[plain]
+  \vfill
+  \begin{center}
+    {\LARGE\bfseries Linear Algebra Basics}
+  \end{center}
+  \vfill
+\end{frame}
+
+\begin{frame}{3.3 Vectors in $\mathbb{R}^n$}
+  \footnotesize
+  \textbf{Vector.}\
+  An ordered list of $n$ real numbers. We write a \textbf{column vector} as
+  \[
+    \mathbf{x}=
+    \begin{pmatrix}
+      x_1\\ x_2\\ \vdots\\ x_n
+    \end{pmatrix}
+    \in\mathbb{R}^n.
+  \]
+  Its \textbf{transpose} $\mathbf{x}^{\mathsf T}=(x_1,\ldots,x_n)$ is a \textbf{row vector}.
+
+  \medskip
+  \textbf{Linear combination.}\
+  Given vectors $\mathbf{v}_1,\ldots,\mathbf{v}_k\in\mathbb{R}^n$ and scalars $c_1,\ldots,c_k$,
+  \[
+    c_1\mathbf{v}_1+c_2\mathbf{v}_2+\cdots+c_k\mathbf{v}_k
+  \]
+  is a \textbf{linear combination} of the $\mathbf{v}_j$.
+
+  \medskip
+  \textbf{Span.}\
+  All linear combinations of $\mathbf{v}_1,\ldots,\mathbf{v}_k$ form the \textbf{span} of those vectors.
+\end{frame}
+
+\begin{frame}{3.3 Span in the plane (two vectors)}
+  \centering
+  \vfill
+  \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{figures/span_two_vectors.png}
+  \vfill
+\end{frame}
+
+\begin{frame}{3.3 Matrix--vector product --- columns of $A$}
+  \footnotesize
+  \textbf{Setup.}\
+  $A\in\mathbb{R}^{m\times n}$ has columns $\mathbf{a}_1,\ldots,\mathbf{a}_n\in\mathbb{R}^m$ and
+  $\mathbf{x}\in\mathbb{R}^n$ is a column vector.
+
+  \medskip
+  \textbf{Column view.}\
+  $A\mathbf{x}$ is a linear combination of the \textbf{columns} of $A$:
+  \[
+    A\mathbf{x}
+    = x_1\mathbf{a}_1+x_2\mathbf{a}_2+\cdots+x_n\mathbf{a}_n
+    \in\mathbb{R}^m.
+  \]
+  The weights are the entries of $\mathbf{x}$.
+
+  \medskip
+  \textbf{Example.}\
+  $A=\begin{pmatrix}1&2\\ 3&4\\ 5&6\end{pmatrix}$,
+  $\mathbf{x}=\begin{pmatrix}x_1\\ x_2\end{pmatrix}$:
+  \[
+    A\mathbf{x}
+    = x_1\begin{pmatrix}1\\ 3\\ 5\end{pmatrix}
+    + x_2\begin{pmatrix}2\\ 4\\ 6\end{pmatrix}.
+  \]
+\end{frame}
+
+\begin{frame}{3.3 Row vector times matrix --- rows of $A$}
+  \footnotesize
+  \textbf{Setup.}\
+  $A\in\mathbb{R}^{m\times n}$, $\mathbf{x}\in\mathbb{R}^n$ (column), so $A\mathbf{x}\in\mathbb{R}^m$.
+
+  \medskip
+  \textbf{Row view (transpose both sides).}\
+  $(A\mathbf{x})^{\mathsf T}=\mathbf{x}^{\mathsf T}A^{\mathsf T}$:
+  \[
+    \mathbf{x}^{\mathsf T}A^{\mathsf T}
+    = x_1\,\mathbf{a}_1^{\mathsf T}+x_2\,\mathbf{a}_2^{\mathsf T}+\cdots+x_n\,\mathbf{a}_n^{\mathsf T}
+    \in\mathbb{R}^{1\times m}.
+  \]
+  Dimensions: $(1\times n)(n\times m)=(1\times m)$.
+  \textbf{Note:}\ $\mathbf{x}^{\mathsf T}A$ does \textbf{not} match when $A\in\mathbb{R}^{m\times n}$ with $m\neq n$.
+
+  \medskip
+  \textbf{Example.}\
+  From the previous slide,
+  \[
+    \mathbf{x}^{\mathsf T}=(x_1,x_2),
+    \qquad
+    A^{\mathsf T}=
+    \begin{pmatrix}
+      1&3&5\\
+      2&4&6
+    \end{pmatrix}.
+  \]
+  Then
+  \[
+    \mathbf{x}^{\mathsf T}A^{\mathsf T}
+    = x_1(1,3,5)+x_2(2,4,6).
+  \]
+\end{frame}
+
+\begin{frame}{3.3 Two views of the same product}
+  \footnotesize
+  \textbf{Same numbers, two interpretations.}\
+  If $A\in\mathbb{R}^{m\times n}$ and $\mathbf{x}\in\mathbb{R}^n$:
+  \begin{itemize}
+    \item \textbf{Column view:}\ $A\mathbf{x}=\sum_{j=1}^n x_j\,\mathbf{a}_j\in\mathbb{R}^m$.
+    \item \textbf{Entry view:}\ $(A\mathbf{x})_i=\mathbf{r}_i^{\mathsf T}A\mathbf{x}
+      = \sum_{j=1}^n a_{ij}x_j$ (dot product of row $i$ of $A$ with $\mathbf{x}$),
+      where $\mathbf{r}_i\in\mathbb{R}^m$ has $i$-th entry $1$ and all other entries $0$
+      ($\mathbf{r}_i=\mathbf{e}_i$).
+  \end{itemize}
+
+  \medskip
+  \textbf{Transpose link.}\
+  $(A\mathbf{x})^{\mathsf T}=\mathbf{x}^{\mathsf T}A^{\mathsf T}$:
+  a \textbf{row vector} on the left combines \textbf{rows of $A^{\mathsf T}$} (i.e.\ transposes of
+  columns of $A$).
+\end{frame}
+
+\begin{frame}{3.3 Matrix multiplication $AB$ --- example}
+  \footnotesize
+  \textbf{Example.}\
+  $A=\begin{pmatrix}1&2\\ 3&4\end{pmatrix}$,
+  $B=\begin{pmatrix}5&6\\ 7&8\end{pmatrix}$.
+
+  \medskip
+  \textbf{Column view (both columns of $AB$).}\
+  \[
+    (AB)\mathbf{e}_1
+    = A\begin{pmatrix}5\\ 7\end{pmatrix}
+    = 5\begin{pmatrix}1\\ 3\end{pmatrix}+7\begin{pmatrix}2\\ 4\end{pmatrix}
+    = \begin{pmatrix}19\\ 43\end{pmatrix},
+  \]
+  \[
+    (AB)\mathbf{e}_2
+    = A\begin{pmatrix}6\\ 8\end{pmatrix}
+    = 6\begin{pmatrix}1\\ 3\end{pmatrix}+8\begin{pmatrix}2\\ 4\end{pmatrix}
+    = \begin{pmatrix}22\\ 50\end{pmatrix}.
+  \]
+  So $AB=\begin{pmatrix}19&22\\ 43&50\end{pmatrix}$.
+
+  \medskip
+  \textbf{Row view (practice).}\
+  Find rows $1$ and $2$ of $AB$ using
+  $(1,2)B$ and $(3,4)B$.
+
+  \medskip
+  {\scriptsize \textbf{Note (skip in class).}\
+  $(1,2)B=(19,22)$ and $(3,4)B=(43,50)$ --- same matrix as above.}
+\end{frame}
+
+\begin{frame}{3.3 Matrix multiplication $AB$}
+  \footnotesize
+  \textbf{Setup.}\
+  $A\in\mathbb{R}^{m\times n}$, $B\in\mathbb{R}^{n\times p}$, so $AB\in\mathbb{R}^{m\times p}$.
+
+  \medskip
+  \textbf{Column view.}\
+  Column $j$ of $AB$ is $A$ times column $j$ of $B$:
+  \[
+    (AB)\,\mathbf{e}_j = A(B\mathbf{e}_j)
+    = A\mathbf{b}_j
+    = b_{1j}\mathbf{a}_1+b_{2j}\mathbf{a}_2+\cdots+b_{nj}\mathbf{a}_n.
+  \]
+  Each column of $AB$ is a linear combination of \textbf{columns of $A$} (weights from column $j$ of
+  $B$).
+
+  \medskip
+  \textbf{Row view.}\
+  Row $i$ of $AB$ is row $i$ of $A$ times $B$:
+  \[
+    \mathbf{r}_i^{\mathsf T}(AB)
+    = (\mathbf{r}_i^{\mathsf T}A)B
+    = a_{i1}\mathbf{s}_1^{\mathsf T}+\cdots+a_{in}\mathbf{s}_n^{\mathsf T},
+  \]
+  where $\mathbf{r}_i\in\mathbb{R}^m$ has $i$-th entry $1$ and all other entries $0$
+  ($\mathbf{r}_i=\mathbf{e}_i$), so $\mathbf{r}_i^{\mathsf T}$ selects row $i$; and
+  $\mathbf{s}_k^{\mathsf T}$ is row $k$ of $B$: a linear combination of \textbf{rows of $B$}.
+\end{frame}
+
+\begin{frame}{3.3 Basis}
+  \footnotesize
+  \textbf{Idea.}\
+  A \textbf{basis} of $\mathbb{R}^n$ is a small set of vectors from which every vector in
+  $\mathbb{R}^n$ can be built as a \textbf{linear combination} in exactly one way.
+
+  \medskip
+  \textbf{Standard basis of $\mathbb{R}^n$.}\
+  For $j=1,\ldots,n$, define $\mathbf{e}_j$ to have a $1$ in entry $j$ and $0$ elsewhere:
+  \[
+    \mathbf{e}_1=
+    \begin{pmatrix}1\\ 0\\ \vdots\\ 0\end{pmatrix},
+    \quad
+    \mathbf{e}_2=
+    \begin{pmatrix}0\\ 1\\ \vdots\\ 0\end{pmatrix},
+    \quad\ldots,\quad
+    \mathbf{e}_n=
+    \begin{pmatrix}0\\ 0\\ \vdots\\ 1\end{pmatrix}.
+  \]
+
+  \medskip
+  \textbf{Coordinates.}\
+  Every $\mathbf{x}\in\mathbb{R}^n$ can be written uniquely as
+  \[
+    \mathbf{x}=x_1\mathbf{e}_1+x_2\mathbf{e}_2+\cdots+x_n\mathbf{e}_n,
+  \]
+  where $x_1,\ldots,x_n$ are the \textbf{coordinates} (entries) of $\mathbf{x}$.
+\end{frame}
+
+\begin{frame}{3.3 Basis --- example ($\mathbb{R}^2$)}
+  \footnotesize
+  \textbf{Key point.}\
+  A basis is \textbf{not unique}, but for a \textbf{fixed} basis every vector has a
+  \textbf{unique} representation as a linear combination.
+
+  \medskip
+  \textbf{Two bases of $\mathbb{R}^2$.}\
+  Standard: $\mathbf{e}_1=(1,0)$, $\mathbf{e}_2=(0,1)$.\
+  Alternative: $\mathbf{v}_1=(1,0)$, $\mathbf{v}_2=(1,1)$.
+
+  \medskip
+  \textbf{Same vector, two representations.}\
+  For $\mathbf{b}=(2,3)$:
+  \[
+    \mathbf{b}=2\mathbf{e}_1+3\mathbf{e}_2
+    \qquad\text{and}\qquad
+    \mathbf{b}=(-1)\mathbf{v}_1+3\mathbf{v}_2.
+  \]
+  Different bases give different weights $x_1,\ldots,x_n$, but within one basis the weights are
+  \textbf{unique}.
+
+  \medskip
+  \textbf{Requirement for a basis $\{\mathbf{a}_1,\ldots,\mathbf{a}_n\}$.}\
+  Every $\mathbf{b}\in\mathbb{R}^n$ can be written as
+  $\mathbf{b}=x_1\mathbf{a}_1+\cdots+x_n\mathbf{a}_n$ in \textbf{exactly one way}.
+\end{frame}
+
+\begin{frame}{3.3 Basis --- existence and uniqueness}
+  \footnotesize
+  \textbf{Requirement for a basis $\{\mathbf{a}_1,\ldots,\mathbf{a}_n\}$.}\
+  Every $\mathbf{b}\in\mathbb{R}^n$ can be written as
+  $\mathbf{b}=x_1\mathbf{a}_1+\cdots+x_n\mathbf{a}_n$ in \textbf{exactly one way}.
+
+  \medskip
+  \textbf{Two parts.}\
+  \begin{itemize}
+    \item \textbf{Existence:}\ every $\mathbf{b}\in\mathbb{R}^n$ can be written as some linear
+      combination of $\mathbf{a}_1,\ldots,\mathbf{a}_n$.
+    \item \textbf{Uniqueness:}\ there is \textbf{only one} choice of weights
+      $x_1,\ldots,x_n$.
+  \end{itemize}
+
+  \medskip
+  \textbf{For $A\mathbf{x}=\mathbf{b}$ with $A\in\mathbb{R}^{m\times n}$.}\
+  Then $\mathbf{x}\in\mathbb{R}^n$, $\mathbf{b}\in\mathbb{R}^m$, and
+  $A=[\mathbf{a}_1\ \cdots\ \mathbf{a}_n]$ with $\mathbf{a}_j\in\mathbb{R}^m$ gives
+  \[
+    A\mathbf{x}=\mathbf{b}
+    \quad\Longleftrightarrow\quad
+    \mathbf{b}=x_1\mathbf{a}_1+\cdots+x_n\mathbf{a}_n.
+  \]
+\end{frame}
+
+\begin{frame}{3.3 Existence --- column space}
+  \footnotesize
+  \textbf{Setup.}\
+  $A\in\mathbb{R}^{m\times n}$, $\mathbf{x}\in\mathbb{R}^n$, $\mathbf{b}\in\mathbb{R}^m$,
+  $A=[\mathbf{a}_1\ \cdots\ \mathbf{a}_n]$ with $\mathbf{a}_j\in\mathbb{R}^m$.
+
+  \medskip
+  \textbf{Column space.}\
+  \[
+    \operatorname{Col}(A)=\operatorname{span}\{\mathbf{a}_1,\ldots,\mathbf{a}_n\}\subseteq\mathbb{R}^m.
+  \]
+
+  \medskip
+  \textbf{Existence of a solution.}\
+  $A\mathbf{x}=\mathbf{b}$ has \textbf{at least one} solution
+  $\Longleftrightarrow$ $\mathbf{b}\in\operatorname{Col}(A)$.
+
+  \medskip
+  \textbf{Meaning.}\
+  $\mathbf{b}\in\operatorname{Col}(A)$ means $\mathbf{b}=x_1\mathbf{a}_1+\cdots+x_n\mathbf{a}_n$ for
+  some $\mathbf{x}$ --- the \textbf{existence} part of the basis requirement, but only for this one
+  $\mathbf{b}\in\mathbb{R}^m$ (and only when $\operatorname{Col}(A)=\mathbb{R}^m$ does it hold for
+  \textbf{all} $\mathbf{b}$).
+\end{frame}
+
+\begin{frame}{3.3 Uniqueness --- linearly independent columns}
+  \footnotesize
+  \textbf{Setup.}\
+  $A\in\mathbb{R}^{m\times n}$, $\mathbf{x}\in\mathbb{R}^n$, $\mathbf{b}\in\mathbb{R}^m$.
+
+  \medskip
+  \textbf{Linearly independent.}\
+  Vectors $\mathbf{v}_1,\ldots,\mathbf{v}_k$ are \textbf{linearly independent} if
+  \[
+    c_1\mathbf{v}_1+c_2\mathbf{v}_2+\cdots+c_k\mathbf{v}_k=\mathbf{0}
+    \quad\Longrightarrow\quad
+    c_1=c_2=\cdots=c_k=0.
+  \]
+  \textbf{Linearly dependent:}\ not independent --- some nontrivial combination equals $\mathbf{0}$.
+
+  \medskip
+  \textbf{Uniqueness of a solution.}\
+  If $A\mathbf{x}=\mathbf{b}$ has a solution, it is \textbf{unique} iff the columns
+  $\mathbf{a}_1,\ldots,\mathbf{a}_n$ are \textbf{linearly independent}.
+\end{frame}
+
+\begin{frame}{3.3 Linear independence $\Leftrightarrow$ unique solution}
+  \footnotesize
+  \textbf{Claim.}\
+  Fix $\mathbf{b}\in\mathbb{R}^m$. If $A\mathbf{x}=\mathbf{b}$ has \textbf{at least one} solution, then
+  it has a \textbf{unique} solution iff $\mathbf{a}_1,\ldots,\mathbf{a}_n$ are linearly independent.
+
+  \medskip
+  \textbf{($\Rightarrow$) Independent $\Rightarrow$ unique.}\
+  If $A\mathbf{x}=\mathbf{b}$ and $A\mathbf{y}=\mathbf{b}$, then
+  $A(\mathbf{x}-\mathbf{y})=\mathbf{0}$, i.e.\
+  \[
+    (x_1-y_1)\mathbf{a}_1+\cdots+(x_n-y_n)\mathbf{a}_n=\mathbf{0}.
+  \]
+  Independence gives $x_j-y_j=0$ for all $j$, so $\mathbf{x}=\mathbf{y}$.
+
+  \medskip
+  \textbf{($\Leftarrow$) Dependent $\Rightarrow$ not unique.}\
+  If the columns are dependent, some $\mathbf{d}\neq\mathbf{0}$ satisfies
+  $A\mathbf{d}=\mathbf{0}$.
+  If $\mathbf{x}$ solves $A\mathbf{x}=\mathbf{b}$, then so does $\mathbf{x}+\mathbf{d}$:
+  \[
+    A(\mathbf{x}+\mathbf{d})=A\mathbf{x}+A\mathbf{d}=\mathbf{b}+\mathbf{0}=\mathbf{b},
+  \]
+  and $\mathbf{x}+\mathbf{d}\neq\mathbf{x}$. So the solution is \textbf{not} unique.
+\end{frame}
+
+\begin{frame}{3.3 Linear independence --- examples ($\mathbb{R}^2$)}
+  \footnotesize
+  \textbf{Independent (bases).}\
+  \begin{itemize}
+    \item Standard: $\mathbf{e}_1=(1,0)$, $\mathbf{e}_2=(0,1)$.
+    \item Alternative: $\mathbf{v}_1=(1,0)$, $\mathbf{v}_2=(1,1)$.
+  \end{itemize}
+  For each pair, $c_1\mathbf{w}_1+c_2\mathbf{w}_2=\mathbf{0}$ implies $c_1=c_2=0$.
+
+  \medskip
+  \textbf{Dependent (too many vectors).}\
+  $\mathbf{e}_1=(1,0)$, $\mathbf{e}_2=(0,1)$, and $\mathbf{u}=(1,1)$:
+  \[
+    \mathbf{u}=\mathbf{e}_1+\mathbf{e}_2
+    \quad\Longleftrightarrow\quad
+    \mathbf{e}_1+\mathbf{e}_2-\mathbf{u}=\mathbf{0}.
+  \]
+  Coefficients $(1,1,-1)$ are not all zero, so these three vectors are \textbf{linearly dependent}.
+  A basis of $\mathbb{R}^2$ has exactly $2$ vectors, not $3$.
+\end{frame}
+
+\begin{frame}{3.3 Solving $A\mathbf{x}=\mathbf{b}$ --- example}
+  \footnotesize
+  \textbf{Example.}\
+  $A=\begin{pmatrix}1&2\\ 2&4\end{pmatrix}$, so
+  $\operatorname{Col}(A)=\operatorname{span}\{(1,2)\}$ (a line in $\mathbb{R}^2$).
+
+  \medskip
+  \textbf{Solvable.}\
+  $\mathbf{b}=\begin{pmatrix}3\\ 6\end{pmatrix}=3(1,2)$, so
+  $A\mathbf{x}=\mathbf{b}$ has solutions (e.g.\ $\mathbf{x}=(1,1)^{\mathsf T}$; not unique).
+
+  \medskip
+  \textbf{Not solvable (existence fails).}\
+  $\mathbf{b}=\begin{pmatrix}1\\ 0\end{pmatrix}\notin\operatorname{Col}(A)$, so
+  $A\mathbf{x}=\mathbf{b}$ has \textbf{no} solution.
+
+  \medskip
+  \textbf{Dependent columns (uniqueness fails).}\
+  $\mathbf{a}_2=2\mathbf{a}_1$, so the columns are \textbf{linearly dependent}.
+  When a solution exists, it is not unique (e.g.\ both $\mathbf{x}=(3,0)^{\mathsf T}$ and
+  $\mathbf{x}=(1,1)^{\mathsf T}$ give $\mathbf{b}=(3,6)^{\mathsf T}$).
+\end{frame}
+
+\begin{frame}{3.3 Full basis requirement --- only when $m=n$}
+  \footnotesize
+  \textbf{Goal.}\
+  When does \textbf{every} $\mathbf{b}\in\mathbb{R}^m$ satisfy
+  $\mathbf{b}=x_1\mathbf{a}_1+\cdots+x_n\mathbf{a}_n$ in \textbf{exactly one way}?
+
+  \medskip
+  \textbf{Claim.}\
+  For $A\in\mathbb{R}^{m\times n}$, this happens \textbf{only if $m=n$}.
+
+  \medskip
+  \textbf{Proof sketch.}\
+  \begin{itemize}
+    \item \textbf{Uniqueness} $\Rightarrow$ columns independent.
+      In $\mathbb{R}^m$ at most $m$ vectors can be independent, so $n\le m$.
+    \item \textbf{Existence for all $\mathbf{b}$} $\Rightarrow$ $\operatorname{Col}(A)=\mathbb{R}^m$.
+      With only $n$ columns, $\dim(\operatorname{Col}(A))\le n$, so $n\ge m$.
+    \item Therefore $m=n$.
+  \end{itemize}
+  If $n<m$, columns cannot span $\mathbb{R}^m$; if $n>m$, $n$ columns in $\mathbb{R}^m$ cannot be
+  independent.
+\end{frame}
+
+\begin{frame}{3.3 Square case --- basis $=$ existence $+$ uniqueness}
+  \footnotesize
+  \textbf{Now $A\in\mathbb{R}^{n\times n}$, $\mathbf{b}\in\mathbb{R}^n$.}\
+  Requirement for a basis $\{\mathbf{a}_1,\ldots,\mathbf{a}_n\}$:
+  every $\mathbf{b}\in\mathbb{R}^n$ is
+  $\mathbf{b}=x_1\mathbf{a}_1+\cdots+x_n\mathbf{a}_n$ in \textbf{exactly one way}.
+
+  \medskip
+  \textbf{Equivalent to $A\mathbf{x}=\mathbf{b}$.}\
+  \[
+    A\mathbf{x}=\mathbf{b}
+    \quad\Longleftrightarrow\quad
+    \mathbf{b}=x_1\mathbf{a}_1+\cdots+x_n\mathbf{a}_n.
+  \]
+
+  \medskip
+  \textbf{Columns form a basis of $\mathbb{R}^n$} $\Longleftrightarrow$
+  existence and uniqueness for \textbf{every} $\mathbf{b}$ $\Longleftrightarrow$
+  $A\mathbf{x}=\mathbf{b}$ has a \textbf{unique} solution for every $\mathbf{b}\in\mathbb{R}^n$.
+\end{frame}
+
+\begin{frame}{3.3 Invertible matrices --- equivalent conditions}
+  \footnotesize
+  \textbf{Let $A\in\mathbb{R}^{n\times n}$.}\
+  The following are \textbf{equivalent}:
+
+  \medskip
+  \begin{enumerate}
+    \item $A$ is \textbf{invertible}: $\exists\,A^{-1}$ with $AA^{-1}=A^{-1}A=I_n$.
+    \item For every $\mathbf{b}\in\mathbb{R}^n$, $A\mathbf{x}=\mathbf{b}$ has a \textbf{unique}
+      solution $\mathbf{x}=A^{-1}\mathbf{b}$.
+    \item Columns $\mathbf{a}_1,\ldots,\mathbf{a}_n$ form a \textbf{basis} of $\mathbb{R}^n$.
+    \item Columns are \textbf{linearly independent}
+      ($\operatorname{Col}(A)=\mathbb{R}^n$).
+    \item $A\mathbf{x}=\mathbf{0}$ has only the trivial solution $\mathbf{x}=\mathbf{0}$.
+    \item Rows of $A$ are linearly independent (equivalently, form a basis of $\mathbb{R}^n$).
+    \item $\det(A)\neq 0$.
+  \end{enumerate}
+
+  \medskip
+  \textbf{Next:}\ what $\det(A)$ means geometrically, and why (6)--(7) fit this list.
+\end{frame}
+
+\begin{frame}{3.3 Determinant --- area scaling ($2\times 2$)}
+  \footnotesize
+  \textbf{Setup.}\
+  $A=\begin{pmatrix}a&b\\ c&d\end{pmatrix}$, columns
+  $\mathbf{a}_1=(a,c)^{\mathsf T}$, $\mathbf{a}_2=(b,d)^{\mathsf T}$.
+
+  \medskip
+  \textbf{Where the standard basis goes.}\
+  \[
+    A\begin{pmatrix}1\\ 0\end{pmatrix}=\begin{pmatrix}a\\ c\end{pmatrix}=\mathbf{a}_1,
+    \qquad
+    A\begin{pmatrix}0\\ 1\end{pmatrix}=\begin{pmatrix}b\\ d\end{pmatrix}=\mathbf{a}_2.
+  \]
+  So $(1,0)^{\mathsf T}$ is sent to $(a,c)^{\mathsf T}$, and $(0,1)^{\mathsf T}$ to $(b,d)^{\mathsf T}$.
+
+  \medskip
+  \textbf{Area conversion factor.}\
+  The unit square (spanned by $(1,0)^{\mathsf T}$ and $(0,1)^{\mathsf T}$, area $=1$) is mapped by $A$ to
+  the parallelogram spanned by $\mathbf{a}_1$ and $\mathbf{a}_2$.
+  The \textbf{determinant} is exactly the (signed) area of that parallelogram:
+  \[
+    \det(A)=ad-bc.
+  \]
+  So $\det(A)$ is the \textbf{area conversion factor}: every region's area is multiplied by
+  $|\det(A)|$ under $\mathbf{x}\mapsto A\mathbf{x}$.
+\end{frame}
+
+\begin{frame}{3.3 Determinant --- why $ad-bc$ is the area}
+  \centering
+  \vfill
+  \includegraphics[width=0.92\textwidth,height=0.76\textheight,keepaspectratio]{figures/DeterminantParallelogram.png}
+  \vfill
+
+  \medskip
+  {\scriptsize
+  Box area $(a+b)(c+d)$ minus purple ($bc$), red ($ac/2$), teal ($bd/2$) pieces
+  leaves yellow parallelogram area $ad-bc=\det(A)$.}
+\end{frame}
+
+\begin{frame}{3.3 Determinant $=0$ --- example}
+  \footnotesize
+  \textbf{Example.}\
+  $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$, so $a=b=c=d=1$ and
+  \[
+    \det(A)=ad-bc=1\cdot 1-1\cdot 1=0.
+  \]
+
+  \medskip
+  \textbf{Standard basis collapses to a line.}\
+  \[
+    A\begin{pmatrix}1\\ 0\end{pmatrix}=\begin{pmatrix}1\\ 1\end{pmatrix},
+    \qquad
+    A\begin{pmatrix}0\\ 1\end{pmatrix}=\begin{pmatrix}1\\ 1\end{pmatrix}.
+  \]
+  Both $(1,0)^{\mathsf T}$ and $(0,1)^{\mathsf T}$ are sent to the \textbf{same} point on one line through
+  the origin. The unit square (area $1$) is squashed to a \textbf{1-dimensional} set --- area $0$.
+
+  \medskip
+  \textbf{So (square case):}\
+  \[
+    \det(A)=0
+    \quad\Longleftrightarrow\quad
+    \text{columns linearly dependent}
+    \quad\Longleftrightarrow\quad
+    A\ \text{not invertible}.
+  \]
+  Here $\mathbf{a}_2=\mathbf{a}_1=(1,1)^{\mathsf T}$, so the columns are dependent and $A$ has no
+  inverse.
+\end{frame}
+
+\begin{frame}{3.3 Two views of a matrix $A$}
+  \footnotesize
+  \textbf{View 1 --- $\mathbf{x}$ as weights.}\
+  Write $A=[\mathbf{a}_1\ \cdots\ \mathbf{a}_n]$. Then
+  \[
+    A\mathbf{x}=x_1\mathbf{a}_1+x_2\mathbf{a}_2+\cdots+x_n\mathbf{a}_n.
+  \]
+  The entries of $\mathbf{x}$ are the \textbf{weights} on the columns of $A$.
+
+  \medskip
+  \textbf{View 2 --- $A$ as a linear transformation.}\
+  Define $T:\mathbb{R}^n\to\mathbb{R}^m$ by $T(\mathbf{x})=A\mathbf{x}$.
+  The matrix $A$ sends each input vector $\mathbf{x}$ to an output vector in $\mathbb{R}^m$;
+  for square $A$, $|\det(A)|$ is the area-scaling factor (previous slides).
+\end{frame}
+
+\begin{frame}{3.3 Linear transformation --- definition}
+  \footnotesize
+  \textbf{Linear transformation.}\
+  A map $T:\mathbb{R}^n\to\mathbb{R}^m$ is \textbf{linear} if for all $\mathbf{x},\mathbf{y}\in\mathbb{R}^n$
+  and all scalars $c\in\mathbb{R}$:
+  \[
+    T(\mathbf{x}+\mathbf{y})=T(\mathbf{x})+T(\mathbf{y}),
+    \qquad
+    T(c\mathbf{x})=cT(\mathbf{x}).
+  \]
+  Equivalently, for all $\mathbf{x},\mathbf{y}$ and $c$:
+  \[
+    T(c\mathbf{x}+\mathbf{y})=cT(\mathbf{x})+T(\mathbf{y}).
+  \]
+
+  \medskip
+  \textbf{Examples.}\
+  Rotation, reflection, projection, and scaling in the plane are linear.
+  A map with a constant term, e.g.\ $T(\mathbf{x})=A\mathbf{x}+\mathbf{b}$ with $\mathbf{b}\neq\mathbf{0}$,
+  is \textbf{not} linear.
+
+  \medskip
+  \textbf{Matrix form.}\
+  Every linear $T$ is $T(\mathbf{x})=A\mathbf{x}$ for some matrix $A$ (next slide).
+  For $A\in\mathbb{R}^{2\times 2}$, $|\det(A)|$ is the area-scaling factor from the determinant slides.
+\end{frame}
+
+\begin{frame}{3.3 Every linear map is a matrix}
+  \footnotesize
+  \textbf{Claim.}\
+  If $T:\mathbb{R}^n\to\mathbb{R}^m$ is linear, then there is a unique matrix
+  $A\in\mathbb{R}^{m\times n}$ such that $T(\mathbf{x})=A\mathbf{x}$ for all $\mathbf{x}$.
+
+  \medskip
+  \textbf{Construction.}\
+  Let $\mathbf{e}_1,\ldots,\mathbf{e}_n$ be the standard basis of $\mathbb{R}^n$.
+  Form $A$ by stacking the outputs as columns:
+  \[
+    A=\bigl[T(\mathbf{e}_1)\ \ T(\mathbf{e}_2)\ \ \cdots\ \ T(\mathbf{e}_n)\bigr].
+  \]
+
+  \medskip
+  \textbf{Why it works.}\
+  Any $\mathbf{x}=\sum_{j=1}^n x_j\mathbf{e}_j$. By linearity,
+  \[
+    T(\mathbf{x})
+    =\sum_{j=1}^n x_j T(\mathbf{e}_j)
+    =\sum_{j=1}^n x_j \mathbf{a}_j
+    =A\mathbf{x}.
+  \]
+  Column $j$ of $A$ is exactly where $\mathbf{e}_j$ is sent.
+\end{frame}
+
 \appendix
 
 \begin{frame}{Appendix}
