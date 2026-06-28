@@ -287,6 +287,67 @@ def make_fubini_triangle_plot() -> None:
     print(f"Wrote {out}")
 
 
+def make_fubini_parabola_line_plot() -> None:
+    """Region between y=x^2 and y=x; two slice directions."""
+    x_curve = np.linspace(0.0, 1.0, 200)
+    y_parab = x_curve ** 2
+    y_line = x_curve
+
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.3), dpi=220)
+
+    for ax, title, vertical_slices in zip(
+        axes,
+        [r"$y$ inner: $x^2$ to $x$", r"$x$ inner: $y$ to $\sqrt{y}$"],
+        [False, True],
+    ):
+        ax.fill_between(x_curve, y_parab, y_line, color=DARK_TEAL, alpha=0.15, zorder=1)
+        ax.plot(x_curve, y_parab, color=DARK_TEAL, lw=2.0, zorder=3, label=r"$y=x^2$")
+        ax.plot(x_curve, y_line, color=DARK_TEAL, lw=2.0, zorder=3, label=r"$y=x$")
+
+        if vertical_slices:
+            for y in (0.16, 0.36, 0.64):
+                x_left = y
+                x_right = np.sqrt(y)
+                ax.plot([x_left, x_right], [y, y], color=ACCENT, lw=1.4, zorder=2)
+                ax.annotate(
+                    "",
+                    xy=(x_right, y),
+                    xytext=(x_left, y),
+                    arrowprops=dict(arrowstyle="->", color=ACCENT, lw=1.2),
+                )
+        else:
+            for x in (0.25, 0.55, 0.85):
+                ax.plot([x, x], [x ** 2, x], color=ACCENT, lw=1.4, zorder=2)
+                ax.annotate(
+                    "",
+                    xy=(x, x),
+                    xytext=(x, x ** 2),
+                    arrowprops=dict(arrowstyle="->", color=ACCENT, lw=1.2),
+                )
+
+        ax.set_xlim(-0.05, 1.12)
+        ax.set_ylim(-0.05, 1.12)
+        ax.set_aspect("equal")
+        ax.set_xlabel(r"$x$", fontsize=8)
+        ax.set_ylabel(r"$y$", fontsize=8)
+        ax.set_title(title, fontsize=9, color=DARK_TEAL, pad=6)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.tick_params(labelsize=7)
+
+    fig.suptitle(
+        r"Region $D$: $x^2 \leq y \leq x$ on $0 \leq x \leq 1$",
+        fontsize=10,
+        color=DARK_TEAL,
+        y=1.02,
+    )
+    out = OUT_DIR / "fubini_parabola_line.png"
+    fig.tight_layout()
+    fig.savefig(out, bbox_inches="tight", facecolor="white", pad_inches=0.06)
+    plt.close(fig)
+    print(f"Wrote {out}")
+
+
 def make_fubini_order_plot() -> None:
     """Two orders of integration over a rectangle."""
     fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.2), dpi=220)
@@ -392,4 +453,5 @@ if __name__ == "__main__":
     make_leibniz_failure_step_plot()
     make_leibniz_variable_limits_plot()
     make_fubini_triangle_plot()
+    make_fubini_parabola_line_plot()
     make_ibp_rectangle_plot()
