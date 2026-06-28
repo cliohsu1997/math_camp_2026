@@ -819,14 +819,182 @@
 
   \medskip
   \textbf{Examples.}\
-  Rotation, reflection, projection, and scaling in the plane are linear.
+  Rotation, reflection, projection, and shear in the plane are linear.
   A map with a constant term, e.g.\ $T(\mathbf{x})=A\mathbf{x}+\mathbf{b}$ with $\mathbf{b}\neq\mathbf{0}$,
   is \textbf{not} linear.
 
   \medskip
   \textbf{Matrix form.}\
-  Every linear $T$ is $T(\mathbf{x})=A\mathbf{x}$ for some matrix $A$ (next slide).
+  Every linear $T$ is $T(\mathbf{x})=A\mathbf{x}$ for some matrix $A$ (general recipe on the next
+  slides).
   For $A\in\mathbb{R}^{2\times 2}$, $|\det(A)|$ is the area-scaling factor from the determinant slides.
+\end{frame}
+
+\begin{frame}{3.3 Linear maps --- decompose, then combine}
+  \footnotesize
+  \textbf{Benefit.}\
+  A linear map $T:\mathbb{R}^2\to\mathbb{R}^2$ may be hard to visualize on an \textbf{arbitrary}
+  input $\mathbf{v}$.
+
+  \medskip
+  \textbf{But you often know $T$ on a few vectors.}\
+  Suppose you already know $T(\mathbf{x})$ and $T(\mathbf{y})$, and $\mathbf{v}$ can be decomposed as
+  \[
+    \mathbf{v}=a\mathbf{x}+b\mathbf{y}
+  \]
+  for some scalars $a,b\in\mathbb{R}$.
+  Then by linearity,
+  \[
+    T(\mathbf{v})
+    = T(a\mathbf{x}+b\mathbf{y})
+    = aT(\mathbf{x})+bT(\mathbf{y}).
+  \]
+  \textbf{Decompose} $\mathbf{v}$ into known pieces, \textbf{transform each piece}, then
+  \textbf{combine}.
+
+  \medskip
+  \textbf{Standard basis recipe ($\mathbb{R}^2$).}\
+  Take $\mathbf{x}=\mathbf{e}_1$, $\mathbf{y}=\mathbf{e}_2$, so $\mathbf{v}=v_1\mathbf{e}_1+v_2\mathbf{e}_2$.
+  If you know $T(\mathbf{e}_1)$ and $T(\mathbf{e}_2)$, then
+  $T(\mathbf{v})=v_1 T(\mathbf{e}_1)+v_2 T(\mathbf{e}_2)$.
+  Stack $T(\mathbf{e}_1)$ and $T(\mathbf{e}_2)$ as columns to get the matrix of $T$ (next slide).
+\end{frame}
+
+\begin{frame}{3.3 Decompose, transform, combine --- notation}
+  \footnotesize
+  \textbf{Recipe.}\
+  For $\mathbf{v}=v_1\mathbf{e}_1+v_2\mathbf{e}_2$ and linear $T$:
+
+  \medskip
+  \textbf{1.\ Decompose} the input:
+  \[
+    \mathbf{v}=v_1\mathbf{e}_1+v_2\mathbf{e}_2.
+  \]
+
+  \medskip
+  \textbf{2.\ Transform} each piece (use known values of $T$ on $\mathbf{e}_1,\mathbf{e}_2$):
+  \[
+    v_1 T(\mathbf{e}_1),
+    \qquad
+    v_2 T(\mathbf{e}_2).
+  \]
+
+  \medskip
+  \textbf{3.\ Combine} the outputs:
+  \[
+    T(\mathbf{v})
+    =v_1 T(\mathbf{e}_1)+v_2 T(\mathbf{e}_2)
+    =A\mathbf{v},
+    \qquad
+    A=\bigl[T(\mathbf{e}_1)\ \ T(\mathbf{e}_2)\bigr].
+  \]
+\end{frame}
+
+\begin{frame}{3.3 Example --- shear}
+  \footnotesize
+  \textbf{Map.}\
+  Horizontal shear: tilt the unit square into a parallelogram,
+  $(x_1,x_2)\mapsto(x_1+x_2,x_2)$.
+
+  \vspace{-0.2cm}
+  \centering
+  \includegraphics[width=0.78\textwidth,height=0.68\textheight,keepaspectratio]{figures/shear_horizontal.png}
+\end{frame}
+
+\begin{frame}{3.3 Example --- shear (matrix)}
+  \footnotesize
+  \textbf{Find the matrix.}\
+  Apply $T$ to $\mathbf{e}_1$ and $\mathbf{e}_2$, then stack the outputs as columns:
+  \[
+    T(\mathbf{e}_1)=\mathbf{e}_1=\begin{pmatrix}1\\ 0\end{pmatrix},
+    \qquad
+    T(\mathbf{e}_2)=\mathbf{e}_1+\mathbf{e}_2=\begin{pmatrix}1\\ 1\end{pmatrix}
+    \quad\Longrightarrow\quad
+    A=
+    \begin{pmatrix}
+      1&1\\
+      0&1
+    \end{pmatrix}.
+  \]
+  Check: $A\mathbf{e}_1=\mathbf{e}_1$ (bottom edge fixed); $A\mathbf{e}_2$ tilts the vertical side.
+\end{frame}
+
+\begin{frame}{3.3 Example --- shear (decompose, transform, combine)}
+  \footnotesize
+  Take $\mathbf{v}=2\mathbf{e}_1+3\mathbf{e}_2=\begin{pmatrix}2\\ 3\end{pmatrix}$.
+
+  \medskip
+  \textbf{1.\ Decompose:}\
+  $\mathbf{v}=2\mathbf{e}_1+3\mathbf{e}_2$.
+
+  \medskip
+  \textbf{2.\ Transform:}\
+  $2T(\mathbf{e}_1)=2\begin{pmatrix}1\\ 0\end{pmatrix}=\begin{pmatrix}2\\ 0\end{pmatrix}$,
+  \quad
+  $3T(\mathbf{e}_2)=3\begin{pmatrix}1\\ 1\end{pmatrix}=\begin{pmatrix}3\\ 3\end{pmatrix}$.
+
+  \medskip
+  \textbf{3.\ Combine:}\
+  \[
+    T(\mathbf{v})
+    =2T(\mathbf{e}_1)+3T(\mathbf{e}_2)
+    =\begin{pmatrix}2\\ 0\end{pmatrix}+\begin{pmatrix}3\\ 3\end{pmatrix}
+    =\begin{pmatrix}5\\ 3\end{pmatrix}
+    =A\mathbf{v}.
+  \]
+\end{frame}
+
+\begin{frame}{3.3 Example --- $90^\circ$ rotation (clockwise)}
+  \footnotesize
+  \textbf{Map.}\
+  Rotate every vector $90^\circ$ clockwise: $(x_1,x_2)\mapsto (x_2,-x_1)$.
+
+  \vspace{-0.2cm}
+  \centering
+  \includegraphics[width=0.78\textwidth,height=0.68\textheight,keepaspectratio]{figures/rotation_clockwise.png}
+\end{frame}
+
+\begin{frame}{3.3 Example --- rotation (matrix)}
+  \footnotesize
+  \textbf{Find the matrix.}\
+  Apply $T$ to $\mathbf{e}_1$ and $\mathbf{e}_2$, then stack the outputs as columns:
+  \[
+    T(\mathbf{e}_1)=\begin{pmatrix}0\\ -1\end{pmatrix},
+    \qquad
+    T(\mathbf{e}_2)=\begin{pmatrix}1\\ 0\end{pmatrix}
+    \quad\Longrightarrow\quad
+    A=
+    \begin{pmatrix}
+      0&1\\
+      -1&0
+    \end{pmatrix}.
+  \]
+  Check: $A\mathbf{e}_1$ points down; $A\mathbf{e}_2$ points right (see previous graph).
+\end{frame}
+
+\begin{frame}{3.3 Example --- rotation (decompose, transform, combine)}
+  \footnotesize
+  Same recipe with $\mathbf{v}=2\mathbf{e}_1+3\mathbf{e}_2=\begin{pmatrix}2\\ 3\end{pmatrix}$.
+
+  \medskip
+  \textbf{1.\ Decompose:}\
+  $\mathbf{v}=2\mathbf{e}_1+3\mathbf{e}_2$.
+
+  \medskip
+  \textbf{2.\ Transform:}\
+  $2T(\mathbf{e}_1)=2\begin{pmatrix}0\\ -1\end{pmatrix}=\begin{pmatrix}0\\ -2\end{pmatrix}$,
+  \quad
+  $3T(\mathbf{e}_2)=3\begin{pmatrix}1\\ 0\end{pmatrix}=\begin{pmatrix}3\\ 0\end{pmatrix}$.
+
+  \medskip
+  \textbf{3.\ Combine:}\
+  \[
+    T(\mathbf{v})
+    =2T(\mathbf{e}_1)+3T(\mathbf{e}_2)
+    =\begin{pmatrix}0\\ -2\end{pmatrix}+\begin{pmatrix}3\\ 0\end{pmatrix}
+    =\begin{pmatrix}3\\ -2\end{pmatrix}
+    =A\mathbf{v}.
+  \]
 \end{frame}
 
 \begin{frame}{3.3 Every linear map is a matrix}
