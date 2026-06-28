@@ -27,8 +27,8 @@
 
 \begin{center}
 \small
-\textit{Primal problem: choose $\mathbf{x}$ to minimize cost subject to constraints.\\
-Dual problem: find the best lower bound on that minimum using shadow prices on constraints.}
+\textit{Primal: pick inputs to minimize cost while meeting output targets.\\
+Dual: find the best lower bound on that minimum using shadow prices on outputs.}
 \end{center}
 
 \tableofcontents
@@ -38,23 +38,109 @@ Dual problem: find the best lower bound on that minimum using shadow prices on c
 \section{Why duality?}
 %==============================================================================
 
-Many economic problems are \textbf{minimization} problems: choose activity levels $\mathbf{x}$
-to minimize cost $\mathbf{c}^{\mathsf T}\mathbf{x}$ subject to requirements $A\mathbf{x}\ge\mathbf{b}$.
-Before computing an optimum, it is useful to ask a simpler question: how low can cost \emph{possibly} be,
-given only the constraints and nonnegativity of $\mathbf{x}$?
+Many economic problems are \textbf{cost-minimization} problems: a firm chooses how much labor, material,
+and other inputs to use, pays for them, and must produce at least given amounts of each output.
+Before computing an optimum, ask a simpler question: how low could cost \emph{possibly} be, given only
+the technology and the output targets?
 
 \keyidea{Before solving exactly, ask: \emph{what is the best lower bound we can prove on minimum cost?}
-Duality turns that bound into a \textbf{second optimization problem} whose variables $\mathbf{y}$ are
-\textbf{shadow prices} on the constraints.}
+Duality turns that bound into a \textbf{second optimization problem} whose variables are
+\textbf{shadow prices} on the outputs.}
 
-\econ{The \textbf{primal} is a planner's cost-minimization problem; the \textbf{dual} is a
-price-setter's valuation problem. Any feasible prices $\mathbf{y}\ge 0$ with $A^{\mathsf T}\mathbf{y}\le\mathbf{c}$
-give a valid resource value $\mathbf{b}^{\mathsf T}\mathbf{y}$ that no feasible plan can beat.
-Duality asks for the \textbf{tightest} such bound. This underlies supporting prices, zero-profit
-conditions, and competitive price interpretations in graduate micro.}
+\textbf{The cast of characters.}
+\begin{itemize}[nosep,leftmargin=*]
+  \item \textbf{Inputs} (labor hours, tons of material, machine time): what the firm uses and pays for.
+  \item \textbf{Input costs}: the dollar price per unit of each input.
+  \item \textbf{Output targets}: minimum amounts of each good that must be produced.
+  \item \textbf{Technology}: how much of each output one unit of each input creates.
+  \item \textbf{Shadow prices on outputs}: internal dollar values assigned to each good in a valuation
+        exercise (not necessarily market prices).
+\end{itemize}
 
-The next section makes this precise for linear programs: we derive one primal--dual pair, prove that dual
-values are always valid lower bounds, and then show that the best dual value equals the primal optimum.
+\textbf{Worked example (two inputs, two outputs).}
+Labor costs \$3 per hour; material costs \$5 per ton.
+Targets: at least 4 widgets and 6 gadgets.
+Technology (rows: widgets, gadgets; columns: labor per hour, material per ton):
+\[
+  \begin{pmatrix}
+    1 & 0 \\[4pt]
+    \tfrac12 & 2
+  \end{pmatrix}
+\]
+Input costs, output targets, and one feasible input mix:
+\[
+  \text{costs}=
+  \begin{pmatrix} 3 \\ 5 \end{pmatrix},
+  \qquad
+  \text{targets}=
+  \begin{pmatrix} 4 \\ 6 \end{pmatrix},
+  \qquad
+  \text{plan}=
+  \begin{pmatrix} 4 \\ 2 \end{pmatrix}
+  \quad
+  \text{(4 labor-hours, 2 tons of material).}
+\]
+Total cost: $4\times 3 + 2\times 5 = 22$.
+Widgets produced: $4\times 1 + 2\times 0 = 4$.
+Gadgets produced: $4\times\tfrac12 + 2\times 2 = 6$.
+The \textbf{planner} asks: what is the cheapest feasible input mix?
+The \textbf{accountant} asks: what is the highest total value we can assign to the output targets without
+making any input look like a bargain at those internal output prices?
+
+\textbf{Connecting output value to a cost floor (intuition only).}
+The accountant assigns a dollar value to each output type (widget price, gadget price) and defines
+\[
+  V = \text{(widget price)}\times 4 + \text{(gadget price)}\times 6,
+\]
+the paper value of the \emph{targets} (4 widgets and 6 gadgets).
+The claim we want is: \textbf{every feasible plan has real input cost at least~$V$.}
+
+To get there, compare three numbers for \textbf{any} feasible production plan:
+
+\begin{center}
+\small
+\begin{tabular}{cl}
+\textbf{Real input bill} & what you actually pay for labor and material \\[2pt]
+$\downarrow$ \textbf{Link 1} & \\[2pt]
+\textbf{Accounting value produced} & widget price $\times$ widgets made + gadget price $\times$ gadgets made \\[2pt]
+$\downarrow$ \textbf{Link 2} & \\[2pt]
+\textbf{Value of targets} ($V$) & widget price $\times$ 4 + gadget price $\times$ 6 \\
+\end{tabular}
+\end{center}
+
+\emph{Link 1: real input bill $\ge$ accounting value of what was produced.}
+You pay for inputs; those inputs create outputs; each output has an accounting price.
+\textbf{Link 1} says the total bill cannot be \emph{below} the accounting value of what came out.
+It holds only if output prices are \textbf{consistent}: check each input separately.
+One hour of labor costs \$3; at your internal prices it creates
+$1\times(\text{widget price}) + \tfrac12\times(\text{gadget price})$ of value.
+If that exceeded \$3, labor would be a money machine---so consistent prices rule that out.
+Same check for material (\$5 per ton). Add over all inputs used.
+
+\emph{Link 2: accounting value of what was produced $\ge V$.}
+The plan meets the targets (at least 4 widgets and 6 gadgets), and output prices are nonnegative.
+So the accounting value of what you \emph{actually} produced is at least the accounting value of the
+\emph{minimum required} amounts---that is exactly~$V$.
+
+\emph{Chain.}
+Link 1 and Link 2 together give
+\[
+  \text{real input bill}
+  \;\ge\;
+  \text{accounting value produced}
+  \;\ge\;
+  V.
+\]
+So every feasible plan costs at least~$V$; the true minimum cannot be below~$V$.
+\textbf{Duality} asks the accountant to raise $V$ as high as possible while keeping prices consistent.
+At the optimum, planner and accountant agree on the number.
+
+\smallskip
+\noindent\emph{(If this story does not click yet, that is fine---Section~2 gives the formal math.
+You can treat this section as motivation only.)}
+
+The next section makes this precise for linear programs: we introduce notation, derive the primal--dual pair,
+prove that dual values are valid lower bounds, and show that the best dual value equals the primal optimum.
 
 %==============================================================================
 \section{Linear programming duality}
@@ -67,7 +153,7 @@ Third, prove \textbf{strong duality} (dual $=$ primal), using Farkas' Lemma as t
 Fourth, read optimality through \textbf{complementary slackness} and extend the recipe to general LPs.
 
 \textbf{The primal--dual pair.}
-The \textbf{primal} in resource-requirement form is
+The \textbf{primal} in input--output form is
 \begin{equation}\label{eq:primal}
   \text{(P)}\quad
   \min\ \mathbf{c}^{\mathsf T}\mathbf{x}
@@ -100,16 +186,17 @@ Maximising this bound over $\mathbf{y}$ gives~\eqref{eq:dual}.
 
 \econ{Read the pair as follows.
 \begin{itemize}[nosep,leftmargin=*]
-  \item $x_j$: scale of activity $j$;\quad $c_j$: unit cost.
-  \item $(A\mathbf{x})_i\ge b_i$: requirement $i$ (labor, output, delivery).
-  \item $y_i$: \textbf{shadow price} of constraint $i$.
-  \item $A^{\mathsf T}\mathbf{y}\le\mathbf{c}$: imputed resource cost of each activity $\le$ its direct cost.
-  \item $\mathbf{b}^{\mathsf T}\mathbf{y}$: total value of requirements at prices $\mathbf{y}$.
+  \item $x_j$: quantity of input $j$ (labor, material);\quad $c_j$: its unit cost.
+  \item $(A\mathbf{x})_i\ge b_i$: output of type $i$ meets the target.
+  \item $y_i$: \textbf{shadow price} of output $i$.
+  \item $A^{\mathsf T}\mathbf{y}\le\mathbf{c}$: value of outputs attributable to each input $\le$ its cost.
+  \item $\mathbf{b}^{\mathsf T}\mathbf{y}$: total value of output targets at prices $\mathbf{y}$.
 \end{itemize}}
 
-A small illustration fixes the notation.
-Consider $\min\ 3x_1+5x_2$ s.t.\ $x_1+2x_2\ge 4$, $x_1,x_2\ge 0$
-(meet 4 service units at minimum cost).
+A small illustration fixes the notation (one output type, so $A$ is a single row).
+Consider $\min\ 3x_1+5x_2$ s.t.\ $x_1+2x_2\ge 4$, $x_1,x_2\ge 0$, i.e.\ $A=(1\ \ 2)$:
+one unit of labor yields $a_{11}=1$ unit of output, one unit of material yields $a_{12}=2$ units.
+($x_1$ = labor, $x_2$ = material; produce at least 4 units at minimum cost).
 The dual is $\max\ 4y$ s.t.\ $y\le 3$, $2y\le 5$, $y\ge 0$, which gives $y^*=3$ and cost $=12$.
 
 Having defined the pair, the first theorem says that every feasible dual solution gives a valid bound.
@@ -136,8 +223,8 @@ If feasible $\mathbf{x},\mathbf{y}$ satisfy $\mathbf{c}^{\mathsf T}\mathbf{x}=\m
 both are optimal.
 \end{remark}
 
-\econ{Cost is always at least resource value.
-Equality is a \textbf{certificate of efficiency}: the plan and prices are mutually consistent.}
+\econ{Input cost is always at least total output value.
+Equality is a \textbf{certificate of efficiency}: the input mix and output prices are mutually consistent.}
 
 Weak duality gives $d^*\le p^*$, but not yet $d^*=p^*$.
 To close the gap we need a theorem of alternatives; Farkas' Lemma is the right tool.
@@ -229,8 +316,8 @@ Since $\varepsilon>0$ was arbitrary, $d^*\ge p^*$.
 Together with weak duality, $d^*=p^*$.
 \end{proof}
 
-\econ{\textbf{Minimum cost = maximum resource value} at optimality.
-Efficient allocations can be supported by shadow prices.}
+\econ{\textbf{Minimum input cost = maximum output value} at optimality.
+Efficient production can be supported by shadow output prices.}
 
 Strong duality identifies the optimum value; complementary slackness identifies \emph{which} constraints matter at the optimum.
 
@@ -294,8 +381,8 @@ any feasible $\tilde{\mathbf{y}}$ has $\mathbf{b}^{\mathsf T}\tilde{\mathbf{y}}\
 \end{remark}
 
 \econ{\textbf{Zero-profit / full-utilization} logic.
-Unused capacity $\Rightarrow$ zero shadow price; scarce resource $\Rightarrow$ binds.
-Unprofitable activity $\Rightarrow$ $x_j=0$; used activity $\Rightarrow$ breaks even at shadow prices.
+Output target slack $\Rightarrow$ zero shadow price; binding output target $\Rightarrow$ positive price.
+Input not used $\Rightarrow$ $x_j=0$; input used $\Rightarrow$ breaks even at shadow output prices.
 Links to the Day~3 producer-theory slide (efficient production supported by prices when free disposal holds).}
 
 The derivation above used $\ge$ constraints and $\mathbf{x}\ge\mathbf{0}$.
