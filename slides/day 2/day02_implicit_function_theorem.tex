@@ -831,6 +831,66 @@
   \vfill
 \end{frame}
 
+\begin{frame}{2.4 Leibniz --- practice (monopoly pricing)}
+  \footnotesize
+  \textbf{Economic setup.}\
+  A unit mass of consumers; consumer $i$ has willingness to pay $v_i$, with
+  $v_i\sim F$ (cdf $F$, pdf $f$ on $[0,\bar v]$).
+  A monopolist sets price $p$; $i$ buys iff $v_i\ge p$.
+
+  \medskip
+  \textbf{Type-dependent cost.}\
+  Serving type $v$ costs $c(v)$ (e.g.\ quality, personalization, delivery).
+  Profit from a buyer with valuation $v\ge p$ is $p-c(v)$ --- margin \textbf{varies by type}.
+
+  \medskip
+  \textbf{Total profit (no simple closed form).}\
+  \[
+    \pi(p)=\int_p^{\bar v}\bigl(p-c(v)\bigr)\,f(v)\,dv
+    \qquad\text{(cannot write as $(p-c)(1-F(p))$ when $c=c(v)$).}
+  \]
+  The lower limit moves with $p$ --- \textbf{Leibniz is the right tool}.
+
+  \medskip
+  \textbf{Practice.}\
+  Find $\dfrac{d\pi}{dp}$ and interpret each term.
+  {\scriptsize If $c$ is constant, product rule also works; here it does not.}
+\end{frame}
+
+\begin{frame}{2.4 Leibniz --- practice solution (monopoly pricing)}
+  \footnotesize
+  \textbf{Apply variable-limits Leibniz to $\pi(p)$ directly.}\
+  Lower limit $a(p)=p$, upper limit $\bar v$; only $p$ in the integrand is the leading $p$:
+  \[
+    \frac{d\pi}{dp}
+    = -\bigl(p-c(p)\bigr)f(p)\,a'(p)
+      + \int_p^{\bar v}
+        \frac{\partial}{\partial p}\bigl[(p-c(v))f(v)\bigr]\,dv.
+  \]
+
+  \medskip
+  \textbf{Simplify.}\
+  $a'(p)=1$;\ $\dfrac{\partial}{\partial p}\bigl[(p-c(v))f(v)\bigr]=f(v)$ (since $c(v)$ does not depend on $p$):
+  \[
+    \frac{d\pi}{dp}
+    = -\bigl(p-c(p)\bigr)f(p)
+      + \int_p^{\bar v} f(v)\,dv
+    = -\bigl(p-c(p)\bigr)f(p) + \bigl(1-F(p)\bigr).
+  \]
+
+  \medskip
+  \textbf{Economic reading.}\
+  \begin{itemize}
+    \item \textbf{Lower limit} $-\bigl(p-c(p)\bigr)f(p)$: lose margin $p-c(p)$ on the marginal buyer ($v=p$).
+    \item \textbf{Inside} $1-F(p)$: raising $p$ still adds $1\cdot dp$ profit on \textbf{each} remaining buyer.
+  \end{itemize}
+
+  \medskip
+  {\scriptsize\textbf{FOC.}\
+  $\bigl(p-c(p)\bigr)f(p)=1-F(p)$;
+  constant $c$ gives the usual markup rule $p-c=\dfrac{1-F(p)}{f(p)}$.}
+\end{frame}
+
 \begin{frame}{2.4 Fubini's theorem}
   \footnotesize
   \textbf{Statement.}\
