@@ -1245,7 +1245,7 @@
 \end{frame}
 
 \hypertarget{appendix:logconcave}{}
-\begin{frame}{A.2 Log-concavity proofs}
+\begin{frame}{A.2 Concave positive implies log-concave}
   \small
   \InterestOnly
   
@@ -1262,8 +1262,12 @@
     \ln\left[\lambda f(x) + (1-\lambda)f(y)\right] \geq \lambda \ln f(x) + (1-\lambda) \ln f(y).
   \]
   Thus $\ln f(\lambda x + (1-\lambda)y) \geq \lambda \ln f(x) + (1-\lambda) \ln f(y)$.
-  
-  \vspace{0.5em}
+\end{frame}
+
+\begin{frame}{A.2 Log-concave implies quasiconcave}
+  \small
+  \InterestOnly
+
   \textbf{Theorem 2.} Log-concave $\Rightarrow$ quasiconcave.
   
   \textbf{Proof.} If $\ln f$ concave, then $f = e^{\ln f}$ is quasiconcave (composition of increasing concave with concave).
