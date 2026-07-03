@@ -1,0 +1,1338 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{metropolis}
+\usecolortheme{default}
+\metroset{numbering=fraction, progressbar=frametitle, sectionpage=none}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{frametitle}{bg=mDarkTeal, fg=white}
+\setbeamercolor{progress bar}{fg=mDarkTeal, bg=mDarkTeal!20}
+\definecolor{mDarkTeal}{HTML}{23373B}
+\definecolor{mAccent}{HTML}{EB811B}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+
+\title{Math Bootcamp}
+\subtitle{Day 4 --- Optimization}
+\author{Math Camp 2026}
+\date{}
+
+\newcommand{\QFrame}[1]{\begin{frame}{#1 \quad {\small\textcolor{mAccent}{Together}}}}
+\newcommand{\THFrame}[1]{\begin{frame}{#1 \quad {\small\textcolor{mAccent}{Take home}}}}
+\newcommand{\InterestOnly}{\textcolor{mAccent}{\textbf{for interest only}}}
+\newcommand{\AppendixLink}[1]{\hyperlink{#1}{\textcolor{mAccent}{appendix}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Day 4 roadmap}
+  \small
+  \begin{enumerate}
+    \item \textbf{4.1} Unconstrained optimization --- FOC and SOC
+    \item \textbf{4.2} Concavity, convexity, quasiconcavity --- global optimality
+    \item \textbf{4.3} Equality constraints --- Lagrange multipliers
+    \item \textbf{4.4} Envelope theorem --- value functions
+    \item \textbf{4.5} Inequality constraints --- Farkas lemma and KKT
+    \item \textbf{4.6} Why equality multipliers are unrestricted
+  \end{enumerate}
+\end{frame}
+
+%==============================================================================
+\section{4.1 --- Unconstrained Optimization}
+%==============================================================================
+
+\begin{frame}{4.1 The optimization problem}
+  \small
+  Consider: $\max_{x \in (a,b)} f(x)$ where $f$ is differentiable.
+  
+  \textbf{Goal:} Find conditions guaranteeing $x^*$ is a local maximum.
+  
+  Two types of conditions:
+  
+  \begin{itemize}
+    \item \textbf{Necessary:} Must hold at any local max, but doesn't guarantee it
+    
+    \item \textbf{Sufficient:} If they hold, $x^*$ is definitely a local max
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.1 First-Order Condition (necessary)}
+  \small
+  \textbf{Theorem.} If $x^*$ is an interior local maximum and $f$ is differentiable at $x^*$, then $f'(x^*) = 0$.
+  
+  \textbf{Proof.}
+  
+  \begin{itemize}
+    \item If $f'(x^*) > 0$: then $f(x^* + h) > f(x^*)$ for small $h > 0$, contradiction
+    
+    \item If $f'(x^*) < 0$: then $f(x^* + h) > f(x^*)$ for small $h < 0$, contradiction
+  \end{itemize}
+  
+  A point with $f'(x^*) = 0$ is called a \textbf{critical point}.
+\end{frame}
+
+\begin{frame}{4.1 Critical points are not always maxima}
+  \small
+  FOC finds critical points, but these could be:
+  
+  \begin{itemize}
+    \item Local maxima
+    
+    \item Local minima
+    
+    \item Saddle points (inflection)
+  \end{itemize}
+  
+  \textbf{Example:} $f(x) = x^3$ has $f'(x) = 3x^2 = 0$ at $x^* = 0$, but this is an inflection point, not a maximum.
+  
+  Need additional conditions to distinguish maxima from other critical points.
+\end{frame}
+
+\QFrame{4.1 Exercise: Finding critical points}
+  \small
+  \textbf{Exercise.} Find all critical points of $f(x) = x^3 - 3x$.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item $f'(x) = 3x^2 - 3 = 3(x^2 - 1) = 0$ when $x = \pm 1$
+    
+    \item At $x^* = 1$: $f(1) = -2$, nearby values $f(0.9) = -2.079$, $f(1.1) = -2.069$
+    
+    \item This is a \textbf{local minimum}
+    
+    \item At $x^* = -1$: $f(-1) = 2$, nearby values show this is a \textbf{local maximum}
+  \end{itemize}
+  
+  FOC alone cannot distinguish max from min --- need SOC.
+\end{frame}
+
+\begin{frame}{4.1 Second-Order Condition (sufficient)}
+  \small
+  \textbf{Theorem.} If $f'(x^*) = 0$ and $f''(x^*) < 0$, then $x^*$ is a strict local maximum.
+  
+  \textbf{Proof sketch.} Taylor expansion around $x^*$:
+  
+  \[
+    f(x^* + h) = f(x^*) + \underbrace{f'(x^*)}_{=0} h + \frac{1}{2} f''(x^*) h^2 + o(h^2)
+  \]
+  
+  \begin{itemize}
+    \item For small $h$, the $h^2$ term dominates the remainder
+    
+    \item Since $f''(x^*) < 0$, we have $f(x^* + h) < f(x^*)$ for small $h \neq 0$
+  \end{itemize}
+  
+  Similarly, $f''(x^*) > 0$ implies strict local minimum.
+\end{frame}
+
+\begin{frame}{4.1 The gap: When is FOC alone sufficient?}
+  \small
+  SOC requires checking second derivatives at each critical point.
+  
+  \textbf{Question:} Can we guarantee a maximum using only FOC, without checking SOC everywhere?
+  
+  \textbf{Answer:} Yes, if $f$ has the right \textbf{global shape} (concavity).
+  
+  \textbf{Economic intuition:} Profit maximization with decreasing returns --- any critical point is the global maximum.
+  
+  This leads us to study \textbf{concavity} and \textbf{convexity}.
+\end{frame}
+
+\QFrame{4.1 Exercise: Testing SOC}
+  \small
+  \textbf{Exercise.} For $f(x) = \ln(x) - x$ on $x > 0$, find critical points and verify SOC.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item $f'(x) = \frac{1}{x} - 1 = 0$ gives $x^* = 1$
+    
+    \item $f''(x) = -\frac{1}{x^2}$
+    
+    \item At $x^* = 1$: $f''(1) = -1 < 0$ $\Rightarrow$ strict local maximum
+  \end{itemize}
+  
+  Since $f''(x) = -\frac{1}{x^2} < 0$ for all $x > 0$, the function is strictly concave, so $x^* = 1$ is the unique global maximum.
+\end{frame}
+
+\begin{frame}{4.1 Important caveat: Strict concavity vs. $f'' < 0$}
+  \small
+  \textbf{Warning.} Strict concavity does \textbf{not} require $f''(x) < 0$ everywhere.
+  
+  \textbf{Example:} $f(x) = -x^4$ is strictly concave on $\mathbb{R}$, but $f''(0) = 0$.
+  
+  At $x^* = 0$:
+  
+  \begin{itemize}
+    \item $f'(0) = 0$ (critical point)
+    
+    \item $f''(0) = 0$ (SOC with strict inequality fails)
+    
+    \item Yet $f(x) = -x^4 < 0 = f(0)$ for all $x \neq 0$ (strict local max)
+  \end{itemize}
+  
+  \textbf{Lesson:} $f''(x) < 0$ is sufficient but not necessary for strict concavity. The condition $f''(x) \leq 0$ is necessary and sufficient for (non-strict) concavity.
+\end{frame}
+
+%==============================================================================
+\section{4.2 --- Concavity, Convexity, and Quasiconcavity}
+%==============================================================================
+
+\begin{frame}{4.2 Global shape and global optima}
+  \small
+  FOC/SOC give local information. For global optimality, we need global shape.
+  
+  \textbf{Key insight:}
+  
+  \begin{itemize}
+    \item \textbf{Concave functions:} Any local maximum is a global maximum
+    
+    \item \textbf{Strictly concave:} The maximum is unique
+    
+    \item \textbf{Convex functions:} Any local minimum is a global minimum
+  \end{itemize}
+  
+  \textbf{Quasiconcavity:} A weaker condition --- FOC still gives global max on convex sets.
+\end{frame}
+
+\begin{frame}{4.2 Concave functions: Definition}
+  \small
+  \textbf{Definition.} A function $f$ is \textbf{concave} if for all $x, y$ and $\lambda \in [0,1]$:
+  
+  \[
+    f(\lambda x + (1-\lambda)y) \geq \lambda f(x) + (1-\lambda)f(y).
+  \]
+  
+  \textbf{Geometric interpretation:}
+  
+  \begin{itemize}
+    \item The function lies \textbf{above} its chords (secant lines)
+    
+    \item Epigraph $\{(x,t): t \leq f(x)\}$ is a convex set
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 Tangent characterization}
+  \small
+  For differentiable $f$, an equivalent characterization:
+  
+  \[
+    f(y) \leq f(x) + f'(x)(y-x) \quad \text{for all } x, y.
+  \]
+  
+  \textbf{Interpretation:}
+  
+  \begin{itemize}
+    \item The function lies \textbf{below} its tangent lines
+    
+    \item First-order Taylor approximation \textbf{overestimates} $f$
+  \end{itemize}
+  
+  At a critical point where $f'(x^*) = 0$:
+  
+  \[
+    f(y) \leq f(x^*) + 0 \cdot (y-x^*) = f(x^*) \quad \text{for all } y.
+  \]
+  
+  So $x^*$ is a \textbf{global} maximum!
+\end{frame}
+
+\begin{frame}{4.2 Concave and convex figure}
+  \begin{center}
+    \includegraphics[width=0.90\textwidth]{figures/concave_convex_tangents.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{4.2 Second derivative and concavity}
+  \small
+  \textbf{Theorem.} For $f \in C^2$: $f$ is concave $\Leftrightarrow$ $f''(x) \leq 0$ for all $x$.
+  
+  \textbf{Proof ($\Rightarrow$: concave $\Rightarrow$ $f'' \leq 0$).}
+  
+  From concavity: $f(x+h) + f(x-h) \leq 2f(x)$ for all $h > 0$.
+  
+  Rearrange and divide by $h > 0$:
+  \[
+    \frac{f(x+h) - f(x)}{h} \leq \frac{f(x) - f(x-h)}{h}.
+  \]
+  
+  Bring to one side and divide by $h$ again:
+  \[
+    \frac{f(x+h) - 2f(x) + f(x-h)}{h^2} \leq 0.
+  \]
+  
+  Let $h \to 0$: limit is $f''(x) \leq 0$.
+  
+  \vspace{0.3em}
+  \hfill\hyperlink{appendix:rigorous_concave}{\scriptsize See Appendix A.1 for rigorous version using Taylor expansion}
+\end{frame}
+
+\begin{frame}{4.2 Proof: $f'' \leq 0$ implies concave}
+  \small
+  \textbf{Proof ($\Leftarrow$: $f'' \leq 0$ $\Rightarrow$ concave).}
+  
+  Fix any $x$ and $y$. Taylor around $x$:
+  \[
+    f(y)
+    =
+    f(x) + f'(x)(y-x)
+    + \frac{1}{2}f''(\xi)(y-x)^2,
+  \]
+  where $\xi$ lies between $x$ and $y$.
+  
+  \begin{itemize}
+    \item Since $f''(\xi) \leq 0$ and $(y-x)^2 \geq 0$, the second-order term is $\leq 0$
+    
+    \item Therefore: $f(y) \leq f(x) + f'(x)(y-x)$
+    
+    \item This is the tangent characterization of concavity
+  \end{itemize}
+  
+  \textbf{Conclusion:} $f'' \leq 0$ everywhere is necessary and sufficient for concavity.
+\end{frame}
+
+\begin{frame}{4.2 Strict concavity}
+  \small
+  \textbf{Definition.} $f$ is \textbf{strictly concave} if for all $x \neq y$ and $\lambda \in (0,1)$:
+  \[
+    f(\lambda x + (1-\lambda)y) > \lambda f(x) + (1-\lambda)f(y).
+  \]
+  
+  \textbf{Second-order sufficient (not necessary).}
+  
+  \begin{itemize}
+    \item If $f''(x) < 0$ for all $x$ (strictly negative), then $f$ is strictly concave.
+    
+    \item But strict concavity does not require $f'' < 0$ everywhere.
+  \end{itemize}
+  
+  \textbf{Example.} $f(x) = -x^4$ on $[-1,1]$:
+  
+  \begin{itemize}
+    \item Strictly concave (strict inequality holds)
+    
+    \item But $f''(0) = 0$ at $x = 0$
+  \end{itemize}
+  
+  This shows $f'' < 0$ is sufficient but not necessary for strict concavity.
+\end{frame}
+
+\QFrame{4.2 Exercise: Concavity implies global max}
+  \small
+  \textbf{Exercise.} Prove that if $f$ is concave and $f'(x^*) = 0$, then $x^*$ is a global maximum.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item By tangent characterization: $f(y) \leq f(x^*) + f'(x^*)(y-x^*)$ for all $y$
+    
+    \item Since $f'(x^*) = 0$: $f(y) \leq f(x^*)$ for all $y$
+    
+    \item Therefore $x^*$ is a global maximum
+  \end{itemize}
+  
+  This bridges FOC (necessary) + concavity (sufficient) $\Rightarrow$ global optimality.
+\end{frame}
+
+\begin{frame}{4.2 Convex functions}
+  \small
+  \textbf{Definition.} $f$ is \textbf{convex} if for all $x, y$ and $\lambda \in [0,1]$:
+  
+  \[
+    f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y).
+  \]
+  
+  \textbf{Tangent characterization:} $f(y) \geq f(x) + f'(x)(y-x)$.
+  
+  \begin{itemize}
+    \item Tangent lines lie below the graph
+    
+    \item First-order Taylor \textbf{underestimates} $f$
+  \end{itemize}
+  
+  For convex $f$: if $f'(x^*) = 0$, then $x^*$ is a global \textbf{minimum}.
+  
+  $f$ convex $\Leftrightarrow$ $f''(x) \geq 0$ for $C^2$ functions.
+\end{frame}
+
+\QFrame{4.2 Exercise: Testing concavity vs. convexity}
+  \small
+  \textbf{Exercise.} Determine if these functions are concave, convex, or neither:
+  
+  \textbf{(a)} $f(x) = -x^2$ on $\mathbb{R}$
+  
+  \begin{itemize}
+    \item $f''(x) = -2 < 0$ for all $x$ $\Rightarrow$ \textbf{strictly concave}
+  \end{itemize}
+  
+  \textbf{(b)} $f(x) = e^x$ on $\mathbb{R}$
+  
+  \begin{itemize}
+    \item $f''(x) = e^x > 0$ for all $x$ $\Rightarrow$ \textbf{strictly convex}
+  \end{itemize}
+  
+  \textbf{(c)} $f(x) = x^3$ on $\mathbb{R}$
+  
+  \begin{itemize}
+    \item $f''(x) = 6x$ changes sign at $x = 0$ $\Rightarrow$ \textbf{neither} concave nor convex on all of $\mathbb{R}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 Multivariate concavity and tangent planes}
+  \small
+  For $f: \mathbb{R}^n \to \mathbb{R}$, the tangent \textbf{plane} at $\mathbf{x}$ is:
+  
+  \[
+    T(\mathbf{y}) = f(\mathbf{x}) + \nabla f(\mathbf{x})^\top (\mathbf{y} - \mathbf{x}).
+  \]
+  
+  \textbf{Concave (multivariate):} $f(\mathbf{y}) \leq T(\mathbf{y})$ for all $\mathbf{x}, \mathbf{y}$.
+  
+  \begin{itemize}
+    \item Function lies below its tangent \textbf{hyperplane}
+    
+    \item In 2D: surface below tangent plane
+    
+    \item In 3D visualization: bowl shape opening downward
+  \end{itemize}
+  
+  \textbf{Hessian characterization:} For $f \in C^2$, $f$ is concave iff $H_f(\mathbf{x})$ is negative semidefinite for all $\mathbf{x}$.
+\end{frame}
+
+\begin{frame}{4.2 Quasiconcave functions: Two definitions}
+  \small
+  \textbf{Definition A (segment).} $f$ is \textbf{quasiconcave} if for all $x, y$ and $\lambda \in [0,1]$:
+  
+  \[
+    f(\lambda x + (1-\lambda)y) \geq \min\{f(x), f(y)\}.
+  \]
+  
+  Along any segment, $f$ stays at least as high as the lower endpoint.
+  
+  \textbf{Definition B (upper contours).} $f$ is quasiconcave if upper contour sets $S_t = \{\mathbf{x}: f(\mathbf{x}) \geq t\}$ are convex for all $t$.
+\end{frame}
+
+\begin{frame}{4.2 One-dimensional quasiconcave function}
+  \begin{center}
+    \includegraphics[height=0.76\textheight]{figures/quasiconcave_1d.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{4.2 Two-dimensional upper contour sets}
+  \begin{center}
+    \includegraphics[height=0.74\textheight]{figures/quasiconcave_intuition.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{4.2 Concave implies quasiconcave}
+  \small
+  \textbf{Theorem.} Concave $\Rightarrow$ quasiconcave, but not conversely.
+  
+  \textbf{Proof.} For concave $f$ and any $x, y$, $\lambda \in [0,1]$:
+  
+  \begin{itemize}
+    \item By concavity: $f(\lambda x + (1-\lambda)y) \geq \lambda f(x) + (1-\lambda)f(y)$
+    
+    \item WLOG $f(x) \geq f(y)$, so $\min\{f(x),f(y)\} = f(y)$
+    
+    \item Then: $\lambda f(x) + (1-\lambda)f(y) \geq f(y) = \min\{f(x),f(y)\}$
+    
+    \item Therefore: $f(\lambda x + (1-\lambda)y) \geq \min\{f(x),f(y)\}$
+  \end{itemize}
+  
+  This is the definition of quasiconcavity. The converse fails: e.g., sigmoid is quasiconcave but not concave.
+\end{frame}
+
+\begin{frame}{4.2 Equivalence: segment vs. upper contours}
+  \small
+  \textbf{Theorem.} Definitions A and B are equivalent.
+
+  \textbf{A:} $f(\lambda x+(1-\lambda)y)\geq \min\{f(x),f(y)\}$.
+  
+  \textbf{B:} $S_t=\{\mathbf{x}: f(\mathbf{x})\geq t\}$ is convex for every $t$.
+  
+  \textbf{Proof (A $\Rightarrow$ B).} Let $\mathbf{x}, \mathbf{y} \in S_t$.
+  
+  \begin{itemize}
+    \item Then $f(\mathbf{x}) \geq t$, $f(\mathbf{y}) \geq t$
+    
+    \item For $\lambda \in [0,1]$: $f(\lambda\mathbf{x}+(1-\lambda)\mathbf{y}) \geq \min\{f(\mathbf{x}),f(\mathbf{y})\} \geq t$
+    
+    \item The segment stays in $S_t$, so $S_t$ is convex
+  \end{itemize}
+  
+  \textbf{Proof (B $\Rightarrow$ A).} WLOG $f(\mathbf{x}) \geq f(\mathbf{y})$.
+  
+  \begin{itemize}
+    \item Then $\mathbf{x}, \mathbf{y} \in S_{f(\mathbf{y})}$
+    
+    \item By convexity of $S_{f(\mathbf{y})}$: the segment is in $S_{f(\mathbf{y})}$
+    
+    \item So $f(\text{segment}) \geq f(\mathbf{y}) = \min\{f(\mathbf{x}),f(\mathbf{y})\}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 Quasiconvex functions}
+  \small
+  \textbf{Definition.} $f$ is \textbf{quasiconvex} if for all $x, y$ and $\lambda \in [0,1]$:
+  
+  \[
+    f(\lambda x + (1-\lambda)y) \leq \max\{f(x), f(y)\}.
+  \]
+  
+  Equivalently: lower contour sets $\{\mathbf{x}: f(\mathbf{x}) \leq t\}$ are convex.
+  
+  \textbf{Key relationship:} $f$ quasiconcave $\Leftrightarrow$ $-f$ quasiconvex.
+  
+  \textbf{Example:} $f(x) = x^2$ is quasiconvex (lower sets $[-a, a]$ are convex).
+\end{frame}
+
+\begin{frame}{4.2 Log-concave and hierarchy}
+  \small
+  \textbf{Definition.} $f$ is \textbf{log-concave} if $\ln f$ is concave (for $f > 0$).
+  
+  \textbf{Hierarchy (strongest to weakest):}
+  
+  \begin{enumerate}
+    \item Concave
+    
+    \item Log-concave
+    
+    \item Quasiconcave
+  \end{enumerate}
+  
+  \textbf{Relationships:}
+  
+  \begin{itemize}
+    \item Concave and positive $\Rightarrow$ log-concave
+    
+    \item Log-concave $\Rightarrow$ quasiconcave
+  \end{itemize}
+  
+  \hfill\hyperlink{appendix:logconcave}{\scriptsize See Appendix A.2 for proofs}
+\end{frame}
+
+\begin{frame}{4.2 Economic examples}
+  \small
+  \textbf{Cobb--Douglas:} $u(x_1, x_2) = x_1^\alpha x_2^{1-\alpha}$
+  
+  \begin{itemize}
+    \item Concave if $\alpha + (1-\alpha) \leq 1$ (always, with equality)
+    
+    \item Quasiconcave for all $\alpha \in (0,1)$
+  \end{itemize}
+  
+  \textbf{CES:} $u = (x_1^\rho + x_2^\rho)^{1/\rho}$
+  
+  \begin{itemize}
+    \item Log-concave for certain parameter ranges
+    
+    \item Quasiconcave more generally
+  \end{itemize}
+  
+  \textbf{Why this matters:} FOC gives global max on convex budget set.
+\end{frame}
+
+\begin{frame}{4.2 Why quasiconcavity matters}
+  \small
+  \textbf{Theorem.} If $f$ is quasiconcave and the feasible set $\mathcal{B}$ is convex, then any feasible point with no first-order improving direction is a global maximum.
+  
+  \textbf{Intuition:}
+  
+  \begin{itemize}
+    \item Quasiconcavity ensures ``no valleys'' in the upper direction
+    
+    \item With convex feasible set, any local peak is the global peak
+  \end{itemize}
+  
+  Cobb--Douglas is quasiconcave, so the FOC candidate gives the global max on a convex budget set.
+\end{frame}
+
+\QFrame{4.2 Exercise: Cobb--Douglas quasiconcavity}
+  \small
+  \textbf{Exercise.} Show $u(x_1, x_2) = x_1^\alpha x_2^{1-\alpha}$ is quasiconcave on $\mathbb{R}^2_{++}$.
+  
+  \textbf{Solution.} Check that upper contour sets are convex:
+  
+  \begin{itemize}
+    \item $\{u \geq t\}$ means $x_1^\alpha x_2^{1-\alpha} \geq t$
+    
+    \item Taking logs: $\alpha \ln x_1 + (1-\alpha) \ln x_2 \geq \ln t$
+    
+    \item In $(\ln x_1, \ln x_2)$ coordinates: this is a half-space
+    
+    \item Half-spaces are convex
+    
+    \item The exponential map preserves convexity
+  \end{itemize}
+  
+  Therefore $S_t$ is convex, so $u$ is quasiconcave.
+\end{frame}
+
+\QFrame{4.2 Exercise: Cobb--Douglas is not concave}
+  \small
+  \textbf{Exercise.} Show $u(x_1, x_2) = x_1^\alpha x_2^{1-\alpha}$ is \textbf{not} concave for $\alpha \in (0,1)$.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item The Hessian has mixed eigenvalue signs
+    
+    \item Along the ray $x_1 = x_2 = t$: $u = t$, which is linear (not strictly concave)
+    
+    \item The function is homogeneous of degree 1, so it cannot be strictly concave
+  \end{itemize}
+  
+  This shows quasiconcavity is genuinely \textbf{weaker} than concavity.
+\end{frame}
+
+\THFrame{4.2 Exercise: Testing quasiconcavity}
+  \small
+  \textbf{Exercise.} Determine if $f(x, y) = xy$ is quasiconcave on $\mathbb{R}^2_{++}$.
+  
+  \textbf{Solution.} Check upper contour sets $\{xy \geq t\}$.
+  
+  \begin{itemize}
+    \item For $t > 0$: this is $\{(x,y): y \geq t/x\}$ where $x > 0$
+    
+    \item Take $(1, t)$ and $(t, 1)$: both in the set since $1 \cdot t = t$
+    
+    \item Midpoint: $(\frac{1+t}{2}, \frac{1+t}{2})$ has product $(\frac{1+t}{2})^2$
+    
+    \item By AM-GM: $(\frac{1+t}{2})^2 \geq t$, so midpoint in set
+  \end{itemize}
+  
+  The upper contour sets are convex, so $f(x,y) = xy$ is quasiconcave.
+\end{frame}
+
+%==============================================================================
+\section{4.3 --- Equality Constraints: Lagrange Multipliers}
+%==============================================================================
+
+\begin{frame}{4.3 Constrained optimization problem}
+  \small
+  \textbf{Problem.} Maximize $f(\mathbf{x})$ subject to $h(\mathbf{x}) = 0$.
+  
+  The constraint defines a curve (or surface) in the domain.
+  
+  We seek the highest point of $f$ on this surface.
+  
+  \textbf{Economic example.} Maximize utility $u(x_1,x_2)$ subject to budget $p_1x_1 + p_2x_2 = w$.
+  
+  \textbf{Key insight:} We cannot simply set $\nabla f = 0$ --- must respect the constraint.
+\end{frame}
+
+\begin{frame}{4.3 3D visualization}
+  \begin{center}
+    \includegraphics[width=0.60\textwidth]{figures/lagrange_curve_3d.png}
+  \end{center}
+  
+  \small
+  Surface $z = f(x,y)$ with constraint curve $h(x,y) = 0$ on the domain.
+  
+  The optimum occurs where the constraint curve is tangent to a level curve of $f$.
+\end{frame}
+
+\begin{frame}{4.3 The tangent argument}
+  \small
+  At a constrained optimum $\mathbf{x}^*$ on the constraint surface:
+  
+  \begin{itemize}
+    \item Any feasible direction $\mathbf{d}$ (tangent to constraint) satisfies $\nabla h(\mathbf{x}^*) \cdot \mathbf{d} = 0$
+    
+    \item If $\nabla f(\mathbf{x}^*) \cdot \mathbf{d} \neq 0$, we could move along constraint to increase $f$
+    
+    \item At optimum, no feasible improving direction exists
+  \end{itemize}
+  
+  \textbf{Conclusion.} $\nabla f(\mathbf{x}^*)$ must be parallel to $\nabla h(\mathbf{x}^*)$.
+  
+  That is: $\nabla f(\mathbf{x}^*) = -\mu \nabla h(\mathbf{x}^*)$ for some scalar $\mu$.
+\end{frame}
+
+\begin{frame}{4.3 Lagrangian and first-order conditions}
+  \small
+  \textbf{Theorem.} At a constrained optimum (with regularity), there exists $\mu \in \mathbb{R}$ such that
+  
+  \[
+    \nabla f(\mathbf{x}^*) + \mu \nabla h(\mathbf{x}^*) = \mathbf{0}, \quad h(\mathbf{x}^*) = 0.
+  \]
+  
+  \textbf{Lagrangian.} $\mathcal{L}(\mathbf{x}, \mu) = f(\mathbf{x}) + \mu h(\mathbf{x})$.
+  
+  \begin{itemize}
+    \item Stationarity: $\nabla_{\mathbf{x}} \mathcal{L} = \nabla f + \mu \nabla h = \mathbf{0}$
+    
+    \item Constraint: $\partial \mathcal{L}/\partial \mu = h = 0$
+  \end{itemize}
+  
+  $\mu$ is the \textbf{Lagrange multiplier} (shadow price of relaxing the constraint).
+\end{frame}
+
+\QFrame{4.3 Exercise: Cobb--Douglas with budget}
+  \small
+  \textbf{Exercise.} Maximize $u(x_1, x_2) = x_1^\alpha x_2^{1-\alpha}$ subject to $p_1x_1 + p_2x_2 = w$.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item Lagrangian: $\mathcal{L} = u + \mu(w - p_1x_1 - p_2x_2)$
+    
+    \item FOCs: $\frac{\partial u}{\partial x_1} = \mu p_1$, $\frac{\partial u}{\partial x_2} = \mu p_2$
+    
+    \item Expanding: $\frac{\alpha u}{x_1} = \mu p_1$, $\frac{(1-\alpha)u}{x_2} = \mu p_2$
+    
+    \item Taking ratio: $\frac{\alpha x_2}{(1-\alpha)x_1} = \frac{p_1}{p_2}$
+  \end{itemize}
+  
+  With budget: $p_1x_1 = \alpha w$, $p_2x_2 = (1-\alpha)w$ (constant expenditure shares, Day~1).
+\end{frame}
+
+\QFrame{4.3 Exercise: Cost minimization}
+  \small
+  \textbf{Exercise.} Minimize $C(q_1, q_2) = r_1q_1 + r_2q_2$ subject to $F(q_1, q_2) = \bar{y}$.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item Lagrangian: $\mathcal{L} = r_1q_1 + r_2q_2 + \mu(\bar{y} - F(q_1, q_2))$
+    
+    \item FOCs: $r_1 = \mu F_1$, $r_2 = \mu F_2$ where $F_i = \frac{\partial F}{\partial q_i}$
+    
+    \item Therefore: $\frac{r_1}{r_2} = \frac{F_1}{F_2}$
+  \end{itemize}
+  
+  The input price ratio equals the marginal rate of technical substitution.
+  
+  $\mu$ is the marginal cost of producing additional output.
+\end{frame}
+
+\QFrame{4.3 Exercise: Interpreting the multiplier}
+  \small
+  \textbf{Exercise.} In the Cobb--Douglas solution, what is the interpretation of $\mu$?
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item From FOC: $\mu = \frac{\alpha u}{p_1 x_1} = \frac{u}{w}$
+    
+    \item Substituting the solution: $u = \left(\frac{\alpha w}{p_1}\right)^\alpha \left(\frac{(1-\alpha)w}{p_2}\right)^{1-\alpha}$
+    
+    \item Thus: $\mu = \frac{\alpha^\alpha (1-\alpha)^{1-\alpha}}{p_1^\alpha p_2^{1-\alpha}}$
+  \end{itemize}
+  
+  Since $\mu = \frac{\partial \mathcal{L}}{\partial w}$, this is the marginal utility of income --- how much extra utility from one more dollar.
+\end{frame}
+
+%==============================================================================
+\section{4.4 --- Envelope Theorem}
+%==============================================================================
+
+\begin{frame}{4.4 Value functions and parameters}
+  \small
+  Economic problems depend on parameters: prices, income, technology.
+  
+  \textbf{Value function.} $V(\theta) = \max_{\mathbf{x}} f(\mathbf{x}; \theta)$ subject to constraints.
+  
+  We want to know: how does the optimal value change when $\theta$ shifts?
+  
+  \textbf{Key question:} Do we need to account for how $\mathbf{x}^*(\theta)$ changes?
+\end{frame}
+
+\begin{frame}{4.4 Unconstrained envelope theorem}
+  \small
+  \textbf{Theorem.} For $V(\theta) = \max_{\mathbf{x}} f(\mathbf{x}; \theta)$ with optimizer $\mathbf{x}^*(\theta)$:
+  
+  \[
+    \frac{dV}{d\theta} = \frac{\partial f}{\partial \theta}\Big|_{\mathbf{x}=\mathbf{x}^*(\theta)}.
+  \]
+  
+  \textbf{Proof.} By chain rule:
+  
+  \[
+    \frac{dV}{d\theta} = \underbrace{\nabla_{\mathbf{x}}f \cdot \frac{d\mathbf{x}^*}{d\theta}}_{=0 \text{ by FOC}} + \frac{\partial f}{\partial \theta} = \frac{\partial f}{\partial \theta}.
+  \]
+  
+  \textbf{Intuition.} First-order gains from adjusting $\mathbf{x}$ vanish at optimum. Only direct effects of $\theta$ on $f$ matter.
+\end{frame}
+
+\QFrame{4.4 Exercise: Profit function}
+  \small
+  \textbf{Exercise.} For $\pi^*(p) = \max_{q \geq 0} pq - C(q)$, find $\frac{d\pi^*}{dp}$.
+  
+  \textbf{Solution by envelope.}
+  
+  \begin{itemize}
+    \item $\frac{d\pi^*}{dp} = \frac{\partial(pq - C(q))}{\partial p}\big|_{q^*} = q^*(p)$
+    
+    \item The supply function!
+  \end{itemize}
+  
+  \textbf{Verify explicitly.}
+  
+  \begin{itemize}
+    \item FOC: $p = C'(q^*)$ defines $q^*(p)$
+    
+    \item $\pi^*(p) = pq^*(p) - C(q^*(p))$
+    
+    \item $\frac{d\pi^*}{dp} = q^* + p\frac{dq^*}{dp} - C'(q^*)\frac{dq^*}{dp} = q^* + \underbrace{(p - C'(q^*))}_{=0}\frac{dq^*}{dp} = q^*$
+  \end{itemize}
+  
+  Envelope gives this directly without computing $\frac{dq^*}{dp}$.
+\end{frame}
+
+\begin{frame}{4.4 Constrained envelope theorem}
+  \small
+  With constraints and Lagrangian $\mathcal{L} = f + \sum \mu_k h_k$:
+  
+  \[
+    \frac{dV}{d\theta} = \frac{\partial \mathcal{L}}{\partial \theta}\Big|_{(\mathbf{x}^*, \boldsymbol{\mu}^*)}.
+  \]
+  
+  \textbf{Proof.} Differentiate $V(\theta) = \mathcal{L}(\mathbf{x}^*(\theta), \boldsymbol{\mu}^*(\theta); \theta)$:
+  
+  \begin{itemize}
+    \item Terms with $\partial \mathbf{x}^*/\partial \theta$ vanish by stationarity ($\nabla_{\mathbf{x}}\mathcal{L}=0$)
+    
+    \item Terms with $\partial \mu_k/\partial \theta$ vanish by constraints ($h_k = 0$)
+  \end{itemize}
+  
+  Shadow prices absorb the effect of constraint relaxation.
+\end{frame}
+
+\QFrame{4.4 Exercise: Indirect utility}
+  \small
+  \textbf{Exercise.} For $V(p,w) = \max u(\mathbf{x})$ s.t. $p \cdot \mathbf{x} \leq w$, find $\partial V/\partial w$.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item Lagrangian: $\mathcal{L} = u(\mathbf{x}) + \lambda(w - p \cdot \mathbf{x})$
+    
+    \item By envelope: $\frac{\partial V}{\partial w} = \frac{\partial \mathcal{L}}{\partial w} = \lambda^*$
+  \end{itemize}
+  
+  The Lagrange multiplier on the budget constraint equals the \textbf{marginal utility of income}.
+  
+  This is why $\lambda$ is often called the shadow price of the budget constraint.
+\end{frame}
+
+\QFrame{4.4 Exercise: Roy's identity}
+  \small
+  \textbf{Exercise.} Show that $\frac{\partial V/\partial p_i}{\partial V/\partial w} = -x_i^*(p,w)$.
+  
+  \textbf{Solution.} By envelope:
+  
+  \begin{itemize}
+    \item $\frac{\partial V}{\partial p_i} = \frac{\partial \mathcal{L}}{\partial p_i} = -\lambda^* x_i^*$
+    
+    \item $\frac{\partial V}{\partial w} = \lambda^*$
+  \end{itemize}
+  
+  Therefore:
+  
+  \[
+    \frac{\partial V/\partial p_i}{\partial V/\partial w} = \frac{-\lambda^* x_i^*}{\lambda^*} = -x_i^*.
+  \]
+  
+  This is \textbf{Roy's identity}: Marshallian demands can be recovered from indirect utility without solving the consumer problem explicitly.
+\end{frame}
+
+\THFrame{4.4 Exercise: Cost function envelope}
+  \small
+  \textbf{Exercise.} For $C(r, \bar{y}) = \min_{\mathbf{z}} r \cdot \mathbf{z}$ s.t. $F(\mathbf{z}) \geq \bar{y}$, find $\partial C/\partial \bar{y}$.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item Lagrangian: $\mathcal{L} = r \cdot \mathbf{z} + \lambda(\bar{y} - F(\mathbf{z}))$
+    
+    \item By envelope: $\frac{\partial C}{\partial \bar{y}} = \frac{\partial \mathcal{L}}{\partial \bar{y}} = \lambda^*$
+  \end{itemize}
+  
+  The multiplier equals marginal cost --- the cost of producing one more unit of output.
+  
+  This connects to the firm's supply decision: produce where price equals marginal cost.
+\end{frame}
+
+%==============================================================================
+\section{4.5 --- Inequality Constraints: Farkas Lemma and KKT}
+%==============================================================================
+
+\begin{frame}{4.5 Problems with inequality constraints}
+  \small
+  \textbf{Problem.} Maximize $f(\mathbf{x})$ subject to $g_j(\mathbf{x}) \leq 0$ for $j=1,\ldots,m$.
+  
+  \textbf{Binding vs. slack constraints.}
+  
+  \begin{itemize}
+    \item \textbf{Binding (active):} $g_j(\mathbf{x}^*) = 0$ --- constraint holds with equality
+    
+    \item \textbf{Slack (inactive):} $g_j(\mathbf{x}^*) < 0$ --- constraint not tight
+  \end{itemize}
+  
+  Only binding constraints matter for local optimality.
+  
+  Slack constraints can be ignored locally.
+\end{frame}
+
+\begin{frame}{4.5 Feasible directions and the cone}
+  \small
+  At a boundary point with active constraints, \textbf{feasible directions} form a convex cone:
+  
+  \[
+    D = \{\mathbf{d} : \nabla g_j(\mathbf{x}^*) \cdot \mathbf{d} \leq 0 \text{ for all active } j\}.
+  \]
+  
+  A direction $\mathbf{d}$ is \textbf{improving} if $\nabla f \cdot \mathbf{d} > 0$ (increases objective).
+  
+  For a local maximum: no feasible direction can be improving.
+\end{frame}
+
+\begin{frame}{4.5 Geometric intuition of Farkas lemma}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth]{figures/farkas_simple.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{4.5 Statement of Farkas lemma}
+  \small
+  \textbf{Farkas Lemma (purely geometric).}
+  
+  Let $K$ be a closed convex cone and $\mathbf{y}$ a vector. Either:
+  
+  \begin{enumerate}
+    \item $\mathbf{y} \in K$: the vector lies in the cone
+    
+    \item $\mathbf{y} \notin K$: there exists a separating hyperplane with normal $\mathbf{d}$ such that
+    
+    \begin{itemize}
+      \item $\mathbf{k} \cdot \mathbf{d} \leq 0$ for all $\mathbf{k} \in K$ (cone on one side)
+      
+      \item $\mathbf{y} \cdot \mathbf{d} > 0$ (vector on the other side)
+    \end{itemize}
+  \end{enumerate}
+  
+  The hyperplane strictly separates the cone from the vector.
+\end{frame}
+
+\begin{frame}{4.5 Applying Farkas to optimization}
+  \small
+  For inequality-constrained optimization:
+  
+  \begin{itemize}
+    \item Let $K = \text{cone}\{\nabla g_j : g_j \text{ active}\}$ be the cone spanned by active constraint gradients
+    
+    \item Let $\mathbf{y} = -\nabla f$ (negative objective gradient)
+  \end{itemize}
+  
+  \textbf{Case 1:} $-\nabla f \in K$ means $-\nabla f = \sum_j \lambda_j \nabla g_j$ with $\lambda_j \geq 0$.
+  
+  \textbf{Case 2:} $-\nabla f \notin K$ means there exists feasible improving direction $\mathbf{d}$ where:
+  
+  \begin{itemize}
+    \item $\nabla g_j \cdot \mathbf{d} \leq 0$ for all $j$ (feasible: doesn't violate constraints)
+    
+    \item $\nabla f \cdot \mathbf{d} > 0$ (improving: increases objective)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.5 Inequality problem with multipliers}
+  \small
+  At an optimum, Case 2 is ruled out (no improving feasible direction).
+  
+  Therefore $-\nabla f \in K$, meaning:
+  
+  \[
+    \nabla f(\mathbf{x}^*) + \sum_{\text{active}} \lambda_j \nabla g_j(\mathbf{x}^*) = \mathbf{0}, \quad \lambda_j \geq 0.
+  \]
+  
+  \textbf{Binding constraints:} $\lambda_j > 0$ possible --- these are the bottlenecks.
+  
+  \textbf{Slack constraints:} $\lambda_j = 0$ (they don't contribute).
+  
+  \textbf{Geometric interpretation:} $-\nabla f$ must point into the feasible cone $K$ spanned by active constraint gradients.
+\end{frame}
+
+\begin{frame}{4.5 KKT conditions}
+  \small
+  \textbf{Theorem (KKT necessary conditions).} At a local maximum (with constraint qualification), there exist multipliers $\lambda_j$ such that:
+  
+  \begin{enumerate}
+    \item \textbf{Stationarity:} $\nabla f(\mathbf{x}^*) + \sum_j \lambda_j \nabla g_j(\mathbf{x}^*) = \mathbf{0}$
+    
+    \item \textbf{Primal feasibility:} $g_j(\mathbf{x}^*) \leq 0$ for all $j$
+    
+    \item \textbf{Dual feasibility:} $\lambda_j \geq 0$ (for $g_j \leq 0$, max problem)
+    
+    \item \textbf{Complementary slackness:} $\lambda_j g_j(\mathbf{x}^*) = 0$
+  \end{enumerate}
+  
+  CS says: multiplier is zero for slack constraints ($g_j < 0 \Rightarrow \lambda_j = 0$).
+  
+  Stationarity says: $\nabla f$ is a nonnegative combination of active constraint gradients.
+\end{frame}
+
+\begin{frame}{4.5 Sign convention summary}
+  \small
+  With $\mathcal{L} = f + \sum_j \lambda_j g_j$:
+  
+  \begin{center}
+    \begin{tabular}{@{}lll@{}}
+      \toprule
+      Problem & Constraint & $\lambda$ sign \\
+      \midrule
+      $\max f$ & $g \leq 0$ & $\lambda \geq 0$ \\
+      $\max f$ & $g \geq 0$ & $\lambda \leq 0$ \\
+      $\min f$ & $g \leq 0$ & $\lambda \leq 0$ \\
+      $\min f$ & $g \geq 0$ & $\lambda \geq 0$ \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  
+  \textbf{Memory rule:} For max, constraint and multiplier have opposite signs.
+  
+  $\leq$ constraint $\Rightarrow$ $\lambda \geq 0$.
+\end{frame}
+
+\QFrame{4.5 Exercise: Budget with nonnegativity}
+  \small
+  \textbf{Exercise.} Maximize $u(x_1, x_2)$ subject to $x_1 + x_2 \leq 1$, $x_1 \geq 0$, $x_2 \geq 0$.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item Write: $g_1 = x_1 + x_2 - 1 \leq 0$, $g_2 = -x_1 \leq 0$, $g_3 = -x_2 \leq 0$
+    
+    \item Lagrangian: $\mathcal{L} = u + \lambda_1(1 - x_1 - x_2) + \lambda_2 x_1 + \lambda_3 x_2$
+    
+    \item All $\lambda_j \geq 0$ for max problem
+    
+    \item Stationarity: $\frac{\partial u}{\partial x_1} - \lambda_1 + \lambda_2 = 0$, $\frac{\partial u}{\partial x_2} - \lambda_1 + \lambda_3 = 0$
+    
+    \item CS: $\lambda_1(1 - x_1 - x_2) = 0$, $\lambda_2 x_1 = 0$, $\lambda_3 x_2 = 0$
+  \end{itemize}
+\end{frame}
+
+\QFrame{4.5 Exercise: Corner solution analysis}
+  \small
+  \textbf{Exercise.} For $u(x_1, x_2) = x_1 x_2$, determine when the corner $x_1 = 0$, $x_2 = 1$ is optimal.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item At $(0, 1)$: $g_1$ binds ($\lambda_1 \geq 0$), $g_2$ binds ($\lambda_2 \geq 0$), $g_3$ slack ($\lambda_3 = 0$)
+    
+    \item FOC for $x_1$: $x_2 - \lambda_1 + \lambda_2 = 0$ gives $1 - \lambda_1 + \lambda_2 = 0$
+    
+    \item FOC for $x_2$: $x_1 - \lambda_1 + \lambda_3 = 0$ gives $\lambda_1 = 0$
+    
+    \item But then $\lambda_2 = -1 < 0$, violating dual feasibility
+  \end{itemize}
+  
+  Therefore $(0, 1)$ is \textbf{not} optimal. The interior solution is preferred.
+\end{frame}
+
+\THFrame{4.5 Exercise: Cost minimization with inequality}
+  \small
+  \textbf{Exercise.} Minimize $r \cdot z$ subject to $z_1 + z_2 \geq \bar{z}$.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item For min with $\geq$ constraint: write $g = \bar{z} - z_1 - z_2 \leq 0$ so $\lambda \geq 0$
+    
+    \item Lagrangian: $\mathcal{L} = r_1 z_1 + r_2 z_2 + \lambda(\bar{z} - z_1 - z_2)$
+    
+    \item FOCs: $r_1 = \lambda$, $r_2 = \lambda$
+  \end{itemize}
+  
+  This implies $r_1 = r_2$.
+  
+  If input prices differ, only use the cheaper input (corner solution).
+  
+  Geometric: if $r_1 < r_2$, set $z_2 = 0$, $z_1 = \bar{z}$, and $\lambda = r_1$.
+\end{frame}
+
+%==============================================================================
+\section{4.6 --- Why Equality Multipliers Are Unrestricted}
+%==============================================================================
+
+\begin{frame}{4.6 The key difference: two-sided vs. one-sided}
+  \small
+  \textbf{Equality} $h(\mathbf{x}) = 0$ allows movement in \textbf{both directions} along the constraint surface.
+  
+  \textbf{Inequality} $g(\mathbf{x}) \leq 0$ restricts to one side: only movement into the feasible region is allowed.
+  
+  This directional asymmetry explains why:
+  
+  \begin{itemize}
+    \item Inequality multipliers need sign restrictions ($\lambda \geq 0$)
+    
+    \item Equality multipliers are unrestricted ($\mu \in \mathbb{R}$)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.6 Formal explanation}
+  \small
+  \textbf{Equality:} Feasible directions satisfy $\nabla h \cdot \mathbf{d} = 0$.
+  
+  \begin{itemize}
+    \item Both $\mathbf{d}$ and $-\mathbf{d}$ are feasible
+    
+    \item No sign restriction needed on $\mu$
+  \end{itemize}
+  
+  \textbf{Inequality:} Feasible directions satisfy $\nabla g \cdot \mathbf{d} \leq 0$.
+  
+  \begin{itemize}
+    \item Only inward directions allowed
+    
+    \item Need $\lambda \geq 0$ to ensure $-\nabla f$ points toward feasible region
+  \end{itemize}
+  
+  \textbf{Intuition:} Equality lets you wiggle both ways; inequality only one way.
+\end{frame}
+
+\begin{frame}{4.6 Example: Comparing equality vs. inequality}
+  \small
+  \textbf{Example.} Consider max $f(x,y) = xy$ subject to:
+  
+  \textbf{Case 1:} $x + y = 1$ (equality)
+  
+  \begin{itemize}
+    \item Can move toward $(0,1)$ or $(1,0)$ along the line
+    
+    \item Optimum at $(0.5, 0.5)$ with $\mu = 0.5$ (unrestricted sign)
+  \end{itemize}
+  
+  \textbf{Case 2:} $x + y \leq 1$ (inequality) with $x, y \geq 0$
+  
+  \begin{itemize}
+    \item Can only move inward (decrease $x$ and/or $y$) if on boundary
+    
+    \item Same optimum, but now $\lambda \geq 0$ ensures no improvement possible
+    
+    \item Geometric: $-\nabla f$ must point into feasible cone
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.6 The combined Lagrangian}
+  \small
+  For problems with both equalities and inequalities:
+  
+  \[
+    \mathcal{L} = f + \underbrace{\sum_k \mu_k h_k}_{\text{equality}} + \underbrace{\sum_j \lambda_j g_j}_{\text{inequality}}.
+  \]
+  
+  \textbf{Sign convention:}
+  
+  \begin{center}
+    \begin{tabular}{@{}ll@{}}
+      \toprule
+      Multiplier & Sign rule \\
+      \midrule
+      Equality $\mu_k$ & \textbf{unrestricted} (explained in this section) \\
+      Inequality $\lambda_j$ & $\lambda_j \geq 0$ if $g_j \leq 0$; $\lambda_j \leq 0$ if $g_j \geq 0$ \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  
+  \textbf{Short rule:} $\leq$ constraint $\Rightarrow$ $\lambda \geq 0$ (for max); $\geq$ constraint $\Rightarrow$ $\lambda \leq 0$.
+\end{frame}
+
+\QFrame{4.6 Exercise: Comparing equality vs. inequality}
+  \small
+  \textbf{Exercise.} Maximize $f(x,y) = x^2 - y$ subject to $x^2 + y^2 = 1$ (equality).
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item Lagrangian: $\mathcal{L} = x^2 - y + \mu(1 - x^2 - y^2)$
+    
+    \item FOCs: $2x - 2\mu x = 0$, $-1 - 2\mu y = 0$
+    
+    \item From first: $x = 0$ or $\mu = 1$
+    
+    \item If $\mu = 1$: $y = -0.5$, $x = \pm \sqrt{0.75}$
+  \end{itemize}
+  
+  Here $\mu = 1 > 0$, but could be negative for different objectives.
+  
+  The unrestricted $\mu$ allows both increasing and decreasing the objective by moving along the circle.
+\end{frame}
+
+\THFrame{4.6 Exercise: Unrestricted in action}
+  \small
+  \textbf{Exercise.} Minimize $f(x) = x^2$ subject to $x = 1$ vs. $x \geq 1$. Compare multipliers.
+  
+  \textbf{Solution.}
+  
+  \textbf{Equality $x = 1$:}
+  
+  \begin{itemize}
+    \item $\mathcal{L} = x^2 + \mu(1 - x)$
+    
+    \item FOC: $2x - \mu = 0$, so $\mu = 2$ at $x = 1$
+  \end{itemize}
+  
+  \textbf{Inequality $x \geq 1$ (i.e., $1 - x \leq 0$):}
+  
+  \begin{itemize}
+    \item For min with $\leq$ constraint: $\lambda \leq 0$
+    
+    \item $\mathcal{L} = x^2 + \lambda(1 - x)$
+    
+    \item FOC: $2x - \lambda = 0$, so $\lambda = 2$, but need $\lambda \leq 0$
+    
+    \item Contradiction! Minimum is at boundary $x = 1$ with $\lambda = 2$ --- actually requires re-checking signs.
+  \end{itemize}
+\end{frame}
+
+%==============================================================================
+\appendix
+%==============================================================================
+
+\begin{frame}{Appendix --- Additional proofs and extensions}
+  \small
+  This appendix contains:
+  
+  \begin{itemize}
+    \item A.1 Rigorous proof: concave $\Rightarrow$ $f'' \leq 0$ (Taylor expansion)
+    
+    \item A.2 Log-concavity proofs
+    
+    \item A.3 Multivariate SOC via Hessian definiteness
+    
+    \item A.4 Additional exercises with solutions
+  \end{itemize}
+  
+  Material marked \InterestOnly.
+\end{frame}
+
+\hypertarget{appendix:rigorous_concave}{}
+\begin{frame}{A.1 Rigorous proof: concave $\Rightarrow$ $f'' \leq 0$}
+  \small
+  \InterestOnly
+  
+  \textbf{Theorem.} If $f$ is concave and $f \in C^2$, then $f''(x) \leq 0$ for all $x$.
+  
+  \textbf{Rigorous proof using Taylor expansion with remainder.}
+  
+  From concavity: $f(x+h) + f(x-h) \leq 2f(x)$ for all $h > 0$.
+  
+  Taylor expansions around $x$:
+  \begin{align*}
+    f(x+h) &= f(x) + f'(x)h + \frac{1}{2}f''(x)h^2 + \frac{f'''(\xi_1)}{6}h^3 \\
+    f(x-h) &= f(x) - f'(x)h + \frac{1}{2}f''(x)h^2 - \frac{f'''(\xi_2)}{6}h^3
+  \end{align*}
+  
+  Adding:
+  \[
+    f(x+h) + f(x-h) = 2f(x) + f''(x)h^2 + \frac{f'''(\xi_1) - f'''(\xi_2)}{6}h^3.
+  \]
+  
+  By concavity: $f''(x)h^2 + \frac{f'''(\xi_1) - f'''(\xi_2)}{6}h^3 \leq 0$.
+  
+  Divide by $h^2$ and let $h \to 0$: third-order terms vanish, leaving $f''(x) \leq 0$.
+\end{frame}
+
+\hypertarget{appendix:logconcave}{}
+\begin{frame}{A.2 Log-concavity proofs}
+  \small
+  \InterestOnly
+  
+  \textbf{Theorem 1.} Concave and positive $\Rightarrow$ log-concave.
+  
+  \textbf{Proof.} If $f > 0$ and $f$ concave, then $\ln f$ is concave.
+  
+  For $\lambda \in [0,1]$:
+  \[
+    \ln f(\lambda x + (1-\lambda)y) \geq \ln\left[\lambda f(x) + (1-\lambda)f(y)\right]
+  \]
+  by concavity of $f$ and monotonicity of $\ln$. Since $\ln$ is concave:
+  \[
+    \ln\left[\lambda f(x) + (1-\lambda)f(y)\right] \geq \lambda \ln f(x) + (1-\lambda) \ln f(y).
+  \]
+  Thus $\ln f(\lambda x + (1-\lambda)y) \geq \lambda \ln f(x) + (1-\lambda) \ln f(y)$.
+  
+  \vspace{0.5em}
+  \textbf{Theorem 2.} Log-concave $\Rightarrow$ quasiconcave.
+  
+  \textbf{Proof.} If $\ln f$ concave, then $f = e^{\ln f}$ is quasiconcave (composition of increasing concave with concave).
+  
+  Specifically: if $\ln f(\lambda x + (1-\lambda)y) \geq \lambda \ln f(x) + (1-\lambda) \ln f(y)$, then
+  \[
+    f(\lambda x + (1-\lambda)y) \geq f(x)^\lambda f(y)^{1-\lambda} \geq \min\{f(x), f(y)\}.
+  \]
+\end{frame}
+
+\begin{frame}{A.3 Multivariate SOC: Hessian definiteness}
+  \small
+  \InterestOnly
+  
+  For $f \in C^2$: Taylor at critical point $\mathbf{x}^*$:
+  
+  \[
+    f(\mathbf{x}^* + \mathbf{h}) = f(\mathbf{x}^*) + \frac{1}{2}\mathbf{h}^\top H_f(\mathbf{x}^*) \mathbf{h} + o(\|\mathbf{h}\|^2).
+  \]
+  
+  \textbf{Theorem.} If $H_f(\mathbf{x}^*)$ is negative definite (all eigenvalues $< 0$), then $\mathbf{x}^*$ is a strict local maximum.
+  
+  \textbf{Proof.} For small $\mathbf{h} \neq 0$, the quadratic form dominates the remainder.
+  
+  Negative definiteness ensures $f(\mathbf{x}^* + \mathbf{h}) < f(\mathbf{x}^*)$.
+  
+  \textbf{Connection to concavity:} $f$ concave $\Leftrightarrow$ $H_f(\mathbf{x})$ negative semidefinite for all $\mathbf{x}$.
+\end{frame}
+
+\begin{frame}{A.4 Additional exercise: Multivariate critical points}
+  \small
+  \InterestOnly
+  
+  \textbf{Exercise.} Find critical points of $f(x,y) = x^3 + y^3 - 3xy$.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item $\nabla f = (3x^2 - 3y, 3y^2 - 3x) = (0,0)$
+    
+    \item From first: $y = x^2$
+    
+    \item Substitute: $x^4 - x = 0$, so $x(x^3 - 1) = 0$
+    
+    \item Solutions: $(0,0)$ and $(1,1)$
+  \end{itemize}
+  
+  Hessian at $(1,1)$: $H = \begin{bmatrix} 6 & -3 \\ -3 & 6 \end{bmatrix}$, eigenvalues $3, 9 > 0$ (local min).
+  
+  At $(0,0)$: $H = \begin{bmatrix} 0 & -3 \\ -3 & 0 \end{bmatrix}$, determinant $-9 < 0$ (saddle).
+\end{frame}
+
+\begin{frame}{A.4 Additional exercise: Borderline SOC}
+  \small
+  \InterestOnly
+  
+  \textbf{Exercise.} Analyze $f(x) = -x^4$ at $x=0$ where SOC with $f'' < 0$ fails.
+  
+  \textbf{Solution.}
+  
+  \begin{itemize}
+    \item $f'(0) = 0$, $f''(0) = 0$, $f'''(0) = 0$, $f^{(4)}(0) = -24 < 0$
+  \end{itemize}
+  
+  Fourth-order Taylor: $f(h) = -h^4 < 0 = f(0)$ for $h \neq 0$.
+  
+  Strict local maximum.
+  
+  This shows higher-order terms can determine optimality when SOC is inconclusive.
+\end{frame}
+
+\end{document}
