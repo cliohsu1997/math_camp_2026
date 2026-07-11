@@ -53,28 +53,26 @@
   
   \textbf{Goal:} Find conditions guaranteeing $x^*$ is a local maximum.
   
-  Two types of conditions:
+  Two types of conditions (always say \textbf{for what}):
   
   \begin{itemize}
-    \item \textbf{Necessary:} Must hold at any local max, but doesn't guarantee it
+    \item \textbf{Necessary for local max:} Must hold at any interior local max, but does not by itself guarantee a local max
     
-    \item \textbf{Sufficient:} If they hold, $x^*$ is definitely a local max
+    \item \textbf{Sufficient for local max:} If they hold, $x^*$ is definitely a local max (but need not be the only way to get one)
   \end{itemize}
 \end{frame}
 
-\begin{frame}{4.1 First-Order Condition (necessary)}
+\begin{frame}{4.1 Local conditions}
   \small
-  \textbf{Theorem.} If $x^*$ is an interior local maximum and $f$ is differentiable at $x^*$, then $f'(x^*) = 0$.
+  At an interior critical point $x^*$ ($f'(x^*)=0$) with $f \in C^2$:
   
-  \textbf{Proof.}
+  \textbf{Necessary (1).} Local maximum $\Rightarrow$ $f'(x^*)=0$. \textbf{Not sufficient.}
   
-  \begin{itemize}
-    \item If $f'(x^*) > 0$: then $f(x^* + h) > f(x^*)$ for small $h > 0$, contradiction
-    
-    \item If $f'(x^*) < 0$: then $f(x^* + h) > f(x^*)$ for small $h < 0$, contradiction
-  \end{itemize}
+  \textbf{Necessary (2).} Local maximum $\Rightarrow$ $f''(x^*)\leq 0$. \textbf{Not sufficient} (e.g.\ $x^3$ at $0$).
   
-  A point with $f'(x^*) = 0$ is called a \textbf{critical point}.
+  \textbf{Sufficient.} If $f'(x^*)=0$ and $f''(x^*)<0$, then strict local maximum. \textbf{Not necessary} (e.g.\ $-x^4$ at $0$).
+  
+  \hfill\hyperlink{appendix:soc_1d}{\scriptsize Proofs: Appendix A.1 \InterestOnly}
 \end{frame}
 
 \begin{frame}{4.1 Critical points are not always maxima}
@@ -92,6 +90,8 @@
   \textbf{Example:} $f(x) = x^3$ has $f'(x) = 3x^2 = 0$ at $x^* = 0$, but this is an inflection point, not a maximum.
   
   Need additional conditions to distinguish maxima from other critical points.
+  
+  A point with $f'(x^*)=0$ is a \textbf{critical point}.
 \end{frame}
 
 \QFrame{4.1 Exercise: Finding critical points}
@@ -110,192 +110,130 @@
     \item At $x^* = -1$: $f(-1) = 2$, nearby values show this is a \textbf{local maximum}
   \end{itemize}
   
-  FOC alone cannot distinguish max from min --- need SOC.
+  FOC alone cannot distinguish max from min --- use the \textbf{sufficient} SOC ($f''(x^*)<0$) from the local-conditions slide.
 \end{frame}
 
-\begin{frame}{4.1 Second-Order Condition (sufficient)}
+\QFrame{4.1 Exercise: Verifying SOC}
   \small
-  \textbf{Theorem.} If $f'(x^*) = 0$ and $f''(x^*) < 0$, then $x^*$ is a strict local maximum.
-  
-  \textbf{Proof sketch.} Taylor expansion around $x^*$:
-  
-  \[
-    f(x^* + h) = f(x^*) + \underbrace{f'(x^*)}_{=0} h + \frac{1}{2} f''(x^*) h^2 + o(h^2)
-  \]
-  
-  \begin{itemize}
-    \item For small $h$, the $h^2$ term dominates the remainder
-    
-    \item Since $f''(x^*) < 0$, we have $f(x^* + h) < f(x^*)$ for small $h \neq 0$
-  \end{itemize}
-  
-  Similarly, $f''(x^*) > 0$ implies strict local minimum.
-\end{frame}
-
-\begin{frame}{4.1 The gap: When is FOC alone sufficient?}
-  \small
-  SOC requires checking second derivatives at each critical point.
-  
-  \textbf{Question:} Can we guarantee a maximum using only FOC, without checking SOC everywhere?
-  
-  \textbf{Answer:} Yes, if $f$ has the right \textbf{global shape} (concavity).
-  
-  \textbf{Economic intuition:} Profit maximization with decreasing returns --- any critical point is the global maximum.
-  
-  This leads us to study \textbf{concavity} and \textbf{convexity}.
-\end{frame}
-
-\QFrame{4.1 Exercise: Testing SOC}
-  \small
-  \textbf{Exercise.} For $f(x) = \ln(x) - x$ on $x > 0$, find critical points and verify SOC.
+  \textbf{Exercise.} For $f(x) = 4x - x^2$ on $\mathbb{R}$, find critical points and verify SOC.
   
   \textbf{Solution.}
   
   \begin{itemize}
-    \item $f'(x) = \frac{1}{x} - 1 = 0$ gives $x^* = 1$
+    \item $f'(x) = 4 - 2x = 0$ gives $x^* = 2$
     
-    \item $f''(x) = -\frac{1}{x^2}$
+    \item $f''(x) = -2 < 0$ for all $x$
     
-    \item At $x^* = 1$: $f''(1) = -1 < 0$ $\Rightarrow$ strict local maximum
+    \item FOC holds and SOC holds at $x^* = 2$
+    
+    \item SOC is \textbf{sufficient for a strict local maximum} $\Rightarrow$ $x^* = 2$ is a strict local maximum
   \end{itemize}
-  
-  Since $f''(x) = -\frac{1}{x^2} < 0$ for all $x > 0$, the function is strictly concave, so $x^* = 1$ is the unique global maximum.
 \end{frame}
 
-\begin{frame}{4.1 Important caveat: Strict concavity vs. $f'' < 0$}
+\begin{frame}{4.1 From local to global}
   \small
-  \textbf{Warning.} Strict concavity does \textbf{not} require $f''(x) < 0$ everywhere.
+  \textbf{Question:} A local maximum need not be a global maximum. When does a critical point guarantee a \textbf{global maximum}, not just a local maximum?
   
-  \textbf{Example:} $f(x) = -x^4$ is strictly concave on $\mathbb{R}$, but $f''(0) = 0$.
-  
-  At $x^* = 0$:
-  
-  \begin{itemize}
-    \item $f'(0) = 0$ (critical point)
-    
-    \item $f''(0) = 0$ (SOC with strict inequality fails)
-    
-    \item Yet $f(x) = -x^4 < 0 = f(0)$ for all $x \neq 0$ (strict local max)
-  \end{itemize}
-  
-  \textbf{Lesson:} $f''(x) < 0$ is sufficient but not necessary for strict concavity. The condition $f''(x) \leq 0$ is necessary and sufficient for (non-strict) concavity.
+  \textbf{Answer:} When $f$ is \textbf{concave}.
 \end{frame}
 
 %==============================================================================
 \section{4.2 --- Concavity, Convexity, and Quasiconcavity}
 %==============================================================================
 
-\begin{frame}{4.2 Global shape and global optima}
+\begin{frame}{4.2 (1) Chord definition}
   \small
-  FOC/SOC give local information. For global optimality, we need global shape.
-  
-  \textbf{Key insight:}
-  
-  \begin{itemize}
-    \item \textbf{Concave functions:} Any local maximum is a global maximum
-    
-    \item \textbf{Strictly concave:} The maximum is unique
-    
-    \item \textbf{Convex functions:} Any local minimum is a global minimum
-  \end{itemize}
-  
-  \textbf{Quasiconcavity:} A weaker condition --- FOC still gives global max on convex sets.
-\end{frame}
-
-\begin{frame}{4.2 Concave functions: Definition}
-  \small
-  \textbf{Definition.} A function $f$ is \textbf{concave} if for all $x, y$ and $\lambda \in [0,1]$:
-  
+  \textbf{(1) Concave.} For all $x, y$ and $\lambda \in [0,1]$:
   \[
     f(\lambda x + (1-\lambda)y) \geq \lambda f(x) + (1-\lambda)f(y).
   \]
+  The graph lies \textbf{above} its chords (convex reverses the inequality).
   
-  \textbf{Geometric interpretation:}
-  
-  \begin{itemize}
-    \item The function lies \textbf{above} its chords (secant lines)
-    
-    \item Epigraph $\{(x,t): t \leq f(x)\}$ is a convex set
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.2 Tangent characterization}
-  \small
-  For differentiable $f$, an equivalent characterization:
-  
-  \[
-    f(y) \leq f(x) + f'(x)(y-x) \quad \text{for all } x, y.
-  \]
-  
-  \textbf{Interpretation:}
-  
-  \begin{itemize}
-    \item The function lies \textbf{below} its tangent lines
-    
-    \item First-order Taylor approximation \textbf{overestimates} $f$
-  \end{itemize}
-  
-  At a critical point where $f'(x^*) = 0$:
-  
-  \[
-    f(y) \leq f(x^*) + 0 \cdot (y-x^*) = f(x^*) \quad \text{for all } y.
-  \]
-  
-  So $x^*$ is a \textbf{global} maximum!
-\end{frame}
-
-\begin{frame}{4.2 Concave and convex figure}
   \begin{center}
-    \includegraphics[width=0.90\textwidth]{figures/concave_convex_tangents.png}
+    \includegraphics[width=0.92\textwidth,height=0.50\textheight,keepaspectratio]{figures/concave_chords.png}
   \end{center}
 \end{frame}
 
-\begin{frame}{4.2 Second derivative and concavity}
+\begin{frame}{4.2 (2) Tangent characterization}
   \small
-  \textbf{Theorem.} For $f \in C^2$: $f$ is concave $\Leftrightarrow$ $f''(x) \leq 0$ for all $x$.
-  
-  \textbf{Proof ($\Rightarrow$: concave $\Rightarrow$ $f'' \leq 0$).}
-  
-  From concavity: $f(x+h) + f(x-h) \leq 2f(x)$ for all $h > 0$.
-  
-  Rearrange and divide by $h > 0$:
+  \textbf{(2) Concave (differentiable).} For all $x, y$:
   \[
-    \frac{f(x+h) - f(x)}{h} \leq \frac{f(x) - f(x-h)}{h}.
+    f(y) \leq f(x) + f'(x)(y-x).
   \]
   
-  Bring to one side and divide by $h$ again:
-  \[
-    \frac{f(x+h) - 2f(x) + f(x-h)}{h^2} \leq 0.
-  \]
+  \textbf{Theorem.} For $f \in C^1$: $(1) \Leftrightarrow (2)$.
   
-  Let $h \to 0$: limit is $f''(x) \leq 0$.
+  \begin{center}
+    \includegraphics[width=0.92\textwidth,height=0.46\textheight,keepaspectratio]{figures/concave_tangents.png}
+  \end{center}
   
-  \vspace{0.3em}
-  \hfill\hyperlink{appendix:rigorous_concave}{\scriptsize See Appendix A.1 for rigorous version using Taylor expansion}
+  \hfill\hyperlink{appendix:concave_12}{\scriptsize Proof: Appendix A.2 \InterestOnly}
 \end{frame}
 
-\begin{frame}{4.2 Proof: $f'' \leq 0$ implies concave}
+\begin{frame}{4.2 (3) Second derivative condition}
   \small
-  \textbf{Proof ($\Leftarrow$: $f'' \leq 0$ $\Rightarrow$ concave).}
+  \textbf{(3) Concave ($C^2$).} $f''(x) \leq 0$ for all $x$ --- tangent slope $f'(x)$ is \textbf{decreasing}.
   
-  Fix any $x$ and $y$. Taylor around $x$:
-  \[
-    f(y)
-    =
-    f(x) + f'(x)(y-x)
-    + \frac{1}{2}f''(\xi)(y-x)^2,
-  \]
-  where $\xi$ lies between $x$ and $y$.
+  \textbf{Theorem.} For $f \in C^2$: $(2) \Leftrightarrow (3)$.
+  
+  \begin{center}
+    \includegraphics[width=0.88\textwidth,height=0.44\textheight,keepaspectratio]{figures/concave_second_derivative.png}
+  \end{center}
+  
+  At a maximum, FOC gives $f'(x^*)=0$: the tangent is \textbf{horizontal}.
+  
+  \hfill\hyperlink{appendix:concave_23}{\scriptsize Proof: Appendix A.3 \InterestOnly}
+\end{frame}
+
+\QFrame{4.2 Exercise: Concavity implies global max}
+  \small
+  \textbf{Exercise.} Prove that if $f$ is concave and $f'(x^*) = 0$, then $x^*$ is a global maximum.
+  
+  \textbf{Solution.}
   
   \begin{itemize}
-    \item Since $f''(\xi) \leq 0$ and $(y-x)^2 \geq 0$, the second-order term is $\leq 0$
+    \item By tangent characterization: $f(y) \leq f(x^*) + f'(x^*)(y-x^*)$ for all $y$
     
-    \item Therefore: $f(y) \leq f(x) + f'(x)(y-x)$
+    \item Since $f'(x^*) = 0$: $f(y) \leq f(x^*)$ for all $y$
     
-    \item This is the tangent characterization of concavity
+    \item Therefore $x^*$ is a global maximum
   \end{itemize}
   
-  \textbf{Conclusion:} $f'' \leq 0$ everywhere is necessary and sufficient for concavity.
+  Concavity is \textbf{sufficient for global max} once FOC holds (FOC is only necessary for local max).
+\end{frame}
+
+\begin{frame}{4.2 Concavity: Summary}
+  \small
+  For $f \in C^2$, the following are \textbf{equivalent}:
+  
+  \begin{enumerate}
+    \item \textbf{Chords:} $f(\lambda x + (1-\lambda)y) \geq \lambda f(x) + (1-\lambda)f(y)$
+    
+    \item \textbf{Tangents:} $f(y) \leq f(x) + f'(x)(y-x)$
+    
+    \item \textbf{Second derivative:} $f''(x) \leq 0$
+  \end{enumerate}
+  
+  \textbf{Geometry:} graph above chords, below tangents; Taylor \textbf{overestimates} $f$.
+  
+  \textbf{Optimization:} any local maximum is a global maximum. If $f'(x^*)=0$, then $f(y) \leq f(x^*)$ for all $y$.
+\end{frame}
+
+\begin{frame}{4.2 Convex functions}
+  \small
+  \textbf{Convex} reverses every concavity condition:
+  
+  \begin{enumerate}
+    \item \textbf{Chords:} $f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y)$
+    
+    \item \textbf{Tangents:} $f(y) \geq f(x) + f'(x)(y-x)$
+    
+    \item \textbf{Second derivative:} $f''(x) \geq 0$
+  \end{enumerate}
+  
+  \textbf{Geometry:} graph below chords, above tangents; Taylor \textbf{underestimates} $f$.
+  
+  \textbf{Optimization:} any local minimum is a global minimum.
 \end{frame}
 
 \begin{frame}{4.2 Strict concavity}
@@ -324,86 +262,82 @@
   This shows $f'' < 0$ is sufficient but not necessary for strict concavity.
 \end{frame}
 
-\QFrame{4.2 Exercise: Concavity implies global max}
+\QFrame{4.2 Exercise: FOC, SOC, and global maximum}
   \small
-  \textbf{Exercise.} Prove that if $f$ is concave and $f'(x^*) = 0$, then $x^*$ is a global maximum.
+  \textbf{Exercise.} For $f(x) = \ln(x) - x$ on $x > 0$, find critical points, verify SOC, and determine whether $x^*$ is a global maximum.
   
   \textbf{Solution.}
   
   \begin{itemize}
-    \item By tangent characterization: $f(y) \leq f(x^*) + f'(x^*)(y-x^*)$ for all $y$
+    \item $f'(x) = \frac{1}{x} - 1 = 0$ gives $x^* = 1$
     
-    \item Since $f'(x^*) = 0$: $f(y) \leq f(x^*)$ for all $y$
+    \item $f''(x) = -\frac{1}{x^2}$, so $f''(1) = -1 < 0$ $\Rightarrow$ strict local maximum
     
-    \item Therefore $x^*$ is a global maximum
+    \item Since $f''(x) < 0$ for all $x > 0$, $f$ is strictly concave
+    
+    \item Therefore $x^* = 1$ is the unique \textbf{global} maximum
   \end{itemize}
-  
-  This bridges FOC (necessary) + concavity (sufficient) $\Rightarrow$ global optimality.
 \end{frame}
 
-\begin{frame}{4.2 Convex functions}
+\begin{frame}{4.2 Example: Profit maximization}
   \small
-  \textbf{Definition.} $f$ is \textbf{convex} if for all $x, y$ and $\lambda \in [0,1]$:
+  \textbf{Example.} Profit $\pi(q)=pq-C(q)$.
   
+  \begin{itemize}
+    \item \textbf{Decreasing returns:} marginal cost rises as output increases (e.g.\ $C(q)=q^2$)
+    
+    \item Then $\pi''(q)=-C''(q)<0$, so $\pi$ is concave
+    
+    \item FOC $\pi'(q^*)=0$ gives the \textbf{global} profit maximum, not just a local one
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 Multivariate concavity: Three definitions}
+  \small
+  For $f: \mathbb{R}^n \to \mathbb{R}$:
+  
+  \textbf{(1) Chords.} For all $\mathbf{x}, \mathbf{y}$ and $\lambda \in [0,1]$:
   \[
-    f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y).
+    f(\lambda \mathbf{x} + (1-\lambda)\mathbf{y}) \geq \lambda f(\mathbf{x}) + (1-\lambda)f(\mathbf{y}).
   \]
   
-  \textbf{Tangent characterization:} $f(y) \geq f(x) + f'(x)(y-x)$.
-  
-  \begin{itemize}
-    \item Tangent lines lie below the graph
-    
-    \item First-order Taylor \textbf{underestimates} $f$
-  \end{itemize}
-  
-  For convex $f$: if $f'(x^*) = 0$, then $x^*$ is a global \textbf{minimum}.
-  
-  $f$ convex $\Leftrightarrow$ $f''(x) \geq 0$ for $C^2$ functions.
-\end{frame}
-
-\QFrame{4.2 Exercise: Testing concavity vs. convexity}
-  \small
-  \textbf{Exercise.} Determine if these functions are concave, convex, or neither:
-  
-  \textbf{(a)} $f(x) = -x^2$ on $\mathbb{R}$
-  
-  \begin{itemize}
-    \item $f''(x) = -2 < 0$ for all $x$ $\Rightarrow$ \textbf{strictly concave}
-  \end{itemize}
-  
-  \textbf{(b)} $f(x) = e^x$ on $\mathbb{R}$
-  
-  \begin{itemize}
-    \item $f''(x) = e^x > 0$ for all $x$ $\Rightarrow$ \textbf{strictly convex}
-  \end{itemize}
-  
-  \textbf{(c)} $f(x) = x^3$ on $\mathbb{R}$
-  
-  \begin{itemize}
-    \item $f''(x) = 6x$ changes sign at $x = 0$ $\Rightarrow$ \textbf{neither} concave nor convex on all of $\mathbb{R}$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{4.2 Multivariate concavity and tangent planes}
-  \small
-  For $f: \mathbb{R}^n \to \mathbb{R}$, the tangent \textbf{plane} at $\mathbf{x}$ is:
-  
+  \textbf{(2) Tangents ($C^1$).} For all $\mathbf{x}, \mathbf{y}$:
   \[
-    T(\mathbf{y}) = f(\mathbf{x}) + \nabla f(\mathbf{x})^\top (\mathbf{y} - \mathbf{x}).
+    f(\mathbf{y}) \leq f(\mathbf{x}) + \nabla f(\mathbf{x})^\top (\mathbf{y} - \mathbf{x}).
   \]
   
-  \textbf{Concave (multivariate):} $f(\mathbf{y}) \leq T(\mathbf{y})$ for all $\mathbf{x}, \mathbf{y}$.
+  \textbf{(3) Hessian ($C^2$).} $H_f(\mathbf{x})$ is \textbf{negative semidefinite} for all $\mathbf{x}$.
   
-  \begin{itemize}
-    \item Function lies below its tangent \textbf{hyperplane}
-    
-    \item In 2D: surface below tangent plane
-    
-    \item In 3D visualization: bowl shape opening downward
-  \end{itemize}
+  \textbf{Theorem.} For $f \in C^2$: $(1) \Leftrightarrow (2) \Leftrightarrow (3)$.
   
-  \textbf{Hessian characterization:} For $f \in C^2$, $f$ is concave iff $H_f(\mathbf{x})$ is negative semidefinite for all $\mathbf{x}$.
+  \hfill\hyperlink{appendix:concave_12}{\scriptsize $(1)\Leftrightarrow(2)$: A.2}\quad
+  \hyperlink{appendix:multivariate_concave}{\scriptsize $(2)\Leftrightarrow(3)$, NSD: A.4 \InterestOnly}
+\end{frame}
+
+\begin{frame}{4.2 Multivariate concavity: Geometry}
+  \small
+  For $f(x,y)$, the graph $z=f(x,y)$ is a \textbf{surface in 3D}.
+  
+  \begin{center}
+    \includegraphics[width=0.58\textwidth,height=0.52\textheight,keepaspectratio]{figures/concave_tangent_plane_3d.png}
+  \end{center}
+  
+  Concavity: surface lies \textbf{below} its tangent plane; shape is an inverted bowl.
+\end{frame}
+
+\begin{frame}{4.2 Local conditions (multivariate)}
+  \small
+  At an interior critical point $\mathbf{x}^*$ ($\nabla f(\mathbf{x}^*)=\mathbf{0}$) with $f \in C^2$:
+  
+  \textbf{Necessary (1).} Local maximum $\Rightarrow$ $\nabla f(\mathbf{x}^*)=\mathbf{0}$. \textbf{Not sufficient.}
+  
+  \textbf{Necessary (2).} Local maximum $\Rightarrow$ $H_f(\mathbf{x}^*)$ negative semidefinite. \textbf{Not sufficient} (e.g.\ $x^3$ at $(0,0)$).
+  
+  \textbf{Sufficient.} If $\nabla f(\mathbf{x}^*)=\mathbf{0}$ and $H_f(\mathbf{x}^*)$ negative definite, then strict local maximum. \textbf{Not necessary} (e.g.\ $-(x^4+y^4)$ at $(0,0)$).
+  
+  Same pattern as 1D: $f''(x^*)\leq 0$ necessary; $f''(x^*)<0$ sufficient but not necessary.
+  
+  \hfill\hyperlink{appendix:multivariate_soc}{\scriptsize Proofs: Appendix A.5 \InterestOnly}
 \end{frame}
 
 \begin{frame}{4.2 Quasiconcave functions: Two definitions}
@@ -516,7 +450,7 @@
     \item Log-concave $\Rightarrow$ quasiconcave
   \end{itemize}
   
-  \hfill\hyperlink{appendix:logconcave}{\scriptsize See Appendix A.2 for proofs}
+  \hfill\hyperlink{appendix:logconcave}{\scriptsize See Appendix A.6 for proofs \InterestOnly}
 \end{frame}
 
 \begin{frame}{4.2 Economic examples}
@@ -553,6 +487,29 @@
   \end{itemize}
   
   Cobb--Douglas is quasiconcave, so the FOC candidate gives the global max on a convex budget set.
+\end{frame}
+
+\QFrame{4.2 Exercise: Testing concavity vs. convexity}
+  \small
+  \textbf{Exercise.} Determine if these functions are concave, convex, or neither:
+  
+  \textbf{(a)} $f(x) = -x^2$ on $\mathbb{R}$
+  
+  \begin{itemize}
+    \item $f''(x) = -2 < 0$ for all $x$ $\Rightarrow$ \textbf{strictly concave}
+  \end{itemize}
+  
+  \textbf{(b)} $f(x) = e^x$ on $\mathbb{R}$
+  
+  \begin{itemize}
+    \item $f''(x) = e^x > 0$ for all $x$ $\Rightarrow$ \textbf{strictly convex}
+  \end{itemize}
+  
+  \textbf{(c)} $f(x) = x^3$ on $\mathbb{R}$
+  
+  \begin{itemize}
+    \item $f''(x) = 6x$ changes sign at $x = 0$ $\Rightarrow$ \textbf{neither} concave nor convex on all of $\mathbb{R}$
+  \end{itemize}
 \end{frame}
 
 \QFrame{4.2 Exercise: Cobb--Douglas quasiconcavity}
@@ -624,9 +581,16 @@
   
   We seek the highest point of $f$ on this surface.
   
-  \textbf{Economic example.} Maximize utility $u(x_1,x_2)$ subject to budget $p_1x_1 + p_2x_2 = w$.
-  
   \textbf{Key insight:} We cannot simply set $\nabla f = 0$ --- must respect the constraint.
+\end{frame}
+
+\begin{frame}{4.3 Example: Utility maximization}
+  \small
+  \textbf{Example.} Maximize utility $u(x_1,x_2)$ subject to budget $p_1x_1 + p_2x_2 = w$.
+  
+  The budget line is the constraint surface in $(x_1,x_2)$ space.
+  
+  The optimum is the highest indifference curve that still touches the budget line.
 \end{frame}
 
 \begin{frame}{4.3 3D visualization}
@@ -763,6 +727,25 @@
   \textbf{Intuition.} First-order gains from adjusting $\mathbf{x}$ vanish at optimum. Only direct effects of $\theta$ on $f$ matter.
 \end{frame}
 
+\begin{frame}{4.4 Constrained envelope theorem}
+  \small
+  With constraints and Lagrangian $\mathcal{L} = f + \sum \mu_k h_k$:
+  
+  \[
+    \frac{dV}{d\theta} = \frac{\partial \mathcal{L}}{\partial \theta}\Big|_{(\mathbf{x}^*, \boldsymbol{\mu}^*)}.
+  \]
+  
+  \textbf{Proof.} Differentiate $V(\theta) = \mathcal{L}(\mathbf{x}^*(\theta), \boldsymbol{\mu}^*(\theta); \theta)$:
+  
+  \begin{itemize}
+    \item Terms with $\partial \mathbf{x}^*/\partial \theta$ vanish by stationarity ($\nabla_{\mathbf{x}}\mathcal{L}=0$)
+    
+    \item Terms with $\partial \mu_k/\partial \theta$ vanish by constraints ($h_k = 0$)
+  \end{itemize}
+  
+  Shadow prices absorb the effect of constraint relaxation.
+\end{frame}
+
 \QFrame{4.4 Exercise: Profit function}
   \small
   \textbf{Exercise.} For $\pi^*(p) = \max_{q \geq 0} pq - C(q)$, find $\frac{d\pi^*}{dp}$.
@@ -786,25 +769,6 @@
   \end{itemize}
   
   Envelope gives this directly without computing $\frac{dq^*}{dp}$.
-\end{frame}
-
-\begin{frame}{4.4 Constrained envelope theorem}
-  \small
-  With constraints and Lagrangian $\mathcal{L} = f + \sum \mu_k h_k$:
-  
-  \[
-    \frac{dV}{d\theta} = \frac{\partial \mathcal{L}}{\partial \theta}\Big|_{(\mathbf{x}^*, \boldsymbol{\mu}^*)}.
-  \]
-  
-  \textbf{Proof.} Differentiate $V(\theta) = \mathcal{L}(\mathbf{x}^*(\theta), \boldsymbol{\mu}^*(\theta); \theta)$:
-  
-  \begin{itemize}
-    \item Terms with $\partial \mathbf{x}^*/\partial \theta$ vanish by stationarity ($\nabla_{\mathbf{x}}\mathcal{L}=0$)
-    
-    \item Terms with $\partial \mu_k/\partial \theta$ vanish by constraints ($h_k = 0$)
-  \end{itemize}
-  
-  Shadow prices absorb the effect of constraint relaxation.
 \end{frame}
 
 \QFrame{4.4 Exercise: Indirect utility}
@@ -1200,25 +1164,178 @@
 \appendix
 %==============================================================================
 
-\begin{frame}{Appendix --- Additional proofs and extensions}
+\begin{frame}{Appendix \InterestOnly}
+  \footnotesize
+  \textbf{Additional proofs and extensions} (same order as main text):
+  
+  \begin{enumerate}
+    \item \hyperlink{appendix:soc_1d}{A.1} Unconstrained optimization: FOC and SOC (1D)
+    \item \hyperlink{appendix:concave_12}{A.2} Concavity: $(1)\Leftrightarrow(2)$
+    \item \hyperlink{appendix:concave_23}{A.3} Concavity: $(2)\Leftrightarrow(3)$
+    \item \hyperlink{appendix:multivariate_concave}{A.4} Multivariate concavity and NSD
+    \item \hyperlink{appendix:multivariate_soc}{A.5} Multivariate SOC
+    \item \hyperlink{appendix:logconcave}{A.6} Log-concavity
+    \item \hyperlink{appendix:exercises}{A.7} Additional exercises
+  \end{enumerate}
+\end{frame}
+
+\hypertarget{appendix:soc_1d}{}
+\begin{frame}{A.1 Proof: First-Order Condition (1D)}
   \small
-  This appendix contains:
+  \InterestOnly
+  
+  \textbf{Theorem.} If $x^*$ is an interior local maximum and $f$ is differentiable at $x^*$, then $f'(x^*) = 0$.
+  
+  \textbf{Proof.}
   
   \begin{itemize}
-    \item A.1 Rigorous proof: concave $\Rightarrow$ $f'' \leq 0$ (Taylor expansion)
+    \item If $f'(x^*) > 0$: then $f(x^* + h) > f(x^*)$ for small $h > 0$, contradiction
     
-    \item A.2 Log-concavity proofs
-    
-    \item A.3 Multivariate SOC via Hessian definiteness
-    
-    \item A.4 Additional exercises with solutions
+    \item If $f'(x^*) < 0$: then $f(x^* + h) > f(x^*)$ for small $h < 0$, contradiction
   \end{itemize}
+\end{frame}
+
+\begin{frame}{A.1 Proof: Necessary SOC (1D)}
+  \small
+  \InterestOnly
   
-  Material marked \InterestOnly.
+  \textbf{Theorem.} If $x^*$ is an interior local maximum and $f \in C^2$, then $f''(x^*) \leq 0$.
+  
+  \textbf{Proof.} Suppose $f''(x^*) > 0$. Taylor at $x^*$:
+  \[
+    f(x^* + h)
+    =
+    f(x^*) + \tfrac12 f''(x^*) h^2 + o(h^2).
+  \]
+  
+  \begin{itemize}
+    \item For small $h \neq 0$, the quadratic term dominates the remainder
+    
+    \item Since $f''(x^*) > 0$, we get $f(x^* + h) > f(x^*)$ --- contradiction
+    
+    \item Therefore $f''(x^*) \leq 0$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A.1 Proof: Sufficient SOC (1D)}
+  \small
+  \InterestOnly
+  
+  \textbf{Theorem.} If $f'(x^*) = 0$ and $f''(x^*) < 0$, then $x^*$ is a strict local maximum.
+  
+  \textbf{Proof.} Taylor expansion around $x^*$:
+  \[
+    f(x^* + h) = f(x^*) + \underbrace{f'(x^*)}_{=0} h + \tfrac12 f''(x^*) h^2 + o(h^2).
+  \]
+  
+  \begin{itemize}
+    \item For small $h$, the $h^2$ term dominates the remainder
+    
+    \item Since $f''(x^*) < 0$, we have $f(x^* + h) < f(x^*)$ for small $h \neq 0$
+  \end{itemize}
+\end{frame}
+
+\hypertarget{appendix:concave_12}{}
+\begin{frame}{A.2 Proof $(1) \Rightarrow (2)$}
+  \small
+  \InterestOnly
+  
+  \textbf{Proof.} Fix $x$ and $y > x$. Set $h = y - x > 0$.
+  
+  For $t \in (0,1]$, the point on the segment is
+  \[
+    x + th = (1-t)x + ty.
+  \]
+  
+  \begin{itemize}
+    \item By concavity: $f(x+th) \geq (1-t)f(x) + tf(y)$
+    
+    \item Rearrange: $f(x+th) - f(x) \geq t(f(y)-f(x))$
+    
+    \item Divide by $th > 0$:
+    \[
+      \frac{f(x+th)-f(x)}{th} \geq \frac{f(y)-f(x)}{y-x}.
+    \]
+    
+    \item Let $t \to 0^+$: $f'(x) \geq \dfrac{f(y)-f(x)}{y-x}$
+    
+    \item So $f(y) \leq f(x) + f'(x)(y-x)$. The case $y < x$ is similar
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A.2 Proof $(2) \Rightarrow (1)$}
+  \small
+  \InterestOnly
+  
+  \textbf{Proof.} Fix $x$, $y$, and $\lambda \in [0,1]$. Let $u=\lambda x+(1-\lambda)y$.
+  
+  \begin{itemize}
+    \item Tangent at $u$: $f(x) \leq f(u)+f'(u)(x-u)$ and $f(y) \leq f(u)+f'(u)(y-u)$
+    
+    \item Weight by $(1-\lambda)$ and $\lambda$, then add:
+    \[
+      (1-\lambda)f(x)+\lambda f(y)
+      \leq f(u) + f'(u)\big[(1-\lambda)(x-u)+\lambda(y-u)\big].
+    \]
+    
+    \item The bracket is $0$ because $u=\lambda x+(1-\lambda)y$
+    
+    \item So $(1-\lambda)f(x)+\lambda f(y) \leq f(u)=f(\lambda x+(1-\lambda)y)$
+  \end{itemize}
+\end{frame}
+
+\hypertarget{appendix:concave_23}{}
+\begin{frame}{A.3 Proof $(2) \Rightarrow (3)$}
+  \small
+  \InterestOnly
+  
+  \textbf{Proof.} Since $(1) \Leftrightarrow (2)$, use the chord form. From concavity with endpoints $x+h$, $x-h$ and $\lambda=\tfrac12$:
+  \[
+    f(x) = f\!\left(\tfrac12(x+h)+\tfrac12(x-h)\right)
+    \geq \tfrac12 f(x+h) + \tfrac12 f(x-h).
+  \]
+  So $f(x+h) + f(x-h) \leq 2f(x)$ for all $h > 0$.
+  
+  Rearrange and divide by $h > 0$:
+  \[
+    \frac{f(x+h) - f(x)}{h} \leq \frac{f(x) - f(x-h)}{h}.
+  \]
+  
+  Bring to one side and divide by $h$ again:
+  \[
+    \frac{f(x+h) - 2f(x) + f(x-h)}{h^2} \leq 0.
+  \]
+  
+  Let $h \to 0$: limit is $f''(x) \leq 0$.
+  
+  \vfill
+  \hfill\hyperlink{appendix:rigorous_concave}{\scriptsize Rigorous version: next slides}
+\end{frame}
+
+\begin{frame}{A.3 Proof $(3) \Rightarrow (2)$}
+  \small
+  \InterestOnly
+  
+  \textbf{Proof.} Fix any $x$ and $y$. Taylor around $x$:
+  \[
+    f(y)
+    =
+    f(x) + f'(x)(y-x)
+    + \frac{1}{2}f''(\xi)(y-x)^2,
+  \]
+  where $\xi$ lies between $x$ and $y$.
+  
+  \begin{itemize}
+    \item Since $f''(\xi) \leq 0$ and $(y-x)^2 \geq 0$, the second-order term is $\leq 0$
+    
+    \item Therefore: $f(y) \leq f(x) + f'(x)(y-x)$
+    
+    \item This is the tangent characterization of concavity
+  \end{itemize}
 \end{frame}
 
 \hypertarget{appendix:rigorous_concave}{}
-\begin{frame}{A.1 Rigorous proof: concave $\Rightarrow$ $f'' \leq 0$}
+\begin{frame}{A.3 Rigorous proof: concave $\Rightarrow$ $f'' \leq 0$ (I)}
   \small
   \InterestOnly
   
@@ -1226,26 +1343,154 @@
   
   \textbf{Rigorous proof using Taylor expansion with remainder.}
   
-  From concavity: $f(x+h) + f(x-h) \leq 2f(x)$ for all $h > 0$.
+  From concavity with endpoints $x+h$, $x-h$ and $\lambda=\tfrac12$:
+  \[
+    f(x) \geq \tfrac12 f(x+h) + \tfrac12 f(x-h)
+    \quad\Leftrightarrow\quad
+    f(x+h) + f(x-h) \leq 2f(x).
+  \]
   
   Taylor expansions around $x$:
   \begin{align*}
     f(x+h) &= f(x) + f'(x)h + \frac{1}{2}f''(x)h^2 + \frac{f'''(\xi_1)}{6}h^3 \\
     f(x-h) &= f(x) - f'(x)h + \frac{1}{2}f''(x)h^2 - \frac{f'''(\xi_2)}{6}h^3
   \end{align*}
+  where $\xi_1$ lies between $x$ and $x+h$, and $\xi_2$ between $x-h$ and $x$.
+\end{frame}
+
+\begin{frame}{A.3 Rigorous proof: concave $\Rightarrow$ $f'' \leq 0$ (II)}
+  \small
+  \InterestOnly
   
-  Adding:
+  Adding the two Taylor expansions:
   \[
     f(x+h) + f(x-h) = 2f(x) + f''(x)h^2 + \frac{f'''(\xi_1) - f'''(\xi_2)}{6}h^3.
   \]
   
-  By concavity: $f''(x)h^2 + \frac{f'''(\xi_1) - f'''(\xi_2)}{6}h^3 \leq 0$.
+  \begin{itemize}
+    \item By concavity: $f''(x)h^2 + \frac{f'''(\xi_1) - f'''(\xi_2)}{6}h^3 \leq 0$
+    
+    \item Divide by $h^2 > 0$:
+    \[
+      f''(x) + \frac{f'''(\xi_1) - f'''(\xi_2)}{6}h \leq 0
+    \]
+    
+    \item Let $h \to 0$: third-order terms vanish, leaving $f''(x) \leq 0$
+  \end{itemize}
+\end{frame}
+
+\hypertarget{appendix:multivariate_concave}{}
+\begin{frame}{A.4 Negative semidefinite}
+  \small
+  \InterestOnly
   
-  Divide by $h^2$ and let $h \to 0$: third-order terms vanish, leaving $f''(x) \leq 0$.
+  For symmetric $H \in \mathbb{R}^{n \times n}$, the following are equivalent:
+  
+  \begin{itemize}
+    \item $H$ is \textbf{negative semidefinite (NSD):} $\mathbf{v}^\top H \mathbf{v} \leq 0$ for all $\mathbf{v} \in \mathbb{R}^n$
+    
+    \item All eigenvalues of $H$ satisfy $\lambda_i \leq 0$
+  \end{itemize}
+  
+  \textbf{Example ($n=2$).} $H = \begin{bmatrix} a & b \\ b & c \end{bmatrix}$ is NSD iff $a \leq 0$, $c \leq 0$, and $ac - b^2 \geq 0$.
+  
+  \textbf{Multivariate concavity ($C^2$).} $f$ is concave iff $H_f(\mathbf{x})$ is NSD at every $\mathbf{x}$.
+\end{frame}
+
+\begin{frame}{A.4 Proof $(3) \Rightarrow (2)$ (multivariate)}
+  \small
+  \InterestOnly
+  
+  \textbf{Proof.} Taylor around $\mathbf{x}$:
+  \[
+    f(\mathbf{x}+\mathbf{h})
+    =
+    f(\mathbf{x}) + \nabla f(\mathbf{x})^\top \mathbf{h}
+    + \frac{1}{2}\mathbf{h}^\top H_f(\boldsymbol{\xi})\mathbf{h},
+  \]
+  where $\boldsymbol{\xi}$ lies on the segment from $\mathbf{x}$ to $\mathbf{x}+\mathbf{h}$.
+  
+  \begin{itemize}
+    \item If $H_f(\boldsymbol{\xi})$ is NSD, then $\mathbf{h}^\top H_f(\boldsymbol{\xi})\mathbf{h} \leq 0$
+    
+    \item So $f(\mathbf{x}+\mathbf{h}) \leq f(\mathbf{x}) + \nabla f(\mathbf{x})^\top \mathbf{h}$
+    
+    \item Writing $\mathbf{y}=\mathbf{x}+\mathbf{h}$ gives the tangent characterization
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A.4 Proof $(2) \Rightarrow (3)$ (multivariate)}
+  \small
+  \InterestOnly
+  
+  \textbf{Proof.} Fix $\mathbf{x}$ and any $\mathbf{h} \in \mathbb{R}^n$. By concavity with endpoints $\mathbf{x}+\mathbf{h}$, $\mathbf{x}-\mathbf{h}$ and $\lambda=\tfrac12$:
+  \[
+    f(\mathbf{x}) \geq \tfrac12 f(\mathbf{x}+\mathbf{h}) + \tfrac12 f(\mathbf{x}-\mathbf{h}).
+  \]
+  
+  \begin{itemize}
+    \item Taylor expand $f(\mathbf{x}\pm\mathbf{h})$ around $\mathbf{x}$ and add
+    
+    \item The first-order terms cancel; the remainder gives
+    \[
+      \mathbf{h}^\top H_f(\mathbf{x})\mathbf{h} + o(\|\mathbf{h}\|^2) \leq 0
+    \]
+    
+    \item Let $\|\mathbf{h}\| \to 0$: $\mathbf{h}^\top H_f(\mathbf{x})\mathbf{h} \leq 0$ for all $\mathbf{h}$
+    
+    \item So $H_f(\mathbf{x})$ is NSD
+  \end{itemize}
+\end{frame}
+
+\hypertarget{appendix:multivariate_soc}{}
+\begin{frame}{A.5 Proof: Necessary SOC (multivariate)}
+  \small
+  \InterestOnly
+  
+  \textbf{Theorem.} If $\mathbf{x}^*$ is an interior local maximum and $f \in C^2$, then $H_f(\mathbf{x}^*)$ is negative semidefinite.
+  
+  \textbf{Proof.} Suppose some eigenvalue $\lambda > 0$ with unit eigenvector $\mathbf{v}$. Taylor at $\mathbf{x}^*$:
+  \[
+    f(\mathbf{x}^* + t\mathbf{v})
+    =
+    f(\mathbf{x}^*) + \tfrac12 t^2 \mathbf{v}^\top H_f(\mathbf{x}^*)\mathbf{v} + o(t^2)
+    =
+    f(\mathbf{x}^*) + \tfrac12 t^2 \lambda + o(t^2).
+  \]
+  
+  \begin{itemize}
+    \item For small $t > 0$, the quadratic term dominates, so $f(\mathbf{x}^* + t\mathbf{v}) > f(\mathbf{x}^*)$
+    
+    \item Contradiction --- therefore $H_f(\mathbf{x}^*)$ is NSD
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A.5 Proof: Sufficient SOC (multivariate)}
+  \small
+  \InterestOnly
+  
+  \textbf{Theorem.} If $\nabla f(\mathbf{x}^*)=\mathbf{0}$ and $H_f(\mathbf{x}^*)$ is negative definite, then $\mathbf{x}^*$ is a strict local maximum.
+  
+  \textbf{Proof.} Taylor at $\mathbf{x}^*$:
+  \[
+    f(\mathbf{x}^* + \mathbf{h})
+    =
+    f(\mathbf{x}^*) + \tfrac12 \mathbf{h}^\top H_f(\mathbf{x}^*)\mathbf{h} + o(\|\mathbf{h}\|^2).
+  \]
+  
+  \begin{itemize}
+    \item Negative definiteness: $\mathbf{h}^\top H_f(\mathbf{x}^*)\mathbf{h} < 0$ for all $\mathbf{h} \neq \mathbf{0}$
+    
+    \item For small $\mathbf{h} \neq \mathbf{0}$, the quadratic form dominates the remainder
+    
+    \item So $f(\mathbf{x}^* + \mathbf{h}) < f(\mathbf{x}^*)$
+  \end{itemize}
+  
+  \textbf{Connection to concavity:} $f$ concave $\Leftrightarrow$ $H_f(\mathbf{x})$ NSD for all $\mathbf{x}$ (see A.4).
 \end{frame}
 
 \hypertarget{appendix:logconcave}{}
-\begin{frame}{A.2 Concave positive implies log-concave}
+\begin{frame}{A.6 Concave positive implies log-concave}
   \small
   \InterestOnly
   
@@ -1264,7 +1509,7 @@
   Thus $\ln f(\lambda x + (1-\lambda)y) \geq \lambda \ln f(x) + (1-\lambda) \ln f(y)$.
 \end{frame}
 
-\begin{frame}{A.2 Log-concave implies quasiconcave}
+\begin{frame}{A.6 Log-concave implies quasiconcave}
   \small
   \InterestOnly
 
@@ -1278,26 +1523,8 @@
   \]
 \end{frame}
 
-\begin{frame}{A.3 Multivariate SOC: Hessian definiteness}
-  \small
-  \InterestOnly
-  
-  For $f \in C^2$: Taylor at critical point $\mathbf{x}^*$:
-  
-  \[
-    f(\mathbf{x}^* + \mathbf{h}) = f(\mathbf{x}^*) + \frac{1}{2}\mathbf{h}^\top H_f(\mathbf{x}^*) \mathbf{h} + o(\|\mathbf{h}\|^2).
-  \]
-  
-  \textbf{Theorem.} If $H_f(\mathbf{x}^*)$ is negative definite (all eigenvalues $< 0$), then $\mathbf{x}^*$ is a strict local maximum.
-  
-  \textbf{Proof.} For small $\mathbf{h} \neq 0$, the quadratic form dominates the remainder.
-  
-  Negative definiteness ensures $f(\mathbf{x}^* + \mathbf{h}) < f(\mathbf{x}^*)$.
-  
-  \textbf{Connection to concavity:} $f$ concave $\Leftrightarrow$ $H_f(\mathbf{x})$ negative semidefinite for all $\mathbf{x}$.
-\end{frame}
-
-\begin{frame}{A.4 Additional exercise: Multivariate critical points}
+\hypertarget{appendix:exercises}{}
+\begin{frame}{A.7 Additional exercise: Multivariate critical points}
   \small
   \InterestOnly
   
@@ -1320,7 +1547,7 @@
   At $(0,0)$: $H = \begin{bmatrix} 0 & -3 \\ -3 & 0 \end{bmatrix}$, determinant $-9 < 0$ (saddle).
 \end{frame}
 
-\begin{frame}{A.4 Additional exercise: Borderline SOC}
+\begin{frame}{A.7 Additional exercise: Borderline SOC}
   \small
   \InterestOnly
   
