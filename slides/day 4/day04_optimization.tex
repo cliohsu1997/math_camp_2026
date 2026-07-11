@@ -1449,16 +1449,19 @@
   
   \textbf{Theorem.} If $\mathbf{x}^*$ is an interior local maximum and $f \in C^2$, then $H_f(\mathbf{x}^*)$ is negative semidefinite.
   
-  \textbf{Proof.} Suppose some eigenvalue $\lambda > 0$ with unit eigenvector $\mathbf{v}$. Taylor at $\mathbf{x}^*$:
+  \textbf{Proof.} Suppose some eigenvalue $\lambda > 0$ with unit eigenvector $\mathbf{v}$ ($H_f(\mathbf{x}^*)\mathbf{v}=\lambda\mathbf{v}$, $\|\mathbf{v}\|=1$). Taylor at $\mathbf{x}^*$:
   \[
     f(\mathbf{x}^* + t\mathbf{v})
     =
-    f(\mathbf{x}^*) + \tfrac12 t^2 \mathbf{v}^\top H_f(\mathbf{x}^*)\mathbf{v} + o(t^2)
-    =
-    f(\mathbf{x}^*) + \tfrac12 t^2 \lambda + o(t^2).
+    f(\mathbf{x}^*) + \tfrac12 t^2 \mathbf{v}^\top H_f(\mathbf{x}^*)\mathbf{v} + o(t^2).
   \]
   
   \begin{itemize}
+    \item Since $\mathbf{v}$ is an eigenvector: $\mathbf{v}^\top H_f(\mathbf{x}^*)\mathbf{v}
+    = \mathbf{v}^\top(\lambda\mathbf{v}) = \lambda\,\mathbf{v}^\top\mathbf{v} = \lambda\|\mathbf{v}\|^2 = \lambda$
+    
+    \item So $f(\mathbf{x}^* + t\mathbf{v}) = f(\mathbf{x}^*) + \tfrac12 t^2 \lambda + o(t^2)$
+    
     \item For small $t > 0$, the quadratic term dominates, so $f(\mathbf{x}^* + t\mathbf{v}) > f(\mathbf{x}^*)$
     
     \item Contradiction --- therefore $H_f(\mathbf{x}^*)$ is NSD
