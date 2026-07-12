@@ -21,6 +21,8 @@
 \date{}
 
 \newcommand{\InterestOnly}{\textcolor{mAccent}{\textbf{for interest only}}}
+\newcommand{\QFrame}[1]{\begin{frame}{#1 \quad {\small\textcolor{mAccent}{Together}}}}
+\newcommand{\THFrame}[1]{\begin{frame}{#1 \quad {\small\textcolor{mAccent}{Take home}}}}
 \newcommand{\AppendixLink}[1]{%
   \hyperlink{#1}{\textcolor{mAccent}{appendix}}}
 
@@ -179,31 +181,37 @@
 
 \begin{frame}{3.2 Separating Hyperplane Theorem}
   \footnotesize
-  \textbf{Setup.}\ Two nonempty \textbf{convex} sets $A,B\subset\mathbb{R}^n$ with $A\cap B=\varnothing$.
+  \textbf{Setup.}\
+  Nonempty \textbf{convex} sets $A,B\subset\mathbb{R}^n$ with $A\cap B=\varnothing$.
 
   \medskip
-  \textbf{Theorem.}\ If \textbf{at least one} of $A,B$ is \textbf{compact}, then there exist
-  $\mathbf{p}\neq\mathbf{0}$ and $\beta\in\mathbb{R}$ such that
-  $\mathbf{p}\cdot a\le\beta\le\mathbf{p}\cdot b$ for all $a\in A$, $b\in B$.
-  Geometrically: the hyperplane $\mathbf{p}\cdot x=\beta$ separates $A$ from $B$.
-  (Both need not be compact --- if only $B$ is compact, swap labels.)
+  \textbf{Theorem.}\
+  If at least one of $A,B$ is \textbf{compact}, then there exist $\mathbf{p}\neq\mathbf{0}$ and $\beta\in\mathbb{R}$ such that
+  \[
+    \mathbf{p}\cdot a \le \beta \le \mathbf{p}\cdot b
+    \qquad\text{for all } a\in A,\ b\in B.
+  \]
+  Geometrically, the hyperplane $\mathbf{p}\cdot x=\beta$ separates $A$ from $B$.\
+  (If only $B$ is compact, swap the labels of $A$ and $B$.)
 
   \medskip
-  \textbf{In two goods ($x=(x_1,x_2)$).}\ The line $p_1 x_1+p_2 x_2=\beta$ puts all of $A$ on one side
-  ($\mathbf{p}\cdot a\le\beta$) and all of $B$ on the other ($\mathbf{p}\cdot b\ge\beta$);
-  $\mathbf{p}$ is the normal, $\beta$ fixes the line's position.
+  {\scriptsize Proof and strict separation: \AppendixLink{sec:separation-proof} (\InterestOnly).}
+\end{frame}
+
+\begin{frame}{3.2 Separating Hyperplane Theorem --- two goods}
+  \footnotesize
+  With $x=(x_1,x_2)$, separation is a line $p_1 x_1+p_2 x_2=\beta$:
+  all of $A$ on one side, all of $B$ on the other.
 
   \medskip
-  \textbf{Remark (single point).}\ $B=\{b_0\}$ is compact. If $b_0\notin A$ and $A$ is closed and convex,
-  a separating hyperplane exists even when $A$ is not compact.
-
-  \medskip
-  \textbf{Remark (strict separation).}\ If the sets are a \textbf{positive distance} apart
-  ($d=\inf\|a-b\|>0$; e.g.\ both compact and disjoint), the same $\mathbf{p}$ gives
-  \textbf{strict} separation $\mathbf{p}\cdot a<\beta<\mathbf{p}\cdot b$ --- \AppendixLink{sec:separation-strict} (\InterestOnly).
-
-  \medskip
-  {\scriptsize Proof idea when $A$ is compact: \AppendixLink{sec:separation-proof} (\InterestOnly).}
+  \textbf{Two useful special cases.}
+  \begin{itemize}\setlength{\itemsep}{0.4em}
+    \item \textbf{Single point.}\
+      $B=\{b_0\}$ is compact. If $b_0\notin A$ and $A$ is closed and convex, a separator exists even when $A$ is not compact.
+    \item \textbf{Strict separation.}\
+      If the sets are a positive distance apart, the same $\mathbf{p}$ can separate \textbf{strictly}:
+      $\mathbf{p}\cdot a<\beta<\mathbf{p}\cdot b$.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[plain]{}
@@ -1323,61 +1331,167 @@
   $\mathbf{v}_1,\ldots,\mathbf{v}_n$, decompose in \textbf{that} basis instead of the standard one.
 \end{frame}
 
-\begin{frame}{3.3 Eigenvectors --- $2\times 2$ example}
+\begin{frame}{3.3 Finding eigenvalues and eigenvectors}
   \footnotesize
-  \textbf{Map (not diagonal).}\
-  $A=\begin{pmatrix}2&1\\ 1&2\end{pmatrix}$ mixes $x_1$ and $x_2$; standard $\mathbf{e}_1,\mathbf{e}_2$ are
-  \textbf{not} eigenvectors.
+  \textbf{Traditional recipe} (works in any dimension):
+
+  \begin{enumerate}
+    \item \textbf{Eigenvalues.} Solve the \textbf{characteristic equation}
+    \[
+      \det(A-\lambda I)=0.
+    \]
+
+    \item \textbf{Eigenvectors.} For each eigenvalue $\lambda$, solve
+    \[
+      (A-\lambda I)\mathbf{v}=\mathbf{0}.
+    \]
+    Nontrivial solutions are eigenvectors; the solution set is the \textbf{eigenspace} $E_\lambda$.
+
+    \smallskip
+    \textbf{Small $n$} (e.g.\ $2\times 2$): solve the equations by hand (Together exercise below).
+
+    \smallskip
+    \textbf{General / high $n$:} row-reduce $(A-\lambda I)$ to \textbf{RREF} and read off pivot vs.\ free columns --- \AppendixLink{sec:rref-eigenvectors} (\InterestOnly).
+
+    \item \textbf{Repeated $\lambda$.} If $\lambda$ has algebraic multiplicity $>1$, $\dim E_\lambda$ equals the number of free variables in step~2.
+  \end{enumerate}
 
   \medskip
-  \textbf{Characteristic equation.}\
-  $\det(A-\lambda I)=0$:
+  Together: $2\times 2$ by hand. Take home: $\mathbb{R}^4$ exercise below.
+\end{frame}
+
+\QFrame{3.3 Exercise: Eigenvectors --- $2\times 2$ example}
+  \footnotesize
+  \textbf{Exercise.} For $A=\begin{pmatrix}2&1\\ 1&2\end{pmatrix}$, find all eigenpairs and compute $A\mathbf{v}$ for $\mathbf{v}=\begin{pmatrix}3\\ 1\end{pmatrix}$.
+
+  \textbf{Solution (eigenvalues).} Characteristic equation $\det(A-\lambda I)=0$:
   \[
     (2-\lambda)^2-1=\lambda^2-4\lambda+3=(\lambda-1)(\lambda-3)=0
     \quad\Rightarrow\quad \lambda_1=3,\ \lambda_2=1.
   \]
 
-  \medskip
-  \textbf{Eigenpairs.}\
-  $\lambda_1=3$: $\mathbf{v}_1=\begin{pmatrix}1\\ 1\end{pmatrix}$;
-  \quad
-  $\lambda_2=1$: $\mathbf{v}_2=\begin{pmatrix}1\\ -1\end{pmatrix}$
-  (check: $A\mathbf{v}_i=\lambda_i\mathbf{v}_i$).
-
-  \medskip
-  \textbf{Decompose--transform--combine.}\
-  $\mathbf{v}=\begin{pmatrix}3\\ 1\end{pmatrix}=2\mathbf{v}_1+1\mathbf{v}_2$:
+  \textbf{Solution ($\lambda_1=3$).} Solve $(A-3I)\mathbf{v}=\mathbf{0}$:
   \[
-    A\mathbf{v}=2\cdot 3\mathbf{v}_1+1\cdot 1\mathbf{v}_2=\begin{pmatrix}7\\ 5\end{pmatrix}.
+    \begin{pmatrix}-1&1\\ 1&-1\end{pmatrix}
+    \begin{pmatrix}v_1\\ v_2\end{pmatrix}
+    =\mathbf{0}
+    \quad\Rightarrow\quad -v_1+v_2=0
+    \quad\Rightarrow\quad \mathbf{v}_1=\begin{pmatrix}1\\ 1\end{pmatrix}.
   \]
-  Same directions; coefficients $2,1$ become $6,1$.
+
+  \textbf{Solution ($\lambda_2=1$).} Solve $(A-I)\mathbf{v}=\mathbf{0}$:
+  \[
+    \begin{pmatrix}1&1\\ 1&1\end{pmatrix}
+    \begin{pmatrix}v_1\\ v_2\end{pmatrix}
+    =\mathbf{0}
+    \quad\Rightarrow\quad v_1+v_2=0
+    \quad\Rightarrow\quad \mathbf{v}_2=\begin{pmatrix}1\\ -1\end{pmatrix}.
+  \]
+  Check: $A\mathbf{v}_1=3\mathbf{v}_1$, $A\mathbf{v}_2=1\mathbf{v}_2$.
+\end{frame}
+
+\QFrame{3.3 Exercise: Eigenvectors --- $2\times 2$ example (cont.)}
+  \footnotesize
+  \textbf{Compute $A\mathbf{v}$} for $\mathbf{v}=\begin{pmatrix}3\\ 1\end{pmatrix}$ (decompose--transform--combine).
+
+  \textbf{Step 1 (decompose).} Write $\mathbf{v}=c_1\mathbf{v}_1+c_2\mathbf{v}_2$:
+  \[
+    c_1\begin{pmatrix}1\\ 1\end{pmatrix}
+    +c_2\begin{pmatrix}1\\ -1\end{pmatrix}
+    =\begin{pmatrix}3\\ 1\end{pmatrix}
+    \quad\Rightarrow\quad c_1=2,\ c_2=1.
+  \]
+
+  \textbf{Step 2 (transform).} $A$ scales each eigen-direction by its eigenvalue:
+  \[
+    A\mathbf{v}=2\cdot 3\mathbf{v}_1+1\cdot 1\mathbf{v}_2
+    =\begin{pmatrix}7\\ 5\end{pmatrix}.
+  \]
+\end{frame}
+
+\QFrame{3.3 Exercise: Eigenvectors --- $2\times 2$ example (cont.)}
+  \footnotesize
+  \textbf{Compute $A^{10}\mathbf{v}$} for $\mathbf{v}=\begin{pmatrix}3\\ 1\end{pmatrix}=2\mathbf{v}_1+\mathbf{v}_2$.
+
+  On an eigenvector: $A^{10}\mathbf{v}_1=A^9(A\mathbf{v}_1)=A^9(\lambda_1\mathbf{v}_1)=\lambda_1 A^9\mathbf{v}_1=\cdots=\lambda_1^{10}\mathbf{v}_1$ (and similarly $A^{10}\mathbf{v}_2=\lambda_2^{10}\mathbf{v}_2$).
+
+  Same recipe: multiply each coefficient by $\lambda_i^{10}$:
+  \[
+    A^{10}\mathbf{v}
+    =2\cdot 3^{10}\mathbf{v}_1+1\cdot 1^{10}\mathbf{v}_2.
+  \]
+  Since $3^{10}=59049$,
+  \[
+    A^{10}\mathbf{v}
+    =118098\begin{pmatrix}1\\ 1\end{pmatrix}
+    +\begin{pmatrix}1\\ -1\end{pmatrix}
+    =\begin{pmatrix}118099\\ 118097\end{pmatrix}.
+  \]
+  The $\lambda_1=3$ term dominates; repeated multiplication amplifies the $(1,1)$ direction.
+\end{frame}
+
+\THFrame{3.3 Exercise: Eigenvectors in $\mathbb{R}^4$ (RREF)}
+  \footnotesize
+  \textbf{Exercise.} For
+  \[
+    A=\begin{pmatrix}
+      3&1&0&0\\
+      1&3&0&0\\
+      0&0&3&1\\
+      0&0&1&3
+    \end{pmatrix},
+  \]
+  find all eigenvalues. For $\lambda=2$, row-reduce $(A-2I)$ to RREF and find a basis of $E_2$ (RREF: \AppendixLink{sec:rref-eigenvectors}).
+
+  \textbf{Solution (eigenvalues).} Two decoupled $2\times 2$ blocks; each gives $(3-\lambda)^2-1=0$.
+  \[
+    \det(A-\lambda I)=\bigl((3-\lambda)^2-1\bigr)^2=(\lambda-2)^2(\lambda-4)^2.
+  \]
+  So $\lambda=2$ and $\lambda=4$, each with algebraic multiplicity~$2$.
+\end{frame}
+
+\THFrame{3.3 Exercise: Eigenvectors in $\mathbb{R}^4$ (RREF, cont.)}
+  \footnotesize
+  \textbf{Solution ($\lambda=2$).} Row-reduce
+  \[
+    A-2I=
+    \begin{pmatrix}
+      1&1&0&0\\
+      1&1&0&0\\
+      0&0&1&1\\
+      0&0&1&1
+    \end{pmatrix}
+    \;\longrightarrow\;
+    \begin{pmatrix}
+      1&1&0&0\\
+      0&0&1&1\\
+      0&0&0&0\\
+      0&0&0&0
+    \end{pmatrix}.
+  \]
+
+  \textbf{Pivot columns} $1,3$ $\Rightarrow$ $v_1,v_3$ pivot;\
+  \textbf{free columns} $2,4$ $\Rightarrow$ $v_2,v_4$ free.\
+  Equations: $v_1+v_2=0$, $v_3+v_4=0$.
+
+  \textbf{General solution:}
+  $(v_1,v_2,v_3,v_4)=v_2(-1,1,0,0)+v_4(0,0,-1,1)$.
+
+  \textbf{Basis of $E_2$} (Appendix A.3 recipe): $(-1,1,0,0)^\top$, $(0,0,-1,1)^\top$.
 \end{frame}
 
 \begin{frame}{3.3 Eigenbasis --- especially useful in high dimension}
   \footnotesize
-  \textbf{In $\mathbb{R}^n$ with eigenbasis $\mathbf{v}_1,\ldots,\mathbf{v}_n$.}\
-  Any $\mathbf{v}=\sum_{i=1}^n c_i\mathbf{v}_i$. By linearity,
+  If $\mathbf{v}_1,\ldots,\mathbf{v}_n$ is an eigenbasis and $\mathbf{v}=\sum_i c_i\mathbf{v}_i$, then
   \[
-    A\mathbf{v}
-    =\sum_{i=1}^n c_i A\mathbf{v}_i
-    =\sum_{i=1}^n c_i\lambda_i\mathbf{v}_i.
+    A\mathbf{v}=\sum_i c_i\lambda_i\mathbf{v}_i,
+    \qquad
+    A^k\mathbf{v}=\sum_i c_i\lambda_i^k\mathbf{v}_i.
   \]
-  Transform each piece independently: multiply coefficient $c_i$ by $\lambda_i$.
+  In an eigenbasis, $A$ is just \textbf{separate scalings} --- easy to describe and compute when $n$ is large.
 
   \medskip
-  \textbf{Why this matters when $n$ is large.}\
-  Full matrix--vector multiply mixes all $n$ coordinates at once.
-  In an eigenbasis, $A$ acts as \textbf{separate scalings} along $n$ directions ---
-  much easier to describe and compute (e.g.\ powers $A^k\mathbf{v}=\sum_i c_i\lambda_i^k\mathbf{v}_i$).
-
-  \medskip
-  \textbf{Bottom line.}\
-  When a full eigenbasis exists, decompose--transform--combine is as simple as possible ---
-  and the same idea drives many tools in econometrics and macro (optional applications on the next slides).
-
-  \medskip
-  {\scriptsize Not every matrix has a full real eigenbasis (e.g.\ rotation in the plane);
-  when it does not, related decompositions (SVD, QR) still play the same role.}
+  {\scriptsize Not every matrix has a full real eigenbasis (e.g.\ plane rotation); \AppendixLink{sec:complex-eigenvalues} (\InterestOnly). SVD/QR play a similar role when it does not.}
 \end{frame}
 
 \begin{frame}{3.3 Applications --- PCA and Markov chains \InterestOnly}
@@ -1663,6 +1777,379 @@
   Separation gives only $\mathbf{p}\neq\mathbf{0}$.
   For $\mathbf{p}\ge 0$, need free disposal on all goods: if $p_i<0$, then
   $y-\varepsilon e_i\in Y$ (since $\le y$) raises profit, contradicting maximization at $y$.
+\end{frame}
+
+\section{Eigenvectors --- RREF recipe}
+
+\begin{frame}{A.3 Equivalent linear systems}
+  \hypertarget{sec:rref-eigenvectors}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Equivalent systems.} Two linear systems (same unknowns) are \textbf{equivalent} if they have \textbf{exactly the same solutions}.
+
+  \medskip
+  \textbf{Easier equivalent system.} Same solution set, but written in a form that is simpler to read --- e.g.\ fewer redundant equations, leading variables isolated, zeros below each pivot.\
+  Row reduction replaces a system by an easier equivalent one \textbf{without changing who solves it}.
+
+  \medskip
+  \textbf{Homogeneous case.} For $M\mathbf{x}=\mathbf{0}$, every equivalent system has the same \textbf{kernel} (null space)
+  \[
+    \ker M=\{\mathbf{x}:M\mathbf{x}=\mathbf{0}\}.
+  \]
+  Finding eigenvectors for $\lambda$ is the same problem with $M=A-\lambda I$.
+\end{frame}
+
+\begin{frame}{A.3 Elementary row operations}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Allowed operations} on a matrix (or augmented matrix $[M\mid \mathbf{b}]$):
+  \begin{enumerate}
+    \item \textbf{Swap} two rows.
+    \item \textbf{Scale} one row by a \textbf{nonzero} number.
+    \item \textbf{Add} a multiple of one row to another row.
+  \end{enumerate}
+  Each operation produces an \textbf{equivalent system} (same solution set).
+
+  \medskip
+  \textbf{Why solutions are preserved (idea).}\
+  Swapping or scaling an equation does not change its truth set.\
+  If row $i$ and row $j$ are both satisfied, so is (row $j$) $+c\,$ (row $i$); conversely you can undo the combination using the other allowed ops.
+
+  \medskip
+  \textbf{RREF.} Keep applying these ops until the matrix is in \textbf{reduced row echelon form}:
+  leading $1$ in each pivot row; only zero above/below each leading $1$; each leading $1$ lies to the right of the one above.
+\end{frame}
+
+\begin{frame}{A.3 Pivot variables and free variables}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  Once a matrix is in \textbf{RREF}, each column is either a \textbf{pivot column} or a \textbf{free column}.
+
+  \medskip
+  \textbf{Pivot column / pivot variable.} A column with a \textbf{leading $1$}; the matching unknown is a \textbf{pivot variable}.\
+  Its RREF row expresses the pivot variable as an \textbf{affine function of the free variables}.
+
+  \medskip
+  \textbf{Free column / free variable.} A column \emph{without} a leading $1$; the matching unknown is a \textbf{free variable}.\
+  You may set each free variable to \textbf{any} value; nothing in RREF forces it.
+
+  \medskip
+  \textbf{Key step.} Read each pivot row and \textbf{write each pivot variable as a function of the free variables}:
+  \[
+    x_{\text{pivot}} = \text{(expression involving only free variables)}.
+  \]
+  Once the free variables are chosen, every pivot variable is determined; the whole solution is fixed.
+\end{frame}
+
+\begin{frame}{A.3 Example: row reduction (non-trivial)}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Problem.} Find all $\mathbf{x}\in\mathbb{R}^4$ with $M\mathbf{x}=\mathbf{0}$ for
+  \[
+    M=
+    \begin{pmatrix}
+      1&0&2&1\\
+      2&0&4&2\\
+      0&1&1&0\\
+      0&2&2&0
+    \end{pmatrix}.
+  \]
+  (Coupled equations; not block-diagonal.)
+
+  \medskip
+  \textbf{Row ops.}\
+  R2 $\leftarrow$ R2$-2$R1 eliminates the duplicate $x_1$-row;\
+  R4 $\leftarrow$ R4$-2$R3 eliminates the duplicate $x_2$-row:
+  \[
+    \longrightarrow\;
+    \begin{pmatrix}
+      1&0&2&1\\
+      0&0&0&0\\
+      0&1&1&0\\
+      0&0&0&0
+    \end{pmatrix}
+    \;\xrightarrow{\text{swap R2,R3}}\;
+    \begin{pmatrix}
+      1&0&2&1\\
+      0&1&1&0\\
+      0&0&0&0\\
+      0&0&0&0
+    \end{pmatrix}
+    \quad\text{(RREF).}
+  \]
+\end{frame}
+
+\begin{frame}{A.3 Example: pivot variables as functions of free variables}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  From the RREF above: pivot columns $1,2$ $\Rightarrow$ pivot variables $x_1,x_2$;\
+  free columns $3,4$ $\Rightarrow$ free variables $x_3,x_4$.
+
+  \medskip
+  Equivalent system:
+  \[
+    x_1+2x_3+x_4=0,\qquad x_2+x_3=0.
+  \]
+  Solve each pivot row for its pivot variable:
+  \[
+    x_1=-2x_3-x_4,\qquad x_2=-x_3,\qquad x_3,x_4\in\mathbb{R}\ \text{free}.
+  \]
+  Every solution is fixed once $(x_3,x_4)$ is chosen.
+\end{frame}
+
+\begin{frame}{A.3 Basis of the kernel from free variables}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{General solution.} Substitute the free variables into $\mathbf{x}=(x_1,x_2,x_3,x_4)^\top$:
+  \[
+    \mathbf{x}
+    =x_3\begin{pmatrix}-2\\ -1\\ 1\\ 0\end{pmatrix}
+    +x_4\begin{pmatrix}-1\\ 0\\ 0\\ 1\end{pmatrix}.
+  \]
+  So $\ker M=\operatorname{span}\{\mathbf{b}_1,\mathbf{b}_2\}$ with $\dim\ker M=2$ (two free variables).
+
+  \medskip
+  \textbf{Recipe (basis of $\ker M$).} For each free variable in turn:
+  \begin{enumerate}
+    \item set that free variable $=1$;
+    \item set all other free variables $=0$;
+    \item compute pivot variables from the RREF rows.
+  \end{enumerate}
+  Here: $(x_3,x_4)=(1,0)\Rightarrow \mathbf{b}_1=(-2,-1,1,0)^\top$;\
+  $(x_3,x_4)=(0,1)\Rightarrow \mathbf{b}_2=(-1,0,0,1)^\top$.
+
+  \medskip
+  {\scriptsize Check: $M\mathbf{b}_1=\mathbf{0}$, $M\mathbf{b}_2=\mathbf{0}$.}
+\end{frame}
+
+\section{Eigenvalues --- not real}
+
+\begin{frame}{A.4 When eigenvalues are not real}
+  \hypertarget{sec:complex-eigenvalues}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  The characteristic equation $\det(A-\lambda I)=0$ may have \textbf{no real roots}.\
+  Then $A$ has \textbf{no real eigenvectors} (no real direction kept by scaling alone).
+
+  \medskip
+  \textbf{Example: $90^\circ$ rotation} (from earlier slides),
+  $A=\begin{pmatrix}0&1\\ -1&0\end{pmatrix}$:
+  \[
+    \det(A-\lambda I)=\lambda^2+1=0
+    \quad\Rightarrow\quad
+    \lambda=\pm i\ \text{(not real)}.
+  \]
+  Every nonzero vector is rotated off its own line, so no $\mathbf{v}\in\mathbb{R}^2\setminus\{\mathbf{0}\}$ satisfies $A\mathbf{v}=\lambda\mathbf{v}$.
+
+  \medskip
+  \textbf{Over $\mathbb{C}$.} Allow complex $\lambda$ and $\mathbf{v}$; the same recipe (characteristic polynomial, then $(A-\lambda I)\mathbf{v}=\mathbf{0}$) works.\
+  For \textbf{real} $A$, non-real eigenvalues come in \textbf{conjugate pairs} $\lambda,\bar\lambda$.
+
+  \medskip
+  {\scriptsize Existence over $\mathbb{C}$: \AppendixLink{sec:eigenvalue-exists} (\InterestOnly). When a real eigenbasis fails, see A.5 for QR and SVD (brief).}
+\end{frame}
+
+\begin{frame}{A.5 QR and SVD (brief)}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Same spirit as eigen-decomposition:} rewrite $A$ so the action is easy to read.
+
+  \medskip
+  \begin{itemize}
+    \item \textbf{QR} ($A=QR$): $Q$ has orthonormal columns, $R$ is upper triangular.\
+      Used for stable least squares and picking independent columns.
+    \item \textbf{SVD} ($A=U\Sigma V^{\mathsf T}$): always exists; $U,V$ orthogonal, $\Sigma$ diagonal (singular values).\
+      Scales along orthogonal directions --- works even when real eigenvectors do not exist (e.g.\ rotation).
+  \end{itemize}
+
+  \medskip
+  {\scriptsize More detail on main slide ``Decompositions --- QR, eigen, SVD'' (for interest only).\
+  Existence: \AppendixLink{sec:qr-exists}, \AppendixLink{sec:svd-exists} (\InterestOnly).}
+\end{frame}
+
+\section{Existence results}
+
+\begin{frame}{A.6 Existence of eigenvalues and eigenvectors (over $\mathbb{C}$)}
+  \hypertarget{sec:eigenvalue-exists}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Claim.} Every $A\in\mathbb{C}^{n\times n}$ has at least one eigenpair $(\lambda,\mathbf{v})$ with $\mathbf{v}\neq \mathbf{0}$.
+
+  \medskip
+  \textbf{Step 1 (characteristic polynomial).}\
+  $p_A(\lambda)=\det(A-\lambda I)$ is a polynomial in $\lambda$ of degree~$n$.
+
+  \medskip
+  \textbf{Step 2 (eigenvalue exists).}\
+  By the \textbf{fundamental theorem of algebra}, $p_A(\lambda)=0$ has $n$ roots in $\mathbb{C}$ (counting multiplicity). Pick one root $\lambda$.
+
+  \medskip
+  \textbf{Step 3 (eigenvector exists).}\
+  $p_A(\lambda)=0$ means $\det(A-\lambda I)=0$, so $A-\lambda I$ is \textbf{singular}.\
+  Hence $(A-\lambda I)\mathbf{v}=\mathbf{0}$ has a nontrivial solution $\mathbf{v}\neq \mathbf{0}$.
+
+  \medskip
+  {\scriptsize Real $A$: non-real roots come in conjugate pairs $\lambda,\bar\lambda$.}
+\end{frame}
+
+\begin{frame}{A.7 Existence of QR --- what the decomposition means}
+  \hypertarget{sec:qr-exists}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Claim.} Every $A\in\mathbb{R}^{m\times n}$ can be written as $A=QR$:\
+  $Q$ has \textbf{orthonormal columns}, $R$ is \textbf{upper triangular}.
+
+  \medskip
+  \textbf{Setup.}\
+  Write $A=[\mathbf{a}_1\,\mathbf{a}_2\,\mathbf{a}_3\,\cdots]$ --- a \textbf{series of column vectors} 1, 2, 3, \ldots\
+  They may overlap (not perpendicular, different lengths).
+
+  \medskip
+  \textbf{Goal (Gram--Schmidt).}\
+  Build new \textbf{clean directions} $\mathbf{q}_1,\mathbf{q}_2,\mathbf{q}_3,\ldots$ (perpendicular, unit length) so that
+  \[
+    \text{vector } j \text{ is built only from } \mathbf{q}_1,\ldots,\mathbf{q}_j.
+  \]
+  The numbers $r_{ij}$ in $R$ record \textbf{how much} of each vector goes along each direction.
+\end{frame}
+
+\begin{frame}{A.7 Existence of QR --- vectors 1 and 2}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Vector 1.}\
+  Take the first column, normalize it --- that is the first clean direction:
+  \[
+    \mathbf{q}_1=\frac{\mathbf{a}_1}{\|\mathbf{a}_1\|}.
+  \]
+  Vector~1 lies entirely along $\mathbf{q}_1$.
+
+  \medskip
+  \textbf{Vector 2.}\
+  Project $\mathbf{a}_2$ onto $\mathbf{q}_1$, subtract, and keep the \textbf{residual} as the new direction:
+  \[
+    \mathbf{a}_2=
+    \underbrace{(\mathbf{q}_1^{\mathsf T}\mathbf{a}_2)\,\mathbf{q}_1}_{\text{part along }\mathbf{q}_1}
+    +\underbrace{\bigl(\mathbf{a}_2-(\mathbf{q}_1^{\mathsf T}\mathbf{a}_2)\mathbf{q}_1\bigr)}_{\perp\ \mathbf{q}_1}.
+  \]
+  Normalize the residual to get $\mathbf{q}_2$.\
+  \textbf{Key:} vector~2 uses \textbf{only} $\mathbf{q}_1$ and $\mathbf{q}_2$:
+  $\mathbf{a}_2=r_{12}\mathbf{q}_1+r_{22}\mathbf{q}_2$.
+\end{frame}
+
+\begin{frame}{A.7 Existence of QR --- vectors 3, 4, \ldots}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Vector 3.}\
+  Project $\mathbf{a}_3$ onto $\mathbf{q}_1$ \textbf{and} $\mathbf{q}_2$, subtract both overlaps.\
+  Normalize what's left $\Rightarrow\mathbf{q}_3$.\
+  Vector~3 uses \textbf{only} $\mathbf{q}_1,\mathbf{q}_2,\mathbf{q}_3$.
+
+  \medskip
+  \textbf{Vector 4, \ldots} Same pattern: for vector~$k$, subtract its projections onto all previous clean directions, normalize the residual $\Rightarrow\mathbf{q}_k$.
+
+  \medskip
+  \textbf{General step.}
+  \[
+    \mathbf{a}_k=
+    \sum_{j=1}^{k-1}(\mathbf{q}_j^{\mathsf T}\mathbf{a}_k)\,\mathbf{q}_j
+    +\text{(residual $\perp$ all previous $\mathbf{q}_j$)}.
+  \]
+  So $\mathbf{a}_k=r_{1k}\mathbf{q}_1+\cdots+r_{kk}\mathbf{q}_k$ --- no $\mathbf{q}_\ell$ with $\ell>k$ needed.
+\end{frame}
+
+\begin{frame}{A.7 Existence of QR --- reading $R$ and $A=QR$}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{What is $r_{ij}$?}\
+  From $\mathbf{a}_j=\sum_i \mathbf{q}_i r_{ij}$: entry $r_{ij}$ is \textbf{how much of vector~$j$ lies along direction~$i$}:
+  \[
+    r_{ij}=\mathbf{q}_i^{\mathsf T}\mathbf{a}_j.
+  \]
+
+  \medskip
+  \textbf{Why upper triangular?}\
+  Vector~$j$ is built from $\mathbf{q}_1,\ldots,\mathbf{q}_j$ only, so $r_{ij}=0$ for $i>j$.\
+  Diagonal $r_{jj}$ = length of the \textbf{residual} (the genuinely new part).
+
+  \medskip
+  \textbf{Existence.}\
+  Run the process on all columns; stack $\mathbf{q}_j$ into $Q$ and $r_{ij}$ into $R$. Then $A=QR$.
+\end{frame}
+
+\begin{frame}{A.8 Existence of SVD --- intuition via $A^{\mathsf T}A$}
+  \hypertarget{sec:svd-exists}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Goal.} Find orthogonal input directions $\mathbf{v}_i$ and output directions $\mathbf{u}_i$ such that
+  \[
+    A\mathbf{v}_i=\sigma_i\mathbf{u}_i
+  \]
+  (pure scaling, no mixing --- like eigenvectors, but for \emph{rectangular} $A$).
+
+  \medskip
+  \textbf{Where do the $\mathbf{v}_i$ come from?}\
+  Form the symmetric matrix $B=A^{\mathsf T}A\in\mathbb{R}^{n\times n}$.\
+  For any $\mathbf{v}$,
+  \[
+    \|A\mathbf{v}\|^2=\mathbf{v}^{\mathsf T}(A^{\mathsf T}A)\mathbf{v}=\mathbf{v}^{\mathsf T}B\mathbf{v}.
+  \]
+  So eigenvectors of $B$ are the \textbf{principal input directions}: along $\mathbf{v}_i$, $A$ stretches by $\sigma_i=\sqrt{\lambda_i(B)}$.
+
+  \medskip
+  \textbf{Geometric picture.}\
+  The unit sphere in $\mathbb{R}^n$ maps to an ellipsoid in $\mathbb{R}^m$; $\sigma_i$ are the axis lengths (singular values).
+\end{frame}
+
+\begin{frame}{A.8 Existence of SVD --- construction}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Step 1.} Diagonalize $B=A^{\mathsf T}A$: orthonormal eigenvectors $\mathbf{v}_1,\ldots,\mathbf{v}_n$, eigenvalues $\sigma_i^2\ge 0$.
+
+  \medskip
+  \textbf{Step 2.} For $\sigma_i>0$, define
+  \[
+    \mathbf{u}_i=\frac{1}{\sigma_i}\,A\mathbf{v}_i.
+  \]
+  Then $\|A\mathbf{v}_i\|=\sigma_i$ and $A\mathbf{v}_i=\sigma_i\mathbf{u}_i$.\
+  Different $\mathbf{v}_i$ give orthogonal $\mathbf{u}_i$ (because the $\mathbf{v}_i$ are $B$-orthogonal).
+
+  \medskip
+  \textbf{Step 3.} Stack columns:
+  \[
+    U=[\mathbf{u}_1\,\cdots],\quad V=[\mathbf{v}_1\,\cdots],\quad \Sigma=\mathrm{diag}(\sigma_1,\ldots,\sigma_n).
+  \]
+  Then $A=U\Sigma V^{\mathsf T}$.\
+  Works for \textbf{every} $A$ (including rotation, where real eigenvectors fail).
 \end{frame}
 
 \end{document}
