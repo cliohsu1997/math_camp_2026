@@ -724,99 +724,9 @@
   $A\mathbf{x}=\mathbf{b}$ has a \textbf{unique} solution for every $\mathbf{b}\in\mathbb{R}^n$.
 \end{frame}
 
-\begin{frame}{3.3 Invertible matrices --- equivalent conditions}
-  \footnotesize
-  \textbf{Let $A\in\mathbb{R}^{n\times n}$.}\
-  The following are \textbf{equivalent}:
+\section{3.4 --- Two Views of a Matrix}
 
-  \medskip
-  \begin{enumerate}
-    \item $A$ is \textbf{invertible}: $\exists\,A^{-1}$ with $AA^{-1}=A^{-1}A=I_n$.
-    \item For every $\mathbf{b}\in\mathbb{R}^n$, $A\mathbf{x}=\mathbf{b}$ has a \textbf{unique}
-      solution $\mathbf{x}=A^{-1}\mathbf{b}$.
-    \item Columns $\mathbf{a}_1,\ldots,\mathbf{a}_n$ form a \textbf{basis} of $\mathbb{R}^n$.
-    \item Columns are \textbf{linearly independent}
-      ($\operatorname{Col}(A)=\mathbb{R}^n$).
-    \item $A\mathbf{x}=\mathbf{0}$ has only the trivial solution $\mathbf{x}=\mathbf{0}$.
-    \item Rows of $A$ are linearly independent (equivalently, form a basis of $\mathbb{R}^n$).
-    \item $\det(A)\neq 0$.
-  \end{enumerate}
-
-  \medskip
-  \textbf{Next:}\ what $\det(A)$ means geometrically, and why (6)--(7) fit this list.
-\end{frame}
-
-\begin{frame}{3.3 Determinant --- area scaling ($2\times 2$)}
-  \footnotesize
-  \textbf{Setup.}\
-  $A=\begin{pmatrix}a&b\\ c&d\end{pmatrix}$, columns
-  $\mathbf{a}_1=(a,c)^{\mathsf T}$, $\mathbf{a}_2=(b,d)^{\mathsf T}$.
-
-  \medskip
-  \textbf{Where the standard basis goes.}\
-  \[
-    A\begin{pmatrix}1\\ 0\end{pmatrix}=\begin{pmatrix}a\\ c\end{pmatrix}=\mathbf{a}_1,
-    \qquad
-    A\begin{pmatrix}0\\ 1\end{pmatrix}=\begin{pmatrix}b\\ d\end{pmatrix}=\mathbf{a}_2.
-  \]
-  So $(1,0)^{\mathsf T}$ is sent to $(a,c)^{\mathsf T}$, and $(0,1)^{\mathsf T}$ to $(b,d)^{\mathsf T}$.
-
-  \medskip
-  \textbf{Area conversion factor.}\
-  The unit square (spanned by $(1,0)^{\mathsf T}$ and $(0,1)^{\mathsf T}$, area $=1$) is mapped by $A$ to
-  the parallelogram spanned by $\mathbf{a}_1$ and $\mathbf{a}_2$.
-  The \textbf{determinant} is exactly the (signed) area of that parallelogram:
-  \[
-    \det(A)=ad-bc.
-  \]
-  So $\det(A)$ is the \textbf{area conversion factor}: every region's area is multiplied by
-  $|\det(A)|$ under $\mathbf{x}\mapsto A\mathbf{x}$.
-\end{frame}
-
-\begin{frame}{3.3 Determinant --- why $ad-bc$ is the area}
-  \centering
-  \vfill
-  \includegraphics[width=0.92\textwidth,height=0.76\textheight,keepaspectratio]{figures/DeterminantParallelogram.png}
-  \vfill
-
-  \medskip
-  {\scriptsize
-  Box area $(a+b)(c+d)$ minus purple ($bc$), red ($ac/2$), teal ($bd/2$) pieces
-  leaves yellow parallelogram area $ad-bc=\det(A)$.}
-\end{frame}
-
-\begin{frame}{3.3 Determinant $=0$ --- example}
-  \footnotesize
-  \textbf{Example.}\
-  $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$, so $a=b=c=d=1$ and
-  \[
-    \det(A)=ad-bc=1\cdot 1-1\cdot 1=0.
-  \]
-
-  \medskip
-  \textbf{Standard basis collapses to a line.}\
-  \[
-    A\begin{pmatrix}1\\ 0\end{pmatrix}=\begin{pmatrix}1\\ 1\end{pmatrix},
-    \qquad
-    A\begin{pmatrix}0\\ 1\end{pmatrix}=\begin{pmatrix}1\\ 1\end{pmatrix}.
-  \]
-  Both $(1,0)^{\mathsf T}$ and $(0,1)^{\mathsf T}$ are sent to the \textbf{same} point on one line through
-  the origin. The unit square (area $1$) is squashed to a \textbf{1-dimensional} set --- area $0$.
-
-  \medskip
-  \textbf{So (square case):}\
-  \[
-    \det(A)=0
-    \quad\Longleftrightarrow\quad
-    \text{columns linearly dependent}
-    \quad\Longleftrightarrow\quad
-    A\ \text{not invertible}.
-  \]
-  Here $\mathbf{a}_2=\mathbf{a}_1=(1,1)^{\mathsf T}$, so the columns are dependent and $A$ has no
-  inverse.
-\end{frame}
-
-\begin{frame}{3.3 Two views of a matrix $A$}
+\begin{frame}{3.4 Two views of a matrix $A$}
   \footnotesize
   \textbf{View 1 --- $\mathbf{x}$ as weights.}\
   Write $A=[\mathbf{a}_1\ \cdots\ \mathbf{a}_n]$. Then
@@ -829,10 +739,10 @@
   \textbf{View 2 --- $A$ as a linear transformation.}\
   Define $T:\mathbb{R}^n\to\mathbb{R}^m$ by $T(\mathbf{x})=A\mathbf{x}$.
   The matrix $A$ sends each input vector $\mathbf{x}$ to an output vector in $\mathbb{R}^m$;
-  for square $A$, $|\det(A)|$ is the area-scaling factor (previous slides).
+  for square $A$, $|\det(A)|$ is the area-scaling factor (Section~3.5).
 \end{frame}
 
-\begin{frame}{3.3 Linear transformation --- definition}
+\begin{frame}{3.4 Linear transformation --- definition}
   \footnotesize
   \textbf{Linear transformation.}\
   A map $T:\mathbb{R}^n\to\mathbb{R}^m$ is \textbf{linear} if for all $\mathbf{x},\mathbf{y}\in\mathbb{R}^n$
@@ -857,10 +767,10 @@
   \textbf{Matrix form.}\
   Every linear $T$ is $T(\mathbf{x})=A\mathbf{x}$ for some matrix $A$ (general recipe on the next
   slides).
-  For $A\in\mathbb{R}^{2\times 2}$, $|\det(A)|$ is the area-scaling factor from the determinant slides.
+  For $A\in\mathbb{R}^{2\times 2}$, $|\det(A)|$ is the area-scaling factor (Section~3.5).
 \end{frame}
 
-\begin{frame}{3.3 Linear maps --- decompose, then combine}
+\begin{frame}{3.4 Linear maps --- decompose, then combine}
   \footnotesize
   \textbf{Benefit.}\
   A linear map $T:\mathbb{R}^2\to\mathbb{R}^2$ may be hard to visualize on an \textbf{arbitrary}
@@ -890,7 +800,7 @@
   Stack $T(\mathbf{e}_1)$ and $T(\mathbf{e}_2)$ as columns to get the matrix of $T$ (next slide).
 \end{frame}
 
-\begin{frame}{3.3 Decompose, transform, combine --- notation}
+\begin{frame}{3.4 Decompose, transform, combine --- notation}
   \footnotesize
   \textbf{Recipe.}\
   For $\mathbf{v}=v_1\mathbf{e}_1+v_2\mathbf{e}_2$ and linear $T$:
@@ -920,7 +830,7 @@
   \]
 \end{frame}
 
-\begin{frame}{3.3 Example --- shear}
+\begin{frame}{3.4 Example --- shear}
   \footnotesize
   \textbf{Map.}\
   Horizontal shear: tilt the unit square into a parallelogram,
@@ -931,7 +841,7 @@
   \includegraphics[width=0.78\textwidth,height=0.68\textheight,keepaspectratio]{figures/shear_horizontal.png}
 \end{frame}
 
-\begin{frame}{3.3 Example --- shear (matrix)}
+\begin{frame}{3.4 Example --- shear (matrix)}
   \footnotesize
   \textbf{Find the matrix.}\
   Apply $T$ to $\mathbf{e}_1$ and $\mathbf{e}_2$, then stack the outputs as columns:
@@ -949,7 +859,7 @@
   Check: $A\mathbf{e}_1=\mathbf{e}_1$ (bottom edge fixed); $A\mathbf{e}_2$ tilts the vertical side.
 \end{frame}
 
-\begin{frame}{3.3 Example --- shear (decompose, transform, combine)}
+\begin{frame}{3.4 Example --- shear (decompose, transform, combine)}
   \footnotesize
   Take $\mathbf{v}=2\mathbf{e}_1+3\mathbf{e}_2=\begin{pmatrix}2\\ 3\end{pmatrix}$.
 
@@ -974,7 +884,7 @@
   \]
 \end{frame}
 
-\begin{frame}{3.3 Example --- $90^\circ$ rotation (clockwise)}
+\begin{frame}{3.4 Example --- $90^\circ$ rotation (clockwise)}
   \footnotesize
   \textbf{Map.}\
   Rotate every vector $90^\circ$ clockwise: $(x_1,x_2)\mapsto (x_2,-x_1)$.
@@ -984,7 +894,7 @@
   \includegraphics[width=0.78\textwidth,height=0.68\textheight,keepaspectratio]{figures/rotation_clockwise.png}
 \end{frame}
 
-\begin{frame}{3.3 Example --- rotation (matrix)}
+\begin{frame}{3.4 Example --- rotation (matrix)}
   \footnotesize
   \textbf{Find the matrix.}\
   Apply $T$ to $\mathbf{e}_1$ and $\mathbf{e}_2$, then stack the outputs as columns:
@@ -1002,7 +912,7 @@
   Check: $A\mathbf{e}_1$ points down; $A\mathbf{e}_2$ points right (see previous graph).
 \end{frame}
 
-\begin{frame}{3.3 Example --- rotation (decompose, transform, combine)}
+\begin{frame}{3.4 Example --- rotation (decompose, transform, combine)}
   \footnotesize
   Same recipe with $\mathbf{v}=2\mathbf{e}_1+3\mathbf{e}_2=\begin{pmatrix}2\\ 3\end{pmatrix}$.
 
@@ -1027,7 +937,7 @@
   \]
 \end{frame}
 
-\begin{frame}{3.3 Every linear map is a matrix}
+\begin{frame}{3.4 Every linear map is a matrix}
   \footnotesize
   \textbf{Claim.}\
   If $T:\mathbb{R}^n\to\mathbb{R}^m$ is linear, then there is a unique matrix
@@ -1053,7 +963,78 @@
   Column $j$ of $A$ is exactly where $\mathbf{e}_j$ is sent.
 \end{frame}
 
-\begin{frame}{3.3 Null space --- directions squeezed to $\mathbf{0}$ \InterestOnly}
+\section{3.5 --- Determinant and Matrix Rules}
+
+\begin{frame}{3.5 Determinant --- area scaling ($2\times 2$)}
+  \footnotesize
+  \textbf{Setup.}\
+  $A=\begin{pmatrix}a&b\\ c&d\end{pmatrix}$, columns
+  $\mathbf{a}_1=(a,c)^{\mathsf T}$, $\mathbf{a}_2=(b,d)^{\mathsf T}$.
+  View $A$ as the linear map $T(\mathbf{x})=A\mathbf{x}$ (shear, rotation, etc.\ on previous slides).
+
+  \medskip
+  \textbf{Where the standard basis goes.}\
+  \[
+    A\begin{pmatrix}1\\ 0\end{pmatrix}=\begin{pmatrix}a\\ c\end{pmatrix}=\mathbf{a}_1,
+    \qquad
+    A\begin{pmatrix}0\\ 1\end{pmatrix}=\begin{pmatrix}b\\ d\end{pmatrix}=\mathbf{a}_2.
+  \]
+  So $(1,0)^{\mathsf T}$ is sent to $(a,c)^{\mathsf T}$, and $(0,1)^{\mathsf T}$ to $(b,d)^{\mathsf T}$.
+
+  \medskip
+  \textbf{Area conversion factor.}\
+  The unit square (spanned by $(1,0)^{\mathsf T}$ and $(0,1)^{\mathsf T}$, area $=1$) is mapped by $A$ to
+  the parallelogram spanned by $\mathbf{a}_1$ and $\mathbf{a}_2$.
+  The \textbf{determinant} is exactly the (signed) area of that parallelogram:
+  \[
+    \det(A)=ad-bc.
+  \]
+  So $\det(A)$ is the \textbf{area conversion factor}: every region's area is multiplied by
+  $|\det(A)|$ under $\mathbf{x}\mapsto A\mathbf{x}$.
+\end{frame}
+
+\begin{frame}{3.5 Determinant --- why $ad-bc$ is the area}
+  \centering
+  \vfill
+  \includegraphics[width=0.92\textwidth,height=0.76\textheight,keepaspectratio]{figures/DeterminantParallelogram.png}
+  \vfill
+
+  \medskip
+  {\scriptsize
+  Box area $(a+b)(c+d)$ minus purple ($bc$), red ($ac/2$), teal ($bd/2$) pieces
+  leaves yellow parallelogram area $ad-bc=\det(A)$.}
+\end{frame}
+
+\begin{frame}{3.5 Determinant $=0$ --- example}
+  \footnotesize
+  \textbf{Example.}\
+  $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$, so $a=b=c=d=1$ and
+  \[
+    \det(A)=ad-bc=1\cdot 1-1\cdot 1=0.
+  \]
+
+  \medskip
+  \textbf{Standard basis collapses to a line.}\
+  \[
+    A\begin{pmatrix}1\\ 0\end{pmatrix}=\begin{pmatrix}1\\ 1\end{pmatrix},
+    \qquad
+    A\begin{pmatrix}0\\ 1\end{pmatrix}=\begin{pmatrix}1\\ 1\end{pmatrix}.
+  \]
+  Both $(1,0)^{\mathsf T}$ and $(0,1)^{\mathsf T}$ are sent to the \textbf{same} point on one line through
+  the origin. The unit square (area $1$) is squashed to a \textbf{1-dimensional} set --- area $0$.
+
+  \medskip
+  \textbf{So (square case):}\
+  \[
+    \det(A)=0
+    \quad\Longleftrightarrow\quad
+    \text{columns linearly dependent}.
+  \]
+  Here $\mathbf{a}_2=\mathbf{a}_1=(1,1)^{\mathsf T}$, so the columns are dependent.
+  \textbf{Next:}\ when $\det(A)=0$, some input direction is \textbf{squeezed} to $\mathbf{0}$.
+\end{frame}
+
+\begin{frame}{3.5 Null space --- directions squeezed to $\mathbf{0}$ \InterestOnly}
   \footnotesize
   \textbf{Setup ($A\in\mathbb{R}^{2\times 2}$).}\
   View $A$ as a linear transformation $T:\mathbb{R}^2\to\mathbb{R}^2$, $T(\mathbf{x})=A\mathbf{x}$.
@@ -1078,7 +1059,7 @@
   $\operatorname{Null}(A)=\operatorname{span}\{(1,-1)^{\mathsf T}\}$ --- one direction squeezed.
 \end{frame}
 
-\begin{frame}{3.3 Rank--nullity --- squeezed vs.\ persist ($2\times 2$) \InterestOnly}
+\begin{frame}{3.5 Rank--nullity --- squeezed vs.\ persist ($2\times 2$) \InterestOnly}
   \footnotesize
   \textbf{Setup.}\
   $A\in\mathbb{R}^{2\times 2}$, $T:\mathbb{R}^2\to\mathbb{R}^2$, $T(\mathbf{x})=A\mathbf{x}$.
@@ -1111,7 +1092,7 @@
   rank $=2$ (both input dimensions persist --- output still fills $\mathbb{R}^2$).
 \end{frame}
 
-\begin{frame}{3.3 Rank--nullity --- general case (\InterestOnly)}
+\begin{frame}{3.5 Rank--nullity --- general case (\InterestOnly)}
   \footnotesize
   \textbf{Setup.}\
   Let $A\in\mathbb{R}^{m\times n}$, $T:\mathbb{R}^n\to\mathbb{R}^m$, $T(\mathbf{x})=A\mathbf{x}$.
@@ -1140,10 +1121,11 @@
   Of the $n$ domain dimensions, $\operatorname{nullity}(A)$ are \textbf{squeezed} to
   $\mathbf{0}\in\mathbb{R}^m$; $\operatorname{rank}(A)$ independent directions
   \textbf{persist} in $\operatorname{Im}(T)\subseteq\mathbb{R}^m$.
-  When $n=m$, invertible $\Leftrightarrow$ nullity $=0$ $\Leftrightarrow$ rank $=n$.
+  When $n=m$, $\det(A)\neq 0$ $\Leftrightarrow$ nullity $=0$ $\Leftrightarrow$ rank $=n$
+  (equivalent conditions on the next slides).
 \end{frame}
 
-\begin{frame}{3.3 After a squeeze --- what survives? ($2\times 2$) \InterestOnly}
+\begin{frame}{3.5 After a squeeze --- what survives? ($2\times 2$) \InterestOnly}
   \footnotesize
   \textbf{Recall.}\
   $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$ maps the whole plane onto one output line
@@ -1166,7 +1148,69 @@
   lost, the $2(1,1)^{\mathsf T}$ part survives, so $A\mathbf{v}=2(2,2)^{\mathsf T}=(4,4)^{\mathsf T}$.
 \end{frame}
 
-\begin{frame}{3.3 Dot product --- algebraic and geometric}
+\begin{frame}{3.5 Invertible matrices --- equivalent conditions}
+  \footnotesize
+  \textbf{Let $A\in\mathbb{R}^{n\times n}$.}\
+  The following are \textbf{equivalent}:
+
+  \medskip
+  \begin{enumerate}
+    \item $A$ is \textbf{invertible}: $\exists\,A^{-1}$ with $AA^{-1}=A^{-1}A=I_n$.
+    \item For every $\mathbf{b}\in\mathbb{R}^n$, $A\mathbf{x}=\mathbf{b}$ has a \textbf{unique}
+      solution $\mathbf{x}=A^{-1}\mathbf{b}$.
+    \item Columns $\mathbf{a}_1,\ldots,\mathbf{a}_n$ form a \textbf{basis} of $\mathbb{R}^n$.
+    \item Columns are \textbf{linearly independent}
+      ($\operatorname{Col}(A)=\mathbb{R}^n$).
+    \item $A\mathbf{x}=\mathbf{0}$ has only the trivial solution $\mathbf{x}=\mathbf{0}$.
+    \item Rows of $A$ are linearly independent (equivalently, form a basis of $\mathbb{R}^n$).
+    \item $\det(A)\neq 0$.
+  \end{enumerate}
+
+  \medskip
+  \textbf{Where this fits.}\
+  Items (3)--(5) match the column picture from earlier; (7) is the determinant test;
+  for $n=m$, (5) $\Leftrightarrow$ nullity $=0$ (no squeeze except $\mathbf{0}$).
+\end{frame}
+
+\begin{frame}{3.5 Transpose and inverse --- rules we use}
+  \footnotesize
+  \textbf{Inverse (definition).}\
+  For square $A\in\mathbb{R}^{n\times n}$, the \textbf{inverse} $A^{-1}$ satisfies
+  \[
+    AA^{-1}=A^{-1}A=I_n.
+  \]
+  It exists iff $\det(A)\neq 0$ (same as invertible on the previous slide).\
+  Then $A\mathbf{x}=\mathbf{b}$ has unique solution $\mathbf{x}=A^{-1}\mathbf{b}$.
+
+  \medskip
+  \textbf{Inverse rules (both factors invertible).}\
+  \[
+    (AB)^{-1}=B^{-1}A^{-1},
+    \qquad
+    (A^{-1})^{-1}=A.
+  \]
+
+  \medskip
+  \textbf{Transpose (always defined).}\
+  \[
+    (A^{\mathsf T})^{\mathsf T}=A,
+    \qquad
+    (AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T},
+    \qquad
+    (A\mathbf{x})^{\mathsf T}=\mathbf{x}^{\mathsf T}A^{\mathsf T}.
+  \]
+
+  \medskip
+  \textbf{Together.}\
+  $(A^{-1})^{\mathsf T}=(A^{\mathsf T})^{-1}$ when $A$ is invertible.
+
+  \medskip
+  {\scriptsize Proofs: \AppendixLink{sec:transpose-inverse-proofs} (\InterestOnly).}
+\end{frame}
+
+\section{3.6 --- Dot Product and OLS}
+
+\begin{frame}{3.6 Dot product --- algebraic and geometric}
   \footnotesize
   For $\mathbf{u},\mathbf{v}\in\mathbb{R}^n$:
 
@@ -1192,7 +1236,7 @@
   \href{https://www.youtube.com/watch?v=LyGKycYT2v0}{\textcolor{mAccent}{https://www.youtube.com/watch?v=LyGKycYT2v0}}
 \end{frame}
 
-\begin{frame}{3.3 Linear regression --- $\mathbf{y}$ and $X$}
+\begin{frame}{3.6 Linear regression --- $\mathbf{y}$ and $X$}
   \footnotesize
   \textbf{Data ($n$ workers).}\
   Worker $i$ has income $y_i$, age $\text{age}_i$, education $\text{educ}_i$.
@@ -1234,7 +1278,7 @@
   \includegraphics[width=0.92\textwidth,height=0.94\textheight,keepaspectratio]{figures/ols_projection.png}
 \end{frame}
 
-\begin{frame}{3.3 OLS fit --- $\mathbf{e}$ orthogonal to every column of $X$}
+\begin{frame}{3.6 OLS fit --- $\mathbf{e}$ orthogonal to every column of $X$}
   \footnotesize
   \textbf{From the picture ($n=3$).}\
   Yellow plane $=\operatorname{Col}(X)$; fitted $\widehat{\mathbf{y}}=X\widehat{\boldsymbol{\beta}}$ lies in it.
@@ -1264,7 +1308,7 @@
   {\scriptsize (Since $\widehat{\mathbf{y}}\in\operatorname{Col}(X)$, also $\widehat{\mathbf{y}}\cdot\mathbf{e}=0$.)}
 \end{frame}
 
-\begin{frame}{3.3 OLS fit --- same as least squares}
+\begin{frame}{3.6 OLS fit --- same as least squares}
   \footnotesize
   \textbf{Pythagoras in $\mathbb{R}^n$.}\
   Fix $\widehat{\boldsymbol{\beta}}$ with $\mathbf{e}=\mathbf{y}-X\widehat{\boldsymbol{\beta}}$. For any $\boldsymbol{\beta}$,
@@ -1288,7 +1332,57 @@
   \bigl(y_i-\beta_{\text{age}}\,\text{age}_i-\beta_{\text{educ}}\,\text{educ}_i\bigr)^2$.
 \end{frame}
 
-\begin{frame}{3.3 Which basis makes decompose--transform--combine easy?}
+\begin{frame}{3.6 The projection matrix}
+  \footnotesize
+  \textbf{Projection matrix $P_X$ (hat matrix).}\
+  If $X\in\mathbb{R}^{n\times k}$ has full column rank, define
+  \[
+    P_X=X(X^{\mathsf T}X)^{-1}X^{\mathsf T}.
+  \]
+  Then $\widehat{\mathbf{y}}=P_X\mathbf{y}$.
+
+  \medskip
+  \textbf{Annihilator matrix $M_X$ (residual maker matrix).}\
+  Define $M_X=I-P_X$.\
+  Then $\mathbf{e}=M_X\mathbf{y}$; and $M_X X=\mathbf{0}$ ( $M_X$ \textbf{annihilates} $\operatorname{Col}(X)$).
+
+  \medskip
+  \textbf{Useful facts.}\
+  $P_X^{\mathsf T}=P_X$, $P_X^2=P_X$, $M_X X=\mathbf{0}$, and $M_X^{\mathsf T}=M_X$, $M_X^2=M_X$.
+
+  \medskip
+  {\scriptsize Why $P_X^{\mathsf T}=P_X$ and $P_X^2=P_X$: \AppendixLink{sec:projection-matrix-properties} (\InterestOnly).}
+\end{frame}
+
+\begin{frame}{3.6 Frisch--Waugh--Lovell (FWL) theorem \InterestOnly}
+  \footnotesize
+  \textbf{Partition regressors.}\
+  Write $X=[X_1\mid X_2]$ (e.g.\ age $=X_1$, educ $=X_2$).\
+  Let $P_{X_2}$ be the \textbf{projection matrix} onto $\operatorname{Col}(X_2)$ and
+  $M_{X_2}=I-P_{X_2}$ the \textbf{annihilator matrix} (residual maker matrix; write $P_2$, $M_2$ for short).
+
+  \medskip
+  \textbf{Claim.}\
+  The OLS coefficient on $X_1$ in $\mathbf{y}\sim X_1+X_2$ equals the OLS coefficient in
+  \[
+    M_2\mathbf{y}\ \sim\ M_2X_1
+  \]
+  ($M_2$ removes the part of each vector explained by educ).
+
+  \medskip
+  \textbf{Reading.}\
+  ``Controlling for educ'' = apply the annihilator $M_2$ to both income and age, then regress.
+
+  \medskip
+  {\scriptsize \textbf{Proof idea.}\
+  Write $\mathbf{y}=X_1\widehat{\boldsymbol{\beta}}_1+X_2\widehat{\boldsymbol{\beta}}_2+\mathbf{e}$ with $X^{\mathsf T}\mathbf{e}=\mathbf{0}$.\
+  Since $M_2X_2=\mathbf{0}$ and $M_2\mathbf{e}=\mathbf{e}$, get $M_2\mathbf{y}=M_2X_1\widehat{\boldsymbol{\beta}}_1+\mathbf{e}$;\
+  also $(M_2X_1)^{\mathsf T}\mathbf{e}=X_1^{\mathsf T}M_2\mathbf{e}=X_1^{\mathsf T}\mathbf{e}=0$, so $\widehat{\boldsymbol{\beta}}_1$ solves the partialled normal equations.}
+\end{frame}
+
+\section{3.7 --- Eigenvectors and Eigenvalues}
+
+\begin{frame}{3.7 Which basis makes decompose--transform--combine easy?}
   \footnotesize
   \textbf{Recall the recipe.}\
   If $\mathbf{v}=a\mathbf{x}+b\mathbf{y}$, then
@@ -1311,7 +1405,7 @@
   These special directions are \textbf{eigenvectors}; $\lambda$ is the \textbf{eigenvalue}.
 \end{frame}
 
-\begin{frame}{3.3 Eigenvectors and eigenvalues --- definition}
+\begin{frame}{3.7 Eigenvectors and eigenvalues --- definition}
   \footnotesize
   \textbf{Setup.}\
   Square matrix $A\in\mathbb{R}^{n\times n}$ (linear map $T(\mathbf{x})=A\mathbf{x}$).
@@ -1329,9 +1423,12 @@
   \textbf{Proper basis.}\
   When $A$ has enough independent eigenvectors
   $\mathbf{v}_1,\ldots,\mathbf{v}_n$, decompose in \textbf{that} basis instead of the standard one.
+
+  \medskip
+  {\scriptsize If $A=A^{\mathsf T}$, eigenvalues are real (\AppendixLink{sec:symmetric-real-eigenvalues}); if also PSD, $\lambda_i\ge 0$ (\AppendixLink{sec:psd-eigenvalues}) (\InterestOnly).}
 \end{frame}
 
-\begin{frame}{3.3 Finding eigenvalues and eigenvectors}
+\begin{frame}{3.7 Finding eigenvalues and eigenvectors}
   \footnotesize
   \textbf{Traditional recipe} (works in any dimension):
 
@@ -1360,7 +1457,7 @@
   Together: $2\times 2$ by hand. Take home: $\mathbb{R}^4$ exercise below.
 \end{frame}
 
-\QFrame{3.3 Exercise: Eigenvectors --- $2\times 2$ example}
+\QFrame{3.7 Exercise: Eigenvectors --- $2\times 2$ example}
   \footnotesize
   \textbf{Exercise.} For $A=\begin{pmatrix}2&1\\ 1&2\end{pmatrix}$, find all eigenpairs and compute $A\mathbf{v}$ for $\mathbf{v}=\begin{pmatrix}3\\ 1\end{pmatrix}$.
 
@@ -1390,7 +1487,7 @@
   Check: $A\mathbf{v}_1=3\mathbf{v}_1$, $A\mathbf{v}_2=1\mathbf{v}_2$.
 \end{frame}
 
-\QFrame{3.3 Exercise: Eigenvectors --- $2\times 2$ example (cont.)}
+\QFrame{3.7 Exercise: Eigenvectors --- $2\times 2$ example (cont.)}
   \footnotesize
   \textbf{Compute $A\mathbf{v}$} for $\mathbf{v}=\begin{pmatrix}3\\ 1\end{pmatrix}$ (decompose--transform--combine).
 
@@ -1409,7 +1506,7 @@
   \]
 \end{frame}
 
-\QFrame{3.3 Exercise: Eigenvectors --- $2\times 2$ example (cont.)}
+\QFrame{3.7 Exercise: Eigenvectors --- $2\times 2$ example (cont.)}
   \footnotesize
   \textbf{Compute $A^{10}\mathbf{v}$} for $\mathbf{v}=\begin{pmatrix}3\\ 1\end{pmatrix}=2\mathbf{v}_1+\mathbf{v}_2$.
 
@@ -1430,7 +1527,7 @@
   The $\lambda_1=3$ term dominates; repeated multiplication amplifies the $(1,1)$ direction.
 \end{frame}
 
-\THFrame{3.3 Exercise: Eigenvectors in $\mathbb{R}^4$ (RREF)}
+\THFrame{3.7 Exercise: Eigenvectors in $\mathbb{R}^4$ (RREF)}
   \footnotesize
   \textbf{Exercise.} For
   \[
@@ -1450,7 +1547,7 @@
   So $\lambda=2$ and $\lambda=4$, each with algebraic multiplicity~$2$.
 \end{frame}
 
-\THFrame{3.3 Exercise: Eigenvectors in $\mathbb{R}^4$ (RREF, cont.)}
+\THFrame{3.7 Exercise: Eigenvectors in $\mathbb{R}^4$ (RREF, cont.)}
   \footnotesize
   \textbf{Solution ($\lambda=2$).} Row-reduce
   \[
@@ -1477,10 +1574,10 @@
   \textbf{General solution:}
   $(v_1,v_2,v_3,v_4)=v_2(-1,1,0,0)+v_4(0,0,-1,1)$.
 
-  \textbf{Basis of $E_2$} (Appendix A.3 recipe): $(-1,1,0,0)^\top$, $(0,0,-1,1)^\top$.
+  \textbf{Basis of $E_2$} (Appendix A.6 recipe): $(-1,1,0,0)^\top$, $(0,0,-1,1)^\top$.
 \end{frame}
 
-\begin{frame}{3.3 Eigenbasis --- especially useful in high dimension}
+\begin{frame}{3.7 Eigenbasis --- especially useful in high dimension}
   \footnotesize
   If $\mathbf{v}_1,\ldots,\mathbf{v}_n$ is an eigenbasis and $\mathbf{v}=\sum_i c_i\mathbf{v}_i$, then
   \[
@@ -1494,7 +1591,7 @@
   {\scriptsize Not every matrix has a full real eigenbasis (e.g.\ plane rotation); \AppendixLink{sec:complex-eigenvalues} (\InterestOnly). SVD/QR play a similar role when it does not.}
 \end{frame}
 
-\begin{frame}{3.3 Applications --- PCA and Markov chains \InterestOnly}
+\begin{frame}{3.7 Applications --- PCA and Markov chains \InterestOnly}
   \footnotesize
   {\scriptsize \InterestOnly\
   You may need to understand some of these when you pursue macro, empirical economics, or IO.}
@@ -1507,7 +1604,8 @@
   \begin{itemize}
     \item \textbf{PCA (principal components).}\
       Eigenvectors of the \textbf{covariance matrix} are the main directions of variation in data;
-      largest eigenvalues pick the most important components for dimension reduction.
+      largest eigenvalues pick the most important components for dimension reduction
+      (\AppendixLink{sec:psd-eigenvalues}).
     \item \textbf{Markov transition matrices.}\
       For a stochastic matrix $P$ (rows sum to $1$), the \textbf{long-run distribution} is an eigenvector
       with $\lambda=1$;
@@ -1519,7 +1617,7 @@
   Decompose a state or data vector in special directions; each direction evolves by a single number ($\lambda_i$).
 \end{frame}
 
-\begin{frame}{3.3 Applications --- ODEs \InterestOnly}
+\begin{frame}{3.7 Applications --- ODEs \InterestOnly}
   \footnotesize
   \textbf{Ordinary differential equations (ODEs) --- eigenvalues / eigenvectors show up in:}
   \begin{itemize}
@@ -1531,7 +1629,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{3.3 Decompositions --- QR, eigen, SVD \InterestOnly}
+\begin{frame}{3.7 Decompositions --- QR, eigen, SVD \InterestOnly}
   \footnotesize
   \textbf{Different decompositions, same spirit:}\
   rewrite a matrix so that the hard part is \textbf{diagonal}, \textbf{triangular}, or \textbf{orthogonal}.
@@ -1779,9 +1877,232 @@
   $y-\varepsilon e_i\in Y$ (since $\le y$) raises profit, contradicting maximization at $y$.
 \end{frame}
 
+\section{Transpose and inverse --- proofs}
+
+\begin{frame}{A.3 Transpose rules --- proof}
+  \hypertarget{sec:transpose-inverse-proofs}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{$(A^{\mathsf T})^{\mathsf T}=A$.}\
+  Transpose swaps rows and columns twice, so you return to $A$.
+
+  \medskip
+  \textbf{$(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$.}\
+  Entry $(i,j)$ of $(AB)^{\mathsf T}$ equals entry $(j,i)$ of $AB$:
+  \[
+    \bigl((AB)^{\mathsf T}\bigr)_{ij}=(AB)_{ji}=\sum_k a_{jk}b_{ki}
+    =\sum_k (B^{\mathsf T})_{ik}(A^{\mathsf T})_{kj}
+    =\bigl(B^{\mathsf T}A^{\mathsf T}\bigr)_{ij}.
+  \]
+  Same matrix $\Rightarrow$ equal.
+
+  \medskip
+  \textbf{$(A\mathbf{x})^{\mathsf T}=\mathbf{x}^{\mathsf T}A^{\mathsf T}$.}\
+  Special case with $B=\mathbf{x}$ a column ($n\times 1$): $(A\mathbf{x})^{\mathsf T}=\mathbf{x}^{\mathsf T}A^{\mathsf T}$.
+\end{frame}
+
+\begin{frame}{A.3 Inverse rules --- proof}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{$(AB)^{-1}=B^{-1}A^{-1}$} (both invertible).\
+  Multiply in reverse order:
+  \[
+    (AB)(B^{-1}A^{-1})=A(BB^{-1})A^{-1}=AIA^{-1}=I.
+  \]
+  Similarly $(B^{-1}A^{-1})(AB)=I$. So $B^{-1}A^{-1}$ is the inverse of $AB$.
+
+  \medskip
+  \textbf{$(A^{-1})^{-1}=A$.}\
+  By definition of inverse, $A^{-1}A=I$, so $A$ is the inverse of $A^{-1}$.
+
+  \medskip
+  \textbf{$(A^{-1})^{\mathsf T}=(A^{\mathsf T})^{-1}$.}\
+  Transpose $A^{-1}A=I$:
+  \[
+    (A^{-1}A)^{\mathsf T}=A^{\mathsf T}(A^{-1})^{\mathsf T}=I.
+  \]
+  So $(A^{-1})^{\mathsf T}$ is the inverse of $A^{\mathsf T}$.
+\end{frame}
+
+\section{Projection matrix}
+
+\begin{frame}{A.4 Projection matrix --- why $P_X^2=P_X$?}
+  \hypertarget{sec:projection-matrix-properties}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Setup.}\
+  $P_X=X(X^{\mathsf T}X)^{-1}X^{\mathsf T}$ is the \textbf{projection matrix} (hat matrix);\
+  $M_X=I-P_X$ is the \textbf{annihilator matrix} (residual maker matrix).
+
+  \medskip
+  \textbf{Idempotent: $P_X^2=P_X$ (project once is enough).}\
+  $P_X\mathbf{y}=\widehat{\mathbf{y}}$ already lies in $\operatorname{Col}(X)$.\
+  Vectors in that yellow plane are unchanged by projecting onto it again:
+  \[
+    P_X\widehat{\mathbf{y}}=\widehat{\mathbf{y}}
+    \qquad\Longrightarrow\qquad
+    P_X(P_X\mathbf{y})=P_X\mathbf{y}.
+  \]
+  First drop the part orthogonal to $\operatorname{Col}(X)$; a second drop removes nothing.
+\end{frame}
+
+\begin{frame}{A.4 Dot product and transpose --- why $(A\mathbf{u})\cdot\mathbf{v}=\mathbf{u}\cdot(A^{\mathsf T}\mathbf{v})$?}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Goal.}\
+  This is the \textbf{transpose rule} used in the symmetry proof of $P_X$.
+
+  \medskip
+  \textbf{Rewrite both sides as row $\times$ column.}\
+  Dot product = transpose the first vector, then multiply:
+  \[
+    (A\mathbf{u})\cdot\mathbf{v}
+    =(A\mathbf{u})^{\mathsf T}\mathbf{v}
+    =\mathbf{u}^{\mathsf T}A^{\mathsf T}\mathbf{v},
+  \]
+  using $(A\mathbf{u})^{\mathsf T}=\mathbf{u}^{\mathsf T}A^{\mathsf T}$.
+
+  \medskip
+  \textbf{Other side is the same expression.}\
+  \[
+    \mathbf{u}\cdot(A^{\mathsf T}\mathbf{v})
+    =\mathbf{u}^{\mathsf T}(A^{\mathsf T}\mathbf{v}).
+  \]
+  So $(A\mathbf{u})\cdot\mathbf{v}=\mathbf{u}\cdot(A^{\mathsf T}\mathbf{v})$ for every $A,\mathbf{u},\mathbf{v}$.
+
+  \medskip
+  {\scriptsize Meaning: $A^{\mathsf T}$ moves $A$ from the left of $\mathbf{u}$ to the right of $\mathbf{u}$ inside an inner product.}
+\end{frame}
+
+\begin{frame}{A.4 Projection matrix --- why $P_X^{\mathsf T}=P_X$?}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Step 1 --- geometric balance.}\
+  $P_X\mathbf{u}\in\operatorname{Col}(X)$, so it is orthogonal to the part of $\mathbf{v}$ outside that space:
+  \[
+    (P_X\mathbf{u})\cdot\mathbf{v}=(P_X\mathbf{u})\cdot(P_X\mathbf{v}).
+  \]
+  Swapping $\mathbf{u}\leftrightarrow\mathbf{v}$ gives the same with $\mathbf{u}$ on the right. Hence
+  \[
+    (P_X\mathbf{u})\cdot\mathbf{v}=\mathbf{u}\cdot(P_X\mathbf{v})
+    \qquad\text{for all }\mathbf{u},\mathbf{v}\in\mathbb{R}^n.
+  \]
+
+  \medskip
+  \textbf{Step 2 --- transpose rule.}\
+  Previous slide: $(P_X\mathbf{u})\cdot\mathbf{v}=\mathbf{u}\cdot(P_X^{\mathsf T}\mathbf{v})$.
+
+  \medskip
+  \textbf{Step 3 --- conclude symmetry.}\
+  Steps 1 and 2 give $\mathbf{u}\cdot(P_X^{\mathsf T}\mathbf{v})=\mathbf{u}\cdot(P_X\mathbf{v})$ for all $\mathbf{u},\mathbf{v}$.\
+  Fix $\mathbf{v}=\mathbf{e}_j$ and $\mathbf{u}=\mathbf{e}_i$: the $j$th column of $P_X^{\mathsf T}$ equals the $j$th column of $P_X$ for every $j$.\
+  So $P_X^{\mathsf T}=P_X$.
+
+  \medskip
+  {\scriptsize Direct check: $(P_X)^{\mathsf T}=X\bigl((X^{\mathsf T}X)^{-1}\bigr)^{\mathsf T}X^{\mathsf T}=P_X$, using $(X^{\mathsf T}X)^{-1}=((X^{\mathsf T}X)^{\mathsf T})^{-1}=(X^{\mathsf T}X)^{-\mathsf T}$.}
+\end{frame}
+
+\section{Useful linear algebra facts}
+
+\begin{frame}{A.5 Orthogonal and orthonormal matrices}
+  \hypertarget{sec:orthonormal-matrices}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Orthonormal columns.}\
+  A square matrix $Q\in\mathbb{R}^{n\times n}$ is \textbf{orthogonal} if
+  \[
+    Q^{\mathsf T}Q=I
+    \qquad\text{(equivalently $QQ^{\mathsf T}=I$).}
+  \]
+  Column $i$ is $\mathbf{q}_i$; then $\mathbf{q}_i^{\mathsf T}\mathbf{q}_j=\delta_{ij}$ (orthonormal).
+
+  \medskip
+  \textbf{Geometric meaning.}\
+  $Q$ is a \textbf{rigid motion} of $\mathbb{R}^n$ (rotation and/or reflection):
+  \[
+    \|Q\mathbf{x}\|=\|\mathbf{x}\|,
+    \qquad
+    (Q\mathbf{x})^{\mathsf T}(Q\mathbf{y})=\mathbf{x}^{\mathsf T}\mathbf{y}.
+  \]
+  Lengths and angles are preserved; $Q^{-1}=Q^{\mathsf T}$.
+
+  \medskip
+  \textbf{Terminology.}\
+  ``Orthonormal matrix'' usually means the same as orthogonal (unit-length orthonormal columns).
+\end{frame}
+
+\begin{frame}{A.5 Symmetric matrices --- eigenvalues are real}
+  \hypertarget{sec:symmetric-real-eigenvalues}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Claim.}\
+  If $A=A^{\mathsf T}$ (real symmetric), every eigenvalue $\lambda$ is \textbf{real}.
+
+  \medskip
+  \textbf{Proof.}\
+  Let $A\mathbf{v}=\lambda\mathbf{v}$ with $\mathbf{v}\neq\mathbf{0}$ (allow complex $\mathbf{v}$).\
+  Multiply on the left by $\mathbf{v}^{\mathsf H}$ (conjugate transpose):
+  \[
+    \mathbf{v}^{\mathsf H}A\mathbf{v}=\lambda\,\mathbf{v}^{\mathsf H}\mathbf{v}.
+  \]
+  Since $A$ is real and symmetric, $(\mathbf{v}^{\mathsf H}A\mathbf{v})^*=\mathbf{v}^{\mathsf H}A\mathbf{v}$, so the left side is \textbf{real}.\
+  Also $\mathbf{v}^{\mathsf H}\mathbf{v}=\|\mathbf{v}\|^2>0$.\
+  Hence $\lambda=(\mathbf{v}^{\mathsf H}A\mathbf{v})/(\mathbf{v}^{\mathsf H}\mathbf{v})\in\mathbb{R}$.
+
+  \medskip
+  {\scriptsize \textbf{Not all symmetric eigenvalues are positive} --- e.g.\ $A=\mathrm{diag}(1,-1)$.\
+  Positive eigenvalues need extra assumptions (below).}
+\end{frame}
+
+\begin{frame}{A.5 Positive semidefinite --- eigenvalues $\ge 0$}
+  \hypertarget{sec:psd-eigenvalues}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Definition (PSD).}\
+  A symmetric matrix $A$ is \textbf{positive semidefinite} if
+  $\mathbf{v}^{\mathsf T}A\mathbf{v}\ge 0$ for all $\mathbf{v}\in\mathbb{R}^n$.
+
+  \medskip
+  \textbf{Claim.}\
+  If $A$ is PSD and $A\mathbf{v}_i=\lambda_i\mathbf{v}_i$ with $\mathbf{v}_i\neq\mathbf{0}$, then $\lambda_i\ge 0$.
+
+  \medskip
+  \textbf{Proof.}\
+  Along an eigenvector,
+  \[
+    \lambda_i\,\mathbf{v}_i^{\mathsf T}\mathbf{v}_i
+    =\mathbf{v}_i^{\mathsf T}A\mathbf{v}_i
+    \ge 0
+    \quad\Longrightarrow\quad
+    \lambda_i\ge 0
+    \quad(\text{since }\mathbf{v}_i^{\mathsf T}\mathbf{v}_i=\|\mathbf{v}_i\|^2>0).
+  \]
+
+  \medskip
+  \textbf{Examples.}\
+  Covariance matrices and $A^{\mathsf T}A$ are PSD, so their eigenvalues satisfy $\lambda_i\ge 0$.\
+  \textbf{Positive definite:} $\mathbf{v}^{\mathsf T}A\mathbf{v}>0$ for all $\mathbf{v}\neq\mathbf{0}$ $\Rightarrow$ $\lambda_i>0$.
+\end{frame}
+
 \section{Eigenvectors --- RREF recipe}
 
-\begin{frame}{A.3 Equivalent linear systems}
+\begin{frame}{A.6 Equivalent linear systems}
   \hypertarget{sec:rref-eigenvectors}{}
   \footnotesize
   \InterestOnly
@@ -1801,7 +2122,7 @@
   Finding eigenvectors for $\lambda$ is the same problem with $M=A-\lambda I$.
 \end{frame}
 
-\begin{frame}{A.3 Elementary row operations}
+\begin{frame}{A.6 Elementary row operations}
   \footnotesize
   \InterestOnly
 
@@ -1824,7 +2145,7 @@
   leading $1$ in each pivot row; only zero above/below each leading $1$; each leading $1$ lies to the right of the one above.
 \end{frame}
 
-\begin{frame}{A.3 Pivot variables and free variables}
+\begin{frame}{A.6 Pivot variables and free variables}
   \footnotesize
   \InterestOnly
 
@@ -1847,7 +2168,7 @@
   Once the free variables are chosen, every pivot variable is determined; the whole solution is fixed.
 \end{frame}
 
-\begin{frame}{A.3 Example: row reduction (non-trivial)}
+\begin{frame}{A.6 Example: row reduction (non-trivial)}
   \footnotesize
   \InterestOnly
 
@@ -1887,7 +2208,7 @@
   \]
 \end{frame}
 
-\begin{frame}{A.3 Example: pivot variables as functions of free variables}
+\begin{frame}{A.6 Example: pivot variables as functions of free variables}
   \footnotesize
   \InterestOnly
 
@@ -1907,7 +2228,7 @@
   Every solution is fixed once $(x_3,x_4)$ is chosen.
 \end{frame}
 
-\begin{frame}{A.3 Basis of the kernel from free variables}
+\begin{frame}{A.6 Basis of the kernel from free variables}
   \footnotesize
   \InterestOnly
 
@@ -1936,7 +2257,7 @@
 
 \section{Eigenvalues --- not real}
 
-\begin{frame}{A.4 When eigenvalues are not real}
+\begin{frame}{A.7 When eigenvalues are not real}
   \hypertarget{sec:complex-eigenvalues}{}
   \footnotesize
   \InterestOnly
@@ -1960,10 +2281,10 @@
   For \textbf{real} $A$, non-real eigenvalues come in \textbf{conjugate pairs} $\lambda,\bar\lambda$.
 
   \medskip
-  {\scriptsize Existence over $\mathbb{C}$: \AppendixLink{sec:eigenvalue-exists} (\InterestOnly). When a real eigenbasis fails, see A.5 for QR and SVD (brief).}
+  {\scriptsize Existence over $\mathbb{C}$: \AppendixLink{sec:eigenvalue-exists} (\InterestOnly). When a real eigenbasis fails, see A.8 for QR and SVD (brief).}
 \end{frame}
 
-\begin{frame}{A.5 QR and SVD (brief)}
+\begin{frame}{A.8 QR and SVD (brief)}
   \footnotesize
   \InterestOnly
 
@@ -1973,7 +2294,7 @@
   \medskip
   \begin{itemize}
     \item \textbf{QR} ($A=QR$): $Q$ has orthonormal columns, $R$ is upper triangular.\
-      Used for stable least squares and picking independent columns.
+      Used for stable least squares and picking independent columns (\AppendixLink{sec:orthonormal-matrices}).
     \item \textbf{SVD} ($A=U\Sigma V^{\mathsf T}$): always exists; $U,V$ orthogonal, $\Sigma$ diagonal (singular values).\
       Scales along orthogonal directions --- works even when real eigenvectors do not exist (e.g.\ rotation).
   \end{itemize}
@@ -1985,7 +2306,7 @@
 
 \section{Existence results}
 
-\begin{frame}{A.6 Existence of eigenvalues and eigenvectors (over $\mathbb{C}$)}
+\begin{frame}{A.9 Existence of eigenvalues and eigenvectors (over $\mathbb{C}$)}
   \hypertarget{sec:eigenvalue-exists}{}
   \footnotesize
   \InterestOnly
@@ -2010,7 +2331,7 @@
   {\scriptsize Real $A$: non-real roots come in conjugate pairs $\lambda,\bar\lambda$.}
 \end{frame}
 
-\begin{frame}{A.7 Existence of QR --- what the decomposition means}
+\begin{frame}{A.10 Existence of QR --- what the decomposition means}
   \hypertarget{sec:qr-exists}{}
   \footnotesize
   \InterestOnly
@@ -2033,7 +2354,7 @@
   The numbers $r_{ij}$ in $R$ record \textbf{how much} of each vector goes along each direction.
 \end{frame}
 
-\begin{frame}{A.7 Existence of QR --- vectors 1 and 2}
+\begin{frame}{A.10 Existence of QR --- vectors 1 and 2}
   \footnotesize
   \InterestOnly
 
@@ -2058,7 +2379,7 @@
   $\mathbf{a}_2=r_{12}\mathbf{q}_1+r_{22}\mathbf{q}_2$.
 \end{frame}
 
-\begin{frame}{A.7 Existence of QR --- vectors 3, 4, \ldots}
+\begin{frame}{A.10 Existence of QR --- vectors 3, 4, \ldots}
   \footnotesize
   \InterestOnly
 
@@ -2081,7 +2402,7 @@
   So $\mathbf{a}_k=r_{1k}\mathbf{q}_1+\cdots+r_{kk}\mathbf{q}_k$ --- no $\mathbf{q}_\ell$ with $\ell>k$ needed.
 \end{frame}
 
-\begin{frame}{A.7 Existence of QR --- reading $R$ and $A=QR$}
+\begin{frame}{A.10 Existence of QR --- reading $R$ and $A=QR$}
   \footnotesize
   \InterestOnly
 
@@ -2102,7 +2423,7 @@
   Run the process on all columns; stack $\mathbf{q}_j$ into $Q$ and $r_{ij}$ into $R$. Then $A=QR$.
 \end{frame}
 
-\begin{frame}{A.8 Existence of SVD --- intuition}
+\begin{frame}{A.11 Existence of SVD --- intuition}
   \hypertarget{sec:svd-exists}{}
   \footnotesize
   \InterestOnly
@@ -2133,7 +2454,7 @@
   Factorization: $A=U\Sigma V^{\mathsf T}$ = rotate input ($V$), scale ($\Sigma$), rotate output ($U$).
 \end{frame}
 
-\begin{frame}{A.8 Existence of SVD --- derivation (Step 1)}
+\begin{frame}{A.11 Existence of SVD --- derivation (Step 1)}
   \footnotesize
   \InterestOnly
 
@@ -2144,11 +2465,11 @@
 
   \medskip
   {\scriptsize \textbf{Remark.}\
-  $\lambda_i$ is real ($A^{\mathsf T}A$ symmetric) and $\lambda_i\ge 0$ ($\mathbf{v}^{\mathsf T}A^{\mathsf T}A\mathbf{v}=\|A\mathbf{v}\|^2\ge 0$).\
+  $\lambda_i$ is real (\AppendixLink{sec:symmetric-real-eigenvalues}) and $\lambda_i\ge 0$ (\AppendixLink{sec:psd-eigenvalues}) because $A^{\mathsf T}A$ is symmetric PSD.\
   So $\sigma_i=\sqrt{\lambda_i}$ is real and $\ge 0$; it is \textbf{not} an eigenvalue of $A$.}
 \end{frame}
 
-\begin{frame}{A.8 Existence of SVD --- derivation (Steps 2--3)}
+\begin{frame}{A.11 Existence of SVD --- derivation (Steps 2--3)}
   \footnotesize
   \InterestOnly
 
