@@ -2102,54 +2102,73 @@
   Run the process on all columns; stack $\mathbf{q}_j$ into $Q$ and $r_{ij}$ into $R$. Then $A=QR$.
 \end{frame}
 
-\begin{frame}{A.8 Existence of SVD --- intuition via $A^{\mathsf T}A$}
+\begin{frame}{A.8 Existence of SVD --- intuition}
   \hypertarget{sec:svd-exists}{}
   \footnotesize
   \InterestOnly
 
   \medskip
-  \textbf{Goal.} Find orthogonal input directions $\mathbf{v}_i$ and output directions $\mathbf{u}_i$ such that
-  \[
-    A\mathbf{v}_i=\sigma_i\mathbf{u}_i
-  \]
-  (pure scaling, no mixing --- like eigenvectors, but for \emph{rectangular} $A$).
+  \textbf{Dimensions.}\
+  $A\in\mathbb{R}^{m\times n}$ maps $\mathbb{R}^n\to\mathbb{R}^m$:
+  $\mathbf{x}\in\mathbb{R}^n \Rightarrow A\mathbf{x}\in\mathbb{R}^m$.
 
   \medskip
-  \textbf{Where do the $\mathbf{v}_i$ come from?}\
-  Form the symmetric matrix $B=A^{\mathsf T}A\in\mathbb{R}^{n\times n}$.\
-  For any $\mathbf{v}$,
-  \[
-    \|A\mathbf{v}\|^2=\mathbf{v}^{\mathsf T}(A^{\mathsf T}A)\mathbf{v}=\mathbf{v}^{\mathsf T}B\mathbf{v}.
-  \]
-  So eigenvectors of $B$ are the \textbf{principal input directions}: along $\mathbf{v}_i$, $A$ stretches by $\sigma_i=\sqrt{\lambda_i(B)}$.
+  \textbf{Why SVD?}\
+  Eigenvectors need $A\mathbf{v}=\lambda\mathbf{v}$ (same direction in and out) --- fine for square $A$ with a full eigenbasis.\
+  Fails for rotation (no real eigenvectors) and when $m\neq n$ (input and output live in different spaces).
 
   \medskip
-  \textbf{Geometric picture.}\
-  The unit sphere in $\mathbb{R}^n$ maps to an ellipsoid in $\mathbb{R}^m$; $\sigma_i$ are the axis lengths (singular values).
+  \textbf{Idea.}\
+  Find \textbf{unit} input directions $\mathbf{v}_i$ ($\|\mathbf{v}_i\|=1$) and unit output directions $\mathbf{u}_i$ ($\|\mathbf{u}_i\|=1$) with
+  \[
+    A\mathbf{v}_i=\sigma_i\mathbf{u}_i,
+    \qquad \sigma_i\ge 0.
+  \]
+  Input direction $\mathbf{v}_i$ maps to output direction $\mathbf{u}_i$, stretched by $\sigma_i$ (no mixing).
+
+  \medskip
+  \textbf{Picture.}\
+  Unit sphere in $\mathbb{R}^n$ $\to$ ellipsoid in $\mathbb{R}^m$.\
+  $\mathbf{v}_i$ = input axes; $\mathbf{u}_i$ = where they land; $\sigma_i$ = axis lengths.\
+  Factorization: $A=U\Sigma V^{\mathsf T}$ = rotate input ($V$), scale ($\Sigma$), rotate output ($U$).
 \end{frame}
 
-\begin{frame}{A.8 Existence of SVD --- construction}
+\begin{frame}{A.8 Existence of SVD --- derivation (Step 1)}
   \footnotesize
   \InterestOnly
 
   \medskip
-  \textbf{Step 1.} Diagonalize $B=A^{\mathsf T}A$: orthonormal eigenvectors $\mathbf{v}_1,\ldots,\mathbf{v}_n$, eigenvalues $\sigma_i^2\ge 0$.
+  \textbf{Step 1 --- input directions ($\mathbb{R}^n$).}\
+  Diagonalize $A^{\mathsf T}A$ ($n\times n$): orthonormal eigenvectors $\mathbf{v}_i$ with $\|\mathbf{v}_i\|=1$, eigenvalues $\lambda_i\ge 0$.\
+  Set $\sigma_i=\sqrt{\lambda_i}=\|A\mathbf{v}_i\|$ (stretch along unit input $\mathbf{v}_i$).
 
   \medskip
-  \textbf{Step 2.} For $\sigma_i>0$, define
-  \[
-    \mathbf{u}_i=\frac{1}{\sigma_i}\,A\mathbf{v}_i.
-  \]
-  Then $\|A\mathbf{v}_i\|=\sigma_i$ and $A\mathbf{v}_i=\sigma_i\mathbf{u}_i$.\
-  Different $\mathbf{v}_i$ give orthogonal $\mathbf{u}_i$ (because the $\mathbf{v}_i$ are $B$-orthogonal).
+  {\scriptsize \textbf{Remark.}\
+  $\lambda_i$ is real ($A^{\mathsf T}A$ symmetric) and $\lambda_i\ge 0$ ($\mathbf{v}^{\mathsf T}A^{\mathsf T}A\mathbf{v}=\|A\mathbf{v}\|^2\ge 0$).\
+  So $\sigma_i=\sqrt{\lambda_i}$ is real and $\ge 0$; it is \textbf{not} an eigenvalue of $A$.}
+\end{frame}
+
+\begin{frame}{A.8 Existence of SVD --- derivation (Steps 2--3)}
+  \footnotesize
+  \InterestOnly
 
   \medskip
-  \textbf{Step 3.} Stack columns:
+  \textbf{Step 2 --- output directions ($\mathbb{R}^m$).}\
+  Goal: $A\mathbf{v}_i=\sigma_i\mathbf{u}_i$ with $\|\mathbf{u}_i\|=1$.\
+  From Step~1: $\mathbf{v}_i$ is \textbf{normalized} ($\|\mathbf{v}_i\|=1$) and $\sigma_i=\|A\mathbf{v}_i\|$.
+
+  \medskip
+  Apply $A$ to the unit input $\mathbf{v}_i$: the vector $A\mathbf{v}_i\in\mathbb{R}^m$ points the right way but has length $\sigma_i$.\
+  Normalize it:
   \[
-    U=[\mathbf{u}_1\,\cdots],\quad V=[\mathbf{v}_1\,\cdots],\quad \Sigma=\mathrm{diag}(\sigma_1,\ldots,\sigma_n).
+    \mathbf{u}_i=\frac{1}{\sigma_i}\,A\mathbf{v}_i
+    \quad\Longrightarrow\quad
+    A\mathbf{v}_i=\sigma_i\mathbf{u}_i,\ \ \|\mathbf{u}_i\|=1.
   \]
-  Then $A=U\Sigma V^{\mathsf T}$.\
-  Works for \textbf{every} $A$ (including rotation, where real eigenvectors fail).
+
+  \medskip
+  \textbf{Step 3 --- assemble.}\
+  $V=[\mathbf{v}_1\,\cdots]$, $U=[\mathbf{u}_1\,\cdots]$, $\Sigma=\mathrm{diag}(\sigma_1,\ldots)$ $\Rightarrow$ $A=U\Sigma V^{\mathsf T}$.
 \end{frame}
 
 \end{document}
