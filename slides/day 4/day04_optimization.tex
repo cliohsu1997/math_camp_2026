@@ -365,25 +365,6 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{4.2 Concave implies quasiconcave}
-  \small
-  \textbf{Theorem.} Concave $\Rightarrow$ quasiconcave, but not conversely.
-  
-  \textbf{Proof.} For concave $f$ and any $x, y$, $\lambda \in [0,1]$:
-  
-  \begin{itemize}
-    \item By concavity: $f(\lambda x + (1-\lambda)y) \geq \lambda f(x) + (1-\lambda)f(y)$
-    
-    \item WLOG $f(x) \geq f(y)$, so $\min\{f(x),f(y)\} = f(y)$
-    
-    \item Then: $\lambda f(x) + (1-\lambda)f(y) \geq f(y) = \min\{f(x),f(y)\}$
-    
-    \item Therefore: $f(\lambda x + (1-\lambda)y) \geq \min\{f(x),f(y)\}$
-  \end{itemize}
-  
-  This is the definition of quasiconcavity. The converse fails: e.g., sigmoid is quasiconcave but not concave.
-\end{frame}
-
 \begin{frame}{4.2 Equivalence: segment vs. upper contours}
   \small
   \textbf{Theorem.} Definitions A and B are equivalent.
@@ -411,6 +392,40 @@
     
     \item So $f(\text{segment}) \geq f(\mathbf{y}) = \min\{f(\mathbf{x}),f(\mathbf{y})\}$
   \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 Quasiconcavity and monotone transforms}
+  \small
+  \textbf{Theorem.} If $f$ is quasiconcave and $\varphi:\mathbb{R}\to\mathbb{R}$ is \textbf{strictly increasing}, then $g=\varphi\circ f$ is quasiconcave.
+  
+  \textbf{Proof (upper contours).} For any $t$, since $\varphi$ is increasing, $\varphi^{-1}$ exists and
+  \[
+    \{\mathbf{x}: g(\mathbf{x}) \geq t\}
+    =
+    \{\mathbf{x}: f(\mathbf{x}) \geq \varphi^{-1}(t)\},
+  \]
+  which is convex because $f$ is quasiconcave.
+  
+  \textbf{Example.} Quasiconcave utility $u$ stays quasiconcave under $\ln u$, $u^{1/2}$, etc. --- same indifference curves, same optimization.
+\end{frame}
+
+\begin{frame}{4.2 Concave implies quasiconcave}
+  \small
+  \textbf{Theorem.} Concave $\Rightarrow$ quasiconcave, but not conversely.
+  
+  \textbf{Proof.} For concave $f$ and any $x, y$, $\lambda \in [0,1]$:
+  
+  \begin{itemize}
+    \item By concavity: $f(\lambda x + (1-\lambda)y) \geq \lambda f(x) + (1-\lambda)f(y)$
+    
+    \item WLOG $f(x) \geq f(y)$, so $\min\{f(x),f(y)\} = f(y)$
+    
+    \item Then: $\lambda f(x) + (1-\lambda)f(y) \geq f(y) = \min\{f(x),f(y)\}$
+    
+    \item Therefore: $f(\lambda x + (1-\lambda)y) \geq \min\{f(x),f(y)\}$
+  \end{itemize}
+  
+  This is the definition of quasiconcavity. The converse fails: e.g., sigmoid is quasiconcave but not concave.
 \end{frame}
 
 \begin{frame}{4.2 Quasiconvex functions}
@@ -552,21 +567,25 @@
 
 \THFrame{4.2 Exercise: Testing quasiconcavity}
   \small
-  \textbf{Exercise.} Determine if $f(x, y) = xy$ is quasiconcave on $\mathbb{R}^2_{++}$.
+  \textbf{Exercise.} Is $f(x, y) = xy$ quasiconcave on $\mathbb{R}^2_{++}$?
   
-  \textbf{Solution.} Check upper contour sets $\{xy \geq t\}$.
+  \textbf{Strategy.} Use Definition B: show upper contour sets $S_t = \{(x,y) \in \mathbb{R}^2_{++} : xy \geq t\}$ are convex for every $t$.
+  
+  \textbf{Solution.}
   
   \begin{itemize}
-    \item For $t > 0$: this is $\{(x,y): y \geq t/x\}$ where $x > 0$
+    \item If $t \leq 0$: every point in $\mathbb{R}^2_{++}$ has $xy > 0 \geq t$, so $S_t = \mathbb{R}^2_{++}$, which is convex
     
-    \item Take $(1, t)$ and $(t, 1)$: both in the set since $1 \cdot t = t$
+    \item If $t > 0$: $xy \geq t$ is equivalent to $\ln x + \ln y \geq \ln t$
     
-    \item Midpoint: $(\frac{1+t}{2}, \frac{1+t}{2})$ has product $(\frac{1+t}{2})^2$
+    \item Let $g(x,y) = \ln x + \ln y$. Then $S_t = \{(x,y) : g(x,y) \geq \ln t\}$ is a \textbf{superlevel set} of $g$
     
-    \item By AM-GM: $(\frac{1+t}{2})^2 \geq t$, so midpoint in set
+    \item $g$ is strictly concave on $\mathbb{R}^2_{++}$: $H_g = \mathrm{diag}(-1/x^2,\,-1/y^2)$ is negative definite
+    
+    \item Superlevel sets of a concave function are convex, so each $S_t$ is convex
   \end{itemize}
   
-  The upper contour sets are convex, so $f(x,y) = xy$ is quasiconcave.
+  Therefore $f(x,y)=xy$ is quasiconcave (in fact \textbf{log-concave}, since $\ln f = g$ is concave and $f>0$).
 \end{frame}
 
 %==============================================================================
