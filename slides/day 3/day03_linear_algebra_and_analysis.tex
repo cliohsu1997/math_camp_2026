@@ -1034,7 +1034,7 @@
   \textbf{Next:}\ when $\det(A)=0$, some input direction is \textbf{squeezed} to $\mathbf{0}$.
 \end{frame}
 
-\begin{frame}{3.5 Null space --- directions squeezed to $\mathbf{0}$ \InterestOnly}
+\begin{frame}{3.5 Null space --- directions squeezed to $\mathbf{0}$}
   \footnotesize
   \textbf{Setup ($A\in\mathbb{R}^{2\times 2}$).}\
   View $A$ as a linear transformation $T:\mathbb{R}^2\to\mathbb{R}^2$, $T(\mathbf{x})=A\mathbf{x}$.
@@ -1057,23 +1057,24 @@
   $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$:
   $A(1,-1)^{\mathsf T}=\mathbf{0}$, so
   $\operatorname{Null}(A)=\operatorname{span}\{(1,-1)^{\mathsf T}\}$ --- one direction squeezed.
+
+  \medskip
+  \textbf{Next:}\ how many directions squeeze vs.\ persist?
 \end{frame}
 
-\begin{frame}{3.5 Rank--nullity --- squeezed vs.\ persist ($2\times 2$) \InterestOnly}
+\begin{frame}{3.5 Rank--nullity --- squeezed vs.\ persist ($2\times 2$)}
   \footnotesize
-  \textbf{Setup.}\
-  $A\in\mathbb{R}^{2\times 2}$, $T:\mathbb{R}^2\to\mathbb{R}^2$, $T(\mathbf{x})=A\mathbf{x}$.
-  The plane has $2$ input dimensions; under $T$, each splits into one of two fates:
+  \textbf{Two fates ($A\in\mathbb{R}^{2\times 2}$).}\
+  Under $T(\mathbf{x})=A\mathbf{x}$, each input direction either:
 
   \medskip
-  \textbf{1.\ Squeezed to $\mathbf{0}$} (kernel, in $\mathbb{R}^2$):\
-  $\ker(T)=\operatorname{Null}(A)$; dimension $=\operatorname{nullity}(A)$.
+  \textbf{1.\ Squeezed to $\mathbf{0}$}\
+  $\ker(T)=\operatorname{Null}(A)$ (previous slide); dimension $=\operatorname{nullity}(A)$.
 
   \medskip
-  \textbf{2.\ Persist in the output} (image, in $\mathbb{R}^2$):\
+  \textbf{2.\ Persist in the output}\
   $\operatorname{Im}(T)=\operatorname{Col}(A)=\{A\mathbf{x}:\mathbf{x}\in\mathbb{R}^2\}$;
-  dimension $=\operatorname{rank}(A)$ --- independent directions that \textbf{survive} in the output
-  (not collapsed to $\mathbf{0}$).
+  dimension $=\operatorname{rank}(A)$ --- independent directions that \textbf{survive}.
 
   \medskip
   \textbf{Rank--nullity.}\
@@ -1081,18 +1082,41 @@
 
   \medskip
   \textbf{Example ($\det A=0$).}\
-  $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$:
-  nullity $=1$ (direction $(1,-1)^{\mathsf T}$ squeezed),
-  rank $=1$ (outputs fill the line $\operatorname{span}\{(1,1)^{\mathsf T}\}$).
+  Collapse matrix from previous slides: nullity $=1$, rank $=1$
+  (outputs fill $\operatorname{span}\{(1,1)^{\mathsf T}\}$).
 
   \medskip
   \textbf{Example ($\det A\neq 0$).}\
-  Shear or rotation from earlier slides:
-  nullity $=0$ (only $\mathbf{0}$ squeezed),
-  rank $=2$ (both input dimensions persist --- output still fills $\mathbb{R}^2$).
+  Shear or rotation (Section~3.4): nullity $=0$, rank $=2$.
 \end{frame}
 
-\begin{frame}{3.5 Rank--nullity --- general case (\InterestOnly)}
+\begin{frame}{3.5 After a squeeze --- what survives? ($2\times 2$)}
+  \footnotesize
+  \textbf{Recall.}\
+  $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$ maps the whole plane onto one output line
+  (through $(1,1)^{\mathsf T}$). Direction $(1,-1)^{\mathsf T}$ is squeezed to $\mathbf{0}$.
+
+  \medskip
+  \textbf{Question.}\
+  Given an input $\mathbf{v}$, what is $A\mathbf{v}$?
+
+  \medskip
+  \textbf{Key idea (in words).}\
+  Think of $\mathbf{v}$ as two moves: one along the \textbf{squeezed} direction (the map
+  \textbf{forgets} it) and one along the surviving direction $(1,1)^{\mathsf T}$ (the map
+  \textbf{remembers} only this). So $A\mathbf{v}$ depends on how much of $\mathbf{v}$ points
+  along the surviving direction --- not on the part that collapses.
+
+  \medskip
+  \textbf{Example.}\
+  $(3,1)^{\mathsf T}=2(1,1)^{\mathsf T}+1(1,-1)^{\mathsf T}$: the $(1,-1)^{\mathsf T}$ part is
+  lost, the $2(1,1)^{\mathsf T}$ part survives, so $A\mathbf{v}=2(2,2)^{\mathsf T}=(4,4)^{\mathsf T}$.
+
+  \medskip
+  \textbf{Next:}\ the same squeeze/persist picture in general $m\times n$.
+\end{frame}
+
+\begin{frame}{3.5 Rank--nullity --- general case \InterestOnly}
   \footnotesize
   \textbf{Setup.}\
   Let $A\in\mathbb{R}^{m\times n}$, $T:\mathbb{R}^n\to\mathbb{R}^m$, $T(\mathbf{x})=A\mathbf{x}$.
@@ -1122,75 +1146,74 @@
   $\mathbf{0}\in\mathbb{R}^m$; $\operatorname{rank}(A)$ independent directions
   \textbf{persist} in $\operatorname{Im}(T)\subseteq\mathbb{R}^m$.
   When $n=m$, $\det(A)\neq 0$ $\Leftrightarrow$ nullity $=0$ $\Leftrightarrow$ rank $=n$
-  (equivalent conditions on the next slides).
+  (same as invertible / basis on the next slide).
 \end{frame}
 
-\begin{frame}{3.5 After a squeeze --- what survives? ($2\times 2$) \InterestOnly}
+\begin{frame}{3.5 Invertible matrices --- column picture}
   \footnotesize
-  \textbf{Recall.}\
-  $A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix}$ maps the whole plane onto one output line
-  (through $(1,1)^{\mathsf T}$). Direction $(1,-1)^{\mathsf T}$ is squeezed to $\mathbf{0}$.
+  \textbf{Recall ($A\in\mathbb{R}^{n\times n}$).}\
+  $A\mathbf{x}=\mathbf{b}\ \Longleftrightarrow\
+  \mathbf{b}=x_1\mathbf{a}_1+\cdots+x_n\mathbf{a}_n$ (§3.3).
 
   \medskip
-  \textbf{Question.}\
-  Given an input $\mathbf{v}$, what is $A\mathbf{v}$?
+  \textbf{Basis = two requirements (§3.3).}\
+  Columns $\mathbf{a}_1,\ldots,\mathbf{a}_n$ form a \textbf{basis} of $\mathbb{R}^n$ iff:
+  \begin{description}
+    \item[\textbf{(1) Uniqueness:}] at most one choice of weights $x_1,\ldots,x_n$
+      (columns \textbf{linearly independent}).
+    \item[\textbf{(2) Solvability:}] \textbf{every} $\mathbf{b}\in\mathbb{R}^n$ \emph{is} such a combination
+      ($\operatorname{Col}(A)=\mathbb{R}^n$).
+  \end{description}
+  For square $A$, (1)$\Leftrightarrow$(2); together they give a \textbf{unique} solution for
+  \textbf{every} $\mathbf{b}$, and $A^{-1}$ exists.
 
   \medskip
-  \textbf{Key idea (in words).}\
-  Think of $\mathbf{v}$ as two moves: one along the \textbf{squeezed} direction (the map
-  \textbf{forgets} it) and one along the surviving direction $(1,1)^{\mathsf T}$ (the map
-  \textbf{remembers} only this). So $A\mathbf{v}$ depends on how much of $\mathbf{v}$ points
-  along the surviving direction --- not on the part that collapses.
+  \textbf{If (1) or (2) fails} (not a basis):
+  \begin{itemize}
+    \item \textbf{(2) fails:} $\operatorname{Col}(A)\subsetneq\mathbb{R}^n$ --- some $\mathbf{b}$ have \textbf{no} solution.
+    \item \textbf{(1) fails} (columns \textbf{linearly dependent}): $\exists\,\mathbf{d}\neq\mathbf{0}$ with $A\mathbf{d}=\mathbf{0}$ --- if a solution exists,
+      $\mathbf{x}+\mathbf{d}$ is another (not unique).
+  \end{itemize}
 
   \medskip
-  \textbf{Example.}\
-  $(3,1)^{\mathsf T}=2(1,1)^{\mathsf T}+1(1,-1)^{\mathsf T}$: the $(1,-1)^{\mathsf T}$ part is
-  lost, the $2(1,1)^{\mathsf T}$ part survives, so $A\mathbf{v}=2(2,2)^{\mathsf T}=(4,4)^{\mathsf T}$.
+  \textbf{Link to geometry (this section).}\
+  $\det(A)=0$ $\Leftrightarrow$ a squeeze $\Leftrightarrow$ not invertible;\
+  $\det(A)\neq 0$ $\Leftrightarrow$ nullity $=0$ $\Leftrightarrow$ basis $\Leftrightarrow$ invertible.
 \end{frame}
 
 \begin{frame}{3.5 Invertible matrices --- equivalent conditions}
   \footnotesize
   \textbf{Let $A\in\mathbb{R}^{n\times n}$.}\
-  The following are \textbf{equivalent}:
+  All eight statements are \textbf{equivalent}.
 
   \medskip
+  {\scriptsize
+  \textbf{I.\ Column picture (§3.3)}
   \begin{enumerate}
-    \item $A$ is \textbf{invertible}: $\exists\,A^{-1}$ with $AA^{-1}=A^{-1}A=I_n$.
-    \item For every $\mathbf{b}\in\mathbb{R}^n$, $A\mathbf{x}=\mathbf{b}$ has a \textbf{unique}
-      solution $\mathbf{x}=A^{-1}\mathbf{b}$.
-    \item Columns $\mathbf{a}_1,\ldots,\mathbf{a}_n$ form a \textbf{basis} of $\mathbb{R}^n$.
-    \item Columns are \textbf{linearly independent}
-      ($\operatorname{Col}(A)=\mathbb{R}^n$).
-    \item $A\mathbf{x}=\mathbf{0}$ has only the trivial solution $\mathbf{x}=\mathbf{0}$.
-    \item Rows of $A$ are linearly independent (equivalently, form a basis of $\mathbb{R}^n$).
-    \item $\det(A)\neq 0$.
+    \item Columns \textbf{linearly independent} --- \textbf{uniqueness}.
+    \item $\operatorname{Col}(A)=\mathbb{R}^n$ --- \textbf{solvability for all $\mathbf{b}$}.
+    \item Columns form a \textbf{basis} --- (1) and (2) [square: (1)$\Leftrightarrow$(2)].
   \end{enumerate}
 
-  \medskip
-  \textbf{Where this fits.}\
-  Items (3)--(5) match the column picture from earlier; (7) is the determinant test;
-  for $n=m$, (5) $\Leftrightarrow$ nullity $=0$ (no squeeze except $\mathbf{0}$).
+  \textbf{II.\ Solving $A\mathbf{x}=\mathbf{b}$}
+  \begin{enumerate}
+    \setcounter{enumi}{3}
+    \item $A\mathbf{x}=\mathbf{0}$ only $\mathbf{x}=\mathbf{0}$.
+    \item For every $\mathbf{b}$, \textbf{unique} solution $\mathbf{x}=A^{-1}\mathbf{b}$.
+  \end{enumerate}
+
+  \textbf{III.\ Matrix / geometry}
+  \begin{enumerate}
+    \setcounter{enumi}{5}
+    \item $A$ \textbf{invertible} ($AA^{-1}=I_n$).
+    \item $\det(A)\neq 0$ (no squeeze).
+    \item Rows form a \textbf{basis} of $\mathbb{R}^n$.
+  \end{enumerate}
+  }
 \end{frame}
 
 \begin{frame}{3.5 Transpose and inverse --- rules we use}
   \footnotesize
-  \textbf{Inverse (definition).}\
-  For square $A\in\mathbb{R}^{n\times n}$, the \textbf{inverse} $A^{-1}$ satisfies
-  \[
-    AA^{-1}=A^{-1}A=I_n.
-  \]
-  It exists iff $\det(A)\neq 0$ (same as invertible on the previous slide).\
-  Then $A\mathbf{x}=\mathbf{b}$ has unique solution $\mathbf{x}=A^{-1}\mathbf{b}$.
-
-  \medskip
-  \textbf{Inverse rules (both factors invertible).}\
-  \[
-    (AB)^{-1}=B^{-1}A^{-1},
-    \qquad
-    (A^{-1})^{-1}=A.
-  \]
-
-  \medskip
   \textbf{Transpose (always defined).}\
   \[
     (A^{\mathsf T})^{\mathsf T}=A,
@@ -1201,8 +1224,28 @@
   \]
 
   \medskip
-  \textbf{Together.}\
-  $(A^{-1})^{\mathsf T}=(A^{\mathsf T})^{-1}$ when $A$ is invertible.
+  {\scriptsize
+  \textbf{Why (8)?}\
+  (2) $\Rightarrow$ $A\mathbf{x}=\mathbf{b}$ for all $\mathbf{b}$.\
+  Transpose: $\mathbf{x}^{\mathsf T}A^{\mathsf T}=\mathbf{b}^{\mathsf T}$ for all $\mathbf{b}^{\mathsf T}$ (row view, §3.3).\
+  Rows of $A$ = columns of $A^{\mathsf T}$ $\Rightarrow$ rows span $\mathbb{R}^n$; square $\Rightarrow$ basis [(8)].
+  }
+
+  \medskip
+  \textbf{Inverse (definition).}\
+  For square $A\in\mathbb{R}^{n\times n}$, $A^{-1}$ satisfies $AA^{-1}=A^{-1}A=I_n$.\
+  It exists iff any condition on the previous slide holds (e.g.\ $\det(A)\neq 0$).\
+  Then $A\mathbf{x}=\mathbf{b}$ has unique solution $\mathbf{x}=A^{-1}\mathbf{b}$.
+
+  \medskip
+  \textbf{Inverse rules (both factors invertible).}\
+  \[
+    (AB)^{-1}=B^{-1}A^{-1},
+    \qquad
+    (A^{-1})^{-1}=A,
+    \qquad
+    (A^{-1})^{\mathsf T}=(A^{\mathsf T})^{-1}.
+  \]
 
   \medskip
   {\scriptsize Proofs: \AppendixLink{sec:transpose-inverse-proofs} (\InterestOnly).}
