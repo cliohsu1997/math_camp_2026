@@ -1468,7 +1468,7 @@
   $\mathbf{v}_1,\ldots,\mathbf{v}_n$, decompose in \textbf{that} basis instead of the standard one.
 
   \medskip
-  {\scriptsize If $A=A^{\mathsf T}$, eigenvalues are real (\AppendixLink{sec:symmetric-real-eigenvalues}); if also PSD, $\lambda_i\ge 0$ (\AppendixLink{sec:psd-eigenvalues}) (\InterestOnly).}
+  {\scriptsize If $A=A^{\mathsf T}$, eigenvalues are real (\AppendixLink{sec:symmetric-real-eigenvalues}) (\InterestOnly).}
 \end{frame}
 
 \begin{frame}{3.7 Finding eigenvalues and eigenvectors}
@@ -1648,7 +1648,7 @@
     \item \textbf{PCA (principal components).}\
       Eigenvectors of the \textbf{covariance matrix} are the main directions of variation in data;
       largest eigenvalues pick the most important components for dimension reduction
-      (\AppendixLink{sec:psd-eigenvalues}).
+      (Section~3.8).
     \item \textbf{Markov transition matrices.}\
       For a stochastic matrix $P$ (rows sum to $1$), the \textbf{long-run distribution} is an eigenvector
       with $\lambda=1$;
@@ -1700,15 +1700,174 @@
   \href{https://www.youtube.com/watch?v=PFDu9oVAE-g}{\textcolor{mAccent}{https://www.youtube.com/watch?v=PFDu9oVAE-g}}
 \end{frame}
 
+\section{3.8 --- Definite and Semidefinite Matrices}
+
+\begin{frame}{3.8 Definitions --- quadratic form}
+  \hypertarget{sec:matrix-definiteness}{}
+  \footnotesize
+  \textbf{Setup.}\
+  Symmetric $A\in\mathbb{R}^{n\times n}$ (Hessians, covariance matrices, $A^{\mathsf T}A$).
+
+  \medskip
+  \textbf{Four types} (via the \textbf{quadratic form} $\mathbf{v}^{\mathsf T}A\mathbf{v}$):
+  \begin{itemize}
+    \item \textbf{PSD} (positive semidefinite): $\mathbf{v}^{\mathsf T}A\mathbf{v}\ge 0$ for all $\mathbf{v}$
+    \item \textbf{PD} (positive definite): $\mathbf{v}^{\mathsf T}A\mathbf{v}> 0$ for all $\mathbf{v}\neq\mathbf{0}$
+    \item \textbf{NSD} (negative semidefinite): $\mathbf{v}^{\mathsf T}A\mathbf{v}\le 0$ for all $\mathbf{v}$
+    \item \textbf{ND} (negative definite): $\mathbf{v}^{\mathsf T}A\mathbf{v}< 0$ for all $\mathbf{v}\neq\mathbf{0}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{3.8 Examples --- where PSD and NSD appear}
+  \footnotesize
+  \textbf{$A^{\mathsf T}A$ is PSD.}\
+  For any $\mathbf{v}$,
+  \[
+    \mathbf{v}^{\mathsf T}A^{\mathsf T}A\mathbf{v}=\|A\mathbf{v}\|^2\ge 0.
+  \]
+
+  \medskip
+  \textbf{Covariance matrix $\Sigma$ is PSD.}\
+  For centered data, $\Sigma=\mathbb{E}[\mathbf{x}\mathbf{x}^{\mathsf T}]$, so
+  \[
+    \mathbf{v}^{\mathsf T}\Sigma\mathbf{v}
+    =\mathbb{E}\bigl[(\mathbf{v}^{\mathsf T}\mathbf{x})^2\bigr]\ge 0
+  \]
+  (an average of squares).
+\end{frame}
+
+\begin{frame}{3.8 Example --- the Hessian}
+  \footnotesize
+  \textbf{Reminder (Day~2).}\
+  For $f:\mathbb{R}^n\to\mathbb{R}$ in $C^2$, the \textbf{Hessian} $H_f(\mathbf{x})$ is the matrix of \textbf{second partial derivatives}:
+  \[
+    \bigl(H_f(\mathbf{x})\bigr)_{ij}=\frac{\partial^2 f}{\partial x_i\partial x_j}(\mathbf{x}).
+  \]
+  In $2$ variables: $H_f=
+  \begin{pmatrix}f_{x_1x_1}&f_{x_1x_2}\\ f_{x_2x_1}&f_{x_2x_2}\end{pmatrix}$.
+
+  \medskip
+  \textbf{Symmetric.}\
+  Mixed partials agree ($f_{x_ix_j}=f_{x_jx_i}$), so $H_f(\mathbf{x})^{\mathsf T}=H_f(\mathbf{x})$ --- a symmetric matrix, so Section~3.8 applies.
+
+  \medskip
+  \textbf{Next module (Day~4).}\
+  We connect $H_f$ to \textbf{concavity}: concave $f$ $\Leftrightarrow$ $H_f(\mathbf{x})$ is \textbf{NSD} for all $\mathbf{x}$.\
+  Today: NSD is the sign condition on the quadratic form $\mathbf{v}^{\mathsf T}H_f(\mathbf{x})\mathbf{v}$.
+\end{frame}
+
+\begin{frame}{3.8 Characterizations --- eigenvalues and diagonal entries}
+  \footnotesize
+  \textbf{Assume $A=A^{\mathsf T}$.}
+
+  \medskip
+  \textbf{Eigenvalues} (if $A\mathbf{v}_i=\lambda_i\mathbf{v}_i$) --- \textbf{necessary} conditions:
+  \begin{itemize}
+    \item \textbf{PSD} $\Rightarrow$ every $\lambda_i\ge 0$
+    \item \textbf{PD} $\Rightarrow$ every $\lambda_i>0$
+    \item \textbf{NSD} $\Rightarrow$ every $\lambda_i\le 0$
+    \item \textbf{ND} $\Rightarrow$ every $\lambda_i<0$
+  \end{itemize}
+  {\scriptsize For symmetric $A$, these are also \textbf{sufficient} (equivalent to the definitions); proof omitted at Math Camp.}
+
+  \medskip
+  \textbf{Diagonal entries} ($A=(a_{ij})$) --- \textbf{necessary} conditions:\
+  PSD $\Rightarrow$ $a_{ii}\ge 0$;\ NSD $\Rightarrow$ $a_{ii}\le 0$.\
+  If $A$ is \textbf{diagonal}, these sign checks are also \textbf{sufficient}.
+\end{frame}
+
+\begin{frame}{3.8 Leading principal minors --- definition}
+  \footnotesize
+  \textbf{Leading principal minor.}\
+  For $A\in\mathbb{R}^{n\times n}$, the \textbf{$k$th leading principal minor} is
+  \[
+    \Delta_k=\det\bigl(\text{top-left }k\times k\text{ block of }A\bigr),
+    \qquad k=1,\ldots,n.
+  \]
+
+  \medskip
+  \textbf{Example ($3\times 3$).}\
+  $A=
+  \begin{pmatrix}a&b&c\\ d&e&f\\ g&h&i\end{pmatrix}$:
+  \[
+    \Delta_1=a,
+    \qquad
+    \Delta_2=\det\begin{pmatrix}a&b\\ d&e\end{pmatrix}=ae-bd,
+    \qquad
+    \Delta_3=\det(A).
+  \]
+  Only the \textbf{north-west} blocks --- not e.g.\ the bottom-right $2\times 2$ block unless it lines up from row~1.
+\end{frame}
+
+\begin{frame}{3.8 Leading principal minors --- PSD, PD, NSD, ND}
+  \footnotesize
+  \textbf{Assume $A=A^{\mathsf T}$.}\
+  Leading principal minors give \textbf{equivalent} tests in the strict cases; for PSD use \textbf{all} principal minors.
+
+  \medskip
+  \begin{itemize}
+    \item \textbf{PD:} $\Delta_k>0$ for $k=1,\ldots,n$ \quad (Sylvester)
+    \item \textbf{PSD:} every \textbf{principal minor} $\ge 0$ (leading alone is \textbf{not} enough)
+    \item \textbf{NSD:} $(-1)^k\Delta_k\ge 0$ for $k=1,\ldots,n$
+    \item \textbf{ND:} $(-1)^k\Delta_k>0$ for $k=1,\ldots,n$
+  \end{itemize}
+
+  \medskip
+  {\scriptsize Proofs of principal-minor criteria omitted at Math Camp level.}
+\end{frame}
+
+\begin{frame}{3.8 $2\times 2$ checklist}
+  \footnotesize
+  $A=\begin{pmatrix}a&b\\ b&c\end{pmatrix}$, $\Delta_1=a$, $\Delta_2=ac-b^2$.
+
+  \medskip
+  \begin{itemize}
+    \item \textbf{PSD:} $a\ge 0$, $c\ge 0$, $ac-b^2\ge 0$
+    \item \textbf{PD:} $a>0$, $ac-b^2>0$
+    \item \textbf{NSD:} $a\le 0$, $c\le 0$, $ac-b^2\ge 0$
+    \item \textbf{ND:} $a<0$, $ac-b^2>0$
+  \end{itemize}
+
+  \medskip
+  \textbf{Example.}\
+  $A=\begin{pmatrix}2&1\\ 1&2\end{pmatrix}$: $a,c>0$, $ac-b^2=3>0$ $\Rightarrow$ PD (matches eigenvalues $3,1$ from Section~3.7).
+\end{frame}
+
+\THFrame{3.8 Exercise: $3\times 3$ --- leading principal minors}
+  \footnotesize
+  \textbf{Exercise.}\
+  For
+  \[
+    A=
+    \begin{pmatrix}
+      2&-1&0\\
+      -1&2&-1\\
+      0&-1&2
+    \end{pmatrix},
+  \]
+  compute $\Delta_1,\Delta_2,\Delta_3$ and decide whether $A$ is PD, PSD only, or neither.
+
+  \textbf{Solution.}\
+  $\Delta_1=2>0$.\
+  $\Delta_2=\det\begin{pmatrix}2&-1\\-1&2\end{pmatrix}=4-1=3>0$.\
+  $\Delta_3=\det(A)=2(4-1)+(-1)(-2)=6+2=8>0$.\
+  All leading principal minors are positive $\Rightarrow$ $A$ is \textbf{PD} (Sylvester, Section~3.8).
+\end{frame}
+
 \appendix
 
 \begin{frame}{Appendix}
   \small
   \textbf{Not required for Math Camp.}\
   Proofs and extra examples linked from the main slides.
+
+  \medskip
+  \footnotesize
+  \textbf{Order matches main text:}\
+  A.1--A.2 (Section~3.2), A.3 (3.5), A.4 (3.6), A.5--A.11 (3.7).
 \end{frame}
 
-\section{Separating Hyperplane Theorem --- proof}
+\section{Separating Hyperplane Theorem --- proof (3.2)}
 
 \begin{frame}[plain]{}
   \centering
@@ -1861,7 +2020,7 @@
   The same calculation with $(a_0,b_0)=(\hat a,b_0)$ separates $A$ from $b_0$ even when $A$ is not compact.
 \end{frame}
 
-\section{Producer theory example --- proof}
+\section{Producer theory example --- proof (3.2)}
 
 \begin{frame}{A.2 Proof.\ Efficient production $\Rightarrow$ profit maximization}
   \hypertarget{sec:producer-proof}{}
@@ -1920,7 +2079,7 @@
   $y-\varepsilon e_i\in Y$ (since $\le y$) raises profit, contradicting maximization at $y$.
 \end{frame}
 
-\section{Transpose and inverse --- proofs}
+\section{Transpose and inverse --- proofs (3.5)}
 
 \begin{frame}{A.3 Transpose rules --- proof}
   \hypertarget{sec:transpose-inverse-proofs}{}
@@ -1971,7 +2130,7 @@
   So $(A^{-1})^{\mathsf T}$ is the inverse of $A^{\mathsf T}$.
 \end{frame}
 
-\section{Projection matrix}
+\section{Projection matrix (3.6)}
 
 \begin{frame}{A.4 Projection matrix --- why $P_X^2=P_X$?}
   \hypertarget{sec:projection-matrix-properties}{}
@@ -2055,36 +2214,7 @@
   {\scriptsize Direct check: $(P_X)^{\mathsf T}=X\bigl((X^{\mathsf T}X)^{-1}\bigr)^{\mathsf T}X^{\mathsf T}=P_X$, using $(X^{\mathsf T}X)^{-1}=((X^{\mathsf T}X)^{\mathsf T})^{-1}=(X^{\mathsf T}X)^{-\mathsf T}$.}
 \end{frame}
 
-\section{Useful linear algebra facts}
-
-\begin{frame}{A.5 Orthogonal and orthonormal matrices}
-  \hypertarget{sec:orthonormal-matrices}{}
-  \footnotesize
-  \InterestOnly
-
-  \medskip
-  \textbf{Orthonormal columns.}\
-  A square matrix $Q\in\mathbb{R}^{n\times n}$ is \textbf{orthogonal} if
-  \[
-    Q^{\mathsf T}Q=I
-    \qquad\text{(equivalently $QQ^{\mathsf T}=I$).}
-  \]
-  Column $i$ is $\mathbf{q}_i$; then $\mathbf{q}_i^{\mathsf T}\mathbf{q}_j=\delta_{ij}$ (orthonormal).
-
-  \medskip
-  \textbf{Geometric meaning.}\
-  $Q$ is a \textbf{rigid motion} of $\mathbb{R}^n$ (rotation and/or reflection):
-  \[
-    \|Q\mathbf{x}\|=\|\mathbf{x}\|,
-    \qquad
-    (Q\mathbf{x})^{\mathsf T}(Q\mathbf{y})=\mathbf{x}^{\mathsf T}\mathbf{y}.
-  \]
-  Lengths and angles are preserved; $Q^{-1}=Q^{\mathsf T}$.
-
-  \medskip
-  \textbf{Terminology.}\
-  ``Orthonormal matrix'' usually means the same as orthogonal (unit-length orthonormal columns).
-\end{frame}
+\section{Symmetric matrices --- eigenvalues are real (3.7)}
 
 \begin{frame}{A.5 Symmetric matrices --- eigenvalues are real}
   \hypertarget{sec:symmetric-real-eigenvalues}{}
@@ -2137,42 +2267,10 @@
 
   \medskip
   {\scriptsize \textbf{Not all symmetric eigenvalues are positive} --- e.g.\ $A=\mathrm{diag}(1,-1)$.\
-  Positive eigenvalues need extra assumptions (next slide).}
+  Sign conditions (PSD/NSD) are in Section~3.8.}
 \end{frame}
 
-\begin{frame}{A.5 Positive semidefinite --- eigenvalues $\ge 0$}
-  \hypertarget{sec:psd-eigenvalues}{}
-  \footnotesize
-  \InterestOnly
-
-  \medskip
-  \textbf{Definition (PSD).}\
-  A symmetric matrix $A$ is \textbf{positive semidefinite} if
-  $\mathbf{v}^{\mathsf T}A\mathbf{v}\ge 0$ for all $\mathbf{v}\in\mathbb{R}^n$.
-
-  \medskip
-  \textbf{Claim.}\
-  If $A$ is PSD and $A\mathbf{v}_i=\lambda_i\mathbf{v}_i$ with $\mathbf{v}_i\neq\mathbf{0}$, then $\lambda_i\ge 0$.
-
-  \medskip
-  \textbf{Proof.}\
-  Along an eigenvector,
-  \[
-    \lambda_i\,\mathbf{v}_i^{\mathsf T}\mathbf{v}_i
-    =\mathbf{v}_i^{\mathsf T}A\mathbf{v}_i
-    \ge 0
-    \quad\Longrightarrow\quad
-    \lambda_i\ge 0
-    \quad(\text{since }\mathbf{v}_i^{\mathsf T}\mathbf{v}_i=\|\mathbf{v}_i\|^2>0).
-  \]
-
-  \medskip
-  \textbf{Examples.}\
-  Covariance matrices and $A^{\mathsf T}A$ are PSD, so their eigenvalues satisfy $\lambda_i\ge 0$.\
-  \textbf{Positive definite:} $\mathbf{v}^{\mathsf T}A\mathbf{v}>0$ for all $\mathbf{v}\neq\mathbf{0}$ $\Rightarrow$ $\lambda_i>0$.
-\end{frame}
-
-\section{Eigenvectors --- RREF recipe}
+\section{Eigenvectors --- RREF recipe (3.7)}
 
 \begin{frame}{A.6 Equivalent linear systems}
   \hypertarget{sec:rref-eigenvectors}{}
@@ -2327,7 +2425,7 @@
   {\scriptsize Check: $M\mathbf{b}_1=\mathbf{0}$, $M\mathbf{b}_2=\mathbf{0}$.}
 \end{frame}
 
-\section{Eigenvalues --- not real}
+\section{When eigenvalues are not real (3.7)}
 
 \begin{frame}{A.7 When eigenvalues are not real}
   \hypertarget{sec:complex-eigenvalues}{}
@@ -2353,7 +2451,38 @@
   For \textbf{real} $A$, non-real eigenvalues come in \textbf{conjugate pairs} $\lambda,\bar\lambda$.
 
   \medskip
-  {\scriptsize Existence over $\mathbb{C}$: \AppendixLink{sec:eigenvalue-exists} (\InterestOnly). When a real eigenbasis fails, see A.8 for QR and SVD (brief).}
+  {\scriptsize Existence over $\mathbb{C}$: \AppendixLink{sec:eigenvalue-exists} (\InterestOnly). When a real eigenbasis fails, see A.9--A.11 for QR and SVD (\InterestOnly).}
+\end{frame}
+
+\section{QR and SVD --- brief (3.7)}
+
+\begin{frame}{A.8 Orthogonal and orthonormal matrices}
+  \hypertarget{sec:orthonormal-matrices}{}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Orthonormal columns.}\
+  A square matrix $Q\in\mathbb{R}^{n\times n}$ is \textbf{orthogonal} if
+  \[
+    Q^{\mathsf T}Q=I
+    \qquad\text{(equivalently $QQ^{\mathsf T}=I$).}
+  \]
+  Column $i$ is $\mathbf{q}_i$; then $\mathbf{q}_i^{\mathsf T}\mathbf{q}_j=\delta_{ij}$ (orthonormal).
+
+  \medskip
+  \textbf{Geometric meaning.}\
+  $Q$ is a \textbf{rigid motion} of $\mathbb{R}^n$ (rotation and/or reflection):
+  \[
+    \|Q\mathbf{x}\|=\|\mathbf{x}\|,
+    \qquad
+    (Q\mathbf{x})^{\mathsf T}(Q\mathbf{y})=\mathbf{x}^{\mathsf T}\mathbf{y}.
+  \]
+  Lengths and angles are preserved; $Q^{-1}=Q^{\mathsf T}$.
+
+  \medskip
+  \textbf{Terminology.}\
+  ``Orthonormal matrix'' usually means the same as orthogonal (unit-length orthonormal columns).
 \end{frame}
 
 \begin{frame}{A.8 QR and SVD (brief)}
@@ -2376,7 +2505,7 @@
   Existence: \AppendixLink{sec:qr-exists}, \AppendixLink{sec:svd-exists} (\InterestOnly).}
 \end{frame}
 
-\section{Existence results}
+\section{Existence results (3.7)}
 
 \begin{frame}{A.9 Existence of eigenvalues and eigenvectors (over $\mathbb{C}$)}
   \hypertarget{sec:eigenvalue-exists}{}
@@ -2537,7 +2666,7 @@
 
   \medskip
   {\scriptsize \textbf{Remark.}\
-  $\lambda_i$ is real (\AppendixLink{sec:symmetric-real-eigenvalues}) and $\lambda_i\ge 0$ (\AppendixLink{sec:psd-eigenvalues}) because $A^{\mathsf T}A$ is symmetric PSD.\
+  $\lambda_i$ is real (A.5, \AppendixLink{sec:symmetric-real-eigenvalues}) and $\lambda_i\ge 0$ (Section~3.8) because $A^{\mathsf T}A$ is symmetric PSD.\
   So $\sigma_i=\sqrt{\lambda_i}$ is real and $\ge 0$; it is \textbf{not} an eigenvalue of $A$.}
 \end{frame}
 
