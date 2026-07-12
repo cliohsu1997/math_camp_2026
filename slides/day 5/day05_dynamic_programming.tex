@@ -1,0 +1,380 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+\usetheme{metropolis}
+\usecolortheme{default}
+\metroset{numbering=fraction, progressbar=frametitle, sectionpage=none}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{frametitle}{bg=mDarkTeal, fg=white}
+\setbeamercolor{progress bar}{fg=mDarkTeal, bg=mDarkTeal!20}
+\definecolor{mDarkTeal}{HTML}{23373B}
+\definecolor{mAccent}{HTML}{EB811B}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+
+\title{Math Bootcamp}
+\subtitle{Day 5 --- Dynamic Programming (Basics)}
+\author{Math Camp 2026}
+\date{}
+
+\newcommand{\QFrame}[1]{\begin{frame}{#1 \quad {\small\textcolor{mAccent}{Together}}}}
+\newcommand{\THFrame}[1]{\begin{frame}{#1 \quad {\small\textcolor{mAccent}{Take home}}}}
+\newcommand{\InterestOnly}{\textcolor{mAccent}{\textbf{for interest only}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Day 5 roadmap}
+  \small
+  \begin{enumerate}
+    \item \textbf{5.1} Sequential decisions and the DP idea
+    \item \textbf{5.2} State, control, and law of motion
+    \item \textbf{5.3} Two-period consumption--savings model
+    \item \textbf{5.4} Backward induction
+    \item \textbf{5.5} Bellman equation and policy function
+    \item \textbf{5.6} Euler equation and link to standard optimization
+  \end{enumerate}
+
+  \medskip
+  \footnotesize
+  \textbf{Focus today:} one worked \textbf{two-period} example (finite horizon).
+\end{frame}
+
+%==============================================================================
+\section{5.1 --- Sequential Decisions}
+%==============================================================================
+
+\begin{frame}{5.1 Why dynamic programming?}
+  \small
+  Many economic problems are \textbf{sequential}:
+  \begin{itemize}
+    \item You choose something \textbf{today}.
+    \item It changes what you \textbf{can} choose tomorrow.
+    \item Today's choice trades off \textbf{now} vs.\ \textbf{later}.
+  \end{itemize}
+
+  \medskip
+  \textbf{Examples.}\
+  Consumption vs.\ savings; hiring vs.\ waiting; extracting a resource vs.\ leaving it in the ground.
+
+  \medskip
+  \textbf{Dynamic programming (DP).}\
+  Break a multi-period problem into \textbf{smaller subproblems}, linked by a \textbf{value function}.
+\end{frame}
+
+\begin{frame}{5.1 Finite horizon and the Markov idea}
+  \small
+  \textbf{Finite horizon.}\
+  Time $t=1,2,\ldots,T$ (today: $T=2$).\
+  After period $T$, the problem ends (\textbf{terminal condition}).
+
+  \medskip
+  \textbf{Markov structure (informal).}\
+  For decision-making, \textbf{only the current state matters} --- not the full history, once the state is given.\
+  Example: tomorrow's opportunities depend on \textbf{assets on hand}, not on every past consumption choice separately.
+
+  \medskip
+  \textbf{Key objects.}\
+  \textbf{State} (where you are), \textbf{control} (what you choose), \textbf{transition} (how state moves).
+\end{frame}
+
+%==============================================================================
+\section{5.2 --- State, Control, Transition}
+%==============================================================================
+
+\begin{frame}{5.2 State versus control}
+  \small
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    \textbf{Object} & \textbf{Meaning} \\
+    \midrule
+    \textbf{State} $x_t$ & Variables summarizing the situation at the \textbf{start} of period $t$ \\
+    \textbf{Control} $u_t$ & Variables chosen \textbf{in} period $t$ \\
+    \textbf{Transition} & Law of motion $x_{t+1}=g(x_t,u_t)$ \\
+    \bottomrule
+  \end{tabular}
+
+  \medskip
+  \textbf{Feasibility.}\
+  Controls must satisfy constraints each period (budget, nonnegativity, etc.).
+
+  \medskip
+  \textbf{Payoff.}\
+  Period-$t$ utility $u(c_t)$ (or profit, welfare, \ldots).\
+  Future payoffs are discounted by $\beta\in(0,1]$.
+\end{frame}
+
+%==============================================================================
+\section{5.3 --- Two-Period Model}
+%==============================================================================
+
+\begin{frame}{5.3 Two-period consumption--savings}
+  \small
+  \textbf{Story.}\
+  A household lives for \textbf{two periods}, $t=1,2$.\
+  Income $y>0$ in period~1 only; no labor income in period~2.\
+  It chooses consumption $c_1,c_2\ge 0$ and saves
+  \[
+    s=y-c_1 \qquad (\text{savings in period 1}).
+  \]
+  Savings earn gross return $1+r$ ($r>-1$).\
+  Period-2 consumption is
+  \[
+    c_2=(1+r)s=(1+r)(y-c_1).
+  \]
+
+  \medskip
+  \textbf{Preferences.}\
+  \[
+    \max_{c_1,c_2}\ \log(c_1)+\beta\log(c_2),
+    \qquad \beta\in(0,1).
+  \]
+  Log utility keeps algebra clean; same logic works for $u(\cdot)$ more generally.
+\end{frame}
+
+\begin{frame}{5.3 State and control in this model}
+  \small
+  \textbf{State at start of period $t$:} \textbf{assets} $b_t$ (wealth before choosing $c_t$).
+
+  \medskip
+  \begin{itemize}
+    \item \textbf{Period 1:} $b_1=0$.\
+      Income $y$ arrives; choose $c_1$.\
+      Assets carried to period~2:
+      \[
+        b_2=(1+r)(b_1+y-c_1)=(1+r)(y-c_1).
+      \]
+    \item \textbf{Period 2:} state is $b_2$.\
+      Choose $c_2$ subject to $0\le c_2\le b_2$ (consume all assets by the end).
+  \end{itemize}
+
+  \medskip
+  \textbf{Controls:} $u_1=c_1$, $u_2=c_2$.\
+  \textbf{Transition:} $b_{t+1}=(1+r)(b_t+y_t-c_t)$ with $y_2=0$.
+\end{frame}
+
+%==============================================================================
+\section{5.4 --- Backward Induction}
+%==============================================================================
+
+\begin{frame}{5.4 Backward induction --- idea}
+  \small
+  \textbf{Strategy.}\
+  In a \textbf{finite-horizon} problem, solve from the \textbf{last period backward}:
+  \begin{enumerate}
+    \item Period~2: optimize taking the state $b_2$ as \textbf{given}.
+    \item Period~1: optimize knowing \textbf{optimal future behavior} is already solved.
+  \end{enumerate}
+
+  \medskip
+  \textbf{Why backward?}\
+  In period~2 there is \textbf{no future left} --- only current utility matters.\
+  Period~1 must account for how today's savings affect tomorrow's feasible consumption.
+\end{frame}
+
+\begin{frame}{5.4 Step 1 --- last period ($t=2$)}
+  \small
+  \textbf{Value function in period 2} (state $b_2$):
+  \[
+    V_2(b_2)=\max_{0\le c_2\le b_2}\ \log(c_2).
+  \]
+
+  \medskip
+  \textbf{Solution.}\
+  Strictly increasing $\log(\cdot)$ $\Rightarrow$ consume everything:
+  \[
+    c_2^*(b_2)=b_2,
+    \qquad
+    V_2(b_2)=\log(b_2).
+  \]
+
+  \medskip
+  \textbf{Policy function} $c_2^*(b_2)$: maps state $\to$ optimal control.\
+  Here: ``use all assets.''
+\end{frame}
+
+\begin{frame}{5.4 Step 2 --- period $t=1$}
+  \small
+  \textbf{State:} $b_1=0$, income $y$.\
+  Choosing $c_1$ sets $b_2=(1+r)(y-c_1)$.
+
+  \medskip
+  \textbf{Problem:}
+  \[
+    V_1(0)=\max_{0<c_1<y}\ \Bigl\{\log(c_1)+\beta V_2\bigl((1+r)(y-c_1)\bigr)\Bigr\}.
+  \]
+  Substitute $V_2(b_2)=\log(b_2)$:
+  \[
+    V_1(0)=\max_{0<c_1<y}\ \Bigl\{\log(c_1)+\beta\log\bigl((1+r)(y-c_1)\bigr)\Bigr\}.
+  \]
+
+  \medskip
+  \textbf{FOC} ($u=\log$):
+  \[
+    \frac{1}{c_1}=\frac{\beta}{y-c_1}
+    \quad\Longrightarrow\quad
+    c_1^*=\frac{y}{1+\beta}.
+  \]
+  Then $c_2^*=(1+r)(y-c_1^*)=\dfrac{\beta(1+r)y}{1+\beta}$.
+\end{frame}
+
+%==============================================================================
+\section{5.5 --- Bellman Equation}
+%==============================================================================
+
+\begin{frame}{5.5 Bellman equation --- general form}
+  \small
+  \textbf{Principle of optimality.}\
+  Optimal plan $\Rightarrow$ remaining decisions are optimal from whatever state remains.
+
+  \medskip
+  \textbf{Recursive value function} (finite $T$):
+  \[
+    V_T(x_T)=\max_{u_T\in\mathcal{F}_T(x_T)}\ u(x_T,u_T)
+  \]
+  \[
+    V_t(x_t)=\max_{u_t\in\mathcal{F}_t(x_t)}\ \Bigl\{u(x_t,u_t)+\beta V_{t+1}\bigl(g(x_t,u_t)\bigr)\Bigr\},
+    \quad t=1,\ldots,T-1.
+  \]
+
+  \medskip
+  \textbf{Read the recursion.}\
+  Current payoff $+$ discounted \textbf{continuation value} $V_{t+1}$ from next state.
+\end{frame}
+
+\begin{frame}{5.5 Bellman equation --- two-period special case}
+  \small
+  With $T=2$, $b_1=0$, and $V_2(b_2)=\log(b_2)$:
+  \[
+    V_1(0)=\max_{c_1}\ \Bigl\{\log(c_1)+\beta V_2\bigl((1+r)(y-c_1)\bigr)\Bigr\}.
+  \]
+
+  \medskip
+  \textbf{Policy functions:}
+  \[
+    c_1^*(0)=\frac{y}{1+\beta},
+    \qquad
+    c_2^*(b_2)=b_2.
+  \]
+
+  \medskip
+  \textbf{Value at start:}
+  \[
+    V_1(0)=\log\!\Bigl(\frac{y}{1+\beta}\Bigr)+\beta\log\!\Bigl(\frac{\beta(1+r)y}{1+\beta}\Bigr).
+  \]
+\end{frame}
+
+%==============================================================================
+\section{5.6 --- Euler Equation and Comparison}
+%==============================================================================
+
+\begin{frame}{5.6 Euler equation (two periods)}
+  \small
+  \textbf{Same optimum, different language.}\
+  The FOC from backward induction is the \textbf{two-period Euler equation}:
+  \[
+    u'(c_1^*)=\beta(1+r)\,u'(c_2^*).
+  \]
+  For $\log$ utility, $u'(c)=1/c$, so
+  \[
+    \frac{1}{c_1^*}=\beta(1+r)\,\frac{1}{c_2^*}
+    \quad\Longleftrightarrow\quad
+    c_2^*=\beta(1+r)\,c_1^*.
+  \]
+
+  \medskip
+  \textbf{Meaning.}\
+  Marginal utility today equals discounted marginal utility tomorrow, times the return to saving.\
+  If $r=0$: $c_2^*=\beta c_1^*$ (patient households consume more later only if $\beta<1$ is balanced by returns).
+\end{frame}
+
+\begin{frame}{5.6 Same answer from the lifetime budget constraint}
+  \small
+  \textbf{Combine constraints} ($b_1=0$):
+  \[
+    c_1+\frac{c_2}{1+r}=y.
+  \]
+
+  \medskip
+  \textbf{Lagrangian:}
+  \[
+    \mathcal{L}=\log(c_1)+\beta\log(c_2)+\lambda\Bigl(y-c_1-\frac{c_2}{1+r}\Bigr).
+  \]
+  FOC give $1/c_1=\lambda$ and $\beta/c_2=\lambda/(1+r)$, hence $c_2^*=\beta(1+r)c_1^*$.\
+  Substitute into the budget:
+  \[
+    c_1^*\Bigl(1+\beta\Bigr)=y
+    \quad\Longrightarrow\quad
+    c_1^*=\frac{y}{1+\beta}.
+  \]
+
+  \medskip
+  \textbf{Takeaway.}\
+  DP (backward) and static intertemporal optimization (one budget) are \textbf{two views of the same problem}.
+\end{frame}
+
+\begin{frame}{5.6 Beyond two periods \InterestOnly}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{More periods.}\
+  Same backward logic: solve $V_T$, then $V_{T-1}$, \ldots, down to $V_1$.
+
+  \medskip
+  \textbf{Infinite horizon.}\
+  Value function iteration: start with a guess $V^0$, apply the Bellman operator until convergence.\
+  (Algorithm details: fall macro/micro courses.)
+
+  \medskip
+  \textbf{State may grow.}\
+  With capital $k_{t+1}=(1-\delta)k_t+i_t$, the state is $k_t$; controls are $c_t,i_t$.\
+  Same template: $V_t(k_t)=\max\{u(c_t)+\beta V_{t+1}(k_{t+1})\}$.
+\end{frame}
+
+\QFrame{5.6 Exercise: Two-period savings with CRRA}
+  \small
+  \textbf{Exercise.}\
+  Same setup as above ($b_1=0$, income $y$ in period~1, return $1+r$), but
+  $u(c)=\dfrac{c^{1-\sigma}}{1-\sigma}$ with $\sigma>0$, $\sigma\neq 1$.\
+  Using backward induction, show
+  \[
+    c_1^*=\frac{y}{1+\beta^{1/\sigma}(1+r)^{(1-\sigma)/\sigma}},
+    \qquad
+    c_2^*=\beta^{1/\sigma}(1+r)^{1/\sigma}\,c_1^*.
+  \]
+
+  \textbf{Solution (sketch).}\
+  $V_2(b_2)=\max_{c_2\le b_2} u(c_2)=u(b_2)$, so $c_2^*(b_2)=b_2$.\
+  Period~1 FOC:
+  \[
+    c_1^{-\sigma}=\beta(1+r)^{1-\sigma}(y-c_1)^{-\sigma}
+    \quad\Longrightarrow\quad
+    \frac{c_2^*}{c_1^*}=\beta^{1/\sigma}(1+r)^{1/\sigma}.
+  \]
+  Plug into $c_1+c_2/(1+r)=y$ to get $c_1^*$.\
+  Check: $\sigma=1$ (log) gives $c_1^*=y/(1+\beta)$.
+\end{frame}
+
+\THFrame{5.6 Exercise: Income in both periods}
+  \small
+  \textbf{Exercise.}\
+  Income $y_1,y_2>0$ in periods 1 and 2; gross return $1+r$; utility $\log(c_1)+\beta\log(c_2)$.\
+  State $b_1=0$; transition $b_2=(1+r)(y_1-c_1)$; period-2 budget $c_2\le b_2+y_2$.\
+  Derive $V_2(b_2)$, the Bellman equation for $V_1(0)$, and the optimal $c_1^*,c_2^*$.
+
+  \textbf{Solution.}\
+  $V_2(b_2)=\max_{0<c_2\le b_2+y_2}\log(c_2)$ $\Rightarrow$ $c_2^*(b_2)=b_2+y_2$, $V_2(b_2)=\log(b_2+y_2)$.\
+  \[
+    V_1(0)=\max_{c_1}\ \Bigl\{\log(c_1)+\beta\log\bigl(y_2+(1+r)(y_1-c_1)\bigr)\Bigr\}.
+  \]
+  FOC: $1/c_1=\beta(1+r)/(y_2+(1+r)(y_1-c_1))$.\
+  Lifetime budget: $c_1+c_2/(1+r)=y_1+y_2/(1+r)$ gives the same Euler equation
+  $c_2^*=\beta(1+r)c_1^*$.
+\end{frame}
+
+\end{document}
