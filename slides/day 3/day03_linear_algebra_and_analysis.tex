@@ -2096,19 +2096,48 @@
   If $A=A^{\mathsf T}$ (real symmetric), every eigenvalue $\lambda$ is \textbf{real}.
 
   \medskip
-  \textbf{Proof.}\
-  Let $A\mathbf{v}=\lambda\mathbf{v}$ with $\mathbf{v}\neq\mathbf{0}$ (allow complex $\mathbf{v}$).\
-  Multiply on the left by $\mathbf{v}^{\mathsf H}$ (conjugate transpose):
+  \textbf{Proof (setup).}\
+  Let $A\mathbf{v}=\lambda\mathbf{v}$ with $\mathbf{v}\neq\mathbf{0}$.\
+  We allow \textbf{complex} $\mathbf{v}$: over $\mathbb{C}$ eigenvalues always exist; we show $\lambda\in\mathbb{R}$.
+
+  \medskip
+  $\mathbf{v}^{\mathsf H}$ = \textbf{conjugate transpose} of $\mathbf{v}$ (transpose, then conjugate each entry).
+
+  \medskip
+  Multiply $A\mathbf{v}=\lambda\mathbf{v}$ on the left by $\mathbf{v}^{\mathsf H}$:
   \[
     \mathbf{v}^{\mathsf H}A\mathbf{v}=\lambda\,\mathbf{v}^{\mathsf H}\mathbf{v}.
   \]
-  Since $A$ is real and symmetric, $(\mathbf{v}^{\mathsf H}A\mathbf{v})^*=\mathbf{v}^{\mathsf H}A\mathbf{v}$, so the left side is \textbf{real}.\
-  Also $\mathbf{v}^{\mathsf H}\mathbf{v}=\|\mathbf{v}\|^2>0$.\
-  Hence $\lambda=(\mathbf{v}^{\mathsf H}A\mathbf{v})/(\mathbf{v}^{\mathsf H}\mathbf{v})\in\mathbb{R}$.
+  Here $\mathbf{v}^{\mathsf H}\mathbf{v}=\|\mathbf{v}\|^2>0$ (a positive real number).
+\end{frame}
+
+\begin{frame}{A.5 Symmetric matrices --- eigenvalues are real (cont.)}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Left side is real.}\
+  Conjugate-transpose rule: $(\mathbf{v}^{\mathsf H}A\mathbf{v})^*=\mathbf{v}^{\mathsf H}A^{\mathsf H}\mathbf{v}$.\
+  $A$ is real and symmetric, so $A^{\mathsf H}=A^{\mathsf T}=A$:
+  \[
+    (\mathbf{v}^{\mathsf H}A\mathbf{v})^*=\mathbf{v}^{\mathsf H}A\mathbf{v}
+    \quad\Longrightarrow\quad
+    \mathbf{v}^{\mathsf H}A\mathbf{v}\in\mathbb{R}.
+  \]
+  (A scalar equals its own conjugate $\Leftrightarrow$ it is real.)
+
+  \medskip
+  \textbf{Finish.}\
+  From $\mathbf{v}^{\mathsf H}A\mathbf{v}=\lambda\,\mathbf{v}^{\mathsf H}\mathbf{v}$, divide by $\mathbf{v}^{\mathsf H}\mathbf{v}>0$:
+  \[
+    \lambda=\frac{\mathbf{v}^{\mathsf H}A\mathbf{v}}{\mathbf{v}^{\mathsf H}\mathbf{v}}
+    \in\mathbb{R}.
+  \]
+  Real numerator, positive real denominator $\Rightarrow$ $\lambda\in\mathbb{R}$.
 
   \medskip
   {\scriptsize \textbf{Not all symmetric eigenvalues are positive} --- e.g.\ $A=\mathrm{diag}(1,-1)$.\
-  Positive eigenvalues need extra assumptions (below).}
+  Positive eigenvalues need extra assumptions (next slide).}
 \end{frame}
 
 \begin{frame}{A.5 Positive semidefinite --- eigenvalues $\ge 0$}
