@@ -298,71 +298,130 @@
 \section{Day 4 --- Optimization}
 %==============================================================================
 
-\textit{Approximate duration: 3 hours.}
+\textit{Approximate duration: 3 hours.
+Convex \textbf{sets} (feasible regions) are covered on Day~3 --- callback only.
+Focus: FOC/SOC, concave/quasiconcave \textbf{functions}, Lagrange, envelope, geometric Farkas $\Rightarrow$ KKT.}
 
-\subsection{Convex Sets and Convex Functions}
+\subsection{4.1 --- Unconstrained Optimization (1D, then multivariable)}
 \begin{itemize}[leftmargin=*]
-    \item Definition and geometry of convex sets.
-    \item Convex and concave functions.
-    \item Upper and lower contour sets (level sets).
-    \item Why convexity or concavity guarantees global optima from first-order conditions.
+    \item \textbf{Single variable:} local versus global optima; interior FOC $f'(x^*)=0$.
+    \item \textbf{SOC via concavity:} concave $\Rightarrow$ first-order Taylor above $f$; at $f'(x^*)=0$, local max.
+      Convex dual for min. Figure: tangent above/below graph.
+    \item \textbf{$f''\le 0\Leftrightarrow$ concave} ($C^2$): Taylor proof for $\Rightarrow$;
+      symmetric second-difference limit for $\Leftarrow$.
+    \item Remark: $f(x)=-x^4$ strictly concave but $f''(0)=0$; $f''<0$ sufficient, not necessary, for strict concavity.
+    \item \textbf{Multivariable:} $\nabla f(\mathbf{x}^*)=\mathbf{0}$; SOC stated via concavity / $H_f$ ND;
+      proof in appendix.
+    \item \textbf{Together:} monopoly $\pi(q)=pq-q^2$. \textbf{Take home:} two-input convex cost $C=q_1^2+q_2^2$.
 \end{itemize}
 
-\subsection{Quasiconcavity and Quasiconvexity}
+\subsection{4.2 --- Concavity, Quasiconcavity, and Global Optima}
 \begin{itemize}[leftmargin=*]
-    \item Definition of quasiconcave and quasiconvex functions via contour sets.
-    \item Relationship between concavity/convexity and quasiconcavity/quasiconvexity.
-    \item Why quasiconcavity is the standard regularity condition in utility maximization.
-    \item When first-order conditions are sufficient for a global optimum under quasiconcavity.
-    \item Strict quasiconcavity and uniqueness of optima (conceptual).
-    \item Invariance under monotone transformations.
-    \item Distinction between quasiconcavity of the objective and convexity of the feasible set in constrained problems.
+    \item \textbf{Convex/concave functions} (not convex sets --- see Day~3):
+      secant below graph (concave) / above graph (convex); upper and lower contour sets.
+    \item \textbf{Quasiconcave} (maximization): along $\mathbf{z}=\lambda\mathbf{x}+(1-\lambda)\mathbf{y}$,
+      $f(\mathbf{z})\ge\min\{f(\mathbf{x}),f(\mathbf{y})\}$; equivalently upper contour sets are convex.
+    \item \textbf{Prove equivalence} quasiconcavity $\Leftrightarrow$ convex upper contour sets (two-direction proof).
+    \item Concave $\Rightarrow$ quasiconcave; Cobb--Douglas utility is quasiconcave (stated).
+    \item \textbf{Global sufficiency:} quasiconcave $f$ on convex feasible set $\mathcal{B}$
+      (Day~3 callback) $\Rightarrow$ interior FOC/Lagrange solution is a global maximum.
+    \item \textbf{Together:} Cobb--Douglas quasiconcavity. \textbf{Take home:} $u=x_1x_2$.
 \end{itemize}
 
-\subsection{Unconstrained Optimization}
+\subsection{4.3 --- Equality Constraints and Lagrange Multipliers}
 \begin{itemize}[leftmargin=*]
-    \item Local versus global optima.
-    \item First-order conditions: necessary conditions for interior optima.
-    \item Second-order conditions: curvature and nature of critical points.
-    \item Concavity and convexity of objective functions and uniqueness of optima.
-    \item Economic optimization problems as a class (profit, utility, cost minimization).
+    \item Problem: $\max f(x,y)$ subject to $h(x,y)=0$; constraint defines a \textbf{curve} in the plane.
+    \item \textbf{3D picture:} surface $z=f(x,y)$; constraint $h(x,y)=0$ is a curve on the domain;
+      optimum on the curve.
+    \item \textbf{Tangent argument:} any local direction $\mathbf{d}$ along the curve satisfies
+      $\nabla h\cdot\mathbf{d}=0$; if $\nabla f\cdot\mathbf{d}\neq 0$, then $f$ increases along the curve
+      locally $\Rightarrow$ not optimal. Hence $\nabla f\parallel\nabla h$.
+    \item Lagrangian (equality): $\mathcal{L}=f+\mu h$; FOC $\nabla f+\mu\nabla h=0$, $h=0$.
+    \item $\mu$ \textbf{unrestricted} (either sign): equality allows both tangent directions.
+    \item Shadow price interpretation; Cobb--Douglas budget (callback Day~1).
+    \item \textbf{Together:} budget max with $\mathcal{L}=u+\mu(w-p\cdot\mathbf{x})$.
+      \textbf{Take home:} cost min with production equality.
 \end{itemize}
 
-\subsection{Constrained Optimization: Equality Constraints}
+\subsection{4.4 --- Envelope Theorem}
 \begin{itemize}[leftmargin=*]
-    \item Feasible set defined by equality constraints.
-    \item Lagrange multiplier method: setup and interpretation.
-    \item Lagrange multipliers as shadow prices or marginal values of constraints.
-    \item Necessary conditions for constrained optima (Lagrange theorem, stated).
-    \item Utility maximization subject to budget constraint (as problem type).
+    \item \textbf{Placement:} after Lagrange setup, before inequalities/KKT.
+    \item Value function $V(\theta)=\max_{\mathbf{x}} f(\mathbf{x};\theta)$ (subject to constraints).
+    \item \textbf{Unconstrained:}
+      $\dfrac{dV}{d\theta}=\dfrac{\partial f}{\partial\theta}\Big|_{\mathbf{x}^*(\theta)}$
+      --- no need to differentiate $\mathbf{x}^*(\theta)$.
+    \item \textbf{Constrained:}
+      $\dfrac{dV}{d\theta}=\dfrac{\partial \mathcal{L}}{\partial\theta}\Big|_{(\mathbf{x}^*,\boldsymbol{\mu}^*,\boldsymbol{\lambda}^*)}$.
+    \item Economic examples: profit vs.\ price shifter; indirect utility vs.\ income (one each).
+    \item Contrast with chain rule through $\mathbf{x}^*(\theta)$: envelope drops terms that vanish at the optimum.
+    \item \textbf{Together:} $\pi^*(p)$ envelope gives $d\pi^*/dp=q^*$.
+      \textbf{Take home:} $V(p,w)$, $\partial V/\partial w=\lambda$.
 \end{itemize}
 
-\subsection{Constrained Optimization: Inequality Constraints}
+\subsection{4.5 --- Inequalities, Geometric Farkas, and KKT}
 \begin{itemize}[leftmargin=*]
-    \item Feasible set with inequalities.
-    \item Binding versus non-binding constraints.
-    \item Complementary slackness (conceptual).
-    \item Karush--Kuhn--Tucker (KKT) conditions (statement and interpretation).
-    \item Nonnegativity constraints and corner solutions.
+    \item Inequalities $g_j(\mathbf{x})\le 0$; binding versus slack; complementary slackness
+      $\lambda_j g_j(\mathbf{x}^*)=0$.
+    \item \textbf{Feasible directions} at a boundary point form a \textbf{convex cone}:
+      $\nabla g_j\cdot\mathbf{d}\le 0$ for active constraints.
+    \item No improving feasible direction: for a max, no $\mathbf{d}$ with
+      $\nabla f\cdot\mathbf{d}>0$ and $\nabla g_j\cdot\mathbf{d}\le 0$.
+    \item \textbf{Geometric Farkas (picture):} in the $(x_1,x_2)$ plane, active $\nabla g_j$ span cone $K$;
+      at optimum $-\nabla f\in K$. Figure: \texttt{farkas\_cone\_2d.png} (Day~4 slides).
+    \item \textbf{KKT} (stated): stationarity, primal/dual feasibility, complementary slackness.
+    \item \textbf{Sign mnemonic} --- Convention A only on slides: $\mathcal{L}=f+\sum_j\lambda_j g_j+\sum_k\mu_k h_k$
+      (all plus); see table below.
+    \item Nonnegativity $x_i\ge 0$ and corner solutions (conceptual).
+    \item \textbf{Sufficiency (brief):} quasiconcave $f$ + convex $\mathcal{B}$ $\Rightarrow$ KKT point is global;
+      constraint qualification (e.g.\ LICQ) for necessity (name only).
+    \item \textbf{Together:} budget + inequality KKT; min cost with $\ge$ constraint.
+      \textbf{Take home:} corner $x_1=0$.
+    \item \textbf{Appendix (for interest):} algebraic Farkas proof; link to \texttt{duality\_notes}.
 \end{itemize}
 
-\subsection{Envelope Theorem}
+\subsection{KKT sign mnemonic (reference)}
+
+\noindent\textbf{Convention A (fixed form).}\ Use $\mathcal{L}=f+\sum_j\lambda_j g_j$ with the constraint
+written exactly as in the problem ($g\le 0$ or $g\ge 0$):
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Problem} & \textbf{Constraint} & $\boldsymbol{\lambda}$ \\
+\midrule
+$\max f$ & $g\le 0$ & $\lambda\ge 0$ \\
+$\max f$ & $g\ge 0$ & $\boldsymbol{\lambda\le 0}$ \\
+$\min f$ & $g\le 0$ & $\lambda\ge 0$ \\
+$\min f$ & $g\ge 0$ & $\boldsymbol{\lambda\le 0}$ \\
+\midrule
+\multicolumn{3}{l}{Equality $h=0$: $\mathcal{L}=f+\mu h$; $\mu$ \textbf{unrestricted}.} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Short rule (Convention A):}\ $\le$ on the constraint $\Rightarrow$ $\lambda\ge 0$;
+$\ge$ on the constraint $\Rightarrow$ $\lambda\le 0$.
+
+\medskip
+\noindent\textbf{Memory tricks (sign of objective $\times$ sign of constraint inequality):}
+\begin{itemize}[nosep,leftmargin=*]
+  \item $\max f$ $(+)$ with $g\le 0$ $(-)$:\ ``opposite'' $\Rightarrow$ $\lambda\ge 0$.
+  \item $\min f$ $(-)$ with $g\le 0$ $(-)$:\ ``$- \times -$'' $\Rightarrow$ $\lambda\ge 0$.
+  \item $\max f$ $(+)$ with $g\ge 0$ $(+)$:\ ``same'' $\Rightarrow$ $\boldsymbol{\lambda\le 0}$.
+  \item $\min f$ $(-)$ with $g\ge 0$ $(+)$:\ ``opposite'' $\Rightarrow$ $\boldsymbol{\lambda\le 0}$.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Convention B (footnote only --- not used on Day~4 slides).}\ An alternative is to flip
+the constraint into $\mathcal{L}$ so $\lambda_j\ge 0$ always; see fall-course notes if needed.
+
+\subsection{Appendix (Day 4 Slides)}
 \begin{itemize}[leftmargin=*]
-    \item \textbf{Placement:} after unconstrained and constrained optimization (FOCs, Lagrange, KKT).
-    \item Value function of a parameterized problem:
-      $V(\theta)=\max_{x} f(x;\theta)$ subject to constraints.
-    \item \textbf{Unconstrained envelope theorem:}
-      $\frac{dV}{d\theta}=\frac{\partial f}{\partial\theta}\Big|_{x=x^*(\theta)}$
-      (no need to differentiate the optimizer $x^*(\theta)$ directly).
-    \item \textbf{Constrained envelope theorem:}
-      $\frac{dV}{d\theta}=\frac{\partial \mathcal{L}}{\partial\theta}\Big|_{(x^*,\lambda^*)}$
-      with binding multipliers capturing constraint movements.
-    \item Interpretation: shadow prices and comparative statics from the optimized value.
-    \item Economic examples: profit as a function of a cost shifter or output price;
-      indirect utility as a function of income and prices;
-      expenditure/cost functions and Shephard-type logic (conceptual).
-    \item Contrast with naive chain rule through $x^*(\theta)$: envelope theorem drops
-      terms that vanish at the optimum.
+    \item Multivariate SOC proof (Hessian ND).
+    \item Algebraic Farkas lemma and KKT derivation.
+    \item Bordered Hessian / SOC for constrained problems (for interest only).
+    \item Take-home solutions (§4.1--4.5).
 \end{itemize}
 
 %==============================================================================
@@ -441,7 +500,7 @@
 1 & 1.1--1.4: notation; logic; sets; functions & 1.5--1.6: sup/inf; algebra; Cobb--Douglas & 1.7--1.9: derivatives; Euler; multivariate; limits \\
 2 & 2.1 IFT & 2.2 EVT/MVT; 2.3 integration & 2.4--2.5; 2.6 uniform conv. \\
 3 & Linear algebra (must) & Convergence practice (if time) & Separation; fixed points (if time) \\
-4 & Convexity; quasiconcavity & Unconstrained optimization & Lagrange; KKT; envelope theorem \\
+4 & 4.1 FOC/SOC; 4.2 quasiconcavity & 4.3 Lagrange; 4.4 envelope & 4.5 Farkas geometry; KKT \\
 5 & Framework; state and control & Bellman equation & Backward induction; VFI idea \\
 \bottomrule
 \end{tabular}

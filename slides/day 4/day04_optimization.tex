@@ -306,12 +306,43 @@
     f(\mathbf{y}) \leq f(\mathbf{x}) + \nabla f(\mathbf{x})^\top (\mathbf{y} - \mathbf{x}).
   \]
   
-  \textbf{(3) Hessian ($C^2$).} $H_f(\mathbf{x})$ is \textbf{negative semidefinite} for all $\mathbf{x}$.
+  \textbf{(3) Hessian ($C^2$).} $H_f(\mathbf{x})$ is \textbf{negative semidefinite} for all $\mathbf{x}$ (defined on next slide).
   
   \textbf{Theorem.} For $f \in C^2$: $(1) \Leftrightarrow (2) \Leftrightarrow (3)$.
   
-  \hfill\hyperlink{appendix:concave_12}{\scriptsize $(1)\Leftrightarrow(2)$: A.2}\quad
-  \hyperlink{appendix:multivariate_concave}{\scriptsize $(2)\Leftrightarrow(3)$, NSD: A.4 \InterestOnly}
+  \hfill\hyperlink{appendix:concave_12}{\scriptsize $(1)\Leftrightarrow(2)$: A.2 \InterestOnly}\quad
+  \hyperlink{appendix:multivariate_concave}{\scriptsize $(3)\Rightarrow(2)$, $(1)\Rightarrow(3)$: A.4 \InterestOnly}
+\end{frame}
+
+\begin{frame}{4.2 Negative semidefinite}
+  \small
+  For symmetric $H \in \mathbb{R}^{n \times n}$, the following are equivalent:
+  
+  \begin{itemize}
+    \item $H$ is \textbf{negative semidefinite (NSD):} $\mathbf{v}^\top H \mathbf{v} \leq 0$ for all $\mathbf{v} \in \mathbb{R}^n$
+    
+    \item All eigenvalues of $H$ satisfy $\lambda_i \leq 0$
+  \end{itemize}
+  
+  \textbf{Example ($n=2$).} $H = \begin{bmatrix} a & b \\ b & c \end{bmatrix}$ is NSD iff $a \leq 0$, $c \leq 0$, and $ac - b^2 \geq 0$.
+\end{frame}
+
+\begin{frame}{4.2 Concavity and the Hessian}
+  \small
+  \textbf{Theorem.} For $f \in C^2$: tangent characterization \textbf{(2)} $\Leftrightarrow$ Hessian NSD \textbf{(3)} everywhere.
+  
+  Equivalently: $f$ is concave iff $H_f(\mathbf{x})$ is NSD at every $\mathbf{x}$.
+  
+  \textbf{Proof directions.}
+  \begin{itemize}
+    \item \textbf{$(3) \Rightarrow (2)$:} Taylor + NSD $\Rightarrow$ tangent inequality
+    
+    \item \textbf{$(1) \Rightarrow (3)$:} symmetric chord concavity + Taylor $\Rightarrow$ NSD
+    
+    \item Since $(1)\Leftrightarrow(2)$ (A.2), this gives $(2)\Leftrightarrow(3)$
+  \end{itemize}
+  
+  \hfill\hyperlink{appendix:multivariate_concave}{\scriptsize Proofs: Appendix A.4 \InterestOnly}
 \end{frame}
 
 \begin{frame}{4.2 Multivariate concavity: Geometry}
@@ -473,9 +504,9 @@
   \textbf{Cobb--Douglas:} $u(x_1, x_2) = x_1^\alpha x_2^{1-\alpha}$
   
   \begin{itemize}
-    \item Concave if $\alpha + (1-\alpha) \leq 1$ (always, with equality)
+    \item \textbf{Not concave} for $\alpha \in (0,1)$: the Hessian is not NSD everywhere
     
-    \item Quasiconcave for all $\alpha \in (0,1)$
+    \item \textbf{Log-concave} and \textbf{quasiconcave} for all $\alpha \in (0,1)$
   \end{itemize}
   
   \textbf{CES:} $u = (x_1^\rho + x_2^\rho)^{1/\rho}$
@@ -531,61 +562,111 @@
   \small
   \textbf{Exercise.} Show $u(x_1, x_2) = x_1^\alpha x_2^{1-\alpha}$ is quasiconcave on $\mathbb{R}^2_{++}$.
   
-  \textbf{Solution.} Check that upper contour sets are convex:
+  \textbf{Solution.} Definition B: show $S_t = \{\mathbf{x} \in \mathbb{R}^2_{++} : u(\mathbf{x}) \geq t\}$ is convex for every $t$.
   
   \begin{itemize}
-    \item $\{u \geq t\}$ means $x_1^\alpha x_2^{1-\alpha} \geq t$
+    \item If $t \leq 0$: $S_t = \mathbb{R}^2_{++}$, convex
     
-    \item Taking logs: $\alpha \ln x_1 + (1-\alpha) \ln x_2 \geq \ln t$
+    \item If $t > 0$: $S_t = \{\mathbf{x}: g(\mathbf{x}) \geq \ln t\}$ where $g = \ln u = \alpha \ln x_1 + (1-\alpha)\ln x_2$
     
-    \item In $(\ln x_1, \ln x_2)$ coordinates: this is a half-space
+    \item $g$ is concave: $H_g = \mathrm{diag}(-\alpha/x_1^2,\,-(1-\alpha)/x_2^2)$ is negative definite
     
-    \item Half-spaces are convex
+    \item $\{\mathbf{x}: g(\mathbf{x}) \geq \ln t\}$ is an \textbf{upper level set} of $g$; recall: upper level sets of a concave function are convex
     
-    \item The exponential map preserves convexity
+    \item So $S_t$ is convex
   \end{itemize}
   
-  Therefore $S_t$ is convex, so $u$ is quasiconcave.
+  Therefore $u$ is quasiconcave.
 \end{frame}
 
 \QFrame{4.2 Exercise: Cobb--Douglas is not concave}
   \small
   \textbf{Exercise.} Show $u(x_1, x_2) = x_1^\alpha x_2^{1-\alpha}$ is \textbf{not} concave for $\alpha \in (0,1)$.
   
-  \textbf{Solution.}
+  \textbf{Solution.} Concavity requires $H_u(\mathbf{x})$ NSD at every $\mathbf{x} \in \mathbb{R}^2_{++}$.
   
   \begin{itemize}
-    \item The Hessian has mixed eigenvalue signs
+    \item Hessian entries (general $\alpha$):
+    \[
+      H_{11} = \alpha(\alpha-1)x_1^{\alpha-2}x_2^{1-\alpha},\quad
+      H_{22} = -\alpha(1-\alpha)x_1^{\alpha}x_2^{-\alpha-1},\quad
+      H_{12} = \alpha(1-\alpha)x_1^{\alpha-1}x_2^{-\alpha}.
+    \]
     
-    \item Along the ray $x_1 = x_2 = t$: $u = t$, which is linear (not strictly concave)
+    \item Second leading principal minor:
+    \[
+      \Delta_2
+      =
+      H_{11}H_{22} - H_{12}^2
+      =
+      -2\alpha^2(1-\alpha)^2 x_1^{2\alpha-2}x_2^{-2\alpha}
+      < 0.
+    \]
     
-    \item The function is homogeneous of degree 1, so it cannot be strictly concave
+    \item For $2\times 2$ NSD: need $H_{11}\leq 0$, $H_{22}\leq 0$, and $\Delta_2 \geq 0$ (Section 4.2)
+    
+    \item $\Delta_2 < 0$, so $H_u$ is not NSD --- $u$ is not concave
   \end{itemize}
   
-  This shows quasiconcavity is genuinely \textbf{weaker} than concavity.
+  Yet $u$ is quasiconcave (previous exercise), so quasiconcavity is genuinely \textbf{weaker} than concavity.
 \end{frame}
 
 \THFrame{4.2 Exercise: Testing quasiconcavity}
   \small
   \textbf{Exercise.} Is $f(x, y) = xy$ quasiconcave on $\mathbb{R}^2_{++}$?
   
-  \textbf{Strategy.} Use Definition B: show upper contour sets $S_t = \{(x,y) \in \mathbb{R}^2_{++} : xy \geq t\}$ are convex for every $t$.
-  
-  \textbf{Solution.}
+  \textbf{Solution.} Show $S_t = \{(x,y) \in \mathbb{R}^2_{++} : xy \geq t\}$ is convex for every $t$.
   
   \begin{itemize}
-    \item If $t \leq 0$: every point in $\mathbb{R}^2_{++}$ has $xy > 0 \geq t$, so $S_t = \mathbb{R}^2_{++}$, which is convex
+    \item If $t \leq 0$: $S_t = \mathbb{R}^2_{++}$, convex
     
-    \item If $t > 0$: $xy \geq t$ is equivalent to $\ln x + \ln y \geq \ln t$
+    \item If $t > 0$: $S_t = \{(x,y): g(x,y) \geq \ln t\}$ with $g(x,y)=\ln x + \ln y$
     
-    \item Let $g(x,y) = \ln x + \ln y$. Then $S_t = \{(x,y) : g(x,y) \geq \ln t\}$ is a \textbf{superlevel set} of $g$
+    \item $g$ is concave: $H_g = \mathrm{diag}(-1/x^2,\,-1/y^2)$ is negative definite
     
-    \item $g$ is strictly concave on $\mathbb{R}^2_{++}$: $H_g = \mathrm{diag}(-1/x^2,\,-1/y^2)$ is negative definite
+    \item $\{(x,y): g(x,y) \geq \ln t\}$ is an \textbf{upper level set} of $g$; recall: upper level sets of a concave function are convex
     
-    \item Superlevel sets of a concave function are convex, so each $S_t$ is convex
+    \item So $S_t$ is convex
   \end{itemize}
   
-  Therefore $f(x,y)=xy$ is quasiconcave (in fact \textbf{log-concave}, since $\ln f = g$ is concave and $f>0$).
+  Therefore $f$ is quasiconcave.
+\end{frame}
+
+\THFrame{4.2 Exercise: CES quasiconcavity}
+  \small
+  \textbf{Exercise.} For CES utility $u(x_1,x_2)=(x_1^\rho+x_2^\rho)^{1/\rho}$ on $\mathbb{R}^2_{++}$ ($\rho\neq 0$):
+  
+  \textbf{(a)} Show $u$ is quasiconcave when $\rho \leq 1$.
+  
+  \textbf{(b)} Show $u$ is not quasiconcave when $\rho > 1$.
+  
+  \textbf{Recall.} Quasiconcavity is preserved under strictly increasing transforms (Section 4.2).
+\end{frame}
+
+\THFrame{4.2 Exercise: CES quasiconcavity (solution)}
+  \small
+  \textbf{(a)} Let $g(x_1,x_2)=x_1^\rho+x_2^\rho$ and $\varphi(t)=t^{1/\rho}$.
+  
+  \begin{itemize}
+    \item For $0<\rho\leq 1$: $H_g = \rho(\rho-1)\,\mathrm{diag}(x_1^{\rho-2},x_2^{\rho-2})$ is NSD, so $g$ is concave
+    
+    \item Concave $\Rightarrow$ quasiconcave; $\varphi$ strictly increasing, so $u=\varphi\circ g$ is quasiconcave (recall above)
+    
+    \item If $\rho=1$: $u=x_1+x_2$ is linear
+  \end{itemize}
+\end{frame}
+
+\THFrame{4.2 Exercise: CES quasiconcavity (solution, b)}
+  \small
+  \textbf{(b)} Fix $\rho>1$. \textbf{Goal:} show $u(\lambda \mathbf{x}+(1-\lambda)\mathbf{y})\geq \min\{u(\mathbf{x}),u(\mathbf{y})\}$ does \textbf{not} hold for some $\mathbf{x},\mathbf{y},\lambda$ (violating segment quasiconcavity).
+  
+  Take $\varepsilon\in(0,1)$, $\mathbf{x}=(1,\varepsilon)$, $\mathbf{y}=(\varepsilon,1)$, $\lambda=\tfrac12$.
+  \begin{itemize}
+    \item By symmetry: $u(\mathbf{x})=u(\mathbf{y})=\min\{u(\mathbf{x}),u(\mathbf{y})\}=(1+\varepsilon^\rho)^{1/\rho}$
+    \item At $\lambda=\tfrac12$: $u(\lambda \mathbf{x}+(1-\lambda)\mathbf{y})=\bigl(2\bigl(\tfrac{1+\varepsilon}{2}\bigr)^\rho\bigr)^{1/\rho}=(1+\varepsilon)\,2^{1/\rho-1}$
+    \item Let $h(\varepsilon):=(1+\varepsilon^\rho)^{1/\rho}-(1+\varepsilon)2^{1/\rho-1}$. For $\rho>1$: $2^{1/\rho-1}<1$, so $h(0)>0$
+    \item By continuity, pick $\varepsilon>0$ small with $h(\varepsilon)>0$, i.e.\ $u(\lambda \mathbf{x}+(1-\lambda)\mathbf{y})<\min\{u(\mathbf{x}),u(\mathbf{y})\}$ --- not quasiconcave
+  \end{itemize}
 \end{frame}
 
 %==============================================================================
@@ -1191,7 +1272,7 @@
     \item \hyperlink{appendix:soc_1d}{A.1} Unconstrained optimization: FOC and SOC (1D)
     \item \hyperlink{appendix:concave_12}{A.2} Concavity: $(1)\Leftrightarrow(2)$
     \item \hyperlink{appendix:concave_23}{A.3} Concavity: $(2)\Leftrightarrow(3)$
-    \item \hyperlink{appendix:multivariate_concave}{A.4} Multivariate concavity and NSD
+    \item \hyperlink{appendix:multivariate_concave}{A.4} Proof: multivariate $(2)\Leftrightarrow(3)$
     \item \hyperlink{appendix:multivariate_soc}{A.5} Multivariate SOC
     \item \hyperlink{appendix:logconcave}{A.6} Log-concavity
     \item \hyperlink{appendix:exercises}{A.7} Additional exercises
@@ -1399,26 +1480,11 @@
 \end{frame}
 
 \hypertarget{appendix:multivariate_concave}{}
-\begin{frame}{A.4 Negative semidefinite}
+\begin{frame}{A.4 Proof $(3) \Rightarrow (2)$}
   \small
   \InterestOnly
   
-  For symmetric $H \in \mathbb{R}^{n \times n}$, the following are equivalent:
-  
-  \begin{itemize}
-    \item $H$ is \textbf{negative semidefinite (NSD):} $\mathbf{v}^\top H \mathbf{v} \leq 0$ for all $\mathbf{v} \in \mathbb{R}^n$
-    
-    \item All eigenvalues of $H$ satisfy $\lambda_i \leq 0$
-  \end{itemize}
-  
-  \textbf{Example ($n=2$).} $H = \begin{bmatrix} a & b \\ b & c \end{bmatrix}$ is NSD iff $a \leq 0$, $c \leq 0$, and $ac - b^2 \geq 0$.
-  
-  \textbf{Multivariate concavity ($C^2$).} $f$ is concave iff $H_f(\mathbf{x})$ is NSD at every $\mathbf{x}$.
-\end{frame}
-
-\begin{frame}{A.4 Proof $(3) \Rightarrow (2)$ (multivariate)}
-  \small
-  \InterestOnly
+  Proof of $(2)\Leftrightarrow(3)$ for multivariate concavity.
   
   \textbf{Proof.} Taylor around $\mathbf{x}$:
   \[
@@ -1438,7 +1504,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{A.4 Proof $(2) \Rightarrow (3)$ (multivariate)}
+\begin{frame}{A.4 Proof $(2) \Rightarrow (3)$}
   \small
   \InterestOnly
   
@@ -1508,7 +1574,7 @@
     \item So $f(\mathbf{x}^* + \mathbf{h}) < f(\mathbf{x}^*)$
   \end{itemize}
   
-  \textbf{Connection to concavity:} $f$ concave $\Leftrightarrow$ $H_f(\mathbf{x})$ NSD for all $\mathbf{x}$ (see A.4).
+  \textbf{Connection to concavity:} $f$ concave $\Leftrightarrow$ $H_f(\mathbf{x})$ NSD for all $\mathbf{x}$ (Section 4.2; proof A.4).
 \end{frame}
 
 \hypertarget{appendix:logconcave}{}
