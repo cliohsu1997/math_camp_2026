@@ -202,10 +202,11 @@
   Concavity is \textbf{sufficient for global max} once FOC holds (FOC is only necessary for local max).
 \end{frame}
 
-\begin{frame}{4.2 Concavity: Summary}
+\begin{frame}{4.2 Concavity: Global condition}
   \small
-  For $f \in C^2$, the following are \textbf{equivalent}:
+  \textbf{Optimization.} When $f$ is concave, every local maximum is a global maximum. In particular, if $x^*$ satisfies $f'(x^*)=0$, then $x^*$ is a global maximum: $f(y) \leq f(x^*)$ for all $y$.
   
+  \textbf{Three equivalent forms} ($f \in C^2$):
   \begin{enumerate}
     \item \textbf{Chords:} $f(\lambda x + (1-\lambda)y) \geq \lambda f(x) + (1-\lambda)f(y)$
     
@@ -214,15 +215,14 @@
     \item \textbf{Second derivative:} $f''(x) \leq 0$
   \end{enumerate}
   
-  \textbf{Geometry:} graph above chords, below tangents; Taylor \textbf{overestimates} $f$.
-  
-  \textbf{Optimization:} any local maximum is a global maximum. If $f'(x^*)=0$, then $f(y) \leq f(x^*)$ for all $y$.
+  \textbf{Geometry.} Graph above chords, below tangents; Taylor \textbf{overestimates} $f$.
 \end{frame}
 
-\begin{frame}{4.2 Convex functions}
+\begin{frame}{4.2 Convex functions: Global minimum}
   \small
-  \textbf{Convex} reverses every concavity condition:
+  \textbf{Optimization.} When $f$ is convex, every local minimum is a global minimum. In particular, if $x^*$ satisfies $f'(x^*)=0$, then $x^*$ is a global minimum: $f(y) \geq f(x^*)$ for all $y$.
   
+  \textbf{Three equivalent forms} ($f \in C^2$):
   \begin{enumerate}
     \item \textbf{Chords:} $f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y)$
     
@@ -231,35 +231,23 @@
     \item \textbf{Second derivative:} $f''(x) \geq 0$
   \end{enumerate}
   
-  \textbf{Geometry:} graph below chords, above tangents; Taylor \textbf{underestimates} $f$.
-  
-  \textbf{Optimization:} any local minimum is a global minimum.
+  \textbf{Geometry.} Graph below chords, above tangents; Taylor \textbf{underestimates} $f$.
 \end{frame}
 
 \begin{frame}{4.2 Strict concavity}
   \small
-  \textbf{Definition.} $f$ is \textbf{strictly concave} if for all $x \neq y$ and $\lambda \in (0,1)$:
-  \[
-    f(\lambda x + (1-\lambda)y) > \lambda f(x) + (1-\lambda)f(y).
-  \]
+  \textbf{Optimization.} When $f$ is strictly concave, there is at most one global maximum. If $f'(x^*)=0$, then $x^*$ is the unique global maximum.
   
-  \textbf{Second-order sufficient (not necessary).}
-  
-  \begin{itemize}
-    \item If $f''(x) < 0$ for all $x$ (strictly negative), then $f$ is strictly concave.
+  \textbf{Three characterizations} ($f \in C^2$):
+  \begin{enumerate}
+    \item \textbf{Strict chords:} for $x \neq y$, $\lambda \in (0,1)$: $f(\lambda x+(1-\lambda)y) > \lambda f(x)+(1-\lambda)f(y)$
     
-    \item But strict concavity does not require $f'' < 0$ everywhere.
-  \end{itemize}
-  
-  \textbf{Example.} $f(x) = -x^4$ on $[-1,1]$:
-  
-  \begin{itemize}
-    \item Strictly concave (strict inequality holds)
+    \item \textbf{Strict tangents:} for $x \neq y$: $f(y) < f(x)+f'(x)(y-x)$
     
-    \item But $f''(0) = 0$ at $x = 0$
-  \end{itemize}
+    \item \textbf{Second derivative:} $f''(x) < 0$ for all $x$ --- \textbf{sufficient but not necessary}
+  \end{enumerate}
   
-  This shows $f'' < 0$ is sufficient but not necessary for strict concavity.
+  \textbf{Example.} $f(x)=-x^4$: strictly concave, but $f''(0)=0$.
 \end{frame}
 
 \QFrame{4.2 Exercise: FOC, SOC, and global maximum}
@@ -292,71 +280,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{4.2 Multivariate concavity: Three definitions}
-  \small
-  For $f: \mathbb{R}^n \to \mathbb{R}$:
-  
-  \textbf{(1) Chords.} For all $\mathbf{x}, \mathbf{y}$ and $\lambda \in [0,1]$:
-  \[
-    f(\lambda \mathbf{x} + (1-\lambda)\mathbf{y}) \geq \lambda f(\mathbf{x}) + (1-\lambda)f(\mathbf{y}).
-  \]
-  
-  \textbf{(2) Tangents ($C^1$).} For all $\mathbf{x}, \mathbf{y}$:
-  \[
-    f(\mathbf{y}) \leq f(\mathbf{x}) + \nabla f(\mathbf{x})^\top (\mathbf{y} - \mathbf{x}).
-  \]
-  
-  \textbf{(3) Hessian ($C^2$).} $H_f(\mathbf{x})$ is \textbf{negative semidefinite} for all $\mathbf{x}$ (defined on next slide).
-  
-  \textbf{Theorem.} For $f \in C^2$: $(1) \Leftrightarrow (2) \Leftrightarrow (3)$.
-  
-  \hfill\hyperlink{appendix:concave_12}{\scriptsize $(1)\Leftrightarrow(2)$: A.2 \InterestOnly}\quad
-  \hyperlink{appendix:multivariate_concave}{\scriptsize $(3)\Rightarrow(2)$, $(1)\Rightarrow(3)$: A.4 \InterestOnly}
-\end{frame}
-
-\begin{frame}{4.2 Negative semidefinite}
-  \small
-  For symmetric $H \in \mathbb{R}^{n \times n}$, the following are equivalent:
-  
-  \begin{itemize}
-    \item $H$ is \textbf{negative semidefinite (NSD):} $\mathbf{v}^\top H \mathbf{v} \leq 0$ for all $\mathbf{v} \in \mathbb{R}^n$
-    
-    \item All eigenvalues of $H$ satisfy $\lambda_i \leq 0$
-  \end{itemize}
-  
-  \textbf{Example ($n=2$).} $H = \begin{bmatrix} a & b \\ b & c \end{bmatrix}$ is NSD iff $a \leq 0$, $c \leq 0$, and $ac - b^2 \geq 0$.
-\end{frame}
-
-\begin{frame}{4.2 Concavity and the Hessian}
-  \small
-  \textbf{Theorem.} For $f \in C^2$: tangent characterization \textbf{(2)} $\Leftrightarrow$ Hessian NSD \textbf{(3)} everywhere.
-  
-  Equivalently: $f$ is concave iff $H_f(\mathbf{x})$ is NSD at every $\mathbf{x}$.
-  
-  \textbf{Proof directions.}
-  \begin{itemize}
-    \item \textbf{$(3) \Rightarrow (2)$:} Taylor + NSD $\Rightarrow$ tangent inequality
-    
-    \item \textbf{$(1) \Rightarrow (3)$:} symmetric chord concavity + Taylor $\Rightarrow$ NSD
-    
-    \item Since $(1)\Leftrightarrow(2)$ (A.2), this gives $(2)\Leftrightarrow(3)$
-  \end{itemize}
-  
-  \hfill\hyperlink{appendix:multivariate_concave}{\scriptsize Proofs: Appendix A.4 \InterestOnly}
-\end{frame}
-
-\begin{frame}{4.2 Multivariate concavity: Geometry}
-  \small
-  For $f(x,y)$, the graph $z=f(x,y)$ is a \textbf{surface in 3D}.
-  
-  \begin{center}
-    \includegraphics[width=0.58\textwidth,height=0.52\textheight,keepaspectratio]{figures/concave_tangent_plane_3d.png}
-  \end{center}
-  
-  Concavity: surface lies \textbf{below} its tangent plane; shape is an inverted bowl.
-\end{frame}
-
-\begin{frame}{4.2 Local conditions (multivariate)}
+\begin{frame}{4.2 Local condition (multivariate)}
   \small
   At an interior critical point $\mathbf{x}^*$ ($\nabla f(\mathbf{x}^*)=\mathbf{0}$) with $f \in C^2$:
   
@@ -369,6 +293,53 @@
   Same pattern as 1D: $f''(x^*)\leq 0$ necessary; $f''(x^*)<0$ sufficient but not necessary.
   
   \hfill\hyperlink{appendix:multivariate_soc}{\scriptsize Proofs: Appendix A.5 \InterestOnly}
+\end{frame}
+
+\begin{frame}{4.2 Global condition (multivariate)}
+  \small
+  \textbf{Optimization.} When $f$ is concave, every local maximum is a global maximum. In particular, if $\nabla f(\mathbf{x}^*)=\mathbf{0}$, then $\mathbf{x}^*$ is a global maximum: $f(\mathbf{y}) \leq f(\mathbf{x}^*)$ for all $\mathbf{y}$.
+  
+  \textbf{Three equivalent forms} ($f \in C^2$):
+  \begin{enumerate}
+    \item \textbf{Chords:} $f(\lambda \mathbf{x}+(1-\lambda)\mathbf{y}) \geq \lambda f(\mathbf{x})+(1-\lambda)f(\mathbf{y})$
+    
+    \item \textbf{Tangents:} $f(\mathbf{y}) \leq f(\mathbf{x})+\nabla f(\mathbf{x})^\top(\mathbf{y}-\mathbf{x})$
+    
+    \item \textbf{Hessian:} $H_f(\mathbf{x})$ is NSD for all $\mathbf{x}$ (recall, Day~3)
+  \end{enumerate}
+  
+  \textbf{Geometry.} For $f(x,y)$, the surface $z=f(x,y)$ lies \textbf{below} its tangent plane; shape is an inverted bowl.
+  
+  \hfill\hyperlink{appendix:concave_12}{\scriptsize $(1)\Leftrightarrow(2)$: A.2 \InterestOnly}\quad
+  \hyperlink{appendix:multivariate_concave}{\scriptsize $(2)\Leftrightarrow(3)$: A.4 \InterestOnly}
+\end{frame}
+
+\begin{frame}{4.2 Negative semidefinite}
+  \small
+  \textbf{Recall (end of Day~3).} For symmetric $H \in \mathbb{R}^{n \times n}$, the following are equivalent (proved on Day~3):
+  
+  \begin{itemize}
+    \item \textbf{Quadratic form:} $\mathbf{v}^\top H \mathbf{v} \leq 0$ for all $\mathbf{v} \in \mathbb{R}^n$
+    
+    \item \textbf{Eigenvalues:} every $\lambda_i \leq 0$
+    
+    \item \textbf{Diagonal entries:} $H_{ii} \leq 0$ for all $i$ (necessary); if $H$ is diagonal, NSD $\Leftrightarrow$ all $H_{ii} \leq 0$
+    
+    \item \textbf{Leading principal minors:} $(-1)^k \Delta_k \geq 0$ for $k=1,\ldots,n$
+  \end{itemize}
+  
+  \textbf{$n=2$.} $H = \begin{bmatrix} a & b \\ b & c \end{bmatrix}$ is NSD iff $a \leq 0$, $c \leq 0$, and $ac - b^2 \geq 0$.
+\end{frame}
+
+\begin{frame}{4.2 Multivariate concavity: Geometry}
+  \small
+  For $f(x,y)$, the graph $z=f(x,y)$ is a \textbf{surface in 3D}.
+  
+  \begin{center}
+    \includegraphics[width=0.58\textwidth,height=0.52\textheight,keepaspectratio]{figures/concave_tangent_plane_3d.png}
+  \end{center}
+  
+  Concavity: surface lies \textbf{below} its tangent plane; shape is an inverted bowl.
 \end{frame}
 
 \begin{frame}{4.2 Quasiconcave functions: Two definitions}
