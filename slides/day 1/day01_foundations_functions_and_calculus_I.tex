@@ -18,7 +18,7 @@
 \usepackage{wasysym}
 
 \title{Math Bootcamp}
-\subtitle{Day 1 --- Foundations (Sections 1.1--1.9)}
+\subtitle{Day 1 --- Foundations (Sections 1.1--1.10)}
 \author{Math Camp 2026}
 \date{}
 
@@ -1026,6 +1026,58 @@
   otherwise it \textbf{diverges}.}
 \end{frame}
 
+\begin{frame}{1.9 Example: $\lim_{n\to\infty} 1/n = 0$}
+  \footnotesize
+  Claim: $\displaystyle\lim_{n\to\infty}\frac{1}{n}=0$.
+
+  \medskip
+  Fix any $\varepsilon>0$. Need $N$ so that $n\ge N$ implies
+  \[
+    \Bigl|\frac{1}{n}-0\Bigr|=\frac{1}{n}<\varepsilon
+    \qquad\Leftrightarrow\qquad
+    n>\frac{1}{\varepsilon}.
+  \]
+
+  \medskip
+  Choose any integer $N>1/\varepsilon$
+  (e.g.\ $N=\bigl\lfloor 1/\varepsilon\bigr\rfloor+1$).
+  Then for all $n\ge N$,
+  \[
+    \frac{1}{n}\le\frac{1}{N}<\varepsilon.
+  \]
+
+  \medskip
+  {\scriptsize So for every accuracy $\varepsilon$, after a large enough $N$ the sequence stays
+  within $\varepsilon$ of $0$.}
+\end{frame}
+
+\begin{frame}{1.9 Example: $\lim_{n\to\infty}\frac{2n}{n+1}=2$}
+  \footnotesize
+  Claim: $\displaystyle\lim_{n\to\infty}\frac{2n}{n+1}=2$.
+  First simplify the distance to the candidate limit:
+  \[
+    \Bigl|\frac{2n}{n+1}-2\Bigr|
+    =\Bigl|\frac{2n-2(n+1)}{n+1}\Bigr|
+    =\frac{2}{n+1}.
+  \]
+
+  \medskip
+  Fix $\varepsilon>0$. Need $\dfrac{2}{n+1}<\varepsilon$, i.e.\ $n+1>\dfrac{2}{\varepsilon}$.
+  Choose any integer $N>\dfrac{2}{\varepsilon}-1$
+  (e.g.\ $N=\bigl\lfloor 2/\varepsilon\bigr\rfloor$).
+  Then for all $n\ge N$,
+  \[
+    \Bigl|\frac{2n}{n+1}-2\Bigr|
+    =\frac{2}{n+1}
+    \le\frac{2}{N+1}
+    <\varepsilon.
+  \]
+
+  \medskip
+  {\scriptsize Pattern: guess $L$, rewrite $|a_n-L|$ as something that clearly goes to $0$,
+  then pick $N$ from that bound.}
+\end{frame}
+
 \begin{frame}{1.9 Limit of a function ($\varepsilon$-$\delta$)}
   \footnotesize
   $\displaystyle\lim_{x\to a}f(x)=L$ means
@@ -1245,6 +1297,284 @@
   \onslide<9->{\textcolor{mAccent}{\textbf{Choose $\delta=\varepsilon$.}\ Then
     $|f(x)-2|=|x-1|<\varepsilon$.}\hfill
     {\scriptsize $f(1)=3\neq 2$: limit exists, but $f$ not continuous at $1$}}\par
+\end{frame}
+
+\section{1.10 --- CES (limits application)}
+
+\begin{frame}{1.10 CES --- definition}
+  \footnotesize
+  \textbf{CES} (constant elasticity of substitution) production / utility:
+  \[
+    f_{\rho}(x_1,x_2)
+    =\bigl(\alpha x_1^{\rho}+(1-\alpha)x_2^{\rho}\bigr)^{1/\rho},
+    \qquad
+    \alpha\in(0,1),\ \rho\neq 0,\ \rho\le 1.
+  \]
+
+  \medskip
+  \textbf{Plan.}
+  \begin{enumerate}\itemsep2pt
+    \item Show the elasticity of substitution is \textbf{constant} (hence the name).
+    \item Define perfect substitutes and perfect complements.
+    \item Homogeneity / CRS (practice).
+    \item Limit cases: $\rho\to 0$ (Cobb--Douglas) and $\rho\to-\infty$ (Leontief).
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{1.10 Elasticity of substitution --- definition}
+  \footnotesize
+  Along an isoquant ($f=\text{constant}$ output; or indifference curve if $f$ is utility),
+  \[
+    \mathrm{MRS}
+    =\frac{f_1}{f_2}
+    =\frac{\partial f/\partial x_1}{\partial f/\partial x_2}.
+  \]
+  MRS is the rate at which you can trade \(x_1\) for \(x_2\) while keeping \(f\) fixed
+  (slope of the isoquant / indifference curve).
+
+  \medskip
+  Let $r=x_2/x_1$. The \textbf{elasticity of substitution} is
+  \[
+    \sigma
+    =\frac{d\ln r}{d\ln\mathrm{MRS}}
+    =\frac{\%\,\text{change in input ratio}}{\%\,\text{change in MRS}}.
+  \]
+\end{frame}
+
+\begin{frame}{1.10 Elasticity of substitution --- intuition}
+  \footnotesize
+  \textbf{Story.}\ Suppose \(x_2\) becomes relatively more valuable at the margin
+  (MRS rises: you need more \(x_2\) to replace one unit of \(x_1\)).
+  How much does the firm / consumer switch toward using relatively more \(x_1\)
+  (i.e.\ lower \(r=x_2/x_1\))?
+
+  \medskip
+  \begin{itemize}\itemsep3pt
+    \item $\sigma$ \textbf{large:} easy to swap. A small change in relative
+      scarcity / prices moves the mix a lot. Extreme: perfect substitutes
+      ($\sigma=\infty$) --- any mix is fine; isoquants are straight lines.
+    \item $\sigma$ \textbf{small:} hard to swap. Mix barely changes even if
+      relative prices move a lot. Extreme: perfect complements ($\sigma=0$)
+      --- must use fixed proportions; L-shaped isoquants.
+    \item Cobb--Douglas sits in between ($\sigma=1$).
+  \end{itemize}
+
+  \medskip
+  {\scriptsize Competitive markets: at an optimum, MRS $=$ relative prices, so
+  $\sigma$ also says how strongly input ratios respond to price ratios.}
+\end{frame}
+
+\begin{frame}{1.10 CES: compute MRS}
+  \footnotesize
+  Let $g=\alpha x_1^{\rho}+(1-\alpha)x_2^{\rho}$, so $f_{\rho}=g^{1/\rho}$.
+  Chain rule:
+  \[
+    f_1
+    =\frac{1}{\rho}g^{1/\rho-1}\cdot\alpha\rho\,x_1^{\rho-1}
+    =\alpha\,x_1^{\rho-1}\,g^{1/\rho-1},
+  \]
+  and similarly
+  $f_2=(1-\alpha)\,x_2^{\rho-1}\,g^{1/\rho-1}$.
+
+  \medskip
+  Cancel the common factor $g^{1/\rho-1}>0$:
+  \[
+    \mathrm{MRS}
+    =\frac{f_1}{f_2}
+    =\frac{\alpha}{1-\alpha}\Bigl(\frac{x_1}{x_2}\Bigr)^{\rho-1}
+    =\frac{\alpha}{1-\alpha}\,r^{1-\rho},
+    \qquad
+    r=\frac{x_2}{x_1}.
+  \]
+\end{frame}
+
+\begin{frame}{1.10 CES: $\sigma$ is constant}
+  \footnotesize
+  From
+  $\mathrm{MRS}=\dfrac{\alpha}{1-\alpha}\,r^{1-\rho}$,
+  take logs:
+  \[
+    \ln\mathrm{MRS}
+    =\ln\frac{\alpha}{1-\alpha}+(1-\rho)\ln r.
+  \]
+
+  \medskip
+  Differentiate with respect to $\ln r$:
+  \[
+    \frac{d\ln\mathrm{MRS}}{d\ln r}=1-\rho
+    \qquad\Rightarrow\qquad
+    \sigma
+    =\frac{d\ln r}{d\ln\mathrm{MRS}}
+    =\frac{1}{1-\rho}.
+  \]
+
+  \medskip
+  \textbf{Key:} $\sigma=1/(1-\rho)$ depends only on the parameter $\rho$,
+  \textbf{not} on $(x_1,x_2)$. That is why the family is called CES.
+\end{frame}
+
+\begin{frame}{1.10 Perfect substitutes and perfect complements}
+  \footnotesize
+  \textbf{Perfect substitutes.}\ Goods/inputs that trade off at a
+  \textbf{constant} rate: isoquants (or indifference curves) are
+  \textbf{straight lines}.
+  Example: $f=\alpha x_1+(1-\alpha)x_2$ ($\rho=1$).
+  MRS is constant; $\sigma=\infty$ (any ratio is fine).
+
+  \medskip
+  \textbf{Perfect complements.}\ Goods/inputs used in
+  \textbf{fixed proportions}: only the bottleneck matters.
+  Leontief form: $f=\min\{x_1,x_2\}$
+  (L-shaped isoquants). Extra of one input alone is useless;
+  $\sigma=0$ (no substitution).
+
+  \medskip
+  {\scriptsize CES sits between these extremes via $\sigma=1/(1-\rho)$.}
+\end{frame}
+
+\QFrame{1.10 --- CES homogeneity}
+  \scriptsize
+  Let
+  $f_{\rho}(x_1,x_2)=\bigl(\alpha x_1^{\rho}+(1-\alpha)x_2^{\rho}\bigr)^{1/\rho}$.
+
+  \medskip
+  \textbf{(a)}\ Show $f_{\rho}$ is homogeneous of degree~$1$
+  (CRS: $f_{\rho}(t\mathbf{x})=t\,f_{\rho}(\mathbf{x})$).
+
+  \medskip
+  \textbf{(b)}\ For $\rho=1$, simplify $f_{\rho}$. What technology is this?
+
+  \medskip
+  \textbf{(c)}\ Using Euler (Day~1.7): what is $x_1\partial_1 f_{\rho}+x_2\partial_2 f_{\rho}$?
+\end{frame}
+
+\QFrame{1.10 --- CES homogeneity (solution)}
+  \scriptsize
+  \textbf{(a)}\
+  \[
+    f_{\rho}(tx_1,tx_2)
+    =\bigl(\alpha (tx_1)^{\rho}+(1-\alpha)(tx_2)^{\rho}\bigr)^{1/\rho}
+    =\bigl(t^{\rho}(\alpha x_1^{\rho}+(1-\alpha)x_2^{\rho})\bigr)^{1/\rho}
+    =t\,f_{\rho}(x_1,x_2).
+  \]
+
+  \medskip
+  \textbf{(b)}\ $f_1=\alpha x_1+(1-\alpha)x_2$: perfect substitutes (linear isoquants).
+
+  \medskip
+  \textbf{(c)}\ Degree~$1$ $\Rightarrow$ $x_1\partial_1 f_{\rho}+x_2\partial_2 f_{\rho}=f_{\rho}$.
+\end{frame}
+
+\begin{frame}{1.10 CES limit $\rho\to 0$ --- setup}
+  \footnotesize
+  Fix $x_1,x_2>0$. Want
+  $\displaystyle\lim_{\rho\to 0}f_{\rho}(x_1,x_2)$.
+
+  \medskip
+  Work with logs (continuous, so $\lim\ln f=\ln\lim f$ when the limit is positive):
+  \[
+    \ln f_{\rho}
+    =\frac{1}{\rho}\ln\bigl(\alpha x_1^{\rho}+(1-\alpha)x_2^{\rho}\bigr)
+    =\frac{\ln g(\rho)}{\rho},
+    \qquad
+    g(\rho)=\alpha x_1^{\rho}+(1-\alpha)x_2^{\rho}.
+  \]
+
+  \medskip
+  As $\rho\to 0$: $g(0)=\alpha+(1-\alpha)=1$, so $\ln g(0)=0$.
+  Numerator $\to 0$, denominator $\to 0$: \textbf{$0/0$ form}.
+\end{frame}
+
+\begin{frame}{1.10 CES limit $\rho\to 0$ --- L'H\^{o}pital}
+  \footnotesize
+  Apply L'H\^{o}pital (differentiate in $\rho$; write $x_i^{\rho}=e^{\rho\ln x_i}$):
+  \[
+    g'(\rho)
+    =\alpha x_1^{\rho}\ln x_1+(1-\alpha)x_2^{\rho}\ln x_2,
+    \qquad
+    \frac{d}{d\rho}\ln g(\rho)
+    =\frac{g'(\rho)}{g(\rho)}.
+  \]
+
+  \medskip
+  So
+  \[
+    \lim_{\rho\to 0}\ln f_{\rho}
+    =\lim_{\rho\to 0}\frac{\ln g(\rho)}{\rho}
+    =\lim_{\rho\to 0}\frac{g'(\rho)}{g(\rho)}
+    =\frac{\alpha\ln x_1+(1-\alpha)\ln x_2}{1}.
+  \]
+
+  \medskip
+  Therefore
+  \[
+    \lim_{\rho\to 0}f_{\rho}
+    =\exp\bigl(\alpha\ln x_1+(1-\alpha)\ln x_2\bigr)
+    =x_1^{\alpha}x_2^{1-\alpha}
+    \quad\text{(Cobb--Douglas).}
+  \]
+\end{frame}
+
+\begin{frame}{1.10 CES limit $\rho\to-\infty$ --- setup}
+  \footnotesize
+  Fix $x_1,x_2>0$. Let $m=\min\{x_1,x_2\}$. Write
+  \[
+    f_{\rho}
+    =\bigl(\alpha x_1^{\rho}+(1-\alpha)x_2^{\rho}\bigr)^{1/\rho}
+    =m\Bigl(\alpha\Bigl(\frac{x_1}{m}\Bigr)^{\rho}
+    +(1-\alpha)\Bigl(\frac{x_2}{m}\Bigr)^{\rho}\Bigr)^{1/\rho}.
+  \]
+
+  \medskip
+  One of $x_1/m$, $x_2/m$ equals $1$; the other is $\ge 1$.
+
+  \medskip
+  \textbf{Key fact.}\ If $z>1$ and $\rho\to-\infty$, then
+  $z^{\rho}=1/z^{-\rho}\to 0$
+  (large negative power of a number bigger than $1$).
+\end{frame}
+
+\begin{frame}{1.10 CES limit $\rho\to-\infty$ --- proof}
+  \footnotesize
+  \textbf{Case} $x_1<x_2$: then $m=x_1$, $x_1/m=1$, $x_2/m>1$.
+  \[
+    \alpha\Bigl(\frac{x_1}{m}\Bigr)^{\rho}+(1-\alpha)\Bigl(\frac{x_2}{m}\Bigr)^{\rho}
+    \;\xrightarrow[\rho\to-\infty]{}\;
+    \alpha\cdot 1+(1-\alpha)\cdot 0=\alpha.
+  \]
+  For any $c>0$, $c^{1/\rho}\to c^{0}=1$ as $\rho\to-\infty$.
+  Hence $f_{\rho}\to m\cdot 1=x_1=\min\{x_1,x_2\}$.
+
+  \medskip
+  \textbf{Case} $x_2<x_1$: same argument $\Rightarrow$ $f_{\rho}\to x_2=\min\{x_1,x_2\}$.
+
+  \medskip
+  \textbf{Case} $x_1=x_2$: inside $\to 1$, so $f_{\rho}\to x_1=\min\{x_1,x_2\}$.
+
+  \medskip
+  \textbf{Conclusion.}
+  $\displaystyle\lim_{\rho\to-\infty}f_{\rho}(x_1,x_2)=\min\{x_1,x_2\}$
+  (Leontief / perfect complements).
+\end{frame}
+
+\begin{frame}{1.10 CES nesting --- summary}
+  \footnotesize
+  \begin{center}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Limit / value & Limit function & Interpretation \\
+    \midrule
+    $\rho=1$ ($\sigma=\infty$) & $\alpha x_1+(1-\alpha)x_2$ & perfect substitutes \\
+    $\rho\to 0$ ($\sigma=1$) & $x_1^{\alpha}x_2^{1-\alpha}$ & Cobb--Douglas \\
+    $\rho\to-\infty$ ($\sigma=0$) & $\min\{x_1,x_2\}$ & perfect complements \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \medskip
+  {\scriptsize Same CES family; different $\rho$ (equivalently $\sigma$) recover the
+  classic special cases via limits.}
 \end{frame}
 
 \appendix
