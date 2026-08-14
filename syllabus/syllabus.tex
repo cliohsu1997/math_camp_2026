@@ -1,0 +1,94 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amssymb,amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{parskip}
+
+\setlist[itemize]{leftmargin=*,itemsep=0.15em,topsep=0.25em}
+\setlist[enumerate]{leftmargin=*,itemsep=0.15em,topsep=0.25em}
+
+\title{\textbf{Math Bootcamp Syllabus}\\[0.35em]
+\large For Incoming MSc Economics Students}
+\author{Math Camp 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+\vspace{-1.2em}
+
+\section*{Overview}
+
+\begin{itemize}
+  \item \textbf{Objective.} Bridge a weaker undergraduate math background to MSc-level economics (micro, macro, econometrics, mathematical economics).
+  \item \textbf{Format.} 5 days $\times$ 3 hours. Emphasis on intuition and standard problem templates; only simple proofs where needed. Detailed proofs live in slide appendices / fall courses.
+  \item \textbf{Materials.} Day-by-day lecture slides; this syllabus is the concise roadmap.
+\end{itemize}
+
+\section*{Day-by-day topics}
+
+\subsection*{Day 1 --- Foundations (\S1.1--1.9)}
+\begin{enumerate}
+  \item \textbf{Notation, logic, sets, functions.} Number systems; set membership and logic symbols; necessary/sufficient/contrapositive; set operations and Cartesian products; domain/codomain/range; injective/surjective.
+  \item \textbf{Sup/inf and algebra.} $\max/\min$ vs.\ $\sup/\inf$; logs, elasticities, Cobb--Douglas; homogeneity and Euler's theorem (CRS adding-up).
+  \item \textbf{Calculus.} Single-variable derivatives (rules, marginal interpretation); multivariate: partials, total differential, gradient, directional derivatives, cross-partials; limits, continuity, differentiability.
+\end{enumerate}
+
+\subsection*{Day 2 --- More calculus and analysis bridge (\S2.1--2.6)}
+\begin{enumerate}
+  \item \textbf{Implicit function theorem.} Comparative statics when $y^*(\theta)$ is only defined implicitly; tax incidence.
+  \item \textbf{Existence tools and integration.} Open/closed/compact sets; EVT / Weierstrass; MVT; Riemann integral and FTC; expectation via CDF (integration by parts).
+  \item \textbf{Leibniz, Fubini, Taylor, uniform convergence.} Differentiating under the integral; changing order of integration; linearization / Taylor; why uniform convergence matters for exchanging limits.
+\end{enumerate}
+
+\subsection*{Day 3 --- Linear algebra and real analysis}
+\begin{enumerate}
+  \item \textbf{Linear algebra.} Vectors, matrices, $Ax=b$, transpose, determinants ($2\times 2$), invertibility, linear independence, rank.
+  \item \textbf{Real analysis bridge.} Uniform-convergence practice; separation / supporting hyperplanes (welfare intuition); fixed-point existence statements (Brouwer / contraction, no proofs).
+\end{enumerate}
+
+\subsection*{Day 4 --- Optimization (\S4.1--4.5)}
+\begin{enumerate}
+  \item \textbf{Unconstrained optima.} FOC/SOC; concavity via $f''$ / Hessian; local vs.\ global.
+  \item \textbf{Shape and equality constraints.} Concave vs.\ quasiconcave; convex upper contour sets; Lagrange multipliers; shadow prices; envelope theorem.
+  \item \textbf{Inequalities and KKT.} Binding vs.\ slack; complementary slackness; geometric Farkas $\Rightarrow$ KKT; corner solutions (nonnegativity).
+\end{enumerate}
+
+\subsection*{Day 5 --- Dynamic programming}
+\begin{enumerate}
+  \item \textbf{Framework.} Sequential decisions; state vs.\ control; law of motion; finite-horizon focus and Markov idea.
+  \item \textbf{Bellman and solution method.} Value function and principle of optimality; Bellman equation; backward induction; policy function.
+  \item \textbf{Worked core.} Two-period consumption--savings; Euler equation; link to standard intertemporal optimization; VFI intuition (infinite horizon, conceptual only).
+\end{enumerate}
+
+\section*{Cross-cutting goals}
+\begin{itemize}
+  \item Read FOCs, SOCs, and comparative statics fluently.
+  \item Map math objects to economic meaning (marginals, shadow prices, value functions).
+  \item Build confidence with the templates used in fall core courses.
+\end{itemize}
+
+\section*{Suggested time allocation}
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}clp{0.24\textwidth}p{0.24\textwidth}p{0.24\textwidth}@{}}
+\toprule
+Day & Theme & Block 1 ($\sim$1\,hr) & Block 2 ($\sim$1\,hr) & Block 3 ($\sim$1\,hr) \\
+\midrule
+1 & Foundations & Notation, logic, sets, functions & Sup/inf; algebra; Cobb--Douglas & Derivatives; Euler; multivariate; limits \\
+2 & Calculus bridge & IFT & EVT/MVT; integration & Leibniz/Fubini; Taylor; uniform conv. \\
+3 & Lin.\ alg.\ /\ analysis & Linear algebra & Convergence practice & Separation; fixed points \\
+4 & Optimization & FOC/SOC; quasiconcavity & Lagrange; envelope & Farkas geometry; KKT \\
+5 & Dyn.\ prog. & Framework; state \& control & Bellman equation & Backward induction; VFI idea \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.6em}
+\noindent\textit{Note.} Appendices on the slides (rigorous proofs, extra examples) are for interest / self-study and are not required classroom coverage.
+
+\end{document}
