@@ -57,44 +57,206 @@
 
 \section{2.1 --- Implicit Function Theorem}
 
-\begin{frame}{2.1 Explicit vs.\ implicit relationships}
+\begin{frame}{2.1 Endogenous vs.\ exogenous --- supply and demand}
   \small
-  \textbf{Explicit:}\ one variable is written directly as a function of others.
+  In a competitive market, demand and supply determine an equilibrium
+  \textbf{price} and \textbf{quantity}. Not everything in that picture is
+  determined the same way.
+
+  \medskip
+  \textbf{Exogenous} (taken as given, from \textbf{outside} the model):
+  things that shift the curves --- harvest / weather, costs, income, tastes,
+  a tax, population, \ldots\
+  Call a typical shifter $\theta$.
+
+  \medskip
+  \textbf{Endogenous} (solved for \textbf{inside} the model):
+  equilibrium price $p^*$ and quantity $q^*$.
+  They adjust until $D=S$.
+
+  \medskip
+  {\scriptsize Slopes of $D$ and $S$ are also usually treated as exogenous
+  parameters. The model takes them as given and then finds $p^*,q^*$.}
+\end{frame}
+
+\begin{frame}{2.1 Example --- eggs in a competitive market}
+  \small
+  \textbf{Market.}\ Many buyers and many sellers of eggs; take the market
+  price as given (competitive). Demand is for eggs as a daily staple.
+
+  \medskip
+  \textbf{Exogenous} (shifters, not chosen in this market):
+  \begin{itemize}
+    \item feed costs, weather / disease on farms (supply)
+    \item household income, taste for breakfast, a tax or subsidy (demand or supply)
+  \end{itemize}
+
+  \medskip
+  \textbf{Endogenous} (solved in this market):
+  the egg price $p^*$ and quantity sold $q^*$.
+
+  \medskip
+  If feed costs jump (exogenous supply shock), the supply curve shifts.
+  Then endogenous $p^*$ and $q^*$ adjust to a new equilibrium.
+\end{frame}
+
+\begin{frame}{2.1 Egg market --- a feed-cost shock}
+  \begin{center}
+    \includegraphics[height=0.62\textheight]{figures/egg_market_supply_shock.png}
+  \end{center}
+  {\footnotesize This figure: \textbf{positive} cost shock $=$
+  \textbf{negative} supply shock ($S$ left; $p^*$ up, $q^*$ down).
+  Converse: \textbf{negative} cost shock $=$ \textbf{positive} supply shock
+  ($S$ right).}
+\end{frame}
+
+\begin{frame}{2.1 Motivation --- comparative statics}
+  \small
+  Once $p^*$ is determined by exogenous $\theta$, a natural question is:
+  if $\theta$ changes, how does the \textbf{endogenous} equilibrium move?
+
+  \medskip
+  \textbf{Comparative statics:}\ how $p^*(\theta)$ (and $q^*(\theta)$) respond
+  to a shift in an exogenous parameter. We want $\dfrac{dp^*}{d\theta}$.
+
+  \medskip
+  \textbf{Eggs.}\ Higher feed costs $\Rightarrow$ supply shifts left
+  $\Rightarrow$ $p^*$ typically rises and $q^*$ falls.
+  We want a systematic way to get the sign and magnitude.
+
+  \medskip
+  Same pattern for a demand shifter (income, tastes), a tax, \ldots\
+  The tool is the same once equilibrium is written as $F(p,\theta)=0$.
+\end{frame}
+
+\begin{frame}{2.1 Market clearing}
+  \small
+  Quantity demanded equals quantity supplied:
   \[
-    y = g(x)
-    \qquad\text{e.g.}\qquad
-    p^* = \frac{\alpha-c}{b+d}.
+    D(p,\theta)=S(p,\theta).
+  \]
+  Exogenous $\theta$ is a shifter (supply shock, demand shock, tax, \ldots);
+  endogenous $p$ and $q$ adjust.
+
+  \medskip
+  Excess demand
+  \[
+    E(p,\theta)=D(p,\theta)-S(p,\theta)
+  \]
+  is zero at equilibrium: $E(p^*(\theta),\theta)=0$.
+
+  \medskip
+  \textbf{Question.}\ How do $p^*$ and $q^*$ change when $\theta$ changes?
+\end{frame}
+
+\begin{frame}{2.1 Linear market --- an analytical solution}
+  \footnotesize
+  Linear demand and supply; supply shifter $s$, demand intercept $\alpha$:
+  \[
+    D(p,\alpha)=\alpha-bp,
+    \qquad
+    S(p,s)=s+dp,
+    \qquad
+    b,d>0.
   \]
 
   \medskip
-  \textbf{Implicit:}\ variables are linked by an equation $F(x,y)=0$.
+  Market clearing $D=S$ gives both endogenous variables in closed form:
   \[
-    F(x,y)=0
-    \qquad\text{e.g.}\qquad
-    E(p,\alpha)=0 \quad\text{(market clearing)}.
+    p^*(s,\alpha)=\frac{\alpha-s}{b+d},
+    \qquad
+    q^*(s,\alpha)=\alpha-bp^*=\frac{\alpha d+bs}{b+d}.
   \]
 
   \medskip
-  Often we \textbf{know} $F$ but cannot solve for $y=g(x)$ in closed form.
-  The IFT says: under regularity conditions, $y$ is still locally a function of $x$,
-  and we can compute $\dfrac{dy}{dx}$ without solving explicitly.
+  We can differentiate these formulas directly --- no new theorem yet.
+\end{frame}
+
+\begin{frame}{2.1 Supply shock vs.\ demand shock}
+  \footnotesize
+  \textbf{Positive supply shock} ($s\uparrow$; equivalently a negative cost shock):
+  \[
+    \frac{dp^*}{ds}=-\frac{1}{b+d}<0,
+    \qquad
+    \frac{dq^*}{ds}=\frac{b}{b+d}>0.
+  \]
+  Price falls, quantity rises: $p^*$ and $q^*$ move in \textbf{opposite} directions.
+
+  \medskip
+  \textbf{Positive demand shock} ($\alpha\uparrow$; income, tastes, \ldots):
+  \[
+    \frac{dp^*}{d\alpha}=\frac{1}{b+d}>0,
+    \qquad
+    \frac{dq^*}{d\alpha}=\frac{d}{b+d}>0.
+  \]
+  Both price and quantity rise: $p^*$ and $q^*$ move in the \textbf{same} direction.
+\end{frame}
+
+\begin{frame}{2.1 Supply shock vs.\ demand shock}
+  \begin{center}
+    \includegraphics[width=0.98\textwidth]{figures/linear_market_two_shocks.png}
+  \end{center}
+  {\footnotesize Left: $s\uparrow$ --- $p^*$ down, $q^*$ up.
+  Right: $\alpha\uparrow$ --- both $p^*$ and $q^*$ up.}
+\end{frame}
+
+\begin{frame}{2.1 Explicit vs.\ implicit}
+  \small
+  \textbf{Explicit} (what we just did):\ we solved for $p^*$ and $q^*$ as
+  formulas in the exogenous variables, e.g.\
+  \[
+    p^*=g(s,\alpha)=\frac{\alpha-s}{b+d}.
+  \]
+  Then ordinary differentiation gives $\dfrac{dp^*}{ds}$, $\dfrac{dq^*}{ds}$,
+  and the demand-shock derivatives.
+
+  \medskip
+  \textbf{Implicit:}\ we only have an equation $F(p,\theta)=0$
+  (e.g.\ $E(p,\theta)=0$). We \textbf{know} $F$, but may not be able to write
+  $p^*=g(\theta)$ in closed form.
+
+  \medskip
+  Next: a nonlinear market where we cannot solve for $p^*$.
+\end{frame}
+
+\begin{frame}{2.1 No closed form --- nonlinear market}
+  \footnotesize
+  Now change demand to
+  \[
+    D(p,\alpha)=\alpha e^{-p},
+    \qquad
+    S(p)=p,
+    \qquad
+    \alpha>0.
+  \]
+  Clearing: $\alpha e^{-p}=p$, or $E(p,\alpha)=\alpha e^{-p}-p=0$.
+
+  \medskip
+  This equation \textbf{defines} $p^*(\alpha)$, but it has
+  \textbf{no elementary closed form}.
+  We cannot write $p^*=g(\alpha)$ and differentiate.
+
+  \medskip
+  We still want $\dfrac{dp^*}{d\alpha}$.
+  That is the problem the Implicit Function Theorem solves.
 \end{frame}
 
 \begin{frame}{2.1 What problem does the IFT solve?}
   \small
-  \textbf{Comparative statics question.}\ How does an endogenous variable respond
-  when an exogenous parameter shifts?
+  An equilibrium condition $F(x,\theta)=0$ defines $x^*(\theta)$ \textbf{implicitly}.
+  We want $\dfrac{dx^*}{d\theta}$ without solving for $x^*(\theta)$.
 
   \medskip
-  \begin{itemize}
-    \item Equilibrium price $p^*(\alpha)$ when demand depends on shifter $\alpha$
-    \item Optimal choice $x^*(w)$ from a first-order condition $F(x,w)=0$
-    \item Equilibrium objects defined by $F(x,\theta)=0$ without closed-form solutions
-  \end{itemize}
+  \textbf{IFT:}\ if $F$ is well-behaved and $F_x\neq 0$ at the equilibrium,
+  then $x^*(\theta)$ exists locally as a function, and
+  \[
+    \frac{dx^*}{d\theta}=-\frac{F_\theta}{F_x}
+  \]
+  --- computed from partials of $F$ only.
 
   \medskip
-  \textbf{Pattern:}\ an equilibrium condition $F(x,\theta)=0$ defines $y^*(\theta)$ implicitly.
-  We want $\dfrac{dy^*}{d\theta}$ --- the IFT delivers this from partials of $F$.
+  Same idea as the linear market, but it still works when there is no formula
+  for $x^*(\theta)$.
 \end{frame}
 
 \begin{frame}{2.1 One-variable IFT --- statement and recipe}
@@ -102,7 +264,7 @@
   Let $F(x,y)$ be $C^1$ near $(x_0,y_0)$ with $F(x_0,y_0)=0$.
   If $F_y(x_0,y_0)\neq 0$, then locally there is a unique $g$ such that
   \[
-    y = g(x),
+    y=g(x),
     \qquad
     F(x,g(x))=0,
     \qquad
@@ -119,7 +281,7 @@
   \medskip
   \textbf{Recipe.}\ Totally differentiate $F(x,y)=0$:
   \[
-    0 = dF = F_x\,dx + F_y\,dy
+    0=dF=F_x\,dx+F_y\,dy
     \quad\Rightarrow\quad
     \frac{dy}{dx}=-\frac{F_x}{F_y}
     \quad\text{when }F_y\neq 0.
@@ -147,11 +309,29 @@
   so $y$ cannot be written as a single-valued function of $x$.}
 \end{frame}
 
-\QFrame{2.1 --- Comparative statics practice (no closed form)}
+\begin{frame}{2.1 Check --- IFT recovers the linear answer}
+  \footnotesize
+  Return to $E(p,s)=\alpha-s-(b+d)p$.
+  Partials: $E_p=-(b+d)\neq 0$,\ $E_s=-1$.
+
+  \medskip
+  \textbf{IFT:}
+  \[
+    \frac{dp^*}{ds}=-\frac{E_s}{E_p}=-\frac{-1}{-(b+d)}=-\frac{1}{b+d}<0.
+  \]
+  Same as differentiating $p^*(s)=(\alpha-s)/(b+d)$ explicitly.
+
+  \medskip
+  \textbf{Interpretation (direct vs.\ indirect).}\
+  Higher $s$ lowers excess demand at the old price ($E_s<0$: surplus).
+  Price must fall ($E_p<0$) until $E=0$ is restored.
+\end{frame}
+
+\QFrame{2.1 --- Apply IFT (no closed form)}
   \scriptsize
   \textbf{Nonlinear demand:}\ $D(p,\alpha)=\alpha e^{-p}$,\ $S(p)=p$,\ $\alpha>0$.
 
-  \textbf{No elementary closed form for $p^*(\alpha)$}.
+  \textbf{No elementary closed form for $p^*(\alpha)$}. Use IFT.
 
   \vspace{3pt}
   \onslide<2->{\textbf{1.}\ Excess demand $E(p,\alpha)$.}\;
@@ -171,133 +351,14 @@
   \onslide<11->{\hfill{\tiny No closed form for $p^*(\alpha)$ --- IFT still works.}}
 \end{frame}
 
-\begin{frame}{2.1 Applications --- motivation}
-  \small
-  \textbf{You just used the IFT recipe.}\
-  Write $E(p,\theta)=0$, compute $E_p$ and $E_\theta$, then
-  $\dfrac{dp^*}{d\theta}=-\dfrac{E_\theta}{E_p}$ --- even when $p^*(\theta)$ has no closed form.
-
-  \medskip
-  \textbf{Why these examples?}\ They are the standard micro patterns behind that recipe:
-  \begin{itemize}
-    \item \textbf{Demand shifter $\alpha$:}\ when does equilibrium price move up or down?
-    \item \textbf{Linear market:}\ IFT matches the answer from solving $E=0$ explicitly
-    \item \textbf{Tax $t$:}\ same formula, different parameter --- who bears the tax?
-  \end{itemize}
-
-  \medskip
-  \textbf{Goal.}\ Connect the abstract formula to comparative statics you will see in economics.
-\end{frame}
-
-\begin{frame}{2.1 Application --- setup}
-  \small
-  \textbf{Market clearing.}\ Quantity demanded equals quantity supplied:
-  \[
-    D(p,\alpha) = S(p),
-  \]
-  where $p$ is price and $\alpha>0$ is a \textbf{demand shifter}
-  (e.g.\ consumer income, taste index, population).
-
-  \medskip
-  Define excess demand
-  \[
-    E(p,\alpha) = D(p,\alpha) - S(p).
-  \]
-  An equilibrium price $p^*(\alpha)$ satisfies
-  \[
-    E(p^*(\alpha),\alpha) = 0.
-  \]
-
-  \medskip
-  \textbf{Question:}\ when $\alpha$ rises, does equilibrium price $p^*$ rise or fall?
-  Use $\dfrac{dp^*}{d\alpha} = -\dfrac{E_\alpha}{E_p}$.
-\end{frame}
-
-\begin{frame}{2.1 Application --- linear example}
-  \footnotesize
-  \textbf{Linear demand and supply:}
-  \[
-    D(p,\alpha)=\alpha - b p,
-    \qquad
-    S(p)=c+d p,
-    \qquad
-    b,c,d>0.
-  \]
-
-  \medskip
-  Excess demand $E(p,\alpha)=D(p,\alpha)-S(p)=\alpha-c-(b+d)p$.
-  Equilibrium $p^*(\alpha)$ satisfies $E(p^*(\alpha),\alpha)=0$.
-
-  \medskip
-  Partials: $E_p=-(b+d)\neq 0$, \ $E_\alpha=1$.
-
-  \medskip
-  \textbf{IFT:}
-  \[
-    \frac{dp^*}{d\alpha}
-    = -\frac{E_\alpha}{E_p}
-    = \frac{1}{b+d} > 0.
-  \]
-\end{frame}
-
-\begin{frame}{2.1 Application --- check by explicit solution}
-  \footnotesize
-  From $E(p^*(\alpha),\alpha)=0$:
-  \[
-    p^*(\alpha)=\frac{\alpha-c}{b+d}.
-  \]
-
-  \medskip
-  Differentiate explicitly:
-  \[
-    \frac{dp^*}{d\alpha}=\frac{1}{b+d},
-  \]
-  matching the IFT formula $-\dfrac{E_\alpha}{E_p}$.
-
-  \medskip
-  \textbf{When IFT is essential:}\ nonlinear $D(p,\alpha)$ or $S(p)$ ---
-  $p^*(\alpha)$ may have no closed form, but
-  \[
-    \frac{dp^*}{d\alpha}=-\frac{E_\alpha}{E_p}
-    \qquad\text{at }p=p^*(\alpha)
-  \]
-  still gives the local comparative static (as in the practice problem).
-\end{frame}
-
-\begin{frame}{2.1 Application --- economic interpretation}
-  \footnotesize
-  \textbf{Chain rule.}\ Since $E(p^*(\alpha),\alpha)=0$ for all $\alpha$,
-  \[
-    0
-    = \frac{d}{d\alpha}E(p^*(\alpha),\alpha)
-    = \underbrace{E_\alpha(p^*,\alpha)}_{\text{direct}}
-      + \underbrace{E_p(p^*,\alpha)\,\frac{dp^*}{d\alpha}}_{\text{indirect via }p^*}.
-  \]
-  So $\dfrac{dp^*}{d\alpha}=-\dfrac{E_\alpha}{E_p}$ when $E_p\neq 0$.
-
-  \medskip
-  \textbf{Two effects of higher $\alpha$ on excess demand (in words).}
-  \begin{enumerate}
-    \item \textbf{Direct effect:}\ holding $p$ fixed, higher $\alpha$ raises demand
-      $\Rightarrow$ $E$ goes \textbf{up} ($E_\alpha>0$).
-    \item \textbf{Indirect effect:}\ equilibrium price adjusts; higher $p$ makes
-      $E$ \textbf{lower} ($E_p<0$).
-  \end{enumerate}
-
-  \medskip
-  \textbf{Why must $p^*$ rise?}\
-  The direct effect alone would create excess demand at the old price.
-  Price rises until the indirect effect offsets it and restores $E=0$.
-  With $E_\alpha>0$ and $E_p<0$, this requires $\dfrac{dp^*}{d\alpha}>0$.
-\end{frame}
-
-\begin{frame}{2.1 Example --- tax incidence (economics)}
+\begin{frame}{2.1 Example --- tax incidence}
   \footnotesize
   \textbf{Setup.}\ Demand $D(p)=\alpha-bp$, supply $S(p)=c+dp$ ($b,d>0$).
   A per-unit tax $t$ on \textbf{sellers}: buyers pay $p$, sellers receive $p-t$.
+  (A tax is another supply-side shock.)
 
   \medskip
-  Clearing: $D(p)=S(p-t)$, so $E(p,t)=\alpha-bp-c-d(p-t)=0$ and $p^*(t)$ is implicit.
+  Clearing: $D(p)=S(p-t)$, so $E(p,t)=\alpha-bp-c-d(p-t)=0$.
 
   \medskip
   Partials: $E_p=-(b+d)$,\ $E_t=d$.
@@ -307,16 +368,11 @@
   \]
 
   \medskip
-  \textbf{Incidence shares (per \$1 of tax).}\
-  Buyer price rises by $\dfrac{dp^*}{dt}=\dfrac{d}{b+d}$;
-  seller net price falls by $\dfrac{b}{b+d}$.
-
-  \medskip
-  \textbf{Interpretation (elasticity).}\
-  In this linear market, larger $b$ means more elastic demand and larger $d$ means more elastic supply.
-  The tax is borne \textbf{more heavily by the less elastic side}:
-  if demand is relatively inelastic (small $b$), buyers pay most of the tax;
-  if supply is relatively inelastic (small $d$), sellers pay most.
+  \textbf{Incidence (per \$1 of tax).}\
+  Buyer price rises by $\dfrac{d}{b+d}$; seller net price falls by $\dfrac{b}{b+d}$.
+  The tax is borne \textbf{more heavily by the less elastic side}
+  (small $b$: inelastic demand $\Rightarrow$ buyers pay most;
+  small $d$: inelastic supply $\Rightarrow$ sellers pay most).
 \end{frame}
 
 \section{2.2 --- EVT, MVT, and Existence}
