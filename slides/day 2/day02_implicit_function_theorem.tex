@@ -1000,24 +1000,25 @@
 
 \begin{frame}{2.3 Bayes --- worked example}
   \footnotesize
-  \textbf{Setup.}\ Good is high quality with prior $P(H)=\tfrac13$.
-  Signal: with high quality, $P(S\mid H)=\tfrac45$;
-  with low quality, $P(S\mid L)=\tfrac15$.
-  Observe $S$. What is $P(H\mid S)$?
+  \textbf{Setup.}\ Prevalence $P(\text{Covid})=\tfrac{1}{100}$.
+  A test has sensitivity $P(+\mid \text{Covid})=\tfrac{99}{100}$
+  and false-positive rate $P(+\mid \text{no Covid})=\tfrac{1}{100}$.
+  You test positive. What is $P(\text{Covid}\mid +)$?
 
   \medskip
   \[
-    P(S)
-    =\tfrac45\cdot\tfrac13+\tfrac15\cdot\tfrac23
-    =\tfrac25,
+    P(+)
+    =\tfrac{99}{100}\cdot\tfrac{1}{100}+\tfrac{1}{100}\cdot\tfrac{99}{100}
+    =\tfrac{198}{10000},
     \qquad
-    P(H\mid S)
-    =\frac{(\tfrac45)(\tfrac13)}{\tfrac25}
-    =\tfrac23.
+    P(\text{Covid}\mid +)
+    =\frac{(\tfrac{99}{100})(\tfrac{1}{100})}{\tfrac{198}{10000}}
+    =\tfrac12.
   \]
 
   \medskip
-  Prior $\tfrac13$ $\to$ posterior $\tfrac23$: a favorable signal revises beliefs upward.
+  Prior $\tfrac{1}{100}$ $\to$ posterior $\tfrac12$:
+  even a 99\%-accurate test leaves a 50--50 chance when the disease is rare.
 \end{frame}
 
 \begin{frame}{2.3 Intuition --- averaging group averages}
