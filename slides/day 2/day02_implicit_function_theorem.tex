@@ -623,7 +623,7 @@
   \vfill
 \end{frame}
 
-\section{2.3 --- Integration}
+\section{2.3 --- Integration and Probability}
 
 \begin{frame}{2.3 Integral as area and accumulation}
   \footnotesize
@@ -858,6 +858,277 @@
     \vspace{-0.1cm}
     \includegraphics[width=0.96\linewidth]{figures/expectation_cdf_region.png}
   \end{columns}
+\end{frame}
+
+\begin{frame}{2.3 Variance}
+  \footnotesize
+  Let $\mu=\mathbb{E}[X]$. The \textbf{variance} measures average squared distance from the mean:
+  \[
+    \mathrm{Var}(X)
+    =\mathbb{E}\bigl[(X-\mu)^2\bigr].
+  \]
+  (Standard deviation: $\mathrm{SD}(X)=\sqrt{\mathrm{Var}(X)}$.)
+
+  \medskip
+  \textbf{Scaling.}\ $\mathrm{Var}(aX+b)=a^2\mathrm{Var}(X)$.
+
+  \medskip
+  \textbf{Proof.}\
+  $\mathbb{E}[aX+b]=a\mu+b$, so
+  \[
+    \mathrm{Var}(aX+b)
+    =\mathbb{E}\bigl[(aX+b-a\mu-b)^2\bigr]
+    =\mathbb{E}\bigl[a^2(X-\mu)^2\bigr]
+    =a^2\mathrm{Var}(X).
+  \]
+  A shift $b$ cancels; a scale $a$ factors out as $a^2$.
+\end{frame}
+
+\begin{frame}{2.3 Why $\mathrm{Var}(X)=\mathbb{E}[X^2]-(\mathbb{E}[X])^2$}
+  \footnotesize
+  Expand the square:
+  \[
+    (X-\mu)^2
+    = X^2-2\mu X+\mu^2.
+  \]
+  Take expectations (linearity):
+  \[
+    \mathrm{Var}(X)
+    =\mathbb{E}[X^2]-2\mu\,\mathbb{E}[X]+\mu^2
+    =\mathbb{E}[X^2]-2\mu^2+\mu^2
+    =\mathbb{E}[X^2]-\mu^2.
+  \]
+  Since $\mu=\mathbb{E}[X]$,
+  \[
+    \boxed{\mathrm{Var}(X)=\mathbb{E}[X^2]-(\mathbb{E}[X])^2.}
+  \]
+
+  \medskip
+  {\scriptsize Recipe: compute $\mathbb{E}[X]$ and $\mathbb{E}[X^2]$, then subtract.
+  For Unif$(0,1)$: $\mathbb{E}[X]=\tfrac12$, $\mathbb{E}[X^2]=\tfrac13$, so
+  $\mathrm{Var}(X)=\tfrac13-\tfrac14=\tfrac{1}{12}$.}
+\end{frame}
+
+\begin{frame}{2.3 Joint distributions}
+  \footnotesize
+  For two random variables $(X,Y)$:
+
+  \medskip
+  \textbf{Discrete.}\ Joint PMF $p(x,y)=P(X=x,Y=y)$.
+  Marginals: $p_X(x)=\sum_y p(x,y)$, $p_Y(y)=\sum_x p(x,y)$.
+
+  \medskip
+  \textbf{Continuous.}\ Joint PDF $f(x,y)\ge 0$ with
+  $\displaystyle\iint f(x,y)\,dx\,dy=1$.
+  Marginals: $f_X(x)=\displaystyle\int f(x,y)\,dy$, etc.
+
+  \medskip
+  \textbf{Independence.}\
+  $p(x,y)=p_X(x)p_Y(y)$ (or $f(x,y)=f_X(x)f_Y(y)$).
+  Then knowing $X$ tells you nothing about $Y$.
+
+  \medskip
+  {\scriptsize Economics: prices and quantities, type and signal, income and hours ---
+  almost never independent.}
+\end{frame}
+
+\begin{frame}{2.3 Conditional probability}
+  \footnotesize
+  \textbf{Definition.}\ If $P(B)>0$,
+  \[
+    P(A\mid B)=\frac{P(A\cap B)}{P(B)}.
+  \]
+  Read: probability of $A$ \textbf{given} that $B$ occurred.
+
+  \medskip
+  \textbf{Discrete conditional PMF.}\
+  $p(y\mid x)=P(Y=y\mid X=x)=\dfrac{p(x,y)}{p_X(x)}$ when $p_X(x)>0$.
+
+  \medskip
+  \textbf{Continuous.}\
+  $f(y\mid x)=\dfrac{f(x,y)}{f_X(x)}$.
+
+  \medskip
+  \textbf{Conditional expectation.}\
+  $\mathbb{E}[Y\mid X=x]=\sum_y y\,p(y\mid x)$
+  (or $\displaystyle\int y f(y\mid x)\,dy$).
+  As a random variable: $\mathbb{E}[Y\mid X]$.
+\end{frame}
+
+\begin{frame}{2.3 Bayes --- prior and posterior}
+  \footnotesize
+  \textbf{Bayes' rule.}\
+  \[
+    P(A\mid B)
+    =\frac{P(B\mid A)\,P(A)}{P(B)}.
+  \]
+  \textbf{Prior} $P(A)$: belief before seeing data.
+  \textbf{Likelihood} $P(B\mid A)$: how the data arise if $A$ is true.
+  \textbf{Posterior} $P(A\mid B)$: updated belief after seeing $B$.
+
+  \medskip
+  Denominator (law of total probability):
+  \[
+    P(B)=P(B\mid A)P(A)+P(B\mid A^c)P(A^c).
+  \]
+
+  \medskip
+  \textbf{Economics.}\
+  Prior on type / quality / state; observe a signal; form a posterior and act.
+\end{frame}
+
+\begin{frame}{2.3 Bayes --- worked example}
+  \footnotesize
+  \textbf{Setup.}\ Good is high quality with prior $P(H)=\tfrac13$.
+  Signal: with high quality, $P(S\mid H)=\tfrac45$;
+  with low quality, $P(S\mid L)=\tfrac15$.
+  Observe $S$. What is $P(H\mid S)$?
+
+  \medskip
+  \[
+    P(S)
+    =\tfrac45\cdot\tfrac13+\tfrac15\cdot\tfrac23
+    =\tfrac25,
+    \qquad
+    P(H\mid S)
+    =\frac{(\tfrac45)(\tfrac13)}{\tfrac25}
+    =\tfrac23.
+  \]
+
+  \medskip
+  Prior $\tfrac13$ $\to$ posterior $\tfrac23$: a favorable signal revises beliefs upward.
+\end{frame}
+
+\begin{frame}{2.3 Intuition --- averaging group averages}
+  \footnotesize
+  \textbf{Example.}\ Wages $Y$ and education $X\in\{H,L\}$ (high / low).
+  Suppose half the workers are high education:
+  \[
+    \mathbb{E}[Y\mid X=H]=60,
+    \qquad
+    \mathbb{E}[Y\mid X=L]=40,
+    \qquad
+    P(X=H)=P(X=L)=\tfrac12.
+  \]
+
+  \medskip
+  Overall average wage:
+  \[
+    \mathbb{E}[Y]
+    =\tfrac12\cdot 60+\tfrac12\cdot 40
+    =50
+    =\mathbb{E}\bigl[\mathbb{E}[Y\mid X]\bigr].
+  \]
+
+  \medskip
+  \textbf{Intuition.}\
+  The grand mean is the \textbf{weighted average of subgroup means},
+  with weights equal to group shares.
+  That is the law of iterated expectations before the formula.
+\end{frame}
+
+\begin{frame}{2.3 Law of iterated expectations}
+  \footnotesize
+  \textbf{LIE.}\
+  \[
+    \mathbb{E}\bigl[\mathbb{E}[Y\mid X]\bigr]=\mathbb{E}[Y].
+  \]
+  Averaging the conditional means recovers the unconditional mean.
+
+  \medskip
+  \textbf{Discrete proof idea.}\
+  \[
+    \mathbb{E}\bigl[\mathbb{E}[Y\mid X]\bigr]
+    =\sum_x \mathbb{E}[Y\mid X=x]\,P(X=x)
+    =\sum_x\sum_y y\,p(y\mid x)\,p_X(x)
+    =\sum_y y\,p_Y(y)
+    =\mathbb{E}[Y].
+  \]
+
+  \medskip
+  \textbf{Use.}\
+  Forecasts: if $\mathbb{E}[Y\mid X]$ is your best predictor given $X$,
+  the average forecast equals the average outcome.
+\end{frame}
+
+\begin{frame}{2.3 Monty Hall --- setup}
+  \footnotesize
+  \textbf{Game.}\ Three doors; car behind one, goats behind the other two.
+  You pick door~1. Host (who knows where the car is) always opens a different door
+  with a goat --- say door~3. Should you switch to door~2?
+
+  \medskip
+  \textbf{Prior.}\ $C_i=\{\text{car behind door }i\}$, $P(C_i)=\tfrac13$ for $i=1,2,3$.
+
+  \medskip
+  \textbf{Host's rule.}\ Never opens your door; never opens the car;
+  if indifferent, randomize 50--50.
+  Data: $H_3=\{\text{host opens door~3}\}$.
+\end{frame}
+
+\begin{frame}{2.3 Monty Hall --- intuition}
+  \footnotesize
+  At the start, $P(C_1)=\tfrac13$ and
+  \[
+    P(C_2\cup C_3)=\tfrac23.
+  \]
+
+  \medskip
+  Seeing the host open door~3 does \textbf{not} change anything about your pick:
+  the host never opens door~1, so that reveal is not news about $C_1$.
+  Thus $P(C_1\mid H_3)$ stays $\tfrac13$.
+
+  \medskip
+  The other two doors still carry total probability $\tfrac23$.
+  The host just showed door~3 is a goat, so $C_3$ is impossible.
+  All of that $\tfrac23$ therefore piles onto the remaining closed door:
+  \[
+    P(C_2\mid H_3)=\tfrac23.
+  \]
+  Switch.
+\end{frame}
+
+\begin{frame}{2.3 Monty Hall --- 100 doors}
+  \footnotesize
+  Same game with \textbf{100 doors}. You pick door~1
+  ($P=\tfrac{1}{100}$). The other 99 doors share $\tfrac{99}{100}$.
+
+  \medskip
+  Host opens 98 goat doors among those 99, leaving door~37 closed.
+  Your door is still probability $\tfrac{1}{100}$
+  (host never opens it, so no news about it).
+
+  \medskip
+  The bundle of 99 doors still has $\tfrac{99}{100}$;
+  98 of them are now open goats, so that whole mass falls on door~37:
+  \[
+    P(\text{car behind 37}\mid\text{host leaves 37})
+    =\frac{99}{100}.
+  \]
+
+  \medskip
+  Switching is almost surely right. The 3-door case is the same logic with a smaller pile.
+\end{frame}
+
+\THFrame{2.3 Monty Hall --- Bayes solution}
+  \footnotesize
+  \textbf{Exercise.}\ Uniform prior $P(C_i)=\tfrac13$. You pick door~1; host opens door~3.
+  Using Bayes' rule, compute $P(C_1\mid H_3)$ and $P(C_2\mid H_3)$. Switch or stay?
+
+  \medskip
+  \textbf{Solution.}\ Likelihoods:
+  $P(H_3\mid C_1)=\tfrac12$, $P(H_3\mid C_2)=1$, $P(H_3\mid C_3)=0$.
+  \[
+    P(H_3)
+    =\tfrac12\cdot\tfrac13+1\cdot\tfrac13+0\cdot\tfrac13
+    =\tfrac12.
+  \]
+  \[
+    P(C_1\mid H_3)=\frac{(\tfrac12)(\tfrac13)}{\tfrac12}=\tfrac13,
+    \qquad
+    P(C_2\mid H_3)=\frac{1\cdot\tfrac13}{\tfrac12}=\tfrac23.
+  \]
+  Switch --- same answer as the intuition.
 \end{frame}
 
 \section{2.4 --- Leibniz Rule and Fubini}

@@ -142,10 +142,24 @@ def make_uniform_pdf_cdf_plot() -> None:
     x_left = np.linspace(-0.35, 0.0, 40)
     x_mid = np.linspace(0.0, 1.0, 120)
     x_right = np.linspace(1.0, 1.45, 40)
-    ax.plot(x_left, np.zeros_like(x_left), color=ACCENT, lw=2.2)
-    ax.plot(x_mid, x_mid, color=ACCENT, lw=2.2)
-    ax.plot(x_right, np.ones_like(x_right), color=ACCENT, lw=2.2)
-    ax.plot([0.0, 1.0], [0.0, 1.0], "o", color="white", markeredgecolor=ACCENT, ms=5)
+    ax.plot(
+        x_left,
+        np.zeros_like(x_left),
+        color=ACCENT,
+        lw=2.2,
+    )
+    ax.plot(
+        x_mid,
+        x_mid,
+        color=ACCENT,
+        lw=2.2,
+    )
+    ax.plot(
+        x_right,
+        np.ones_like(x_right),
+        color=ACCENT,
+        lw=2.2,
+    )
     ax.set_xlim(-0.35, 1.45)
     ax.set_ylim(-0.08, 1.25)
     _style_axis(ax, r"$x$", r"$F(x)$", "CDF")
