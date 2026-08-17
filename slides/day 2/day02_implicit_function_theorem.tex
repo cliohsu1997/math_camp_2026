@@ -104,10 +104,8 @@
   \begin{center}
     \includegraphics[height=0.62\textheight]{figures/egg_market_supply_shock.png}
   \end{center}
-  {\footnotesize This figure: \textbf{positive} cost shock $=$
-  \textbf{negative} supply shock ($S$ left; $p^*$ up, $q^*$ down).
-  Converse: \textbf{negative} cost shock $=$ \textbf{positive} supply shock
-  ($S$ right).}
+  {\footnotesize Positive cost shock $=$ negative supply shock
+  ($S$ left; $p^*$ up, $q^*$ down).}
 \end{frame}
 
 \begin{frame}{2.1 Motivation --- comparative statics}
@@ -221,24 +219,24 @@
 
 \begin{frame}{2.1 No closed form --- nonlinear market}
   \footnotesize
-  Now change demand to
+  Nonlinear demand, with the same two shifters as before:
   \[
     D(p,\alpha)=\alpha e^{-p},
     \qquad
-    S(p)=p,
+    S(p,s)=s+p,
     \qquad
-    \alpha>0.
+    \alpha>0,\ s\ge 0.
   \]
-  Clearing: $\alpha e^{-p}=p$, or $E(p,\alpha)=\alpha e^{-p}-p=0$.
+  Clearing: $\alpha e^{-p}=s+p$, or $E(p,\alpha,s)=\alpha e^{-p}-s-p=0$.
 
   \medskip
-  This equation \textbf{defines} $p^*(\alpha)$, but it has
+  This \textbf{defines} $p^*(\alpha,s)$ and $q^*=s+p^*$, but has
   \textbf{no elementary closed form}.
-  We cannot write $p^*=g(\alpha)$ and differentiate.
+  We cannot write $p^*=g(\alpha,s)$ and differentiate.
 
   \medskip
-  We still want $\dfrac{dp^*}{d\alpha}$.
-  That is the problem the Implicit Function Theorem solves.
+  We still want how $p^*$ and $q^*$ respond to a demand shock $\alpha$
+  and a supply shock $s$. That is the IFT.
 \end{frame}
 
 \begin{frame}{2.1 What problem does the IFT solve?}
@@ -259,7 +257,7 @@
   for $x^*(\theta)$.
 \end{frame}
 
-\begin{frame}{2.1 One-variable IFT --- statement and recipe}
+\begin{frame}{2.1 One-variable IFT --- statement}
   \footnotesize
   Let $F(x,y)$ be $C^1$ near $(x_0,y_0)$ with $F(x_0,y_0)=0$.
   If $F_y(x_0,y_0)\neq 0$, then locally there is a unique $g$ such that
@@ -273,18 +271,9 @@
   and
   \[
     \boxed{
-      g'(x)=\frac{dy}{dx}=-\frac{F_x(x,y)}{F_y(x,y)}
+      g'(x)=-\frac{F_x(x,y)}{F_y(x,y)}
     }
     \qquad\text{on the curve }F(x,y)=0.
-  \]
-
-  \medskip
-  \textbf{Recipe.}\ Totally differentiate $F(x,y)=0$:
-  \[
-    0=dF=F_x\,dx+F_y\,dy
-    \quad\Rightarrow\quad
-    \frac{dy}{dx}=-\frac{F_x}{F_y}
-    \quad\text{when }F_y\neq 0.
   \]
 
   \medskip
@@ -327,52 +316,61 @@
   Price must fall ($E_p<0$) until $E=0$ is restored.
 \end{frame}
 
-\QFrame{2.1 --- Apply IFT (no closed form)}
-  \scriptsize
-  \textbf{Nonlinear demand:}\ $D(p,\alpha)=\alpha e^{-p}$,\ $S(p)=p$,\ $\alpha>0$.
-
-  \textbf{No elementary closed form for $p^*(\alpha)$}. Use IFT.
-
-  \vspace{3pt}
-  \onslide<2->{\textbf{1.}\ Excess demand $E(p,\alpha)$.}\;
-  \onslide<3->{\textcolor{mAccent}{$E(p,\alpha)=\alpha e^{-p}-p$}\par\medskip}
-
-  \onslide<4->{\textbf{2.}\ Partials $E_\alpha$, $E_p$.}\;
-  \onslide<5->{\textcolor{mAccent}{$E_\alpha=e^{-p}$,\ $E_p=-\alpha e^{-p}-1$}\par\medskip}
-
-  \onslide<6->{\textbf{3.}\ IFT at $p=p^*$:}\;
-  \onslide<7->{\textcolor{mAccent}{$\dfrac{dp^*}{d\alpha}=\dfrac{e^{-p}}{\alpha e^{-p}+1}$}\par\medskip}
-
-  \onslide<8->{\textbf{4.}\ On the curve $\alpha e^{-p^*}=p^*$, simplify:}\;
-  \onslide<9->{\textcolor{mAccent}{$\dfrac{dp^*}{d\alpha}=\dfrac{e^{-p^*}}{p^*+1}>0$}\par\medskip}
-
-  \onslide<10->{\textbf{5.}\ $\alpha=2$: $2e^{-p}=p$ gives $p^*\approx 0.85$,
-    so $\dfrac{dp^*}{d\alpha}\approx 0.23$.}\;
-  \onslide<11->{\hfill{\tiny No closed form for $p^*(\alpha)$ --- IFT still works.}}
-\end{frame}
-
-\begin{frame}{2.1 Example --- tax incidence}
+\begin{frame}{2.1 Nonlinear market --- two shocks}
   \footnotesize
-  \textbf{Setup.}\ Demand $D(p)=\alpha-bp$, supply $S(p)=c+dp$ ($b,d>0$).
-  A per-unit tax $t$ on \textbf{sellers}: buyers pay $p$, sellers receive $p-t$.
-  (A tax is another supply-side shock.)
-
-  \medskip
-  Clearing: $D(p)=S(p-t)$, so $E(p,t)=\alpha-bp-c-d(p-t)=0$.
-
-  \medskip
-  Partials: $E_p=-(b+d)$,\ $E_t=d$.
-  \textbf{IFT:}
+  Same market:
   \[
-    \frac{dp^*}{dt}=-\frac{E_t}{E_p}=\frac{d}{b+d}>0.
+    D(p,\alpha)=\alpha e^{-p},
+    \qquad
+    S(p,s)=s+p,
+    \qquad
+    E(p,\alpha,s)=\alpha e^{-p}-s-p=0.
+  \]
+  IFT, with $q^*=s+p^*$. Same signs as the linear market.
+
+  \medskip
+  \textbf{Demand shock} $\alpha\uparrow$:
+  \[
+    \frac{dp^*}{d\alpha}=\frac{e^{-p^*}}{\alpha e^{-p^*}+1}>0,
+    \qquad
+    \frac{dq^*}{d\alpha}=\frac{dp^*}{d\alpha}>0.
   \]
 
   \medskip
-  \textbf{Incidence (per \$1 of tax).}\
-  Buyer price rises by $\dfrac{d}{b+d}$; seller net price falls by $\dfrac{b}{b+d}$.
-  The tax is borne \textbf{more heavily by the less elastic side}
-  (small $b$: inelastic demand $\Rightarrow$ buyers pay most;
-  small $d$: inelastic supply $\Rightarrow$ sellers pay most).
+  \textbf{Supply shock} $s\uparrow$:
+  \[
+    \frac{dp^*}{ds}=-\frac{1}{\alpha e^{-p^*}+1}<0,
+    \qquad
+    \frac{dq^*}{ds}=\frac{\alpha e^{-p^*}}{\alpha e^{-p^*}+1}>0.
+  \]
+\end{frame}
+
+\begin{frame}{2.1 Nonlinear market --- two shocks}
+  \begin{center}
+    \includegraphics[width=0.98\textwidth]{figures/nonlinear_market_two_shocks.png}
+  \end{center}
+  {\footnotesize Left: $s\uparrow$ --- $p^*$ down, $q^*$ up.
+  Right: $\alpha\uparrow$ --- both $p^*$ and $q^*$ up.}
+\end{frame}
+
+\begin{frame}{2.1 Tax incidence --- competitive passthrough}
+  \footnotesize
+  Perfect competition. Unit tax $t$ on sellers: buyers pay $p$, sellers receive $p-t$.
+  \[
+    E(p,t)=D(p)-S(p-t)=0.
+  \]
+  IFT: $E_p=D'-S'$, $E_t=S'$, so
+  \[
+    \frac{dp}{dt}=-\frac{E_t}{E_p}=\frac{S'}{S'-D'}\in(0,1),
+    \qquad
+    \frac{d(p-t)}{dt}=\frac{D'}{S'-D'}\in(-1,0).
+  \]
+  With $\varepsilon_D=D'(p)\,p/q<0$ and $\varepsilon_S=S'(p)\,p/q>0$,
+  \[
+    \frac{dp}{dt}=\frac{\varepsilon_S}{\varepsilon_S+|\varepsilon_D|}.
+  \]
+  The \textbf{less elastic} side bears more of the tax
+  (inelastic demand $\Rightarrow$ buyers; inelastic supply $\Rightarrow$ sellers).
 \end{frame}
 
 \section{2.2 --- EVT, MVT, and Existence}
@@ -477,6 +475,44 @@
   Weierstrass gives at least one maximizer, not a unique one
   (e.g.\ $u(x_1,x_2)=x_1+x_2$ has many optima on $\mathcal{B}$).
   Uniqueness needs extra conditions (e.g.\ strictly concave / strictly quasiconcave $u$; Day~4).}
+\end{frame}
+
+\begin{frame}{2.2 Intermediate Value Theorem}
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.52\textwidth}
+    \textbf{Intermediate Value Theorem (IVT).}\
+    If $f$ is continuous on $[a,b]$ and $k$ lies between $f(a)$ and $f(b)$,
+    then $\exists\,c\in[a,b]$ with $f(c)=k$.
+
+    \medskip
+    \textbf{Sign-change case.}\
+    If $f(a)$ and $f(b)$ have opposite signs, then $\exists\,c\in(a,b)$ with
+    $f(c)=0$.
+
+    \medskip
+    Continuity is essential: a jump can skip the target value.
+
+    \column{0.44\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/ivt_generic.png}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{2.2 Existence of a clearing price}
+  \scriptsize
+  Same nonlinear market, with numbers plugged in:
+  $D(p)=6e^{-p}$, $S(p)=\tfrac12+p$
+  (no closed form for $p^*$).
+  Excess demand $E(p)=6e^{-p}-\tfrac12-p$ is continuous.
+  $E(0)=\tfrac{11}{2}>0$ (shortage) and $E(5)=6e^{-5}-\tfrac{11}{2}<0$ (surplus).
+  IVT: $\exists\,p^*\in(0,5)$ with $E(p^*)=0$.
+  Also $E'(p)=-6e^{-p}-1<0$, so the root is unique.
+
+  \vspace{2pt}
+  \begin{center}
+    \includegraphics[height=0.52\textheight]{figures/ivt_excess_demand.png}
+  \end{center}
 \end{frame}
 
 \begin{frame}{2.2 Rolle's theorem}
@@ -739,7 +775,7 @@
   $\dfrac{d}{dx}\bigl[e^x(x-1)\bigr]=e^x(x-1)+e^x=x e^x$. \checkmark
 \end{frame}
 
-\begin{frame}{2.3 PMF and CMF --- discrete example (dice)}
+\begin{frame}{2.3 PMF and CDF --- discrete example (dice)}
   \footnotesize
   \textbf{Setup.}\ Fair die: $X\in\{1,2,3,4,5,6\}$.
 
@@ -752,22 +788,23 @@
   $P(2\le X\le 4)=p(2)+p(3)+p(4)=\tfrac12$.
 
   \medskip
-  \textbf{Cumulative mass function (CMF):}\
-  $C(k)=P(X\le k)=\sum_{j\le k}p(j)$, defined only at the \textbf{outcomes}
-  $k=1,\ldots,6$ (not a continuous curve in $x$).
+  \textbf{Cumulative distribution function (CDF):}\
+  $F(x)=P(X\le x)$, defined for \textbf{all} real $x$.
+  It is \textbf{right-continuous} and jumps by $p(k)$ only at mass points
+  $k=1,\ldots,6$ (flat in between).
 
   \medskip
-  Example: $C(3)=p(1)+p(2)+p(3)=\tfrac12$.
+  Example: $F(3)=\tfrac12$ and $F(3.7)=F(3)=\tfrac12$.
 
   \medskip
-  {\scriptsize Discrete: \textbf{PMF/CMF} and \textbf{sums}.\
-  Continuous (next slides): \textbf{PDF/CDF} and \textbf{integrals}.}
+  {\scriptsize Discrete: \textbf{PMF} and a step \textbf{CDF}.\
+  Continuous (next): \textbf{PDF} and a continuous \textbf{CDF}.}
 \end{frame}
 
-\begin{frame}[plain]{2.3 PMF and CMF --- dice (graph)}
+\begin{frame}[plain]{2.3 PMF and CDF --- dice (graph)}
   \centering
   \vfill
-  \includegraphics[width=0.88\textwidth]{figures/dice_pmf_cmf.png}
+  \includegraphics[width=0.88\textwidth]{figures/dice_pmf_cdf.png}
   \vfill
 \end{frame}
 

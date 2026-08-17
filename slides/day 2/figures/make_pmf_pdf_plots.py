@@ -1,4 +1,4 @@
-"""PMF/CMF and PDF/CDF figures for Day 2 section 2.3."""
+"""PMF and CDF figures for Day 2 section 2.3."""
 
 from pathlib import Path
 
@@ -20,29 +20,99 @@ def _style_axis(ax, xlabel: str, ylabel: str, title: str) -> None:
     ax.tick_params(labelsize=7)
 
 
-def make_dice_pmf_cmf_plot() -> None:
-    """Fair die: PMF bars and CMF at integer outcomes only."""
+def make_dice_pmf_cdf_plot() -> None:
+    """Fair die: PMF bars and right-continuous CDF (jumps only at mass)."""
     k = np.arange(1, 7)
     pmf = np.full(6, 1.0 / 6.0)
-    cmf = np.arange(1, 7) / 6.0
+    x_step = np.array(
+        [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.2]
+    )
+    y_step = np.array(
+        [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 6.0]
+    ) / 6.0
 
-    fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.1), dpi=220)
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(7.6, 3.2),
+        dpi=220,
+    )
 
     ax = axes[0]
-    ax.bar(k, pmf, width=0.72, color=DARK_TEAL, alpha=0.85, edgecolor="white")
+    ax.bar(
+        k,
+        pmf,
+        width=0.72,
+        color=DARK_TEAL,
+        alpha=0.85,
+        edgecolor="white",
+    )
     ax.set_xticks(k)
     ax.set_ylim(0.0, 0.22)
-    _style_axis(ax, r"$k$", r"$p(k)$", "PMF")
+    _style_axis(
+        ax,
+        r"$k$",
+        r"$p(k)$",
+        "PMF",
+    )
 
     ax = axes[1]
-    ax.bar(k, cmf, width=0.72, color=ACCENT, alpha=0.85, edgecolor="white")
+    ax.plot(
+        x_step,
+        y_step,
+        color=ACCENT,
+        linewidth=2.2,
+        drawstyle="steps-post",
+        zorder=3,
+    )
+    for j in range(1, 7):
+        y_left = (j - 1) / 6.0
+        y_right = j / 6.0
+        ax.plot(
+            [j, j],
+            [y_left, y_right],
+            color=ACCENT,
+            linewidth=1.6,
+            zorder=2,
+        )
+        ax.plot(
+            j,
+            y_left,
+            "o",
+            color="white",
+            markeredgecolor=ACCENT,
+            markersize=6.5,
+            markeredgewidth=1.4,
+            zorder=4,
+        )
+        ax.plot(
+            j,
+            y_right,
+            "o",
+            color=ACCENT,
+            markeredgecolor=ACCENT,
+            markersize=6.5,
+            zorder=4,
+        )
+
+    ax.set_xlim(0.0, 7.2)
+    ax.set_ylim(-0.06, 1.12)
     ax.set_xticks(k)
-    ax.set_ylim(0.0, 1.05)
-    _style_axis(ax, r"$k$", r"$C(k)$", "CMF")
+    _style_axis(
+        ax,
+        r"$x$",
+        r"$F(x)$",
+        "CDF (right-continuous)",
+    )
 
     fig.subplots_adjust(wspace=0.32)
-    out = OUT_DIR / "dice_pmf_cmf.png"
-    fig.savefig(out, bbox_inches="tight", facecolor="white", pad_inches=0.06)
+    out = OUT_DIR / "dice_pmf_cdf.png"
+    fig.savefig(
+        out,
+        bbox_inches="tight",
+        facecolor="white",
+        pad_inches=0.06,
+    )
     plt.close(fig)
     print(f"Wrote {out}")
 
@@ -138,6 +208,6 @@ def make_expectation_cdf_plot() -> None:
 
 
 if __name__ == "__main__":
-    make_dice_pmf_cmf_plot()
+    make_dice_pmf_cdf_plot()
     make_uniform_pdf_cdf_plot()
     make_expectation_cdf_plot()

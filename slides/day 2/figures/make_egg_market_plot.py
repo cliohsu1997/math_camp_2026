@@ -110,32 +110,13 @@ def make_egg_market_plot() -> None:
 
     ax.annotate(
         "",
-        xy=(3.2, 6.05),
-        xytext=(4.6, 4.7),
+        xy=(q1, p1),
+        xytext=(q0, p0),
         arrowprops={
             "arrowstyle": "->",
             "color": ACCENT,
             "lw": 1.6,
         },
-    )
-    ax.annotate(
-        "",
-        xy=(6.95, 8.9),
-        xytext=(6.95, 6.7),
-        arrowprops={
-            "arrowstyle": "->",
-            "color": ACCENT,
-            "lw": 1.4,
-        },
-    )
-    ax.text(
-        7.15,
-        7.8,
-        "positive\ncost shock",
-        fontsize=8,
-        color=ACCENT,
-        ha="left",
-        va="center",
     )
 
     ax.text(
