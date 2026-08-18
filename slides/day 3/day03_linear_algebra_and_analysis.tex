@@ -1320,17 +1320,12 @@
   \textbf{every} $\mathbf{b}$, and $A^{-1}$ exists.
 
   \medskip
-  \textbf{If (1) or (2) fails} (not a basis):
+  \textbf{Geometry.}
   \begin{itemize}
-    \item \textbf{(2) fails:} $\operatorname{Col}(A)\subsetneq\mathbb{R}^n$ --- some $\mathbf{b}$ have \textbf{no} solution.
-    \item \textbf{(1) fails} (columns \textbf{linearly dependent}): $\exists\,\mathbf{d}\neq\mathbf{0}$ with $A\mathbf{d}=\mathbf{0}$ --- if a solution exists,
-      $\mathbf{x}+\mathbf{d}$ is another (not unique).
-  \end{itemize}
+    \item A squeeze ($\det(A)=0$): some direction goes to $\mathbf{0}$ --- not a basis, not invertible.
 
-  \medskip
-  \textbf{Link to geometry (this section).}\
-  $\det(A)=0$ $\Leftrightarrow$ a squeeze $\Leftrightarrow$ not invertible;\
-  $\det(A)\neq 0$ $\Leftrightarrow$ nullity $=0$ $\Leftrightarrow$ basis $\Leftrightarrow$ invertible.
+    \item No squeeze ($\det(A)\neq 0$): nullity $=0$ --- a basis, invertible.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{3.5 Invertible matrices --- equivalent conditions}
@@ -1364,6 +1359,29 @@
   }
 \end{frame}
 
+\begin{frame}{3.5 Why (8): rows form a basis}
+  \footnotesize
+  \textbf{Goal.}\
+  (2) $\Rightarrow$ (8): columns of $A$ span $\mathbb{R}^n$ $\Rightarrow$ rows of $A$ form a basis.
+
+  \medskip
+  \textbf{Observation.}\
+  Rows of $A$ $=$ columns of $A^{\mathsf T}$.
+  So (8) is just ``columns of $A^{\mathsf T}$ form a basis.''
+
+  \medskip
+  \begin{itemize}
+    \item (2) $\Rightarrow$ $A$ invertible: $AA^{-1}=I_n$.
+
+    \item Transpose both sides:
+      $(A^{-1})^{\mathsf T}A^{\mathsf T}=I_n$, so $A^{\mathsf T}$ is invertible too.
+
+    \item Invertible $\Rightarrow$ columns of $A^{\mathsf T}$ form a basis.
+
+    \item Those columns are the rows of $A$. That is (8).
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{3.5 Transpose and inverse --- rules we use}
   \footnotesize
   \textbf{Transpose (always defined).}\
@@ -1376,17 +1394,9 @@
   \]
 
   \medskip
-  {\scriptsize
-  \textbf{Why (8)?}\
-  (2) $\Rightarrow$ $A\mathbf{x}=\mathbf{b}$ for all $\mathbf{b}$.\
-  Transpose: $\mathbf{x}^{\mathsf T}A^{\mathsf T}=\mathbf{b}^{\mathsf T}$ for all $\mathbf{b}^{\mathsf T}$ (row view, §3.3).\
-  Rows of $A$ = columns of $A^{\mathsf T}$ $\Rightarrow$ rows span $\mathbb{R}^n$; square $\Rightarrow$ basis [(8)].
-  }
-
-  \medskip
   \textbf{Inverse (definition).}\
   For square $A\in\mathbb{R}^{n\times n}$, $A^{-1}$ satisfies $AA^{-1}=A^{-1}A=I_n$.\
-  It exists iff any condition on the previous slide holds (e.g.\ $\det(A)\neq 0$).\
+  It exists iff any condition on the equivalent-conditions list holds (e.g.\ $\det(A)\neq 0$).\
   Then $A\mathbf{x}=\mathbf{b}$ has unique solution $\mathbf{x}=A^{-1}\mathbf{b}$.
 
   \medskip
