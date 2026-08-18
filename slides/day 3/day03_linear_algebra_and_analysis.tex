@@ -1798,6 +1798,31 @@
   {\scriptsize Not every matrix has a full real eigenbasis (e.g.\ plane rotation); \AppendixLink{sec:complex-eigenvalues} (\InterestOnly). SVD/QR play a similar role when it does not.}
 \end{frame}
 
+\begin{frame}{3.7 Spectral decomposition --- rotate, scale, rotate back}
+  \footnotesize
+  \textbf{If $A=A^{\mathsf T}$.}\
+  Eigenvalues are real, and eigenvectors for distinct $\lambda$ are orthogonal.
+  Take them orthonormal as columns of $Q$:
+  \[
+    Q^{\mathsf T}Q=I
+    \qquad\Rightarrow\qquad
+    Q^{\mathsf T}=Q^{-1}.
+  \]
+  {\scriptsize Why: \AppendixLink{sec:symmetric-real-eigenvalues} (\InterestOnly).}
+
+  \medskip
+  \textbf{Then $A=Q\Lambda Q^{\mathsf T}$.}\
+  On $\mathbf{x}$:
+  \begin{itemize}
+    \item $Q^{\mathsf T}\mathbf{x}$: rewrite $\mathbf{x}$ in the eigenbasis (weights $c_i$).
+
+    \item $\Lambda$: scale those \textbf{same} axes by $\lambda_i$.
+
+    \item $Q$: rotate back --- the reverse of $Q^{\mathsf T}$, because $Q^{-1}=Q^{\mathsf T}$.
+  \end{itemize}
+  Same as the previous slide: $\mathbf{x}=\sum_i c_i\mathbf{q}_i$ $\Rightarrow$ $A\mathbf{x}=\sum_i c_i\lambda_i\mathbf{q}_i$.
+\end{frame}
+
 \begin{frame}{3.7 Applications --- PCA and Markov chains \InterestOnly}
   \footnotesize
   {\scriptsize \InterestOnly\
@@ -1850,6 +1875,7 @@
     \item \textbf{Spectral / eigen decomposition} ($A=V\Lambda V^{-1}$).\
       When $A$ has a full eigenbasis, $V$ lists eigenvectors and $\Lambda$ lists eigenvalues ---
       matrix powers and dynamics become coefficient-wise.
+      If $A=A^{\mathsf T}$: $A=Q\Lambda Q^{\mathsf T}$ (rotate, scale, rotate back).
     \item \textbf{Singular Value Decomposition (SVD)} ($A=U\Sigma V^{\mathsf T}$).\
       Always exists;
       built from eigenproblems on $A^{\mathsf T}A$ (and $AA^{\mathsf T}$).
@@ -2432,6 +2458,28 @@
   \medskip
   {\scriptsize \textbf{Not all symmetric eigenvalues are positive} --- e.g.\ $A=\mathrm{diag}(1,-1)$.\
   Sign conditions (PSD/NSD) are in Section~3.8.}
+\end{frame}
+
+\begin{frame}{A.5 Symmetric matrices --- orthonormal eigenbasis}
+  \footnotesize
+  \InterestOnly
+
+  \medskip
+  \textbf{Claim.}\
+  If $A=A^{\mathsf T}$, eigenvectors for distinct eigenvalues are orthogonal.
+  Normalize them: $Q^{\mathsf T}=Q^{-1}$ and $A=Q\Lambda Q^{\mathsf T}$.
+
+  \medskip
+  \textbf{Why orthogonal.}\
+  $A\mathbf{q}=\lambda\mathbf{q}$, $A\mathbf{r}=\mu\mathbf{r}$, $\lambda\neq\mu$.
+  Symmetry: $(A\mathbf{q})\cdot\mathbf{r}=\mathbf{q}\cdot(A\mathbf{r})$, so
+  $\lambda\,\mathbf{q}\cdot\mathbf{r}=\mu\,\mathbf{q}\cdot\mathbf{r}$.
+  Then $(\lambda-\mu)\mathbf{q}\cdot\mathbf{r}=0$ $\Rightarrow$ $\mathbf{q}\cdot\mathbf{r}=0$.
+
+  \medskip
+  \textbf{Orthonormal.}\
+  Scale each to length $1$ (Gram--Schmidt if an eigenvalue repeats).
+  Columns of $Q$ satisfy $Q^{\mathsf T}Q=I$, i.e.\ $Q^{-1}=Q^{\mathsf T}$.
 \end{frame}
 
 \section{Eigenvectors --- RREF recipe (3.7)}
