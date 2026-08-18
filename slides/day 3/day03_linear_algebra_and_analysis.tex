@@ -956,6 +956,27 @@
   This $A$ is unique: column $j$ must be where $\mathbf{e}_j$ is sent.
 \end{frame}
 
+\begin{frame}{3.4 Why $(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$}
+  \footnotesize
+  $B$ sends $\mathbb{R}^p\to\mathbb{R}^n$, then $A$ sends $\mathbb{R}^n\to\mathbb{R}^m$, so
+  $AB$ sends $\mathbb{R}^p\to\mathbb{R}^m$.
+
+  \medskip
+  Transpose reverses the arrows: $(AB)^{\mathsf T}$ sends $\mathbb{R}^m\to\mathbb{R}^p$.
+
+  \medskip
+  To go back, undo $A$ first then $B$:
+  $A^{\mathsf T}$ sends $\mathbb{R}^m\to\mathbb{R}^n$, then $B^{\mathsf T}$ sends $\mathbb{R}^n\to\mathbb{R}^p$.
+  That composition is $B^{\mathsf T}A^{\mathsf T}$.
+
+  \medskip
+  $A^{\mathsf T}B^{\mathsf T}$ would need $\mathbb{R}^p=\mathbb{R}^m$ to even compose.
+  So
+  \[
+    (AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}.
+  \]
+\end{frame}
+
 \begin{frame}{3.4 Decompose, transform, combine --- notation}
   \footnotesize
   \textbf{Recipe.}\
