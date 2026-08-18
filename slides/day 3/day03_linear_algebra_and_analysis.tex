@@ -108,19 +108,38 @@
 
 \begin{frame}{3.1 Walrasian price adjustment}
   \footnotesize
-  \textbf{Market clearing.}\ A price $p^*$ \textbf{clears the market} when excess demand is zero:
-  $E(p^*)=0$.
-  Here $E(p)$ can take \textbf{any form} (from supply and demand behind the scenes).
-
-  \medskip
-  \textbf{Price adjustment (nonlinear in $E$).}\ Update the price each period:
+  \textbf{Question.}\ Excess demand $E(p)$, market clearing $E(p^*)=0$.
+  Prices update by
   \[
     p_{t+1}=T(p_t)=p_t+\lambda\bigl(1-e^{-\alpha E(p_t)}\bigr),
-    \qquad \lambda=\tfrac{1}{5},\ \alpha=0.1.
+    \qquad \lambda=\tfrac15,\ \alpha=0.1.
   \]
-  When $|E|$ is small, $1-e^{-\alpha E}\approx \alpha E$ --- move a fraction of excess demand toward balance.
-  Clearing satisfies $E(p^*)=0\ \Leftrightarrow\ T(p^*)=p^*$.
-  If $T$ is a \textbf{contraction} on a price range, then $p_t\to p^*$ from any starting $p_0$.
+  Does the price stabilize? That is, does $p_t\to p^*$?
+
+  \medskip
+  Fixed points of $T$ are exactly the market-clearing prices:
+  $E(p^*)=0\ \Leftrightarrow\ T(p^*)=p^*$.
+  Near $E=0$, $1-e^{-\alpha E}\approx\alpha E$.
+
+  \medskip
+  \textbf{Answer.}\ On a compact range that $T$ maps into itself, if
+  $E'<0$ and $T'(p)>-1$
+  (equivalently $\lambda\alpha\,e^{-\alpha E(p)}\,|E'(p)|<2$),
+  then yes: $T$ is a contraction, so $p_t\to p^*$ from any start in the range.
+\end{frame}
+
+\begin{frame}{3.1 Why the price stabilizes}
+  \footnotesize
+  \textbf{Slope.}\
+  $T'(p)=1+\lambda\alpha\,e^{-\alpha E(p)}\,E'(p)$.
+
+  \medskip
+  \textbf{Why $T'<1$.}\ $E'<0$, so the second term is negative and $T'<1$.
+
+  \medskip
+  \textbf{Why $T'>-1$ is enough.}\ Then $-1<T'<1$, so $\max|T'|=k<1$.
+  By MVT, $|T(p)-T(q)|=|T'(c)|\,|p-q|\le k|p-q|$:
+  each update shrinks the gap to $p^*$, hence the price stabilizes.
 \end{frame}
 
 \begin{frame}{3.1 Brouwer --- one dimension}
@@ -129,8 +148,7 @@
   $T$ has \textbf{at least one} fixed point $x^*$ with $T(x^*)=x^*$.
 
   \medskip
-  \textbf{Picture.}\ Plot $y=T(x)$ against $y=x$. Any crossing is a fixed point.
-  Continuity forces the graph to meet the diagonal at least once on $[a,b]$.
+  \textbf{Picture.}\ Plot $y=T(x)$ against the 45-degree line $y=x$. A crossing is a fixed point.
 \end{frame}
 
 \begin{frame}[plain]{}
@@ -156,25 +174,65 @@
   \textbf{One dimension.}\ $K=[a,b]$ is compact and convex, so the 1D case is a special case.
 \end{frame}
 
+\begin{frame}{3.1 Why compact and convex}
+  \begin{center}
+    \includegraphics[width=0.98\textwidth,height=0.62\textheight,keepaspectratio]{figures/brouwer_compact_convex_fail.png}
+  \end{center}
+  {\footnotesize Left: $K=(0,1)$ not closed, $T(x)=x/2$; the crossing is at $0\notin K$.
+  Right: $K$ is two intervals, $T$ swaps them; no crossing on $K$.}
+\end{frame}
+
+\begin{frame}{3.1 Linear Cournot --- best response}
+  \footnotesize
+  \textbf{Example.}\ Two firms, $p=a-(q_1+q_2)$, cost $0$, $q_i\in[0,a]$, $a>0$.
+  Firm~1 takes $q_2$ as given:
+  \(\pi_1(q_1;q_2)=(a-q_1-q_2)q_1\).
+  Firm~2 is symmetric.
+
+  \medskip
+  \textbf{FOC.}\ $\partial\pi_1/\partial q_1=a-2q_1-q_2=0$, so $q_1=(a-q_2)/2$.
+  \textbf{SOC.}\ $\partial^2\pi_1/\partial q_1^2=-2<0$.
+
+  \medskip
+  \textbf{Best response.}\ $BR_1(q_2)=(a-q_2)/2$, $BR_2(q_1)=(a-q_1)/2$,
+  and both map $[0,a]$ into itself.
+\end{frame}
+
+\begin{frame}{3.1 Linear Cournot --- Nash}
+  \footnotesize
+  \textbf{Nash.}\ $q_1^*=BR_1(q_2^*)$ and $q_2^*=BR_2(q_1^*)$:
+  \[
+    2q_1^*=a-q_2^*,\qquad 2q_2^*=a-q_1^*.
+  \]
+  Substitute $q_2^*=a-2q_1^*$ into the second equation:
+  \(2(a-2q_1^*)=a-q_1^*\), so \(2a-4q_1^*=a-q_1^*\), hence \(a=3q_1^*\).
+
+  \medskip
+  Thus $q_1^*=q_2^*=a/3$. Unique solution of two linear equations --- no Brouwer needed.
+
+  \medskip
+  Same map: $T(q_1,q_2)=\bigl(BR_1(q_2),BR_2(q_1)\bigr)$ on $K=[0,a]^2$,
+  with unique fixed point $(a/3,a/3)$.
+\end{frame}
+
 \begin{frame}{3.1 Brouwer --- Cournot duopoly}
   \footnotesize
-  \textbf{Two firms.}\ Firm $i$ chooses $q_i\in[0,\bar q]$.
-  \textbf{Nonlinear} inverse demand $p=a-(q_1+q_2)^2$ (e.g.\ $a=8$, $\bar q=2$).
+  \textbf{Asymmetric nonlinear demand.}\ Two firms, $q_i\in[0,\bar q]$,
+  \(p=a-(q_1+2q_2)^2\) (e.g.\ $a=8$, $\bar q=2$).
+  Profit $\pi_i=p\,q_i$.
 
   \medskip
-  \textbf{Profit and FOC.}\ $\pi_i=(a-(q_1+q_2)^2)q_i$. Firm~1's best response solves
+  \textbf{Interior FOCs.}\
   \[
-    a-3q_1^2-4q_1 q_2-q_2^2=0
-    \qquad\text{(similarly for firm~2 with $q_1,q_2$ swapped).}
+    a-3q_1^2-8q_1 q_2-4q_2^2=0,
+    \qquad
+    a-q_1^2-8q_1 q_2-12q_2^2=0.
   \]
-  The map $q_j\mapsto BR_i(q_j)$ is \textbf{nonlinear} --- no formula like
-  ``$(a-c-q_j)/2$''.
+  The two equations are not symmetric --- no formula like $q_i^*=a/3$.
 
   \medskip
-  \textbf{Fixed point = Nash.}\ $T(q_1,q_2)=\bigl(BR_1(q_2),BR_2(q_1)\bigr)$ is continuous on
-  $K=[0,\bar q]^2$. \textbf{Brouwer} guarantees an equilibrium, but you generally solve
-  $T(q_1^*,q_2^*)=(q_1^*,q_2^*)$ by \textbf{algebra or numerics}
-  (here one symmetric solution is $q_1^*=q_2^*=\sqrt{a/8}$).
+  \textbf{Existence.}\ $T(q_1,q_2)=\bigl(BR_1(q_2),BR_2(q_1)\bigr)$ is continuous on
+  the compact convex set $K=[0,\bar q]^2$. Brouwer: a Nash equilibrium exists.
 \end{frame}
 
 \section{3.2 --- Separation Theorem}
