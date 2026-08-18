@@ -278,35 +278,108 @@
   \includegraphics[width=0.88\textwidth,height=0.92\textheight,keepaspectratio]{figures/separation_hyperplane.png}
 \end{frame}
 
-\begin{frame}{3.2 Example --- producer theory (numerical illustration)}
-  \footnotesize
-  \textbf{Netput plan} $y=(y_1,y_2)$:\ input $y_1\le 0$, output $y_2\ge 0$ (second quadrant).
+\begin{frame}{3.2 Technology}
+  \begin{columns}[T]
+    \begin{column}{0.40\textwidth}
+      \footnotesize
+      \textbf{Netput.}\ $y=(y_1,y_2)$ with input $y_1\le 0$ and output $y_2\ge 0$.
 
-  \medskip
-  \textbf{Technology.}\ With $L=-y_1$ units of labor, max output is $f(L)=2\sqrt{L}$, so
-  \[
-    Y=\{(y_1,y_2):\ y_1\le 0,\ 0\le y_2\le 2\sqrt{-y_1}\}
-    \quad\text{(free disposal on output).}
-  \]
-
-  \medskip
-  \textbf{Prices.}\ Wage $p_1=1$, output price $p_2=2$.
-  Profit $\pi=p_1y_1+p_2y_2$ (since $y_1<0$, the term $p_1y_1$ is labor cost).
-
-  \medskip
-  \textbf{Efficient plan.}\ Use $L=4$:\ $y^*=(-4,\,4)$.
-  Then $\pi=1\cdot(-4)+2\cdot 4=4$.
-
-  \medskip
-  \textbf{Isoprofit line.}\ $y_1+2y_2=4$, or $y_2=2-\tfrac12 y_1$.
-  At $y_1=0$:\ \textbf{$y_2$-axis intercept} $y_2=\pi/p_2=2$.
-  Slope $-p_1/p_2=-\tfrac12$ matches the frontier at $y^*$ (supporting prices).
+      \medskip
+      \textbf{Technology.}\ Labor $L=-y_1$, max output $f(L)=2\sqrt{L}$:
+      \[
+        Y=\bigl\{y:\ y_1\le 0,\ 0\le y_2\le 2\sqrt{-y_1}\bigr\}.
+      \]
+      Shaded: feasible plans. The frontier is \textbf{technically efficient}:
+      you cannot get more output from the same input.
+    \end{column}
+    \begin{column}{0.58\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/pps_technology.png}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{3.2 Example --- producer theory (graph)}
-  \vspace{-0.35cm}
-  \centering
-  \includegraphics[width=0.92\textwidth,height=0.82\textheight,keepaspectratio]{figures/pps_frontier_isoprofit.png}
+\begin{frame}{3.2 Isoprofit}
+  \begin{columns}[T]
+    \begin{column}{0.40\textwidth}
+      \footnotesize
+      \textbf{Prices.}\ Wage $p_1=1$, output price $p_2=2$.
+      Profit $\pi=p_1 y_1+p_2 y_2=y_1+2y_2$.
+
+      \medskip
+      \textbf{Isoprofit lines.}\ Same $\pi$ $\Rightarrow$ a line $y_1+2y_2=\pi$.
+      Slope $-p_1/p_2=-\tfrac12$; intercept $\pi/p_2$.
+
+      \medskip
+      Parallel lines. A higher intercept is a higher profit --- this is only about $\pi$, not about $Y$.
+    \end{column}
+    \begin{column}{0.58\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/pps_isoprofit.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{3.2 Which profits are feasible}
+  \begin{columns}[T]
+    \begin{column}{0.40\textwidth}
+      \footnotesize
+      Now put the isoprofits on the technology $Y$.
+
+      \medskip
+      $\pi=0$ and $\pi=2$ cut through $Y$ (attainable).
+      $\pi=6$ misses $Y$ (not feasible).
+
+      \medskip
+      The firm wants the highest $\pi$ that still meets $Y$.
+    \end{column}
+    \begin{column}{0.58\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/pps_isoprofit_shift.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{3.2 Profit-maximizing plan}
+  \begin{columns}[T]
+    \begin{column}{0.40\textwidth}
+      \footnotesize
+      \textbf{Profit max.}\ The highest isoprofit that still meets $Y$ is tangent at
+      $y^*=(-4,4)$, $\pi=4$.
+
+      \medskip
+      That is the \textbf{profit-maximizing} plan at these prices.
+
+      \medskip
+      $y^*$ also lies on the frontier, so it is \textbf{technically efficient} as well.
+      Two properties, one point.
+    \end{column}
+    \begin{column}{0.58\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/pps_tangency.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{3.2 Why the isoprofit is tangent}
+  \footnotesize
+  Suppose locally you can produce $\Delta y_2$ using $\Delta y_1$.
+
+  \medskip
+  Extra profit is $p_1\Delta y_1+p_2\Delta y_2$.
+  At a maximizer this must be zero:
+  \[
+    p_1\Delta y_1+p_2\Delta y_2=0.
+  \]
+  If it were positive you would do a bit more of that swap; if negative, a bit less.
+  So the point would not be profit-maximizing.
+
+  \medskip
+  Rearrange:
+  \[
+    \frac{\Delta y_2}{\Delta y_1}=-\frac{p_1}{p_2}.
+  \]
+  The tangent of the production frontier equals the price ratio.
 \end{frame}
 
 \begin{frame}{3.2 Example --- producer theory}
