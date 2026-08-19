@@ -1965,41 +1965,72 @@
   An average of squares cannot be negative, so $\Sigma$ is PSD.
 \end{frame}
 
-\begin{frame}{3.8 Example --- second-order Taylor}
+\begin{frame}{3.8 Recap --- one-variable Taylor}
   \footnotesize
-  \textbf{Example.}\ $f(x,y)=x^2+xy$ near $(1,1)$, step $\mathbf{h}=(h_1,h_2)$.
-
-  \medskip
-  At $(1,1)$: $f=2$, $f_x=3$, $f_y=1$, $f_{xx}=2$, $f_{xy}=1$, $f_{yy}=0$.
-
-  \medskip
-  \textbf{Second-order Taylor} (with partials):
+  \textbf{Second-order Taylor} around $a$, step $h$:
   \[
-    f(1+h_1,1+h_2)
-    \approx 2 + 3h_1 + h_2 + \tfrac12\bigl(2h_1^2 + 2\cdot 1\cdot h_1 h_2 + 0\bigr)
-    = 2 + 3h_1 + h_2 + h_1^2 + h_1 h_2.
+    f(a+h)\approx f(a)+f'(a)\,h+\tfrac12 f''(a)\,h^2.
   \]
+
+  \medskip
+  \textbf{What each term is.}\
+  \begin{itemize}
+    \item $f(a)$: starting value
+    \item $f'(a)\,h$: if the slope stayed constant, this is the change in $f$
+    \item $\tfrac12 f''(a)\,h^2$: correction because the slope itself changes (curvature)
+  \end{itemize}
+
+  \medskip
+  If $f''(a)<0$, the correction bends \textbf{down} (local peak). If $f''(a)>0$, it bends \textbf{up}.
 \end{frame}
 
-\begin{frame}{3.8 Example --- same Taylor, Hessian form}
+\begin{frame}{3.8 Second-order Taylor --- expand the terms}
+  \footnotesize
+  Two variables, around $\mathbf{a}=(a_1,a_2)$, step $\mathbf{h}=(h_1,h_2)$:
+  \[
+    f(\mathbf{a}+\mathbf{h})
+    \approx f(\mathbf{a})
+      + f_{x_1}h_1 + f_{x_2}h_2
+      + \tfrac12\bigl(
+        f_{x_1x_1}h_1^2 + 2f_{x_1x_2}h_1 h_2 + f_{x_2x_2}h_2^2
+      \bigr).
+  \]
+  All derivatives are evaluated at $\mathbf{a}$.
+
+  \medskip
+  Same pieces as in $1$D --- a starting value, a linear (slope) piece, and a quadratic (curvature) piece --- now with two directions and a cross term.
+\end{frame}
+
+\begin{frame}{3.8 Second-order Taylor --- what each term means}
+  \footnotesize
+  \begin{itemize}
+    \item $f(\mathbf{a})$: starting value
+    \item $f_{x_1}h_1$: change if only $x_1$ moves, using the current slope in $x_1$
+    \item $f_{x_2}h_2$: change if only $x_2$ moves, using the current slope in $x_2$
+    \item $\tfrac12 f_{x_1x_1}h_1^2$: extra because the $x_1$-slope itself changes as $x_1$ moves
+    \item $\tfrac12 f_{x_2x_2}h_2^2$: extra because the $x_2$-slope itself changes as $x_2$ moves
+    \item $f_{x_1x_2}h_1 h_2$: extra because moving in $x_2$ changes the $x_1$-slope (and vice versa)
+  \end{itemize}
+
+  \medskip
+  Own-second-partials are own-curvature. The cross-partial is interaction.
+\end{frame}
+
+\begin{frame}{3.8 Same expansion --- Hessian form}
   \footnotesize
   Pack the second partials into a matrix $H_f$ (the \textbf{Hessian}):
   \[
-    H_f(1,1)
+    H_f(\mathbf{a})
     =
-    \begin{pmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{pmatrix}
-    =
-    \begin{pmatrix} 2 & 1 \\ 1 & 0 \end{pmatrix}.
+    \begin{pmatrix} f_{x_1x_1} & f_{x_1x_2} \\ f_{x_2x_1} & f_{x_2x_2} \end{pmatrix}.
   \]
-  Then
+  Then the quadratic piece is one number:
   \[
-    \tfrac12\,\mathbf{h}^{\mathsf T}H_f(1,1)\,\mathbf{h}
-    =\tfrac12\begin{pmatrix}h_1&h_2\end{pmatrix}
-    \begin{pmatrix}2&1\\1&0\end{pmatrix}
-    \begin{pmatrix}h_1\\h_2\end{pmatrix}
-    = h_1^2 + h_1 h_2,
+    \tfrac12\,\mathbf{h}^{\mathsf T}H_f(\mathbf{a})\,\mathbf{h}
+    =\tfrac12\bigl(
+      f_{x_1x_1}h_1^2 + 2f_{x_1x_2}h_1 h_2 + f_{x_2x_2}h_2^2
+    \bigr).
   \]
-  which is the second-order piece on the previous slide.
 
   \medskip
   \textbf{In general.}
