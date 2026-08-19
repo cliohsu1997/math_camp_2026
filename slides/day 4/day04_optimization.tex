@@ -287,6 +287,29 @@
   \end{columns}
 \end{frame}
 
+\QFrame{4.2 Exercise: Testing concavity vs. convexity}
+  \small
+  \textbf{Exercise.} Determine if these functions are concave, convex, or neither:
+  
+  \textbf{(a)} $f(x) = -x^2$ on $\mathbb{R}$
+  
+  \begin{itemize}
+    \item $f''(x) = -2 < 0$ for all $x$ $\Rightarrow$ \textbf{strictly concave}
+  \end{itemize}
+  
+  \textbf{(b)} $f(x) = e^x$ on $\mathbb{R}$
+  
+  \begin{itemize}
+    \item $f''(x) = e^x > 0$ for all $x$ $\Rightarrow$ \textbf{strictly convex}
+  \end{itemize}
+  
+  \textbf{(c)} $f(x) = x^3$ on $\mathbb{R}$
+  
+  \begin{itemize}
+    \item $f''(x) = 6x$ changes sign at $x = 0$ $\Rightarrow$ \textbf{neither} concave nor convex on all of $\mathbb{R}$
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{4.2 Example: Profit maximization}
   \small
   \textbf{Example.} Profit $\pi(q)=pq-C(q)$.
@@ -362,6 +385,17 @@
   Concavity: surface lies \textbf{below} its tangent plane; shape is an inverted bowl.
 \end{frame}
 
+\begin{frame}{4.2 One-dimensional quasiconcave function}
+  \small
+  Concavity gives a unique peak, but it is \textbf{too strong}: a single-peaked $f$ can fail the chord test.
+  
+  \begin{center}
+    \includegraphics[width=0.92\textwidth,height=0.52\textheight,keepaspectratio]{figures/quasiconcave_1d.png}
+  \end{center}
+  
+  The graph can lie \textbf{below} the chord (not concave) and still stay above $\min\{f(x),f(y)\}$ --- one peak, still good for maximization.
+\end{frame}
+
 \begin{frame}{4.2 Quasiconcave functions: Two definitions}
   \small
   \textbf{Definition A (segment).} $f$ is \textbf{quasiconcave} if for all $x, y$ and $\lambda \in [0,1]$:
@@ -373,12 +407,6 @@
   Along any segment, $f$ stays at least as high as the lower endpoint.
   
   \textbf{Definition B (upper contours).} $f$ is quasiconcave if upper contour sets $S_t = \{\mathbf{x}: f(\mathbf{x}) \geq t\}$ are convex for all $t$.
-\end{frame}
-
-\begin{frame}{4.2 One-dimensional quasiconcave function}
-  \begin{center}
-    \includegraphics[height=0.76\textheight]{figures/quasiconcave_1d.png}
-  \end{center}
 \end{frame}
 
 \begin{frame}{4.2 Two-dimensional upper contour sets}
@@ -511,44 +539,6 @@
   \textbf{Why this matters:} FOC gives global max on convex budget set.
 \end{frame}
 
-\begin{frame}{4.2 Why quasiconcavity matters}
-  \small
-  \textbf{Theorem.} If $f$ is quasiconcave and the feasible set $\mathcal{B}$ is convex, then any feasible point with no first-order improving direction is a global maximum.
-  
-  \textbf{Intuition:}
-  
-  \begin{itemize}
-    \item Quasiconcavity ensures ``no valleys'' in the upper direction
-    
-    \item With convex feasible set, any local peak is the global peak
-  \end{itemize}
-  
-  Cobb--Douglas is quasiconcave, so the FOC candidate gives the global max on a convex budget set.
-\end{frame}
-
-\QFrame{4.2 Exercise: Testing concavity vs. convexity}
-  \small
-  \textbf{Exercise.} Determine if these functions are concave, convex, or neither:
-  
-  \textbf{(a)} $f(x) = -x^2$ on $\mathbb{R}$
-  
-  \begin{itemize}
-    \item $f''(x) = -2 < 0$ for all $x$ $\Rightarrow$ \textbf{strictly concave}
-  \end{itemize}
-  
-  \textbf{(b)} $f(x) = e^x$ on $\mathbb{R}$
-  
-  \begin{itemize}
-    \item $f''(x) = e^x > 0$ for all $x$ $\Rightarrow$ \textbf{strictly convex}
-  \end{itemize}
-  
-  \textbf{(c)} $f(x) = x^3$ on $\mathbb{R}$
-  
-  \begin{itemize}
-    \item $f''(x) = 6x$ changes sign at $x = 0$ $\Rightarrow$ \textbf{neither} concave nor convex on all of $\mathbb{R}$
-  \end{itemize}
-\end{frame}
-
 \QFrame{4.2 Exercise: Cobb--Douglas quasiconcavity}
   \small
   \textbf{Exercise.} Show $u(x_1, x_2) = x_1^\alpha x_2^{1-\alpha}$ is quasiconcave on $\mathbb{R}^2_{++}$.
@@ -658,6 +648,21 @@
     \item Let $h(\varepsilon):=(1+\varepsilon^\rho)^{1/\rho}-(1+\varepsilon)2^{1/\rho-1}$. For $\rho>1$: $2^{1/\rho-1}<1$, so $h(0)>0$
     \item By continuity, pick $\varepsilon>0$ small with $h(\varepsilon)>0$, i.e.\ $u(\lambda \mathbf{x}+(1-\lambda)\mathbf{y})<\min\{u(\mathbf{x}),u(\mathbf{y})\}$ --- not quasiconcave
   \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 Why quasiconcavity matters}
+  \small
+  \textbf{Theorem.} If $f$ is quasiconcave and the feasible set $\mathcal{B}$ is convex, then any feasible point with no first-order improving direction is a global maximum.
+  
+  \textbf{Intuition:}
+  
+  \begin{itemize}
+    \item Quasiconcavity ensures ``no valleys'' in the upper direction
+    
+    \item With convex feasible set, any local peak is the global peak
+  \end{itemize}
+  
+  Cobb--Douglas is quasiconcave, so the FOC candidate gives the global max on a convex budget set.
 \end{frame}
 
 %==============================================================================
