@@ -1908,42 +1908,124 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{3.8 Examples --- where PSD and NSD appear}
+\begin{frame}{3.8 Examples --- $A^{\mathsf T}A$ is PSD}
   \footnotesize
   \textbf{$A^{\mathsf T}A$ is PSD.}\
   For any $\mathbf{v}$,
   \[
     \mathbf{v}^{\mathsf T}A^{\mathsf T}A\mathbf{v}=\|A\mathbf{v}\|^2\ge 0.
   \]
+  A squared length cannot be negative.
+\end{frame}
+
+\begin{frame}{3.8 Examples --- the covariance matrix}
+  \footnotesize
+  \textbf{One entry.}\
+  For $\mathbf{x}\in\mathbb{R}^n$, entry $(i,j)$ of $\Sigma$ is
+  \[
+    \Sigma_{ij}=\mathrm{Cov}(x_i,x_j)=\mathbb{E}[(x_i-\mu_i)(x_j-\mu_j)].
+  \]
+  Row $i$, column $j$: how $x_i$ co-moves with $x_j$. If $i=j$, this is $\mathrm{Var}(x_i)$.
 
   \medskip
-  \textbf{Covariance matrix $\Sigma$ is PSD.}\
-  For centered data, $\Sigma=\mathbb{E}[\mathbf{x}\mathbf{x}^{\mathsf T}]$, so
+  \textbf{Recenter that pair.}\
+  Let $\tilde{x}_i=x_i-\mu_i$ and $\tilde{x}_j=x_j-\mu_j$. Then $\mathbb{E}[\tilde{x}_i]=\mathbb{E}[\tilde{x}_j]=0$, and
+  \[
+    \mathrm{Cov}(\tilde{x}_i,\tilde{x}_j)
+    =\mathbb{E}[\tilde{x}_i\tilde{x}_j]
+    =\mathbb{E}[(x_i-\mu_i)(x_j-\mu_j)]
+    =\mathrm{Cov}(x_i,x_j).
+  \]
+  Recentering does not change $\Sigma_{ij}$ --- only deviations from the mean enter.
+
+  \medskip
+  \textbf{The matrix.}\
+  Let $\tilde{\mathbf{x}}=\mathbf{x}-\boldsymbol{\mu}$. The $(i,j)$ entry of $\tilde{\mathbf{x}}\tilde{\mathbf{x}}^{\mathsf T}$ is $\tilde{x}_i\tilde{x}_j$, so
+  \[
+    \Sigma=\mathbb{E}[\tilde{\mathbf{x}}\tilde{\mathbf{x}}^{\mathsf T}].
+  \]
+\end{frame}
+
+\begin{frame}{3.8 Examples --- covariance is PSD}
+  \footnotesize
+  With $\tilde{\mathbf{x}}=\mathbf{x}-\boldsymbol{\mu}$, we have $\Sigma=\mathbb{E}[\tilde{\mathbf{x}}\tilde{\mathbf{x}}^{\mathsf T}]$.
+
+  \medskip
+  \textbf{One draw.}\
+  $\mathbf{v}^{\mathsf T}(\tilde{\mathbf{x}}\tilde{\mathbf{x}}^{\mathsf T})\mathbf{v}=(\mathbf{v}^{\mathsf T}\tilde{\mathbf{x}})^2\ge 0$,
+  so $\tilde{\mathbf{x}}\tilde{\mathbf{x}}^{\mathsf T}$ is already PSD.
+
+  \medskip
+  \textbf{Population.}\
   \[
     \mathbf{v}^{\mathsf T}\Sigma\mathbf{v}
-    =\mathbb{E}\bigl[(\mathbf{v}^{\mathsf T}\mathbf{x})^2\bigr]\ge 0
+    =\mathbf{v}^{\mathsf T}\mathbb{E}[\tilde{\mathbf{x}}\tilde{\mathbf{x}}^{\mathsf T}]\mathbf{v}
+    =\mathbb{E}\bigl[(\mathbf{v}^{\mathsf T}\tilde{\mathbf{x}})^2\bigr]\ge 0.
   \]
-  (an average of squares).
+  An average of squares cannot be negative, so $\Sigma$ is PSD.
+\end{frame}
+
+\begin{frame}{3.8 Example --- second-order Taylor}
+  \footnotesize
+  \textbf{Example.}\ $f(x,y)=x^2+xy$ near $(1,1)$, step $\mathbf{h}=(h_1,h_2)$.
+
+  \medskip
+  At $(1,1)$: $f=2$, $f_x=3$, $f_y=1$, $f_{xx}=2$, $f_{xy}=1$, $f_{yy}=0$.
+
+  \medskip
+  \textbf{Second-order Taylor} (with partials):
+  \[
+    f(1+h_1,1+h_2)
+    \approx 2 + 3h_1 + h_2 + \tfrac12\bigl(2h_1^2 + 2\cdot 1\cdot h_1 h_2 + 0\bigr)
+    = 2 + 3h_1 + h_2 + h_1^2 + h_1 h_2.
+  \]
+\end{frame}
+
+\begin{frame}{3.8 Example --- same Taylor, Hessian form}
+  \footnotesize
+  Pack the second partials into a matrix $H_f$ (the \textbf{Hessian}):
+  \[
+    H_f(1,1)
+    =
+    \begin{pmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{pmatrix}
+    =
+    \begin{pmatrix} 2 & 1 \\ 1 & 0 \end{pmatrix}.
+  \]
+  Then
+  \[
+    \tfrac12\,\mathbf{h}^{\mathsf T}H_f(1,1)\,\mathbf{h}
+    =\tfrac12\begin{pmatrix}h_1&h_2\end{pmatrix}
+    \begin{pmatrix}2&1\\1&0\end{pmatrix}
+    \begin{pmatrix}h_1\\h_2\end{pmatrix}
+    = h_1^2 + h_1 h_2,
+  \]
+  which is the second-order piece on the previous slide.
+
+  \medskip
+  \textbf{In general.}
+  \[
+    f(\mathbf{a}+\mathbf{h})
+    \approx f(\mathbf{a})+\nabla f(\mathbf{a})\cdot\mathbf{h}+\tfrac12\mathbf{h}^{\mathsf T}H_f(\mathbf{a})\mathbf{h}.
+  \]
 \end{frame}
 
 \begin{frame}{3.8 Example --- the Hessian}
   \footnotesize
-  \textbf{Reminder (Day~2).}\
-  For $f:\mathbb{R}^n\to\mathbb{R}$ in $C^2$, the \textbf{Hessian} $H_f(\mathbf{x})$ is the matrix of \textbf{second partial derivatives}:
+  \textbf{Hessian.}\
+  For $f:\mathbb{R}^n\to\mathbb{R}$ in $C^2$, $H_f(\mathbf{x})$ is the matrix of second partials:
   \[
     \bigl(H_f(\mathbf{x})\bigr)_{ij}=\frac{\partial^2 f}{\partial x_i\partial x_j}(\mathbf{x}).
   \]
-  In $2$ variables: $H_f=
-  \begin{pmatrix}f_{x_1x_1}&f_{x_1x_2}\\ f_{x_2x_1}&f_{x_2x_2}\end{pmatrix}$.
+  The second-order Taylor term is the quadratic form $\tfrac12\mathbf{h}^{\mathsf T}H_f(\mathbf{a})\mathbf{h}$.
 
   \medskip
   \textbf{Symmetric.}\
-  Mixed partials agree ($f_{x_ix_j}=f_{x_jx_i}$), so $H_f(\mathbf{x})^{\mathsf T}=H_f(\mathbf{x})$ --- a symmetric matrix, so Section~3.8 applies.
+  Mixed partials agree ($f_{x_ix_j}=f_{x_jx_i}$), so $H_f(\mathbf{x})^{\mathsf T}=H_f(\mathbf{x})$ --- Section~3.8 applies.
 
   \medskip
   \textbf{Next module (Day~4).}\
-  We connect $H_f$ to \textbf{concavity}: concave $f$ $\Leftrightarrow$ $H_f(\mathbf{x})$ is \textbf{NSD} for all $\mathbf{x}$.\
-  Today: NSD is the sign condition on the quadratic form $\mathbf{v}^{\mathsf T}H_f(\mathbf{x})\mathbf{v}$.
+  Concave $f$ $\Leftrightarrow$ $H_f(\mathbf{x})$ is \textbf{NSD} for all $\mathbf{x}$.
+  Today: NSD is the sign of $\mathbf{v}^{\mathsf T}H_f(\mathbf{x})\mathbf{v}$.
 \end{frame}
 
 \begin{frame}{3.8 Characterizations --- eigenvalues and diagonal entries}
