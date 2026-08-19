@@ -138,7 +138,13 @@
 
 \begin{frame}{4.1 From local to global}
   \small
-  \textbf{Question:} A local maximum need not be a global maximum. When does a critical point guarantee a \textbf{global maximum}, not just a local maximum?
+  A local maximum need not be a global maximum:
+  
+  \begin{center}
+    \includegraphics[width=0.82\textwidth,height=0.46\textheight,keepaspectratio]{figures/local_not_global.png}
+  \end{center}
+  
+  \textbf{Question:} When does a critical point guarantee a \textbf{global} maximum?
   
   \textbf{Answer:} When $f$ is \textbf{concave}.
 \end{frame}
@@ -260,17 +266,25 @@
   \small
   \textbf{Exercise.} For $f(x) = \ln(x) - x$ on $x > 0$, find critical points, verify SOC, and determine whether $x^*$ is a global maximum.
   
-  \textbf{Solution.}
-  
-  \begin{itemize}
-    \item $f'(x) = \frac{1}{x} - 1 = 0$ gives $x^* = 1$
-    
-    \item $f''(x) = -\frac{1}{x^2}$, so $f''(1) = -1 < 0$ $\Rightarrow$ strict local maximum
-    
-    \item Since $f''(x) < 0$ for all $x > 0$, $f$ is strictly concave
-    
-    \item Therefore $x^* = 1$ is the unique \textbf{global} maximum
-  \end{itemize}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth,height=0.58\textheight,keepaspectratio]{figures/ln_minus_x.png}
+      \end{center}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \textbf{Solution.}
+      \begin{itemize}
+        \item $f'(x)=\frac{1}{x}-1=0$ gives $x^*=1$
+        
+        \item $f''(1)=-1<0$ $\Rightarrow$ strict local maximum
+        
+        \item $f''(x)=-\frac{1}{x^2}<0$ for all $x>0$, so $f$ is strictly concave
+        
+        \item Therefore $x^*=1$ is the unique \textbf{global} maximum
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{4.2 Example: Profit maximization}
