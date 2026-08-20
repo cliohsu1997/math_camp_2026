@@ -1223,17 +1223,19 @@
   \small
   \textbf{Inequality} $g(\mathbf{x})\leq 0$: a \textbf{one-sided wall}.
   Feasible moves satisfy $\nabla g\cdot\mathbf{d}\leq 0$.
-  For a max, binding is two steps:
+  For a max with one active $g$ and $\mathcal{L}=f+\lambda g$:
 
   \begin{enumerate}
-    \item \textbf{Binding} $\Rightarrow$ moving with $\nabla g$ improves $f$:
-      $\nabla f\cdot\nabla g>0$ (same open half-space).
-    \item \textbf{Binding + stationarity} (one active $g$)
-      $\Rightarrow$ same ray
-      $\Rightarrow$ $\nabla f=-\lambda\nabla g$ with $-\lambda>0$
-      (equivalently $\lambda<0$).
+    \item \textbf{Binding + stationarity} $\Rightarrow$ $\nabla f$ lies on the
+      \emph{same line} as $\nabla g$: $\nabla f=-\lambda\nabla g$
+      (same or opposite, depending on the sign of $\lambda$).
+    \item Binding also needs $\nabla f\cdot\nabla g>0$, so they point the
+      \emph{same} way $\Rightarrow$ $-\lambda>0$ $\Rightarrow$ $\lambda<0$.
+    \item Why $\lambda<0$: if $\lambda>0$, the term $\lambda g$ rewards raising $g$,
+      so the optimizer pushes along $\nabla g$ and violates $g\leq 0$.
+      A negative $\lambda$ holds that incentive back and keeps the point
+      on the inequality bound.
   \end{enumerate}
-  Step 1 is geometry; step 2 is the FOC (the wall holds $f$ back).
 
   \textbf{Equality} $h(\mathbf{x})=0$: a \textbf{two-sided wall}.
   No forbidden side, so no half-space requirement and $\lambda$ free in sign.
