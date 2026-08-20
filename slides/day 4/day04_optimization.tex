@@ -1099,70 +1099,120 @@
     \end{tabular}
   \end{center}
   
-  \textbf{Memory rule.} Prefer writing constraints as $g\geq 0$ when maximizing:
-  max (``$+$'' in $\mathcal{L}$) and $g\geq 0$ (``positive'' slack) $\Rightarrow$ $\lambda\geq 0$.
-  Two positives give a positive multiplier.
-  
-  Equivalently: if you keep $g\leq 0$ under max, then $\lambda\leq 0$ (same inequality direction).
+  \textbf{Memory rule (multiply signs).}
+  Assign: max $=+$, min $=-\,;$ $\leq=-\,;$ $\geq=+$.
+  The sign of $\lambda$ is the product:
+  \[
+    \underbrace{\mathrm{max}/\!\mathrm{min}}_{\pm}
+    \times
+    \underbrace{g\,\leq/\!\geq}_{\pm}
+    \;=\;
+    \mathrm{sign}(\lambda).
+  \]
+  Example: max and $g\leq 0$ $\Rightarrow$ $(+)\times(-)=-$ $\Rightarrow$ $\lambda\leq 0$.
 \end{frame}
 
 \QFrame{4.5 Exercise: Budget with nonnegativity}
   \small
-  \textbf{Exercise.} Maximize $u(x_1, x_2)$ subject to $x_1 + x_2 \leq 1$, $x_1 \geq 0$, $x_2 \geq 0$.
-  
-  \textbf{Solution.}
-  
-  \begin{itemize}
-    \item Write: $g_1 = x_1 + x_2 - 1 \leq 0$, $g_2 = -x_1 \leq 0$, $g_3 = -x_2 \leq 0$
-    
-    \item Lagrangian: $\mathcal{L} = u + \lambda_1(x_1 + x_2 - 1) + \lambda_2(-x_1) + \lambda_3(-x_2)$
-    
-    \item All $\lambda_j \leq 0$ (max, $g_j\leq 0$, $+$ convention)
-    
-    \item Stationarity: $\frac{\partial u}{\partial x_1} + \lambda_1 - \lambda_2 = 0$, $\frac{\partial u}{\partial x_2} + \lambda_1 - \lambda_3 = 0$
-    
-    \item CS: $\lambda_1(x_1 + x_2 - 1) = 0$, $\lambda_2(-x_1) = 0$, $\lambda_3(-x_2) = 0$
-  \end{itemize}
+  \textbf{Exercise.} Maximize $u(x_1,x_2)=x_1 x_2$ subject to $x_1+x_2\leq 1$, $x_1\geq 0$, $x_2\geq 0$.
+
+  $g_1=x_1+x_2-1\leq 0$, $g_2=-x_1\leq 0$, $g_3=-x_2\leq 0$, $\lambda_j\leq 0$.
+  \[
+    \mathcal{L}=x_1 x_2+\lambda_1(x_1+x_2-1)+\lambda_2(-x_1)+\lambda_3(-x_2).
+  \]
+  Stationarity: $x_2+\lambda_1-\lambda_2=0$,\quad $x_1+\lambda_1-\lambda_3=0$.\\
+  CS: $\lambda_1(x_1+x_2-1)=0$,\quad $\lambda_2 x_1=0$,\quad $\lambda_3 x_2=0$.
+
+  \textbf{Method.} In general each $g_j$ binds or not $\Rightarrow$ $2^3=8$ patterns.
+  We illustrate three: interior max, a corner that fails KKT, and a point where KKT holds but is not a max.
 \end{frame}
 
-\QFrame{4.5 Exercise: Corner solution analysis}
+\QFrame{4.5 Case: Only budget binds}
   \small
-  \textbf{Exercise.} For $u(x_1, x_2) = x_1 x_2$, determine when the corner $x_1 = 0$, $x_2 = 1$ is optimal.
-  
-  \textbf{Solution.}
-  
+  Stationarity: $x_2+\lambda_1-\lambda_2=0$,\quad $x_1+\lambda_1-\lambda_3=0$.\\
+  CS: $\lambda_1(x_1+x_2-1)=0$,\quad $\lambda_2 x_1=0$,\quad $\lambda_3 x_2=0$
+  \quad ($\lambda_j\leq 0$).
+
+  \textbf{Case.} $x_1+x_2=1$ and $x_1,x_2>0$ $\Rightarrow$ $\lambda_2=\lambda_3=0$.
+
   \begin{itemize}
-    \item At $(0, 1)$: $g_1$ binds ($\lambda_1 \leq 0$), $g_2$ binds ($\lambda_2 \leq 0$), $g_3$ slack ($\lambda_3 = 0$)
-    
-    \item FOC for $x_1$: $x_2 + \lambda_1 - \lambda_2 = 0$ gives $1 + \lambda_1 - \lambda_2 = 0$
-    
-    \item FOC for $x_2$: $x_1 + \lambda_1 - \lambda_3 = 0$ gives $\lambda_1 = 0$
-    
-    \item But then $\lambda_2 = 1 > 0$, violating dual feasibility $\lambda_2 \leq 0$
+    \item Stationarity: $x_2+\lambda_1=0$, $x_1+\lambda_1=0$ $\Rightarrow$ $x_1=x_2=-\lambda_1$
+
+    \item Budget: $x_1+x_2=1$ $\Rightarrow$ $x_1=x_2=\tfrac12$, $\lambda_1=-\tfrac12\leq 0$
   \end{itemize}
-  
-  Therefore $(0, 1)$ is \textbf{not} optimal. The interior solution is preferred.
+
+  KKT holds with $u=\tfrac14$. This is the maximizer.
 \end{frame}
 
-\THFrame{4.5 Exercise: Cost minimization with inequality}
+\QFrame{4.5 Case: Budget + one axis}
   \small
-  \textbf{Exercise.} Minimize $r \cdot z$ subject to $z_1 + z_2 \geq \bar{z}$.
-  
-  \textbf{Solution.}
-  
+  Stationarity: $x_2+\lambda_1-\lambda_2=0$,\quad $x_1+\lambda_1-\lambda_3=0$.\\
+  CS: $\lambda_1(x_1+x_2-1)=0$,\quad $\lambda_2 x_1=0$,\quad $\lambda_3 x_2=0$
+  \quad ($\lambda_j\leq 0$).
+
+  \textbf{Case.} Budget binds and $x_1=0$, $x_2$ slack: $(0,1)$.
+  Then $g_3$ slack $\Rightarrow$ $\lambda_3=0$.
+
   \begin{itemize}
-    \item For min with $\geq$ constraint: write $g = \bar{z} - z_1 - z_2 \leq 0$ so $\lambda \geq 0$
-    
-    \item Lagrangian: $\mathcal{L} = r_1 z_1 + r_2 z_2 + \lambda(\bar{z} - z_1 - z_2)$
-    
-    \item FOCs: $r_1 = \lambda$, $r_2 = \lambda$
+    \item Stationarity in $x_2$: $\lambda_1=0$
+
+    \item Stationarity in $x_1$: $1-\lambda_2=0$ $\Rightarrow$ $\lambda_2=1>0$
   \end{itemize}
-  
-  This implies $r_1 = r_2$.
-  
-  If input prices differ, only use the cheaper input (corner solution).
-  
-  Geometric: if $r_1 < r_2$, set $z_2 = 0$, $z_1 = \bar{z}$, and $\lambda = r_1$.
+
+  Violates $\lambda_2\leq 0$ $\Rightarrow$ \textbf{not KKT} $\Rightarrow$ $(0,1)$ cannot be optimal.
+  (Same for $(1,0)$ by symmetry.)
+\end{frame}
+
+\QFrame{4.5 Case: Both axes bind, KKT but not max}
+  \small
+  Stationarity: $x_2+\lambda_1-\lambda_2=0$,\quad $x_1+\lambda_1-\lambda_3=0$.\\
+  CS: $\lambda_1(x_1+x_2-1)=0$,\quad $\lambda_2 x_1=0$,\quad $\lambda_3 x_2=0$
+  \quad ($\lambda_j\leq 0$).
+
+  \textbf{Case.} $x_1=x_2=0$ (both nonnegativity bind), budget slack.
+
+  CS $\Rightarrow$ $\lambda_1=0$. Stationarity $\Rightarrow$ $\lambda_2=\lambda_3=0$.
+
+  KKT holds, but $u(0,0)=0<\tfrac14=u(\tfrac12,\tfrac12)$.
+
+  So KKT is necessary (under CQ), not sufficient: must still compare objective values.
+\end{frame}
+
+\QFrame{4.5 Exercise: Cost minimization}
+  \small
+  \textbf{Exercise.} A firm chooses inputs $z=(z_1,z_2)$ to produce at least $\bar{z}$ units
+  with technology $f(z)=z_1+z_2$ (perfect substitutes). Input prices are $p=(p_1,p_2)>0$.
+  \[
+    \min_{z\geq 0}\; p\cdot z \quad\text{s.t.}\quad z_1+z_2\geq \bar{z}.
+  \]
+
+  \textbf{Setup.} Write $g_1=\bar{z}-z_1-z_2\leq 0$, $g_2=-z_1\leq 0$, $g_3=-z_2\leq 0$.
+  For a \emph{min} problem with $g_j\leq 0$: $\lambda_j\geq 0$.
+  \[
+    \mathcal{L}=p_1 z_1+p_2 z_2+\lambda_1(\bar{z}-z_1-z_2)+\lambda_2(-z_1)+\lambda_3(-z_2).
+  \]
+  Stationarity: $p_1-\lambda_1-\lambda_2=0$,\quad $p_2-\lambda_1-\lambda_3=0$.\\
+  CS: $\lambda_1(\bar{z}-z_1-z_2)=0$,\quad $\lambda_2 z_1=0$,\quad $\lambda_3 z_2=0$.
+\end{frame}
+
+\QFrame{4.5 Cost min: equal prices vs.\ corner}
+  \small
+  Stationarity: $p_1=\lambda_1+\lambda_2$,\quad $p_2=\lambda_1+\lambda_3$.\\
+  CS: $\lambda_1(\bar{z}-z_1-z_2)=0$,\quad $\lambda_2 z_1=0$,\quad $\lambda_3 z_2=0$
+  \quad ($\lambda_j\geq 0$).
+
+  \textbf{Interior in both inputs} ($z_1,z_2>0$). Then $\lambda_2=\lambda_3=0$, so $p_1=p_2=\lambda_1$.
+  Output binds: $z_1+z_2=\bar{z}$. Any split works iff $p_1=p_2$.
+
+  \textbf{If $p_1<p_2$.} Cannot have $\lambda_2=\lambda_3=0$. Check the cases with a positive multiplier:
+
+  \begin{itemize}
+    \item $\lambda_2>0$: CS $\Rightarrow$ $z_1=0$, so $z_2=\bar{z}$. Then $\lambda_3=0$, $\lambda_1=p_2$,
+      $\lambda_2=p_1-p_2<0$. Violates $\lambda_2\geq 0$. \textbf{Fails}.
+
+    \item $\lambda_3>0$: CS $\Rightarrow$ $z_2=0$, so $z_1=\bar{z}$. Then $\lambda_2=0$, $\lambda_1=p_1$,
+      $\lambda_3=p_2-p_1>0$. \textbf{Works} (use only the cheaper input).
+  \end{itemize}
 \end{frame}
 
 %==============================================================================
@@ -1249,8 +1299,7 @@
     \end{tabular}
   \end{center}
   
-  \textbf{Short rule.} For max: write $g\geq 0$ $\Rightarrow$ $\lambda\geq 0$ (two positives).
-  If instead $g\leq 0$, then $\lambda\leq 0$.
+  \textbf{Short rule.} Sign of $\lambda$ $=$ (max $+\,/$ min $-$) $\times$ ($g\geq 0$ $+\,/$ $g\leq 0$ $-$).
 \end{frame}
 
 \QFrame{4.6 Exercise: Comparing equality vs. inequality}
