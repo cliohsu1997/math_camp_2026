@@ -1219,86 +1219,46 @@
 \section{4.6 --- Why Equality Multipliers Are Unrestricted}
 %==============================================================================
 
-\begin{frame}{4.6 The key difference: two-sided vs. one-sided}
+\begin{frame}{4.6 Key intuition: one-sided vs.\ two-sided wall}
   \small
-  \textbf{Equality} $h(\mathbf{x}) = 0$ allows movement in \textbf{both directions} along the constraint surface.
-  
-  \textbf{Inequality} $g(\mathbf{x}) \leq 0$ restricts to one side: only movement into the feasible region is allowed.
-  
-  This directional asymmetry explains why:
-  
-  \begin{itemize}
-    \item Inequality multipliers need sign restrictions (with $\mathcal{L}=f+\sum\lambda_j g_j$: $\lambda\leq 0$ for max, $g\leq 0$)
-    
-    \item Equality multipliers are unrestricted ($\lambda \in \mathbb{R}$)
-  \end{itemize}
-\end{frame}
+  \textbf{Inequality} $g(\mathbf{x})\leq 0$: a \textbf{one-sided wall}.
+  Feasible moves satisfy $\nabla g\cdot\mathbf{d}\leq 0$.
+  For a max, binding is two steps:
 
-\begin{frame}{4.6 Formal explanation}
-  \small
-  \textbf{Equality:} Feasible directions satisfy $\nabla h \cdot \mathbf{d} = 0$.
-  
-  \begin{itemize}
-    \item Both $\mathbf{d}$ and $-\mathbf{d}$ are feasible
-    
-    \item No sign restriction needed on $\lambda$
-  \end{itemize}
-  
-  \textbf{Inequality:} Feasible directions satisfy $\nabla g \cdot \mathbf{d} \leq 0$.
-  
-  \begin{itemize}
-    \item Only inward directions allowed
-    
-    \item Need $\lambda \leq 0$ so that $\nabla f=-\lambda\nabla g$ lies in the outward-normal cone $K$
-  \end{itemize}
-  
-  \textbf{Intuition.} Equality lets you wiggle both ways; inequality only one way.
-\end{frame}
+  \begin{enumerate}
+    \item \textbf{Binding} $\Rightarrow$ moving with $\nabla g$ improves $f$:
+      $\nabla f\cdot\nabla g>0$ (same open half-space).
+    \item \textbf{Binding + stationarity} (one active $g$)
+      $\Rightarrow$ same ray
+      $\Rightarrow$ $\nabla f=-\lambda\nabla g$ with $-\lambda>0$
+      (equivalently $\lambda<0$).
+  \end{enumerate}
+  Step 1 is geometry; step 2 is the FOC (the wall holds $f$ back).
 
-\begin{frame}{4.6 Example: Comparing equality vs. inequality}
-  \small
-  \textbf{Example.} Consider max $f(x,y) = xy$ subject to:
-  
-  \textbf{Case 1:} $x + y = 1$ (equality)
-  
-  \begin{itemize}
-    \item Can move toward $(0,1)$ or $(1,0)$ along the line
-    
-    \item Optimum at $(0.5, 0.5)$ with $\lambda = -0.5$ if $\mathcal{L}=xy+\lambda(x+y-1)$ (sign unrestricted)
-  \end{itemize}
-  
-  \textbf{Case 2:} $x + y \leq 1$ (inequality) with $x, y \geq 0$
-  
-  \begin{itemize}
-    \item Can only move inward (decrease $x$ and/or $y$) if on boundary
-    
-    \item Same optimum, now $\lambda \leq 0$ (max, $g\leq 0$, $+$ convention)
-    
-    \item Geometric: $\nabla f$ must lie in the cone of active $\nabla g_j$
-  \end{itemize}
+  \textbf{Equality} $h(\mathbf{x})=0$: a \textbf{two-sided wall}.
+  No forbidden side, so no half-space requirement and $\lambda$ free in sign.
 \end{frame}
 
 \begin{frame}{4.6 The combined Lagrangian}
   \small
   For problems with both equalities and inequalities:
-  
   \[
-    \mathcal{L} = f + \underbrace{\sum_k \lambda_k h_k}_{\text{equality}} + \underbrace{\sum_j \lambda_j g_j}_{\text{inequality}}.
+    \mathcal{L} = f + \underbrace{\sum_k \lambda_k h_k}_{\text{equality (two-sided)}} + \underbrace{\sum_j \lambda_j g_j}_{\text{inequality (one-sided)}}.
   \]
-  
+
   \textbf{Sign convention} (max problem):
-  
+
   \begin{center}
     \begin{tabular}{@{}ll@{}}
       \toprule
       Multiplier & Sign rule \\
       \midrule
-      Equality $\lambda_k$ & \textbf{unrestricted} (explained in this section) \\
+      Equality $\lambda_k$ & unrestricted (two-sided wall) \\
       Inequality $\lambda_j$ & $\lambda_j \leq 0$ if $g_j \leq 0$; $\lambda_j \geq 0$ if $g_j \geq 0$ \\
       \bottomrule
     \end{tabular}
   \end{center}
-  
+
   \textbf{Short rule.} Sign of $\lambda$ $=$ (max $+\,/$ min $-$) $\times$ ($g\geq 0$ $+\,/$ $g\leq 0$ $-$).
 \end{frame}
 
