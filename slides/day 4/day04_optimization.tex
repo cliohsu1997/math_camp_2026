@@ -1220,25 +1220,25 @@
 %==============================================================================
 
 \begin{frame}{4.6 Key intuition: one-sided vs.\ two-sided wall}
-  \small
+  \footnotesize
   \textbf{Inequality} $g(\mathbf{x})\leq 0$: a \textbf{one-sided wall}.
-  Feasible moves satisfy $\nabla g\cdot\mathbf{d}\leq 0$.
+  Feasible moves: $\nabla g\cdot\mathbf{d}\leq 0$.
   For a max with one active $g$ and $\mathcal{L}=f+\lambda g$:
 
   \begin{enumerate}
-    \item \textbf{Binding + stationarity} $\Rightarrow$ $\nabla f$ lies on the
+    \item \textbf{Binding + stationarity} $\Rightarrow$ $\nabla f$ on the
       \emph{same line} as $\nabla g$: $\nabla f=-\lambda\nabla g$
-      (same or opposite, depending on the sign of $\lambda$).
-    \item Binding also needs $\nabla f\cdot\nabla g>0$, so they point the
-      \emph{same} way $\Rightarrow$ $-\lambda>0$ $\Rightarrow$ $\lambda<0$.
-    \item Why $\lambda<0$: if $\lambda>0$, the term $\lambda g$ rewards raising $g$,
-      so the optimizer pushes along $\nabla g$ and violates $g\leq 0$.
-      A negative $\lambda$ holds that incentive back and keeps the point
-      on the inequality bound.
+      (same or opposite).
+    \item Binding needs $\nabla f\cdot\nabla g>0$ $\Rightarrow$ same way
+      $\Rightarrow$ $\lambda<0$.
+    \item If $\lambda>0$, $\lambda g$ rewards raising $g$ (violate $g\leq 0$).
+      $\lambda<0$ holds that incentive back on the bound.
   \end{enumerate}
 
-  \textbf{Equality} $h(\mathbf{x})=0$: a \textbf{two-sided wall}.
-  No forbidden side, so no half-space requirement and $\lambda$ free in sign.
+  \textbf{Key difference.} When binding: inequality --- you know which way
+  raises $f$ (along $\nabla g$, into the forbidden side);
+  equality --- you do not (with or against $\nabla h$ may raise or lower $f$).
+  So equality $\lambda$ is unrestricted.
 \end{frame}
 
 \begin{frame}{4.6 The combined Lagrangian}
