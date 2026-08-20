@@ -714,31 +714,31 @@
   
   \textbf{Conclusion.} $\nabla f(\mathbf{x}^*)$ must be parallel to $\nabla h(\mathbf{x}^*)$.
   
-  That is: $\nabla f(\mathbf{x}^*) = -\mu \nabla h(\mathbf{x}^*)$ for some scalar $\mu$.
+  That is: $\nabla f(\mathbf{x}^*) = -\lambda \nabla h(\mathbf{x}^*)$ for some scalar $\lambda$.
 \end{frame}
 
 \begin{frame}{4.3 Lagrangian and first-order conditions}
   \small
-  \textbf{Theorem.} At a constrained optimum (with regularity), there exists $\mu \in \mathbb{R}$ such that
+  \textbf{Theorem.} At a constrained optimum (with regularity), there exists $\lambda \in \mathbb{R}$ such that
   
   \[
-    \nabla f(\mathbf{x}^*) + \mu \nabla h(\mathbf{x}^*) = \mathbf{0}, \quad h(\mathbf{x}^*) = 0.
+    \nabla f(\mathbf{x}^*) + \lambda \nabla h(\mathbf{x}^*) = \mathbf{0}, \quad h(\mathbf{x}^*) = 0.
   \]
   
-  \textbf{Lagrangian.} $\mathcal{L}(\mathbf{x}, \mu) = f(\mathbf{x}) + \mu h(\mathbf{x})$.
+  \textbf{Lagrangian.} $\mathcal{L}(\mathbf{x}, \lambda) = f(\mathbf{x}) + \lambda h(\mathbf{x})$.
   
   \begin{itemize}
-    \item Stationarity: $\nabla_{\mathbf{x}} \mathcal{L} = \nabla f + \mu \nabla h = \mathbf{0}$
+    \item Stationarity: $\nabla_{\mathbf{x}} \mathcal{L} = \nabla f + \lambda \nabla h = \mathbf{0}$
     
-    \item Constraint: $\partial \mathcal{L}/\partial \mu = h = 0$
+    \item Constraint: $\partial \mathcal{L}/\partial \lambda = h = 0$
   \end{itemize}
   
-  $\mu$ is the \textbf{Lagrange multiplier}.
+  $\lambda$ is the \textbf{Lagrange multiplier}.
 \end{frame}
 
 \begin{frame}{4.3 Sensitivity without the Lagrangian}
   \small
-  Problem: $\max_x f(x)$ subject to $h(x)=c$. At an optimum, $\nabla f(x^*)=\mu\,\nabla h(x^*)$.
+  Problem: $\max_x f(x)$ subject to $h(x)=c$. At an optimum, $\nabla f(x^*)=\lambda\,\nabla h(x^*)$.
   
   Relax the constraint a little: move to $x^*+dx$ with
   \[
@@ -749,26 +749,26 @@
   
   Substitute the FOC:
   \[
-    df=\nabla f\cdot dx=\mu\,\nabla h\cdot dx=\mu\,dc.
+    df=\nabla f\cdot dx=\lambda\,\nabla h\cdot dx=\lambda\,dc.
   \]
   
-  Hence $\displaystyle\frac{dV}{dc}=\mu$: the multiplier is the sensitivity of $f$ to relaxing the constraint.
+  Hence $\displaystyle\frac{dV}{dc}=\lambda$: the multiplier is the sensitivity of $f$ to relaxing the constraint.
 \end{frame}
 
 \begin{frame}{4.3 Connect to the Lagrangian}
   \small
-  Same problem: $\max_x f(x)$ s.t.\ $h(x)=c$, with $\mathcal{L}(x,\mu;c)=f(x)+\mu\bigl(c-h(x)\bigr)$.
+  Same problem: $\max_x f(x)$ s.t.\ $h(x)=c$, with $\mathcal{L}(x,\lambda;c)=f(x)+\lambda\bigl(c-h(x)\bigr)$.
   
-  Let $V(c)=f(x^*(c))$. Binding constraint $\Rightarrow$ $V(c)=\mathcal{L}(x^*(c),\mu^*(c);c)$.
+  Let $V(c)=f(x^*(c))$. Binding constraint $\Rightarrow$ $V(c)=\mathcal{L}(x^*(c),\lambda^*(c);c)$.
   
-  Chain rule: FOCs kill $\nabla_x\mathcal{L}\cdot dx^*/dc$ and $(\partial\mathcal{L}/\partial\mu)\,d\mu^*/dc$, so
+  Chain rule: FOCs kill $\nabla_x\mathcal{L}\cdot dx^*/dc$ and $(\partial\mathcal{L}/\partial\lambda)\,d\lambda^*/dc$, so
   \[
     \frac{dV}{dc}=\frac{\partial\mathcal{L}}{\partial c}.
   \]
   
-  And $\partial\mathcal{L}/\partial c=\mu^*$ by inspection of $\mathcal{L}$.
+  And $\partial\mathcal{L}/\partial c=\lambda^*$ by inspection of $\mathcal{L}$.
   
-  \textbf{Summary.} $\displaystyle\frac{dV}{dc}=\frac{\partial\mathcal{L}}{\partial c}=\mu^*$.
+  \textbf{Summary.} $\displaystyle\frac{dV}{dc}=\frac{\partial\mathcal{L}}{\partial c}=\lambda^*$.
 \end{frame}
 
 \QFrame{4.3 Exercise: Cobb--Douglas with budget}
@@ -778,35 +778,35 @@
   \textbf{Solution.}
   
   \begin{itemize}
-    \item Lagrangian: $\mathcal{L} = u + \mu(w - p_1x_1 - p_2x_2)$
+    \item Lagrangian: $\mathcal{L} = u + \lambda(w - p_1x_1 - p_2x_2)$
     
-    \item FOCs: $\frac{\partial u}{\partial x_1} = \mu p_1$, $\frac{\partial u}{\partial x_2} = \mu p_2$
+    \item FOCs: $\frac{\partial u}{\partial x_1} = \lambda p_1$, $\frac{\partial u}{\partial x_2} = \lambda p_2$
     
-    \item Expanding: $\frac{\alpha u}{x_1} = \mu p_1$, $\frac{(1-\alpha)u}{x_2} = \mu p_2$
+    \item Expanding: $\frac{\alpha u}{x_1} = \lambda p_1$, $\frac{(1-\alpha)u}{x_2} = \lambda p_2$
     
     \item Taking ratio: $\frac{\alpha x_2}{(1-\alpha)x_1} = \frac{p_1}{p_2}$
   \end{itemize}
   
   With budget: $p_1x_1 = \alpha w$, $p_2x_2 = (1-\alpha)w$ (constant expenditure shares, Day~1).
   
-  From the FOC, $\mu = \frac{\partial u/\partial x_1}{p_1}$: $\mu$ is the utility gain from spending one more dollar on $x_1$
+  From the FOC, $\lambda = \frac{\partial u/\partial x_1}{p_1}$: $\lambda$ is the utility gain from spending one more dollar on $x_1$
   (same for $x_2$ at the optimum).
 \end{frame}
 
 \QFrame{4.3 Exercise: Interpreting the multiplier}
   \small
-  \textbf{Exercise.} In the Cobb--Douglas solution, compute $\mu^*$ and interpret it.
+  \textbf{Exercise.} In the Cobb--Douglas solution, compute $\lambda^*$ and interpret it.
   
-  \textbf{Solution.} From FOC and $p_1x_1=\alpha w$: $\mu=u/w$. Plug in demands:
+  \textbf{Solution.} From FOC and $p_1x_1=\alpha w$: $\lambda=u/w$. Plug in demands:
   \[
-    \mu^*=\frac{\alpha^\alpha(1-\alpha)^{1-\alpha}}{p_1^\alpha p_2^{1-\alpha}}.
+    \lambda^*=\frac{\alpha^\alpha(1-\alpha)^{1-\alpha}}{p_1^\alpha p_2^{1-\alpha}}.
   \]
   
-  In general we only know $\mu^*=dV/dw$ (shadow price). Here something stronger holds: $\mu^*=u^*/w=V/w$.
+  In general we only know $\lambda^*=dV/dw$ (shadow price). Here something stronger holds: $\lambda^*=u^*/w=V/w$.
   
   That is CD-specific: MUI equals \emph{average} utility per dollar, not just the marginal.
   
-  Since the explicit $\mu^*$ does not depend on $w$, integrate $dV/dw=\mu^*$ with $V(0)=0$ to get $V(w)=\mu^* w$, which is consistent with $\mu^*=V/w$.
+  Since the explicit $\lambda^*$ does not depend on $w$, integrate $dV/dw=\lambda^*$ with $V(0)=0$ to get $V(w)=\lambda^* w$, which is consistent with $\lambda^*=V/w$.
 \end{frame}
 
 \begin{frame}{4.3 Why is MUI constant in $w$?}
@@ -830,16 +830,16 @@
   \textbf{Solution.}
   
   \begin{itemize}
-    \item Lagrangian: $\mathcal{L} = r_1q_1 + r_2q_2 + \mu(\bar{y} - F(q_1, q_2))$
+    \item Lagrangian: $\mathcal{L} = r_1q_1 + r_2q_2 + \lambda(\bar{y} - F(q_1, q_2))$
     
-    \item FOCs: $r_1 = \mu F_1$, $r_2 = \mu F_2$ where $F_i = \frac{\partial F}{\partial q_i}$
+    \item FOCs: $r_1 = \lambda F_1$, $r_2 = \lambda F_2$ where $F_i = \frac{\partial F}{\partial q_i}$
     
     \item Therefore: $\frac{r_1}{r_2} = \frac{F_1}{F_2}$
   \end{itemize}
   
   The input price ratio equals the marginal rate of technical substitution.
   
-  Same logic: $\mu = dC^*/d\bar{y}$, the marginal cost of relaxing the output constraint.
+  Same logic: $\lambda = dC^*/d\bar{y}$, the marginal cost of relaxing the output constraint.
 \end{frame}
 
 %==============================================================================
@@ -876,18 +876,18 @@
 
 \begin{frame}{4.4 Constrained envelope theorem}
   \small
-  With constraints and Lagrangian $\mathcal{L} = f + \sum \mu_k h_k$:
+  With constraints and Lagrangian $\mathcal{L} = f + \sum \lambda_k h_k$:
   
   \[
-    \frac{dV}{d\theta} = \frac{\partial \mathcal{L}}{\partial \theta}\Big|_{(\mathbf{x}^*, \boldsymbol{\mu}^*)}.
+    \frac{dV}{d\theta} = \frac{\partial \mathcal{L}}{\partial \theta}\Big|_{(\mathbf{x}^*, \boldsymbol{\lambda}^*)}.
   \]
   
-  \textbf{Proof.} Differentiate $V(\theta) = \mathcal{L}(\mathbf{x}^*(\theta), \boldsymbol{\mu}^*(\theta); \theta)$:
+  \textbf{Proof.} Differentiate $V(\theta) = \mathcal{L}(\mathbf{x}^*(\theta), \boldsymbol{\lambda}^*(\theta); \theta)$:
   
   \begin{itemize}
     \item Terms with $\partial \mathbf{x}^*/\partial \theta$ vanish by stationarity ($\nabla_{\mathbf{x}}\mathcal{L}=0$)
     
-    \item Terms with $\partial \mu_k/\partial \theta$ vanish by constraints ($h_k = 0$)
+    \item Terms with $\partial \lambda_k/\partial \theta$ vanish by constraints ($h_k = 0$)
   \end{itemize}
   
   Shadow prices absorb the effect of constraint relaxation.
@@ -942,28 +942,33 @@
   \]
 
   \textbf{Solution.} Envelope: $\partial V/\partial p_i=-\lambda^* x_i^*$, $\partial V/\partial w=\lambda^*$.
-  Ratio: $\frac{-\lambda^* x_i^*}{\lambda^*}=-x_i^*$.
-
-  \textbf{Intuition.} The channel $p_i\to x^*\to V$ is zero to first order at an optimum (FOC / envelope).
-  What remains is direct: a higher $p_i$ costs about $x_i^*$ more dollars, each worth $\lambda^*=\partial V/\partial w$ utils,
-  so $\partial V/\partial p_i=-\lambda^* x_i^*$. Divide by $\partial V/\partial w$ to recover $-x_i^*$.
+  Ratio:
+  \[
+    \frac{-\lambda^* x_i^*}{\lambda^*}=-x_i^*.
+  \]
+  
+  So Marshallian demand is recovered from $V$ without re-solving the consumer problem.
 \end{frame}
 
-\THFrame{4.4 Exercise: Cost function envelope}
+\begin{frame}{4.4 How $p_i$ changes $V$: two channels}
   \small
-  \textbf{Exercise.} For $C(r, \bar{y}) = \min_{\mathbf{z}} r \cdot \mathbf{z}$ s.t. $F(\mathbf{z}) \geq \bar{y}$, find $\partial C/\partial \bar{y}$.
+  Why is $\partial V/\partial p_i=-\lambda^* x_i^*$? Write $V$ via
+  $\mathcal{L}=u(\mathbf{x})+\lambda(w-p\cdot\mathbf{x})$, so
+  $V=\mathcal{L}\bigl(\mathbf{x}^*,\lambda^*;p,w\bigr)$.
   
-  \textbf{Solution.}
+  Differentiate in $p_i$:
+  \[
+    \frac{\partial V}{\partial p_i}
+    =\underbrace{\nabla_{\mathbf{x}}\mathcal{L}\cdot\frac{\partial\mathbf{x}^*}{\partial p_i}}_{=0\text{ (FOC)}}
+    +\underbrace{\frac{\partial\mathcal{L}}{\partial\lambda}\,\frac{\partial\lambda^*}{\partial p_i}}_{=0\text{ (budget binds)}}
+    +\underbrace{\frac{\partial\mathcal{L}}{\partial p_i}}_{=-\lambda^* x_i^*}.
+  \]
   
+  \textbf{Two channels.}
   \begin{itemize}
-    \item Lagrangian: $\mathcal{L} = r \cdot \mathbf{z} + \lambda(\bar{y} - F(\mathbf{z}))$
-    
-    \item By envelope: $\frac{\partial C}{\partial \bar{y}} = \frac{\partial \mathcal{L}}{\partial \bar{y}} = \lambda^*$
+    \item Fix $\mathbf{x}$: higher $p_i$ costs $x_i^*$ more dollars for the same basket --- valued at $\lambda^*$ utils each.
+    \item Reoptimize $\mathbf{x}^*$ (and $\lambda^*$): first-order effect is zero at an optimum.
   \end{itemize}
-  
-  The multiplier equals marginal cost --- the cost of producing one more unit of output.
-  
-  This connects to the firm's supply decision: produce where price equals marginal cost.
 \end{frame}
 
 %==============================================================================
@@ -1029,40 +1034,33 @@
 
 \begin{frame}{4.5 Applying Farkas to optimization}
   \small
-  For inequality-constrained optimization:
+  Maximize $f$ subject to $g_j\leq 0$. Let $K=\mathrm{cone}\{\nabla g_j:g_j\text{ active}\}$.
   
-  \begin{itemize}
-    \item Let $K = \text{cone}\{\nabla g_j : g_j \text{ active}\}$ be the cone spanned by active constraint gradients
-    
-    \item Let $\mathbf{y} = -\nabla f$ (negative objective gradient)
-  \end{itemize}
+  \textbf{Farkas, applied:} either $\nabla f\in K$, or there is a feasible improving direction.
   
-  \textbf{Case 1:} $-\nabla f \in K$ means $-\nabla f = \sum_j \lambda_j \nabla g_j$ with $\lambda_j \geq 0$.
+  \textbf{Case 1 (optimal).} $\nabla f\in K$: $\nabla f$ is a nonnegative combination of the active $\nabla g_j$.
+  With $\mathcal{L}=f+\sum_j\lambda_j g_j$, this is exactly
+  \[
+    \nabla f+\sum_j\lambda_j\nabla g_j=\mathbf{0}\quad\text{for some }\lambda_j\leq 0.
+  \]
+  (Why $\leq 0$? Stationarity gives $\nabla f=-\sum\lambda_j\nabla g_j$; to lie in $K$ we need $-\lambda_j\geq 0$.)
   
-  \textbf{Case 2:} $-\nabla f \notin K$ means there exists feasible improving direction $\mathbf{d}$ where:
-  
-  \begin{itemize}
-    \item $\nabla g_j \cdot \mathbf{d} \leq 0$ for all $j$ (feasible: doesn't violate constraints)
-    
-    \item $\nabla f \cdot \mathbf{d} > 0$ (improving: increases objective)
-  \end{itemize}
+  \textbf{Case 2 (not optimal).} $\nabla f\notin K$: some $\mathbf{d}$ with $\nabla g_j\cdot\mathbf{d}\leq 0$ (feasible) and $\nabla f\cdot\mathbf{d}>0$ (improving).
 \end{frame}
 
 \begin{frame}{4.5 Inequality problem with multipliers}
   \small
-  At an optimum, Case 2 is ruled out (no improving feasible direction).
-  
-  Therefore $-\nabla f \in K$, meaning:
+  At an optimum, Case 2 is ruled out --- so Case 1 holds:
   
   \[
-    \nabla f(\mathbf{x}^*) + \sum_{\text{active}} \lambda_j \nabla g_j(\mathbf{x}^*) = \mathbf{0}, \quad \lambda_j \geq 0.
+    \nabla f(\mathbf{x}^*) + \sum_{\text{active}} \lambda_j \nabla g_j(\mathbf{x}^*) = \mathbf{0}, \quad \lambda_j \leq 0.
   \]
   
-  \textbf{Binding constraints:} $\lambda_j > 0$ possible --- these are the bottlenecks.
+  \textbf{Binding:} $\lambda_j<0$ possible (these constraints bite).
   
-  \textbf{Slack constraints:} $\lambda_j = 0$ (they don't contribute).
+  \textbf{Slack:} $\lambda_j=0$ (inactive constraints drop out of $\mathcal{L}$).
   
-  \textbf{Geometric interpretation:} $-\nabla f$ must point into the feasible cone $K$ spanned by active constraint gradients.
+  Same $\lambda$ as in the Lagrangian --- no extra symbols.
 \end{frame}
 
 \begin{frame}{4.5 KKT conditions}
@@ -1074,36 +1072,38 @@
     
     \item \textbf{Primal feasibility:} $g_j(\mathbf{x}^*) \leq 0$ for all $j$
     
-    \item \textbf{Dual feasibility:} $\lambda_j \geq 0$ (for $g_j \leq 0$, max problem)
+    \item \textbf{Dual feasibility:} $\lambda_j \leq 0$ (for $g_j \leq 0$, max problem, $\mathcal{L}=f+\sum\lambda_j g_j$)
     
     \item \textbf{Complementary slackness:} $\lambda_j g_j(\mathbf{x}^*) = 0$
   \end{enumerate}
   
   CS says: multiplier is zero for slack constraints ($g_j < 0 \Rightarrow \lambda_j = 0$).
   
-  Stationarity says: $\nabla f$ is a nonnegative combination of active constraint gradients.
+  Stationarity says: $\nabla f$ is a nonnegative combination of active $\nabla g_j$ (since $\lambda_j\leq 0$).
 \end{frame}
 
 \begin{frame}{4.5 Sign convention summary}
   \small
-  With $\mathcal{L} = f + \sum_j \lambda_j g_j$:
+  With $\mathcal{L} = f + \sum_j \lambda_j g_j$ (always $+$):
   
   \begin{center}
     \begin{tabular}{@{}lll@{}}
       \toprule
       Problem & Constraint & $\lambda$ sign \\
       \midrule
-      $\max f$ & $g \leq 0$ & $\lambda \geq 0$ \\
-      $\max f$ & $g \geq 0$ & $\lambda \leq 0$ \\
-      $\min f$ & $g \leq 0$ & $\lambda \leq 0$ \\
-      $\min f$ & $g \geq 0$ & $\lambda \geq 0$ \\
+      $\max f$ & $g \leq 0$ & $\lambda \leq 0$ \\
+      $\max f$ & $g \geq 0$ & $\lambda \geq 0$ \\
+      $\min f$ & $g \leq 0$ & $\lambda \geq 0$ \\
+      $\min f$ & $g \geq 0$ & $\lambda \leq 0$ \\
       \bottomrule
     \end{tabular}
   \end{center}
   
-  \textbf{Memory rule:} For max, constraint and multiplier have opposite signs.
+  \textbf{Memory rule.} Prefer writing constraints as $g\geq 0$ when maximizing:
+  max (``$+$'' in $\mathcal{L}$) and $g\geq 0$ (``positive'' slack) $\Rightarrow$ $\lambda\geq 0$.
+  Two positives give a positive multiplier.
   
-  $\leq$ constraint $\Rightarrow$ $\lambda \geq 0$.
+  Equivalently: if you keep $g\leq 0$ under max, then $\lambda\leq 0$ (same inequality direction).
 \end{frame}
 
 \QFrame{4.5 Exercise: Budget with nonnegativity}
@@ -1115,13 +1115,13 @@
   \begin{itemize}
     \item Write: $g_1 = x_1 + x_2 - 1 \leq 0$, $g_2 = -x_1 \leq 0$, $g_3 = -x_2 \leq 0$
     
-    \item Lagrangian: $\mathcal{L} = u + \lambda_1(1 - x_1 - x_2) + \lambda_2 x_1 + \lambda_3 x_2$
+    \item Lagrangian: $\mathcal{L} = u + \lambda_1(x_1 + x_2 - 1) + \lambda_2(-x_1) + \lambda_3(-x_2)$
     
-    \item All $\lambda_j \geq 0$ for max problem
+    \item All $\lambda_j \leq 0$ (max, $g_j\leq 0$, $+$ convention)
     
-    \item Stationarity: $\frac{\partial u}{\partial x_1} - \lambda_1 + \lambda_2 = 0$, $\frac{\partial u}{\partial x_2} - \lambda_1 + \lambda_3 = 0$
+    \item Stationarity: $\frac{\partial u}{\partial x_1} + \lambda_1 - \lambda_2 = 0$, $\frac{\partial u}{\partial x_2} + \lambda_1 - \lambda_3 = 0$
     
-    \item CS: $\lambda_1(1 - x_1 - x_2) = 0$, $\lambda_2 x_1 = 0$, $\lambda_3 x_2 = 0$
+    \item CS: $\lambda_1(x_1 + x_2 - 1) = 0$, $\lambda_2(-x_1) = 0$, $\lambda_3(-x_2) = 0$
   \end{itemize}
 \end{frame}
 
@@ -1132,13 +1132,13 @@
   \textbf{Solution.}
   
   \begin{itemize}
-    \item At $(0, 1)$: $g_1$ binds ($\lambda_1 \geq 0$), $g_2$ binds ($\lambda_2 \geq 0$), $g_3$ slack ($\lambda_3 = 0$)
+    \item At $(0, 1)$: $g_1$ binds ($\lambda_1 \leq 0$), $g_2$ binds ($\lambda_2 \leq 0$), $g_3$ slack ($\lambda_3 = 0$)
     
-    \item FOC for $x_1$: $x_2 - \lambda_1 + \lambda_2 = 0$ gives $1 - \lambda_1 + \lambda_2 = 0$
+    \item FOC for $x_1$: $x_2 + \lambda_1 - \lambda_2 = 0$ gives $1 + \lambda_1 - \lambda_2 = 0$
     
-    \item FOC for $x_2$: $x_1 - \lambda_1 + \lambda_3 = 0$ gives $\lambda_1 = 0$
+    \item FOC for $x_2$: $x_1 + \lambda_1 - \lambda_3 = 0$ gives $\lambda_1 = 0$
     
-    \item But then $\lambda_2 = -1 < 0$, violating dual feasibility
+    \item But then $\lambda_2 = 1 > 0$, violating dual feasibility $\lambda_2 \leq 0$
   \end{itemize}
   
   Therefore $(0, 1)$ is \textbf{not} optimal. The interior solution is preferred.
@@ -1178,9 +1178,9 @@
   This directional asymmetry explains why:
   
   \begin{itemize}
-    \item Inequality multipliers need sign restrictions ($\lambda \geq 0$)
+    \item Inequality multipliers need sign restrictions (with $\mathcal{L}=f+\sum\lambda_j g_j$: $\lambda\leq 0$ for max, $g\leq 0$)
     
-    \item Equality multipliers are unrestricted ($\mu \in \mathbb{R}$)
+    \item Equality multipliers are unrestricted ($\lambda \in \mathbb{R}$)
   \end{itemize}
 \end{frame}
 
@@ -1191,7 +1191,7 @@
   \begin{itemize}
     \item Both $\mathbf{d}$ and $-\mathbf{d}$ are feasible
     
-    \item No sign restriction needed on $\mu$
+    \item No sign restriction needed on $\lambda$
   \end{itemize}
   
   \textbf{Inequality:} Feasible directions satisfy $\nabla g \cdot \mathbf{d} \leq 0$.
@@ -1199,10 +1199,10 @@
   \begin{itemize}
     \item Only inward directions allowed
     
-    \item Need $\lambda \geq 0$ to ensure $-\nabla f$ points toward feasible region
+    \item Need $\lambda \leq 0$ so that $\nabla f=-\lambda\nabla g$ lies in the outward-normal cone $K$
   \end{itemize}
   
-  \textbf{Intuition:} Equality lets you wiggle both ways; inequality only one way.
+  \textbf{Intuition.} Equality lets you wiggle both ways; inequality only one way.
 \end{frame}
 
 \begin{frame}{4.6 Example: Comparing equality vs. inequality}
@@ -1214,7 +1214,7 @@
   \begin{itemize}
     \item Can move toward $(0,1)$ or $(1,0)$ along the line
     
-    \item Optimum at $(0.5, 0.5)$ with $\mu = 0.5$ (unrestricted sign)
+    \item Optimum at $(0.5, 0.5)$ with $\lambda = -0.5$ if $\mathcal{L}=xy+\lambda(x+y-1)$ (sign unrestricted)
   \end{itemize}
   
   \textbf{Case 2:} $x + y \leq 1$ (inequality) with $x, y \geq 0$
@@ -1222,9 +1222,9 @@
   \begin{itemize}
     \item Can only move inward (decrease $x$ and/or $y$) if on boundary
     
-    \item Same optimum, but now $\lambda \geq 0$ ensures no improvement possible
+    \item Same optimum, now $\lambda \leq 0$ (max, $g\leq 0$, $+$ convention)
     
-    \item Geometric: $-\nabla f$ must point into feasible cone
+    \item Geometric: $\nabla f$ must lie in the cone of active $\nabla g_j$
   \end{itemize}
 \end{frame}
 
@@ -1233,23 +1233,24 @@
   For problems with both equalities and inequalities:
   
   \[
-    \mathcal{L} = f + \underbrace{\sum_k \mu_k h_k}_{\text{equality}} + \underbrace{\sum_j \lambda_j g_j}_{\text{inequality}}.
+    \mathcal{L} = f + \underbrace{\sum_k \lambda_k h_k}_{\text{equality}} + \underbrace{\sum_j \lambda_j g_j}_{\text{inequality}}.
   \]
   
-  \textbf{Sign convention:}
+  \textbf{Sign convention} (max problem):
   
   \begin{center}
     \begin{tabular}{@{}ll@{}}
       \toprule
       Multiplier & Sign rule \\
       \midrule
-      Equality $\mu_k$ & \textbf{unrestricted} (explained in this section) \\
-      Inequality $\lambda_j$ & $\lambda_j \geq 0$ if $g_j \leq 0$; $\lambda_j \leq 0$ if $g_j \geq 0$ \\
+      Equality $\lambda_k$ & \textbf{unrestricted} (explained in this section) \\
+      Inequality $\lambda_j$ & $\lambda_j \leq 0$ if $g_j \leq 0$; $\lambda_j \geq 0$ if $g_j \geq 0$ \\
       \bottomrule
     \end{tabular}
   \end{center}
   
-  \textbf{Short rule:} $\leq$ constraint $\Rightarrow$ $\lambda \geq 0$ (for max); $\geq$ constraint $\Rightarrow$ $\lambda \leq 0$.
+  \textbf{Short rule.} For max: write $g\geq 0$ $\Rightarrow$ $\lambda\geq 0$ (two positives).
+  If instead $g\leq 0$, then $\lambda\leq 0$.
 \end{frame}
 
 \QFrame{4.6 Exercise: Comparing equality vs. inequality}
@@ -1259,18 +1260,18 @@
   \textbf{Solution.}
   
   \begin{itemize}
-    \item Lagrangian: $\mathcal{L} = x^2 - y + \mu(1 - x^2 - y^2)$
+    \item Lagrangian: $\mathcal{L} = x^2 - y + \lambda(1 - x^2 - y^2)$
     
-    \item FOCs: $2x - 2\mu x = 0$, $-1 - 2\mu y = 0$
+    \item FOCs: $2x - 2\lambda x = 0$, $-1 - 2\lambda y = 0$
     
-    \item From first: $x = 0$ or $\mu = 1$
+    \item From first: $x = 0$ or $\lambda = 1$
     
-    \item If $\mu = 1$: $y = -0.5$, $x = \pm \sqrt{0.75}$
+    \item If $\lambda = 1$: $y = -0.5$, $x = \pm \sqrt{0.75}$
   \end{itemize}
   
-  Here $\mu = 1 > 0$, but could be negative for different objectives.
+  Here $\lambda = 1 > 0$, but could be negative for different objectives.
   
-  The unrestricted $\mu$ allows both increasing and decreasing the objective by moving along the circle.
+  The unrestricted $\lambda$ allows both increasing and decreasing the objective by moving along the circle.
 \end{frame}
 
 \THFrame{4.6 Exercise: Unrestricted in action}
@@ -1282,22 +1283,22 @@
   \textbf{Equality $x = 1$:}
   
   \begin{itemize}
-    \item $\mathcal{L} = x^2 + \mu(1 - x)$
+    \item $\mathcal{L} = x^2 + \lambda(1 - x)$
     
-    \item FOC: $2x - \mu = 0$, so $\mu = 2$ at $x = 1$
+    \item FOC: $2x - \lambda = 0$, so $\lambda = 2$ at $x = 1$
   \end{itemize}
   
-  \textbf{Inequality $x \geq 1$ (i.e., $1 - x \leq 0$):}
+  \textbf{Inequality $x \geq 1$ (write $g=1-x\leq 0$):}
   
   \begin{itemize}
-    \item For min with $\leq$ constraint: $\lambda \leq 0$
+    \item For min with $g\leq 0$: $\lambda \geq 0$
     
     \item $\mathcal{L} = x^2 + \lambda(1 - x)$
     
-    \item FOC: $2x - \lambda = 0$, so $\lambda = 2$, but need $\lambda \leq 0$
-    
-    \item Contradiction! Minimum is at boundary $x = 1$ with $\lambda = 2$ --- actually requires re-checking signs.
+    \item FOC: $2x - \lambda = 0$, so $\lambda = 2 \geq 0$ at $x=1$ --- dual feasibility holds
   \end{itemize}
+  
+  Equality: $\lambda$ free. Inequality: $\lambda$ must obey the sign rule for min.
 \end{frame}
 
 %==============================================================================

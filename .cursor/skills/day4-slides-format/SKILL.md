@@ -70,9 +70,12 @@ The slides MUST follow this exact sequence:
 ## Content Rules
 
 ### Lagrangian Convention
-- Use ONE convention only: $\mathcal{L} = f + \sum \mu_k h_k + \sum \lambda_j g_j$ (all plus)
-- Explain sign rules clearly
-- Equality $\mu$ unrestricted, inequality $\lambda$ sign-restricted
+- Use ONE convention only: $\mathcal{L} = f + \sum_k \lambda_k h_k + \sum_j \lambda_j g_j$ (all plus)
+- Always use $\lambda$ for multipliers (never $\mu$)
+- With this convention, for a **max** problem with $g_j\leq 0$: $\lambda_j\leq 0$ (NOT $\geq 0$)
+- For a **min** problem with $g_j\leq 0$: $\lambda_j\geq 0$
+- Equality $\lambda_k$ unrestricted, inequality $\lambda_j$ sign-restricted as above
+- Never mix with the Boyd-style "$\lambda\geq 0$ for max" rule unless the Lagrangian uses a minus
 
 ### Unrestricted Multiplier Explanation
 - Must come AFTER KKT
@@ -163,7 +166,7 @@ The slides MUST follow this exact sequence:
 - 3D Lagrange figure
 - Tangent argument with geometric intuition
 - Lagrangian derivation
-- Shadow-price derivation with chain rule ($dV/dw=\mu$), BEFORE exercises
+- Shadow-price derivation with chain rule ($dV/dw=\lambda$), BEFORE exercises
 - Cobb-Douglas budget + multiplier exercises (together)
 - Cost minimization exercise
 
@@ -172,8 +175,8 @@ The slides MUST follow this exact sequence:
 - Profit function example with explicit verification
 - Constrained theorem
 - Budget set $B(p,w)$ and indirect utility $V(p,w)$, before Roy
-- Roy's identity example
-- Cost function exercise (take home)
+- Roy's identity exercise (together), then two-channel unpacking of $\partial V/\partial p_i$
+- (Cost envelope already in 4.3 take-home --- do not repeat)
 
 #### 4.5 Farkas/KKT
 - **Order**: feasible directions ? Farkas graph ? Farkas statement (PURELY GEOMETRIC) ? apply to optimization ? inequality problem ? KKT
@@ -197,7 +200,7 @@ The slides MUST follow this exact sequence:
 - **4.1**: Critical points (together), SOC (together)
 - **4.2**: Concavity global max (together), concavity vs convexity (together), Cobb-Douglas quasiconcave (together), Cobb-Douglas not concave (together), quasiconcavity test (take home)
 - **4.3**: Cobb-Douglas budget (together), multiplier interpretation (together), cost minimization (take home)
-- **4.4**: Profit envelope (together), Roy's identity (together), cost envelope (take home)
+- **4.4**: Profit envelope (together), Roy's identity (together); cost envelope already covered in 4.3 take-home
 - **4.5**: Budget nonnegativity (together), corner solution (together), cost min inequality (take home)
 - **4.6**: Equality vs inequality (together), unrestricted action (take home)
 
