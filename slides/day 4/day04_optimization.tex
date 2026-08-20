@@ -733,7 +733,42 @@
     \item Constraint: $\partial \mathcal{L}/\partial \mu = h = 0$
   \end{itemize}
   
-  $\mu$ is the \textbf{Lagrange multiplier} (shadow price of relaxing the constraint).
+  $\mu$ is the \textbf{Lagrange multiplier}.
+\end{frame}
+
+\begin{frame}{4.3 Sensitivity without the Lagrangian}
+  \small
+  Problem: $\max_x f(x)$ subject to $h(x)=c$. At an optimum, $\nabla f(x^*)=\mu\,\nabla h(x^*)$.
+  
+  Relax the constraint a little: move to $x^*+dx$ with
+  \[
+    h(x^*+dx)=c+dc.
+  \]
+  
+  First-order expansion: $\nabla h\cdot dx=dc$. Total differential of the objective: $df=\nabla f\cdot dx$.
+  
+  Substitute the FOC:
+  \[
+    df=\nabla f\cdot dx=\mu\,\nabla h\cdot dx=\mu\,dc.
+  \]
+  
+  Hence $\displaystyle\frac{dV}{dc}=\mu$: the multiplier is the sensitivity of $f$ to relaxing the constraint.
+\end{frame}
+
+\begin{frame}{4.3 Connect to the Lagrangian}
+  \small
+  Same problem: $\max_x f(x)$ s.t.\ $h(x)=c$, with $\mathcal{L}(x,\mu;c)=f(x)+\mu\bigl(c-h(x)\bigr)$.
+  
+  Let $V(c)=f(x^*(c))$. Binding constraint $\Rightarrow$ $V(c)=\mathcal{L}(x^*(c),\mu^*(c);c)$.
+  
+  Chain rule: FOCs kill $\nabla_x\mathcal{L}\cdot dx^*/dc$ and $(\partial\mathcal{L}/\partial\mu)\,d\mu^*/dc$, so
+  \[
+    \frac{dV}{dc}=\frac{\partial\mathcal{L}}{\partial c}.
+  \]
+  
+  And $\partial\mathcal{L}/\partial c=\mu^*$ by inspection of $\mathcal{L}$.
+  
+  \textbf{Summary.} $\displaystyle\frac{dV}{dc}=\frac{\partial\mathcal{L}}{\partial c}=\mu^*$.
 \end{frame}
 
 \QFrame{4.3 Exercise: Cobb--Douglas with budget}
@@ -753,9 +788,42 @@
   \end{itemize}
   
   With budget: $p_1x_1 = \alpha w$, $p_2x_2 = (1-\alpha)w$ (constant expenditure shares, Day~1).
+  
+  From the FOC, $\mu = \frac{\partial u/\partial x_1}{p_1}$: $\mu$ is the utility gain from spending one more dollar on $x_1$
+  (same for $x_2$ at the optimum).
 \end{frame}
 
-\QFrame{4.3 Exercise: Cost minimization}
+\QFrame{4.3 Exercise: Interpreting the multiplier}
+  \small
+  \textbf{Exercise.} In the Cobb--Douglas solution, compute $\mu^*$ and interpret it.
+  
+  \textbf{Solution.} From FOC and $p_1x_1=\alpha w$: $\mu=u/w$. Plug in demands:
+  \[
+    \mu^*=\frac{\alpha^\alpha(1-\alpha)^{1-\alpha}}{p_1^\alpha p_2^{1-\alpha}}.
+  \]
+  
+  In general we only know $\mu^*=dV/dw$ (shadow price). Here something stronger holds: $\mu^*=u^*/w=V/w$.
+  
+  That is CD-specific: MUI equals \emph{average} utility per dollar, not just the marginal.
+  
+  Since the explicit $\mu^*$ does not depend on $w$, integrate $dV/dw=\mu^*$ with $V(0)=0$ to get $V(w)=\mu^* w$, which is consistent with $\mu^*=V/w$.
+\end{frame}
+
+\begin{frame}{4.3 Why is MUI constant in $w$?}
+  \small
+  At an optimum, $MRS=p_1/p_2$. For CD, $MRS=\frac{\alpha}{1-\alpha}\frac{x_2}{x_1}$ depends only on the consumption \emph{ratio}.
+  
+  So $x_1/x_2$ is pinned down by prices alone --- it does not change when $w$ rises.
+  
+  \textbf{Key intuition.} The mix is fixed; if wealth increases, consumption of each good rises \emph{proportionally}:
+  \[
+    x^*(w)=w\,x^*(1).
+  \]
+  
+  CD is HD1, so $V(w)=u(w\,x^*(1))=w\,V(1)$, hence $dV/dw=V(1)$ is constant in $w$.
+\end{frame}
+
+\THFrame{4.3 Exercise: Cost minimization}
   \small
   \textbf{Exercise.} Minimize $C(q_1, q_2) = r_1q_1 + r_2q_2$ subject to $F(q_1, q_2) = \bar{y}$.
   
@@ -771,24 +839,7 @@
   
   The input price ratio equals the marginal rate of technical substitution.
   
-  $\mu$ is the marginal cost of producing additional output.
-\end{frame}
-
-\QFrame{4.3 Exercise: Interpreting the multiplier}
-  \small
-  \textbf{Exercise.} In the Cobb--Douglas solution, what is the interpretation of $\mu$?
-  
-  \textbf{Solution.}
-  
-  \begin{itemize}
-    \item From FOC: $\mu = \frac{\alpha u}{p_1 x_1} = \frac{u}{w}$
-    
-    \item Substituting the solution: $u = \left(\frac{\alpha w}{p_1}\right)^\alpha \left(\frac{(1-\alpha)w}{p_2}\right)^{1-\alpha}$
-    
-    \item Thus: $\mu = \frac{\alpha^\alpha (1-\alpha)^{1-\alpha}}{p_1^\alpha p_2^{1-\alpha}}$
-  \end{itemize}
-  
-  Since $\mu = \frac{\partial \mathcal{L}}{\partial w}$, this is the marginal utility of income --- how much extra utility from one more dollar.
+  Same logic: $\mu = dC^*/d\bar{y}$, the marginal cost of relaxing the output constraint.
 \end{frame}
 
 %==============================================================================
@@ -867,42 +918,35 @@
   Envelope gives this directly without computing $\frac{dq^*}{dp}$.
 \end{frame}
 
-\QFrame{4.4 Exercise: Indirect utility}
+\begin{frame}{4.4 Budget set and indirect utility}
   \small
-  \textbf{Exercise.} For $V(p,w) = \max u(\mathbf{x})$ s.t. $p \cdot \mathbf{x} \leq w$, find $\partial V/\partial w$.
+  \textbf{Budget set.} $B(p,w)=\{\mathbf{x}\geq\mathbf{0}:\,p\cdot\mathbf{x}\leq w\}$.
   
-  \textbf{Solution.}
+  \textbf{Consumer problem.} $\max_{\mathbf{x}} u(\mathbf{x})$ subject to $\mathbf{x}\in B(p,w)$.
   
-  \begin{itemize}
-    \item Lagrangian: $\mathcal{L} = u(\mathbf{x}) + \lambda(w - p \cdot \mathbf{x})$
-    
-    \item By envelope: $\frac{\partial V}{\partial w} = \frac{\partial \mathcal{L}}{\partial w} = \lambda^*$
-  \end{itemize}
+  Let $\mathbf{x}^*(p,w)$ be the Marshallian demand (optimizer).
   
-  The Lagrange multiplier on the budget constraint equals the \textbf{marginal utility of income}.
+  \textbf{Indirect utility.} The value function of this problem:
+  \[
+    V(p,w)=\max_{\mathbf{x}\in B(p,w)} u(\mathbf{x})=u\bigl(\mathbf{x}^*(p,w)\bigr).
+  \]
   
-  This is why $\lambda$ is often called the shadow price of the budget constraint.
+  $V$ is maximized utility as a function of prices and wealth --- not of the goods themselves.
 \end{frame}
 
 \QFrame{4.4 Exercise: Roy's identity}
   \small
-  \textbf{Exercise.} Show that $\frac{\partial V/\partial p_i}{\partial V/\partial w} = -x_i^*(p,w)$.
-  
-  \textbf{Solution.} By envelope:
-  
-  \begin{itemize}
-    \item $\frac{\partial V}{\partial p_i} = \frac{\partial \mathcal{L}}{\partial p_i} = -\lambda^* x_i^*$
-    
-    \item $\frac{\partial V}{\partial w} = \lambda^*$
-  \end{itemize}
-  
-  Therefore:
-  
+  \textbf{Exercise.} Show that
   \[
-    \frac{\partial V/\partial p_i}{\partial V/\partial w} = \frac{-\lambda^* x_i^*}{\lambda^*} = -x_i^*.
+    \frac{\partial V/\partial p_i}{\partial V/\partial w}=-x_i^*(p,w).
   \]
-  
-  This is \textbf{Roy's identity}: Marshallian demands can be recovered from indirect utility without solving the consumer problem explicitly.
+
+  \textbf{Solution.} Envelope: $\partial V/\partial p_i=-\lambda^* x_i^*$, $\partial V/\partial w=\lambda^*$.
+  Ratio: $\frac{-\lambda^* x_i^*}{\lambda^*}=-x_i^*$.
+
+  \textbf{Intuition.} The channel $p_i\to x^*\to V$ is zero to first order at an optimum (FOC / envelope).
+  What remains is direct: a higher $p_i$ costs about $x_i^*$ more dollars, each worth $\lambda^*=\partial V/\partial w$ utils,
+  so $\partial V/\partial p_i=-\lambda^* x_i^*$. Divide by $\partial V/\partial w$ to recover $-x_i^*$.
 \end{frame}
 
 \THFrame{4.4 Exercise: Cost function envelope}
