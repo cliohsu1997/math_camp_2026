@@ -1302,54 +1302,6 @@
   \textbf{Short rule.} Sign of $\lambda$ $=$ (max $+\,/$ min $-$) $\times$ ($g\geq 0$ $+\,/$ $g\leq 0$ $-$).
 \end{frame}
 
-\QFrame{4.6 Exercise: Comparing equality vs. inequality}
-  \small
-  \textbf{Exercise.} Maximize $f(x,y) = x^2 - y$ subject to $x^2 + y^2 = 1$ (equality).
-  
-  \textbf{Solution.}
-  
-  \begin{itemize}
-    \item Lagrangian: $\mathcal{L} = x^2 - y + \lambda(1 - x^2 - y^2)$
-    
-    \item FOCs: $2x - 2\lambda x = 0$, $-1 - 2\lambda y = 0$
-    
-    \item From first: $x = 0$ or $\lambda = 1$
-    
-    \item If $\lambda = 1$: $y = -0.5$, $x = \pm \sqrt{0.75}$
-  \end{itemize}
-  
-  Here $\lambda = 1 > 0$, but could be negative for different objectives.
-  
-  The unrestricted $\lambda$ allows both increasing and decreasing the objective by moving along the circle.
-\end{frame}
-
-\THFrame{4.6 Exercise: Unrestricted in action}
-  \small
-  \textbf{Exercise.} Minimize $f(x) = x^2$ subject to $x = 1$ vs. $x \geq 1$. Compare multipliers.
-  
-  \textbf{Solution.}
-  
-  \textbf{Equality $x = 1$:}
-  
-  \begin{itemize}
-    \item $\mathcal{L} = x^2 + \lambda(1 - x)$
-    
-    \item FOC: $2x - \lambda = 0$, so $\lambda = 2$ at $x = 1$
-  \end{itemize}
-  
-  \textbf{Inequality $x \geq 1$ (write $g=1-x\leq 0$):}
-  
-  \begin{itemize}
-    \item For min with $g\leq 0$: $\lambda \geq 0$
-    
-    \item $\mathcal{L} = x^2 + \lambda(1 - x)$
-    
-    \item FOC: $2x - \lambda = 0$, so $\lambda = 2 \geq 0$ at $x=1$ --- dual feasibility holds
-  \end{itemize}
-  
-  Equality: $\lambda$ free. Inequality: $\lambda$ must obey the sign rule for min.
-\end{frame}
-
 %==============================================================================
 \appendix
 %==============================================================================
